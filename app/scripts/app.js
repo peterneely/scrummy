@@ -1,23 +1,17 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name scrummyApp
- * @description
- * # scrummyApp
- *
- * Main module of the application.
- */
-angular
-  .module('scrummyApp', [
+(function(){
+
+  var require = [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch'
-  ])
-  .config(function ($routeProvider) {
+  ];
+
+  var routes = function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -30,4 +24,19 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  };
+
+  /**
+   * @ngdoc overview
+   * @name scrummyApp
+   * @description
+   * # scrummyApp
+   *
+   * Main module of the application.
+   */
+  angular
+    .module('scrummyApp', require)
+    .config(routes);
+})();
+
+
