@@ -23,22 +23,12 @@
 
 <!-- Add your site or application content here -->
 <div class="container">
-  <div class="header">
-    <ul class="nav nav-pills pull-right">
-      <li class="active"><a ng-href="#">Home</a></li>
-      <li><a ng-href="#/admin">Admin</a></li>
-      <li><a ng-href="#">Contact</a></li>
-    </ul>
-    <h3 class="text-muted">scrummy</h3>
-  </div>
+  <div ng-include="'views/header.html'"></div>
 
   <div ng-view=""></div>
 
-  <div class="footer">
-    <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-  </div>
+  <div ng-include="'views/footer.html'"></div>
 </div>
-
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -81,7 +71,6 @@
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
-<script src="scripts/config.routes.js"></script>
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/admin.js"></script>
