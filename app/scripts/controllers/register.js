@@ -1,30 +1,32 @@
 'use strict';
 
-(function (){
+(function () {
 
-  var registerController = ['$scope', 'Auth', 'Errors', function($scope, Auth, Errors){
+  var registerController = ['$scope', '$location', 'Auth', 'User', 'Errors',
+    function ($scope, $location, Auth, User, Errors) {
 
-    $scope.user = {
-      email: 'pgneely@gmail.com',
-      password: 'testing',
-      confirmPassword: 'testing'
-    };
-
-    $scope.error = null;
-
-    $scope.register = function(){
-
-      var success = function(authUser){
-        return authUser;
+      $scope.user = {
+        email: 'pgneely@gmail.com',
+        password: 'testing',
+        confirmPassword: 'testing'
       };
 
-      var fail = function(error){
-        $scope.error = Errors.getMessage(error);
-      };
+      $scope.error = '';
 
-      Auth.register($scope.user).then(success, fail);
-    };
-  }];
+      $scope.register = function () {
+
+        var success = function (authUser) {
+          User.setCurrentUser(authUser);
+          $location.path('/');
+        };
+
+        var fail = function (error) {
+          $scope.error = Errors.getMessage(error);
+        };
+
+        Auth.register($scope.user).then(success, fail);
+      };
+    }];
 
   angular
     .module('scrummyApp')
