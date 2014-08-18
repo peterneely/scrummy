@@ -8,7 +8,8 @@
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'firebase'
   ];
 
   var routes = function ($routeProvider) {

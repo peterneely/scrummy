@@ -4,11 +4,11 @@
 
   var navDirective = function (){
 
-    var controller = function($scope, $location){
+    var controller = ['$scope', '$location', function($scope, $location){
       $scope.isActive = function(path){
         return path === $location.path();
       };
-    };
+    }];
 
     return {
       restrict: 'A',

@@ -2,13 +2,13 @@
 
 (function(){
 
-  var mainController = function ($scope) {
+  var mainController = ['$scope', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  };
+  }];
 
   angular
     .module('scrummyApp')
