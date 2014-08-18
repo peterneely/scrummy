@@ -15,15 +15,15 @@
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'Main'
       })
       .when('/admin', {
         templateUrl: 'views/admin.html',
-        controller: 'AdminCtrl'
+        controller: 'Admin'
       })
       .when('/login', {
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
+        controller: 'Login'
       })
       .otherwise({
         redirectTo: '/'

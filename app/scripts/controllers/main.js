@@ -2,7 +2,7 @@
 
 (function(){
 
-  var Main = function ($scope) {
+  var mainController = function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -10,6 +10,6 @@
     ];
   };
 
-  angular.module('scrummyApp').controller('MainCtrl', Main);
+  angular.module('scrummyApp').controller('Main', mainController);
 })();
 

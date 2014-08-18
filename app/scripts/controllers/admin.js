@@ -2,7 +2,7 @@
 
 (function(){
 
-  var Admin = function ($scope) {
+  var adminController = function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -10,6 +10,6 @@
     ];
   };
 
-  angular.module('scrummyApp').controller('AdminCtrl', Admin);
+  angular.module('scrummyApp').controller('Admin', adminController);
 })();
 

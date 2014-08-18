@@ -7,17 +7,16 @@
               data-target=".navbar-collapse">
         <span class="glyphicon glyphicon-chevron-down"></span>
       </button>
-      <div class="row-fluid">
+      <div>
         <h3 class="text-muted">Scrummy!</h3>
       </div>
     </div>
 
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right nav-pills">
-        <li class="nav active"><a ng-href="#">Home</a></li>
-        <li class="nav"><a ng-href="#/login">Log In</a></li>
-        <li class="nav"><a ng-href="#/admin">Admin</a></li>
-        <li class="nav"><a ng-href=".">Contact</a></li>
+        <li class="nav" ng-class="{active: isActive('/')}"><a ng-href="#">Home</a></li>
+        <li class="nav" ng-class="{active: isActive('/login')}"><a ng-href="#/login">Log In</a></li>
+        <li class="nav" ng-class="{active: isActive('/admin')}"><a ng-href="#/admin">Admin</a></li>
       </ul>
     </div>
 

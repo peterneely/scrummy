@@ -2,9 +2,9 @@
 
 (function(){
 
-  var Login = function($scope){
+  var loginController = function($scope){
     $scope.error = false;
   };
 
-  angular.module('scrummyApp').controller('LoginCtrl', Login);
+  angular.module('scrummyApp').controller('Login', loginController);
 })();
