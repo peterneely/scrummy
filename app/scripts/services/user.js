@@ -2,11 +2,7 @@
 
 (function () {
 
-  var userService = ['$rootScope', '$firebaseSimpleLogin', 'FIREBASE_URL',
-    function ($rootScope, $firebaseSimpleLogin, FIREBASE_URL) {
-
-      var ref = new Firebase(FIREBASE_URL);
-      var fb = $firebaseSimpleLogin(ref);
+  var userService = ['$rootScope', function ($rootScope) {
 
       var setCurrentUser = function (user) {
         $rootScope.user = user;
@@ -16,9 +12,14 @@
         return $rootScope.user;
       };
 
+      var removeCurrentUser = function() {
+        $rootScope.user = null;
+      };
+
       return {
         setCurrentUser: setCurrentUser,
-        getCurrentUser: getCurrentUser
+        getCurrentUser: getCurrentUser,
+        removeCurrentUser: removeCurrentUser
       };
     }];
 

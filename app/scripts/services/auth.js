@@ -16,9 +16,14 @@
         return fb.$login('password', user);
       };
 
+      var signOut = function() {
+        fb.$logout();
+      };
+
       return {
         register: register,
-        signin: signin
+        signin: signin,
+        signOut: signOut
       };
     }];
 

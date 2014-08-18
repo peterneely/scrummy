@@ -2,7 +2,8 @@
 
 (function () {
 
-  var navController = ['$location', 'User', function ($location, User) {
+  var navController = ['$location', 'User', 'Auth',
+    function ($location, User, Auth) {
 
       var self = this;
 
@@ -12,6 +13,12 @@
 
       self.isSignedIn = function () {
         return User.getCurrentUser() ? true : false;
+      };
+
+      self.signOut = function () {
+        Auth.signOut();
+        User.removeCurrentUser();
+        $location.path('/signin');
       };
     }];
 
