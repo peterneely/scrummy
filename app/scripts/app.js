@@ -17,13 +17,17 @@
         templateUrl: 'views/main.html',
         controller: 'Main'
       })
+      .when('/signin', {
+        templateUrl: 'views/signin.html',
+        controller: 'Signin'
+      })
+      .when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'Register'
+      })
       .when('/admin', {
         templateUrl: 'views/admin.html',
         controller: 'Admin'
-      })
-      .when('/signin', {
-        templateUrl: '../views/signin.html',
-        controller: 'Signin'
       })
       .otherwise({
         redirectTo: '/'
