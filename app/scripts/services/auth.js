@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  
+
   var authService = ['$firebaseSimpleLogin', 'FIREBASE_URL',
     function ($firebaseSimpleLogin, FIREBASE_URL) {
 

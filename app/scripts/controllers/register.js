@@ -2,8 +2,8 @@
 
 (function () {
 
-  var registerController = ['$scope', '$location', 'Auth', 'User', 'Errors',
-    function ($scope, $location, Auth, User, Errors) {
+  var registerController = ['$rootScope', '$scope', '$location', 'Auth', 'User', 'Errors',
+    function ($rootScope, $scope, $location, Auth, User, Errors) {
 
       $scope.user = {
         email: 'pgneely@gmail.com',
