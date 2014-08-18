@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('scrummyApp')
-  .controller('NavCtrl', function () {
+(function(){
 
-  });
+  var Nav = function (){
+
+  };
+
+  angular.module('scrummyApp').controller('NavCtrl', Nav);
+})();
