@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('scrummyApp')
-  .controller('LoginCtrl', function($scope){
+(function(){
+
+  var Login = function($scope){
     $scope.error = false;
-  });
+  };
+
+  angular.module('scrummyApp').controller('LoginCtrl', Login);
+})();

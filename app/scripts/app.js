@@ -30,17 +30,7 @@
       });
   };
 
-  /**
-   * @ngdoc overview
-   * @name scrummyApp
-   * @description
-   * # scrummyApp
-   *
-   * Main module of the application.
-   */
-  angular
-    .module('scrummyApp', require)
-    .config(routes);
+  angular.module('scrummyApp', require).config(routes);
 })();
 
 
