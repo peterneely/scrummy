@@ -10,6 +10,8 @@
     ];
   };
 
-  angular.module('scrummyApp').controller('Main', mainController);
+  angular
+    .module('scrummyApp')
+    .controller('Main', mainController);
 })();
 

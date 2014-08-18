@@ -1,6 +1,6 @@
 'use strict';
 
-(function(){
+(function () {
 
   var require = [
     'ngAnimate',
@@ -21,16 +21,19 @@
         templateUrl: 'views/admin.html',
         controller: 'Admin'
       })
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'Login'
+      .when('/signin', {
+        templateUrl: '../views/signin.html',
+        controller: 'Signin'
       })
       .otherwise({
         redirectTo: '/'
       });
   };
 
-  angular.module('scrummyApp', require).config(routes);
+  angular
+    .module('scrummyApp', require)
+    .constant('FIREBASE_URL', 'https://scrummy.firebaseio.com/')
+    .config(routes);
 })();
 
 

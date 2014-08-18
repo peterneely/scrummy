@@ -6,5 +6,7 @@
     $scope.error = false;
   };
 
-  angular.module('scrummyApp').controller('Login', loginController);
+  angular
+    .module('scrummyApp')
+    .controller('Signin', loginController);
 })();

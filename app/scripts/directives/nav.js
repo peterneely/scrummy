@@ -12,11 +12,13 @@
 
     return {
       restrict: 'A',
-      templateUrl: 'templates/nav.html',
+      templateUrl: 'views/nav.html',
       controller: controller
     };
   };
 
-  angular.module('scrummyApp').directive('scrummyNav', navDirective);
+  angular
+    .module('scrummyApp')
+    .directive('scrummyNav', navDirective);
 })();
 
