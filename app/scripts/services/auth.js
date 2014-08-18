@@ -8,10 +8,17 @@
       var ref = new Firebase(FIREBASE_URL);
       var fb = $firebaseSimpleLogin(ref);
 
+      var register = function (user) {
+        return fb.$createUser(user.email, user.password);
+      };
+
+      var signin = function (user) {
+        return fb.$login('password', user);
+      };
+
       return {
-        register: function (user) {
-          return fb.$createUser(user.email, user.password);
-        }
+        register: register,
+        signin: signin
       };
     }];
 

@@ -22,12 +22,12 @@
       .when('/signin', {
         templateUrl: 'views/signin.html',
         controller: 'Signin',
-        controllerAs: 'signin'
+        controllerAs: 'sc'
       })
       .when('/register', {
         templateUrl: 'views/register.html',
         controller: 'Register',
-        controllerAs: 'register'
+        controllerAs: 'rc'
       })
       .when('/admin', {
         templateUrl: 'views/admin.html',
