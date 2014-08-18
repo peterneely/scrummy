@@ -2,18 +2,20 @@
 
 (function () {
 
-  var registerController = ['$rootScope', '$scope', '$location', 'Auth', 'User', 'Errors',
-    function ($rootScope, $scope, $location, Auth, User, Errors) {
+  var registerController = ['$location', 'Auth', 'User', 'Errors',
+    function ($location, Auth, User, Errors) {
 
-      $scope.user = {
+      var self = this;
+
+      self.user = {
         email: 'pgneely@gmail.com',
         password: 'testing',
         confirmPassword: 'testing'
       };
 
-      $scope.error = '';
+      self.error = null;
 
-      $scope.register = function () {
+      self.register = function () {
 
         var success = function (authUser) {
           User.setCurrentUser(authUser);
@@ -21,10 +23,10 @@
         };
 
         var fail = function (error) {
-          $scope.error = Errors.getMessage(error);
+          self.error = Errors.getMessage(error);
         };
 
-        Auth.register($scope.user).then(success, fail);
+        Auth.register(self.user).then(success, fail);
       };
     }];
 

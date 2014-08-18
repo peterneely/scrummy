@@ -2,14 +2,15 @@
 
 (function () {
 
-  var navController = ['$scope', '$location', 'User',
-    function ($scope, $location, User) {
+  var navController = ['$location', 'User', function ($location, User) {
 
-      $scope.isActive = function (path) {
+      var self = this;
+
+      self.isActive = function (path) {
         return path === $location.path();
       };
 
-      $scope.isSignedIn = function () {
+      self.isSignedIn = function () {
         return User.getCurrentUser() ? true : false;
       };
     }];

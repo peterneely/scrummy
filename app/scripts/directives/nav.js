@@ -6,7 +6,8 @@
     return {
       restrict: 'A',
       templateUrl: 'views/nav.html',
-      controller: 'Nav'
+      controller: 'Nav',
+      controllerAs: 'nav'
     };
   };
 

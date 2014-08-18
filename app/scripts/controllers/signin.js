@@ -2,9 +2,9 @@
 
 (function(){
 
-  var signinController = ['$scope', function($scope){
+  var signinController = function(){
 
-  }];
+  };
 
   angular
     .module('scrummyApp')

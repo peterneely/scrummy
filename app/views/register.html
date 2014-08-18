@@ -1,10 +1,10 @@
 <div class="container">
-  <form class="form-signin" role="form" ng-submit="register(user)">
+  <form class="form-signin" role="form" ng-submit="register.register(user)">
     <h2 class="form-signin-heading">Register here</h2>
-    <p ng-show="error" class="text-danger">{{ error }}</p>
-    <input type="email" class="form-control" placeholder="Email address" ng-model="user.email" required="" autofocus="">
-    <input type="password" class="first form-control" placeholder="Password" ng-model="user.password" required="">
-    <input type="password" class="last form-control" placeholder="Confirm password" ng-model="user.confirmPassword" required="">
+    <p ng-show="register.error" class="text-danger">{{ register.error }}</p>
+    <input type="email" class="form-control" placeholder="Email address" ng-model="register.user.email" required="" autofocus="">
+    <input type="password" class="first form-control" placeholder="Password" ng-model="register.user.password" required="">
+    <input type="password" class="last form-control" placeholder="Confirm password" ng-model="register.user.confirmPassword" required="">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
   </form>
 </div>

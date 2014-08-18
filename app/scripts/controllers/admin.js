@@ -2,13 +2,14 @@
 
 (function(){
 
-  var adminController = ['$scope', function ($scope) {
-    $scope.awesomeThings = [
+  var adminController = function () {
+    var self = this;
+    self.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  }];
+  };
 
   angular
     .module('scrummyApp')
