@@ -11,14 +11,14 @@
         return path === $location.path();
       };
 
-      self.isSignedIn = function () {
+      self.isLoggedIn = function () {
         return User.getCurrentUser() ? true : false;
       };
 
-      self.signOut = function () {
-        Auth.signOut();
+      self.logout = function () {
+        Auth.logout();
         User.removeCurrentUser();
-        $location.path('/signin');
+        $location.path('/login');
       };
     }];
 

@@ -17,16 +17,16 @@
         <li class="nav" ng-class="{active: nav.isActive('/')}">
           <a ng-href="#">Home</a>
         </li>
-        <li class="nav" ng-show="nav.isSignedIn()" ng-click="nav.signOut()">
-          <a ng-href="#">Sign Out</a>
+        <li class="nav" ng-show="nav.isLoggedIn()" ng-click="nav.logout()">
+          <a ng-href="#">Log Out</a>
         </li>
-        <li class="nav" ng-class="{active: nav.isActive('/signin')}" ng-hide="nav.isSignedIn()">
-          <a ng-href="#/signin">Sign In</a>
+        <li class="nav" ng-class="{active: nav.isActive('/login')}" ng-hide="nav.isLoggedIn()">
+          <a ng-href="#/login">Log In</a>
         </li>
-        <li class="nav" ng-class="{active: nav.isActive('/register')}" ng-hide="nav.isSignedIn()">
+        <li class="nav" ng-class="{active: nav.isActive('/register')}" ng-hide="nav.isLoggedIn()">
           <a ng-href="#/register">Register</a>
         </li>
-        <li class="nav" ng-class="{active: nav.isActive('/admin')}" ng-show="nav.isSignedIn()">
+        <li class="nav" ng-class="{active: nav.isActive('/admin')}" ng-show="nav.isLoggedIn()">
           <a ng-href="#/admin">Admin</a>
         </li>
       </ul>

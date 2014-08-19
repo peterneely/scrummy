@@ -2,7 +2,7 @@
 
 (function () {
 
-  var signinController = ['$location', 'Auth', 'User', 'Errors',
+  var loginController = ['$location', 'Auth', 'User', 'Errors',
     function ($location, Auth, User, Errors) {
 
       var self = this;
@@ -14,7 +14,7 @@
 
       self.error = null;
 
-      self.signin = function () {
+      self.login = function () {
 
         var success = function (authUser) {
           User.setCurrentUser(authUser);
@@ -25,11 +25,11 @@
           self.error = Errors.getMessage(error);
         };
 
-        Auth.signin(self.user).then(success, fail);
+        Auth.login(self.user).then(success, fail);
       };
     }];
 
   angular
     .module('scrummyApp')
-    .controller('Signin', signinController);
+    .controller('Login', loginController);
 })();

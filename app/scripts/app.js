@@ -19,10 +19,10 @@
         controller: 'Main',
         controllerAs: 'main'
       })
-      .when('/signin', {
-        templateUrl: 'views/signin.html',
-        controller: 'Signin',
-        controllerAs: 'sc'
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'Login',
+        controllerAs: 'lc'
       })
       .when('/register', {
         templateUrl: 'views/register.html',

@@ -1,0 +1,14 @@
+<div class="container">
+  <form class="form-login" ng-submit="lc.login(lc.user)" role="form">
+    <h2 class="form-login-heading">Please log in</h2>
+    <p ng-show="lc.error" class="text-danger">{{ lc.error }}</p>
+    <input type="email" class="form-control" placeholder="Email address" ng-model="lc.user.email" required="" autofocus="">
+    <input type="password" class="last form-control" placeholder="Password" ng-model="lc.user.password" required="">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+  </form>
+</div>

@@ -12,18 +12,18 @@
         return fb.$createUser(user.email, user.password);
       };
 
-      var signin = function (user) {
+      var login = function (user) {
         return fb.$login('password', user);
       };
 
-      var signOut = function() {
+      var logout = function() {
         fb.$logout();
       };
 
       return {
         register: register,
-        signin: signin,
-        signOut: signOut
+        login: login,
+        logout: logout
       };
     }];
 

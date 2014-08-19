@@ -1,6 +1,6 @@
 <div class="container">
-  <form class="form-signin" role="form" ng-submit="rc.register(rc.user)">
-    <h2 class="form-signin-heading">Register here</h2>
+  <form class="form-login" role="form" ng-submit="rc.register(rc.user)">
+    <h2 class="form-login-heading">Register here</h2>
     <p ng-show="rc.error" class="text-danger">{{ rc.error }}</p>
     <input type="email" class="form-control" placeholder="Email address" ng-model="rc.user.email" required="" autofocus="">
     <input type="password" class="first form-control" placeholder="Password" ng-model="rc.user.password" required="">
