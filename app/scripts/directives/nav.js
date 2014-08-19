@@ -7,7 +7,7 @@
       restrict: 'A',
       templateUrl: 'views/nav.html',
       controller: 'Nav',
-      controllerAs: 'nav'
+      controllerAs: 'navCtrl'
     };
   };
 

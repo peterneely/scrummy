@@ -2,18 +2,16 @@
 
 (function(){
 
-  var mainController = ['currentUser', function (currentUser) {
+  var mainController = function () {
 
     var self = this;
-
-    self.user = currentUser;
 
     self.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  }];
+  };
 
   angular
     .module('scrummyApp')

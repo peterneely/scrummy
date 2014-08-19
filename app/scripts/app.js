@@ -17,29 +17,29 @@
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'Main',
-        controllerAs: 'main',
-        resolve: {
-          'currentUser': ['$firebaseSimpleLogin', function($firebaseSimpleLogin) {
-            var ref = new Firebase('https://scrummy.firebaseio.com/');
-            var fb = $firebaseSimpleLogin(ref);
-            return fb.$getCurrentUser();
-          }]
-        }
+        controllerAs: 'mainCtrl'
+//        resolve: {
+//          'currentUser': ['$firebaseSimpleLogin', function($firebaseSimpleLogin) {
+//            var ref = new Firebase('https://scrummy.firebaseio.com/');
+//            var fb = $firebaseSimpleLogin(ref);
+//            return fb.$getCurrentUser();
+//          }]
+//        }
       })
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'Login',
-        controllerAs: 'lc'
+        controllerAs: 'loginCtrl'
       })
       .when('/register', {
         templateUrl: 'views/register.html',
         controller: 'Register',
-        controllerAs: 'rc'
+        controllerAs: 'registerCtrl'
       })
       .when('/admin', {
         templateUrl: 'views/admin.html',
         controller: 'Admin',
-        controllerAs: 'admin'
+        controllerAs: 'adminCtrl'
       })
       .otherwise({
         redirectTo: '/'

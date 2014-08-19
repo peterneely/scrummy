@@ -2,26 +2,33 @@
 
 (function () {
 
-  var userService = ['$rootScope', function ($rootScope) {
+  var userService = function () {
 
-      var setCurrentUser = function (user) {
-        $rootScope.user = user;
-      };
+    var currentUser = null;
 
-      var getCurrentUser = function () {
-        return $rootScope.user;
-      };
+    var setCurrentUser = function (user) {
+      currentUser = user;
+    };
 
-      var removeCurrentUser = function() {
-        $rootScope.user = null;
-      };
+    var getCurrentUser = function () {
+      return currentUser;
+    };
 
-      return {
-        setCurrentUser: setCurrentUser,
-        getCurrentUser: getCurrentUser,
-        removeCurrentUser: removeCurrentUser
-      };
-    }];
+    var isLoggedIn = function () {
+      return currentUser !== null;
+    };
+
+    var removeCurrentUser = function () {
+      currentUser = null;
+    };
+
+    return {
+      setCurrentUser: setCurrentUser,
+      getCurrentUser: getCurrentUser,
+      isLoggedIn: isLoggedIn,
+      removeCurrentUser: removeCurrentUser
+    };
+  };
 
   angular
     .module('scrummyApp')

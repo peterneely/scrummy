@@ -14,19 +14,19 @@
 
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right nav-pills">
-        <li class="nav" ng-class="{active: nav.isActive('/')}">
+        <li class="nav" ng-class="{active: navCtrl.isActive('/')}">
           <a ng-href="#">Home</a>
         </li>
-        <li class="nav" ng-show="nav.isLoggedIn()" ng-click="nav.logout()">
+        <li class="nav" ng-show="navCtrl.isLoggedIn()" ng-click="navCtrl.logout()">
           <a ng-href="#">Log Out</a>
         </li>
-        <li class="nav" ng-class="{active: nav.isActive('/login')}" ng-hide="nav.isLoggedIn()">
+        <li class="nav" ng-class="{active: navCtrl.isActive('/login')}" ng-hide="navCtrl.isLoggedIn()">
           <a ng-href="#/login">Log In</a>
         </li>
-        <li class="nav" ng-class="{active: nav.isActive('/register')}" ng-hide="nav.isLoggedIn()">
+        <li class="nav" ng-class="{active: navCtrl.isActive('/register')}" ng-hide="navCtrl.isLoggedIn()">
           <a ng-href="#/register">Register</a>
         </li>
-        <li class="nav" ng-class="{active: nav.isActive('/admin')}" ng-show="nav.isLoggedIn()">
+        <li class="nav" ng-class="{active: navCtrl.isActive('/admin')}" ng-show="navCtrl.isLoggedIn()">
           <a ng-href="#/admin">Admin</a>
         </li>
       </ul>

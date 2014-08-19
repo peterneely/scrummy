@@ -12,13 +12,13 @@
       };
 
       self.isLoggedIn = function () {
-        return User.getCurrentUser() ? true : false;
+        return User.isLoggedIn();
       };
 
       self.logout = function () {
         Auth.logout();
         User.removeCurrentUser();
-        $location.path('/login');
+        $location.path('/');
       };
     }];
 
