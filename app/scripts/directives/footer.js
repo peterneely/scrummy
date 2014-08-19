@@ -7,7 +7,7 @@
       restrict: 'A',
       templateUrl: FILE.footer,
       controller: 'Footer',
-      controllerAs: 'footerCtrl'
+      controllerAs: 'foot'
     };
   }];
 

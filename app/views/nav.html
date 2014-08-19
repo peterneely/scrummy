@@ -14,20 +14,20 @@
 
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right nav-pills">
-        <li class="nav" ng-class="{active: navCtrl.isActive('/')}">
-          <a ng-href="#">Home</a>
+        <li class="nav" ng-class="{active: nav.isLocation('home')}">
+          <a ng-href="{{ nav.urlFor('home') }}">Home</a>
         </li>
-        <li class="nav" ng-show="navCtrl.isLoggedIn()" ng-click="navCtrl.logout()">
-          <a ng-href="#">Log Out</a>
+        <li class="nav" ng-show="nav.isLoggedIn()" ng-click="nav.logout()">
+          <a ng-href="{{ nav.urlFor('current') }}">Log Out</a>
         </li>
-        <li class="nav" ng-class="{active: navCtrl.isActive('/login')}" ng-hide="navCtrl.isLoggedIn()">
-          <a ng-href="#/login">Log In</a>
+        <li class="nav" ng-class="{active: nav.isLocation('login')}" ng-hide="nav.isLoggedIn()">
+          <a ng-href="{{ nav.urlFor('login') }}">Log In</a>
         </li>
-        <li class="nav" ng-class="{active: navCtrl.isActive('/register')}" ng-hide="navCtrl.isLoggedIn()">
-          <a ng-href="#/register">Register</a>
+        <li class="nav" ng-class="{active: nav.isLocation('register')}" ng-hide="nav.isLoggedIn()">
+          <a ng-href="{{ nav.urlFor('register') }}">Register</a>
         </li>
-        <li class="nav" ng-class="{active: navCtrl.isActive('/user')}" ng-show="navCtrl.isLoggedIn()">
-          <a ng-href="#/user">User</a>
+        <li class="nav" ng-class="{active: nav.isLocation('user')}" ng-show="nav.isLoggedIn()">
+          <a ng-href="{{ nav.urlFor('user') }}">User</a>
         </li>
       </ul>
     </div>

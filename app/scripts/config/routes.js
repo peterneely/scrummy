@@ -14,12 +14,12 @@
         .when(URL.login, {
           templateUrl: FILE.login,
           controller: 'Login',
-          controllerAs: 'loginCtrl'
+          controllerAs: 'log'
         })
         .when(URL.register, {
           templateUrl: FILE.register,
           controller: 'Register',
-          controllerAs: 'registerCtrl'
+          controllerAs: 'reg'
         })
         .when(URL.user, {
           templateUrl: FILE.user,

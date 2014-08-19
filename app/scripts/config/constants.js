@@ -4,6 +4,7 @@
 
   var urls = {
     firebase: 'https://scrummy.firebaseio.com/',
+    current: '',
     home:  '/',
     login: '/login',
     register: '/register',

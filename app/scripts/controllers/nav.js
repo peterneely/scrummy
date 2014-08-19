@@ -7,8 +7,15 @@
 
       var self = this;
 
-      self.isActive = function (path) {
-        return path === Location.path();
+      self.isLocation = function (key) {
+        return Location.is(key);
+      };
+
+      self.urlFor = function (key) {
+        if(key === 'current') {
+          console.log(Location.urlFor(key));
+        }
+        return Location.urlFor(key);
       };
 
       self.isLoggedIn = function () {

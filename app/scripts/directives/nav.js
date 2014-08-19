@@ -7,7 +7,7 @@
       restrict: 'A',
       templateUrl: FILE.navbar,
       controller: 'Nav',
-      controllerAs: 'navCtrl'
+      controllerAs: 'nav'
     };
   }];
 

@@ -8,6 +8,14 @@
       return $location.path();
     };
 
+    var is = function(key) {
+      return $location.path() === URL[key];
+    };
+
+    var urlFor = function(key){
+      return '#' + URL[key];
+    };
+
     var home = function () {
       $location.path(URL.home);
     };
@@ -18,6 +26,8 @@
 
     return {
       path: path,
+      is: is,
+      urlFor: urlFor,
       home: home,
       login: login
     };
