@@ -2,17 +2,17 @@
 
 (function(){
 
-  var navDirective = function (){
+  var navbarDirective = ['FILE', function (FILE){
     return {
       restrict: 'A',
-      templateUrl: 'views/nav.html',
+      templateUrl: FILE.navbar,
       controller: 'Nav',
       controllerAs: 'navCtrl'
     };
-  };
+  }];
 
   angular
     .module('scrummyApp')
-    .directive('scrummyNav', navDirective);
+    .directive('scrummyNavbar', navbarDirective);
 })();
 

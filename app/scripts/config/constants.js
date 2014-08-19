@@ -1,7 +1,26 @@
 'use strict';
 
-(function(){
+(function () {
+
+  var urls = {
+    firebase: 'https://scrummy.firebaseio.com/',
+    home:  '/',
+    login: '/login',
+    register: '/register',
+    user: '/admin'
+  };
+
+  var files = {
+    home: 'views/main.html',
+    login: 'views/login.html',
+    register: 'views/register.html',
+    user: 'views/admin.html',
+    footer: 'views/footer.html',
+    navbar: 'views/nav.html'
+  };
+
   angular
     .module('scrummyApp')
-    .constant('FIREBASE_URL', 'https://scrummy.firebaseio.com/');
+    .constant('URL', urls)
+    .constant('FILE', files);
 })();

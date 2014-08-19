@@ -2,15 +2,16 @@
 
 (function () {
 
-  var run = ['$location', 'Auth', 'User',
-    function ($location, Auth, User) {
+  var bootstrapAppForUser = ['$location', 'Auth', 'User', 'URL',
+    function ($location, Auth, User, URL) {
 
       var success = function (authUser) {
         User.setCurrentUser(authUser);
+        $location.path(URL.home);
       };
 
       var fail = function () {
-        $location.path('/login');
+        $location.path(URL.login);
       };
 
       Auth.getCurrentUser().then(success, fail);
@@ -18,5 +19,5 @@
 
   angular
     .module('scrummyApp')
-    .run(run);
+    .run(bootstrapAppForUser);
 })();

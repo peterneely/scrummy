@@ -2,8 +2,8 @@
 
 (function () {
 
-  var loginController = ['$location', 'Auth', 'User', 'Errors',
-    function ($location, Auth, User, Errors) {
+  var loginController = ['Auth', 'User', 'Errors', 'Location',
+    function (Auth, User, Errors, Location) {
 
       var self = this;
 
@@ -18,7 +18,7 @@
 
         var success = function (authUser) {
           User.setCurrentUser(authUser);
-          $location.path('/');
+          Location.home();
         };
 
         var fail = function (error) {

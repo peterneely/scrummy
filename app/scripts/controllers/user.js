@@ -2,7 +2,7 @@
 
 (function(){
 
-  var adminController = function () {
+  var userController = function () {
 
     var self = this;
 
@@ -15,6 +15,6 @@
 
   angular
     .module('scrummyApp')
-    .controller('Admin', adminController);
+    .controller('User', userController);
 })();
 

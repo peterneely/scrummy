@@ -1,33 +1,35 @@
 'use strict';
 
-(function(){
+(function () {
 
-  var routes = ['$routeProvider', function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'Main',
-        controllerAs: 'mainCtrl'
-      })
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'Login',
-        controllerAs: 'loginCtrl'
-      })
-      .when('/register', {
-        templateUrl: 'views/register.html',
-        controller: 'Register',
-        controllerAs: 'registerCtrl'
-      })
-      .when('/admin', {
-        templateUrl: 'views/admin.html',
-        controller: 'Admin',
-        controllerAs: 'adminCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  }];
+  var routes = ['$routeProvider', 'URL', 'FILE',
+    function ($routeProvider, URL, FILE) {
+
+      $routeProvider
+        .when(URL.home, {
+          templateUrl: FILE.home,
+          controller: 'Main',
+          controllerAs: 'mainCtrl'
+        })
+        .when(URL.login, {
+          templateUrl: FILE.login,
+          controller: 'Login',
+          controllerAs: 'loginCtrl'
+        })
+        .when(URL.register, {
+          templateUrl: FILE.register,
+          controller: 'Register',
+          controllerAs: 'registerCtrl'
+        })
+        .when(URL.user, {
+          templateUrl: FILE.user,
+          controller: 'User',
+          controllerAs: 'userCtrl'
+        })
+        .otherwise({
+          redirectTo: URL.home
+        });
+    }];
 
   angular
     .module('scrummyApp')

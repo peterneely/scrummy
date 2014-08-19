@@ -2,13 +2,13 @@
 
 (function () {
 
-  var navController = ['$location', 'User', 'Auth',
-    function ($location, User, Auth) {
+  var navController = ['User', 'Auth', 'Location',
+    function (User, Auth, Location) {
 
       var self = this;
 
       self.isActive = function (path) {
-        return path === $location.path();
+        return path === Location.path();
       };
 
       self.isLoggedIn = function () {
@@ -18,7 +18,7 @@
       self.logout = function () {
         Auth.logout();
         User.removeCurrentUser();
-        $location.path('/');
+        Location.home();
       };
     }];
 
