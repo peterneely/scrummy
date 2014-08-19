@@ -12,9 +12,14 @@
       $location.path(URL.home);
     };
 
+    var login = function () {
+      $location.path(URL.login);
+    };
+
     return {
       path: path,
-      home: home
+      home: home,
+      login: login
     };
   }];
 

@@ -7,7 +7,7 @@
     home:  '/',
     login: '/login',
     register: '/register',
-    user: '/admin'
+    user: '/user'
   };
 
   var files = {
