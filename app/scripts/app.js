@@ -17,7 +17,14 @@
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'Main',
-        controllerAs: 'main'
+        controllerAs: 'main',
+        resolve: {
+          'currentUser': ['$firebaseSimpleLogin', function($firebaseSimpleLogin) {
+            var ref = new Firebase('https://scrummy.firebaseio.com/');
+            var fb = $firebaseSimpleLogin(ref);
+            return fb.$getCurrentUser();
+          }]
+        }
       })
       .when('/login', {
         templateUrl: 'views/login.html',

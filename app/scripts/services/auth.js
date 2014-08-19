@@ -20,10 +20,15 @@
         fb.$logout();
       };
 
+      var getCurrentUser = function(){
+        return fb.$getCurrentUser();
+      };
+
       return {
         register: register,
         login: login,
-        logout: logout
+        logout: logout,
+        getCurrentUser: getCurrentUser
       };
     }];
 
