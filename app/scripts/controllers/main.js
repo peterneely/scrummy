@@ -2,16 +2,14 @@
 
 (function(){
 
-  var mainController = function () {
+  var mainController = ['Location', function (Location) {
 
     var self = this;
 
-    self.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  };
+    self.urlFor = function (key) {
+      return Location.urlFor(key);
+    };
+  }];
 
   angular
     .module('scrummyApp')

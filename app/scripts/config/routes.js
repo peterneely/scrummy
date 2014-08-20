@@ -9,7 +9,7 @@
         .when(URL.home, {
           templateUrl: FILE.home,
           controller: 'Main',
-          controllerAs: 'mainCtrl'
+          controllerAs: 'main'
         })
         .when(URL.login, {
           templateUrl: FILE.login,

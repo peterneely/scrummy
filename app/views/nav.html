@@ -8,7 +8,9 @@
         <span class="glyphicon glyphicon-chevron-down"></span>
       </button>
       <div>
-        <h3 class="text-muted">Scrummy!</h3>
+        <h3 class="text-muted" ng-hide="nav.isLocation('home')">
+          <a ng-href="{{ nav.urlFor('home') }}">Scrummy!</a>
+        </h3>
       </div>
     </div>
 
