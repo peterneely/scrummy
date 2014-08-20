@@ -1,6 +1,5 @@
 /* Space out content a bit */
 body {
-    padding-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -9,16 +8,20 @@ h1 {
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-nav,
-.marketing,
-footer {
-    padding-left: 15px;
-    padding-right: 15px;
-}
+/*nav,*/
+/*.marketing,*/
+/*footer {*/
+    /*padding-left: 15px;*/
+    /*padding-right: 15px;*/
+/*}*/
 
 /* Custom page header */
 nav {
     /*border-bottom: 1px solid #e5e5e5;*/
+}
+
+ul.navbar-right {
+    margin-right: 16px !important;
 }
 
 /* Make the masthead heading the same height as the navigation */
@@ -51,11 +54,13 @@ footer {
 .jumbotron {
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
+    /*margin-top: 20px;*/
 }
 
 .jumbotron .btn {
     font-size: 21px;
     padding: 14px 24px;
+    margin-top: 20px;
 }
 
 /* Supporting marketing content */
@@ -98,6 +103,16 @@ footer {
 
 @media screen and (max-width: 768px) {
     .subtext .lead {
-        font-size: 16px;
+        font-size: 21px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .app section {
+        margin-top: 20px;
+    }
+
+    .subtext .lead {
+        font-size: 14px;
     }
 }

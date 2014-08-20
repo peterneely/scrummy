@@ -10,10 +10,6 @@
     margin: 0 auto;
 }
 
-.form-login .form-login-heading {
-    text-align: center;
-}
-
 .form-login .form-login-heading,
 .form-login .checkbox {
     margin-bottom: 15px;
@@ -56,5 +52,4 @@
 
 .form-login .alert {
     margin-top: 20px;
-    text-align: center;
 }

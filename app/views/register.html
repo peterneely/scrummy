@@ -1,9 +1,7 @@
 <div class="container">
   <form class="form-login" role="form" ng-submit="auth.register(auth.user)">
 
-    <h2 class="form-login-heading">
-      Register here or <a ng-href="{{ auth.urlFor('login') }}">login</a>
-    </h2>
+    <h2 class="form-login-heading">Register here</h2>
 
     <input type="email" class="form-control" placeholder="Email address" ng-model="auth.user.email" required=""
            autofocus="" ng-focus="auth.focus()">

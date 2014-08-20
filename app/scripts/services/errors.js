@@ -5,8 +5,8 @@
 
     var errors = {
       'EMAIL_TAKEN': 'Email address already taken.',
-      'INVALID_USER': 'Invalid email address or password.',
-      'INVALID_PASSWORD': 'Invalid email address or password.'
+      'INVALID_USER': 'Invalid email or password.',
+      'INVALID_PASSWORD': 'Invalid email or password.'
     };
 
     var getMessage = function (error) {

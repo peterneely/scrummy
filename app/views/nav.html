@@ -1,41 +1,27 @@
-<div class="navbar navbar-default navbar-fixed-top">
+<div class="navbar navbar-default">
   <div class="container">
-
-    <div class="navbar-header">
-      <button class="btn btn-success navbar-toggle"
-              data-toggle="collapse"
-              data-target=".navbar-collapse">
-        <span class="glyphicon glyphicon-chevron-down"></span>
-      </button>
-      <div>
-        <h3 class="text-muted" ng-hide="nav.isLocation('home')">
-          <a ng-href="{{ nav.urlFor('home') }}">Scrummy!</a>
-        </h3>
-      </div>
-    </div>
-
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right nav-pills">
-        <li class="nav" ng-show="nav.isLoggedIn()" ng-click="nav.logout()">
-          <a ng-href="{{ nav.urlFor('current') }}">Log Out</a>
-        </li>
-        <li class="nav" ng-class="{active: nav.isLocation('login')}" ng-hide="nav.isLoggedIn()">
-          <a ng-href="{{ nav.urlFor('login') }}">Log In</a>
-        </li>
-        <li class="nav" ng-class="{active: nav.isLocation('register')}" ng-hide="nav.isLoggedIn()">
-          <a ng-href="{{ nav.urlFor('register') }}">Register</a>
-        </li>
-        <li class="nav" ng-class="{active: nav.isLocation('timesheet')}" ng-show="nav.isLoggedIn()">
-          <a ng-href="{{ nav.urlFor('timesheet') }}">Timesheet</a>
-        </li>
-        <li class="nav" ng-class="{active: nav.isLocation('manage')}" ng-show="nav.isLoggedIn()">
-          <a ng-href="{{ nav.urlFor('manage') }}">Manage</a>
-        </li>
-        <li class="nav" ng-class="{active: nav.isLocation('user')}" ng-show="nav.isLoggedIn()">
-          <a ng-href="{{ nav.urlFor('user') }}">User</a>
-        </li>
-      </ul>
-    </div>
-
+    <ul class="nav navbar-nav nav-pills navbar-right">
+      <li class="nav" ng-hide="nav.isLoggedIn()">
+        <a ng-href="{{ nav.urlFor('home') }}"><span class="glyphicon glyphicon-home"></span></a>
+      </li>
+      <li class="nav" ng-show="nav.isLoggedIn()" ng-click="nav.logout()">
+        <a ng-href="{{ nav.urlFor('current') }}">Log Out</a>
+      </li>
+      <li class="nav" ng-class="{active: nav.isLocation('login')}" ng-hide="nav.isLoggedIn()">
+        <a ng-href="{{ nav.urlFor('login') }}">Log In</a>
+      </li>
+      <li class="nav" ng-class="{active: nav.isLocation('register')}" ng-hide="nav.isLoggedIn()">
+        <a ng-href="{{ nav.urlFor('register') }}">Register</a>
+      </li>
+      <li class="nav" ng-class="{active: nav.isLocation('timesheet')}" ng-show="nav.isLoggedIn()">
+        <a ng-href="{{ nav.urlFor('timesheet') }}">Timesheet</a>
+      </li>
+      <li class="nav" ng-class="{active: nav.isLocation('manage')}" ng-show="nav.isLoggedIn()">
+        <a ng-href="{{ nav.urlFor('manage') }}">Manage</a>
+      </li>
+      <li class="nav" ng-class="{active: nav.isLocation('user')}" ng-show="nav.isLoggedIn()">
+        <a ng-href="{{ nav.urlFor('user') }}">User</a>
+      </li>
+    </ul>
   </div>
 </div>

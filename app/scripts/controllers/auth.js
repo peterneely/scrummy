@@ -15,10 +15,6 @@
         confirmPassword: 'testing'
       };
 
-      self.urlFor = function (key) {
-        return Location.urlFor(key);
-      };
-
       self.focus = function () {
         self.error = null;
       };
