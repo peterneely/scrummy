@@ -15,7 +15,7 @@
     home: 'views/main.html',
     login: 'views/login.html',
     register: 'views/register.html',
-    user: 'views/admin.html',
+    user: 'views/user.html',
     footer: 'views/footer.html',
     navbar: 'views/nav.html'
   };

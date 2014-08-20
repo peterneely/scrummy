@@ -12,9 +12,6 @@
       };
 
       self.urlFor = function (key) {
-        if(key === 'current') {
-          console.log(Location.urlFor(key));
-        }
         return Location.urlFor(key);
       };
 
