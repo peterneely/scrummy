@@ -8,28 +8,23 @@
       return $location.path();
     };
 
-    var is = function(key) {
+    var is = function (key) {
       return $location.path() === URL[key];
     };
 
-    var urlFor = function(key){
+    var urlFor = function (key) {
       return '#' + URL[key];
     };
 
-    var home = function () {
-      $location.path(URL.home);
-    };
-
-    var login = function () {
-      $location.path(URL.login);
+    var navigateTo = function (key) {
+      $location.path(URL[key]);
     };
 
     return {
       path: path,
       is: is,
       urlFor: urlFor,
-      home: home,
-      login: login
+      navigateTo: navigateTo
     };
   }];
 

@@ -1,14 +1,14 @@
 <div class="container">
-  <form class="form-login" ng-submit="log.login(log.user)" role="form">
+  <form class="form-login" ng-submit="auth.login(auth.user)" role="form">
 
     <h2 class="form-login-heading">
-      Log in here or <a ng-href="{{ log.urlFor('register') }}">register</a>
+      Log in here or <a ng-href="{{ auth.urlFor('register') }}">register</a>
     </h2>
 
-    <p ng-show="log.error" class="text-danger">{{ log.error }}</p>
-
-    <input type="email" class="form-control" placeholder="Email address" ng-model="log.user.email" required="" autofocus="">
-    <input type="password" class="last form-control" placeholder="Password" ng-model="log.user.password" required="">
+    <input type="email" class="form-control" placeholder="Email address" ng-model="auth.user.email" required=""
+           autofocus="" ng-focus="auth.focus()">
+    <input type="password" class="last form-control" placeholder="Password" ng-model="auth.user.password" required=""
+           ng-focus="auth.focus()">
 
     <div class="checkbox">
       <label>
@@ -17,5 +17,7 @@
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+
+    <alert type="danger" ng-show="auth.error">{{ auth.error }}</alert>
   </form>
 </div>

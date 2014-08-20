@@ -1,13 +1,13 @@
 'use strict';
 
-(function(){
+(function () {
 
-  var mainController = ['Location', function (Location) {
+  var mainController = ['User', 'Location', function (User, Location) {
 
     var self = this;
 
-    self.urlFor = function (key) {
-      return Location.urlFor(key);
+    self.start = function () {
+      return User.isLoggedIn() ? Location.urlFor('timesheet') : Location.urlFor('login');
     };
   }];
 

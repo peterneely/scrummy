@@ -4,9 +4,9 @@
   var errorService = function () {
 
     var errors = {
-      'EMAIL_TAKEN': 'That email address is already taken. Please choose another.',
-      'INVALID_USER': 'The email address or password is incorrect. Please try again.',
-      'INVALID_PASSWORD': 'The email address or password is incorrect. Please try again.'
+      'EMAIL_TAKEN': 'Email address already taken.',
+      'INVALID_USER': 'Invalid email address or password.',
+      'INVALID_PASSWORD': 'Invalid email address or password.'
     };
 
     var getMessage = function (error) {

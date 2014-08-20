@@ -16,9 +16,6 @@
 
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right nav-pills">
-        <li class="nav" ng-class="{active: nav.isLocation('home')}">
-          <a ng-href="{{ nav.urlFor('home') }}">Home</a>
-        </li>
         <li class="nav" ng-show="nav.isLoggedIn()" ng-click="nav.logout()">
           <a ng-href="{{ nav.urlFor('current') }}">Log Out</a>
         </li>

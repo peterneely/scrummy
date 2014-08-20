@@ -22,7 +22,7 @@
       self.logout = function () {
         Auth.logout();
         User.removeCurrentUser();
-        Location.home();
+        Location.navigateTo('home');
       };
     }];
 
