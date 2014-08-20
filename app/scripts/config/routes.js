@@ -24,7 +24,17 @@
         .when(URL.user, {
           templateUrl: FILE.user,
           controller: 'User',
-          controllerAs: 'userCtrl'
+          controllerAs: 'user'
+        })
+        .when(URL.manage, {
+          templateUrl: FILE.manage,
+          controller: 'Manage',
+          controllerAs: 'man'
+        })
+        .when(URL.timesheet, {
+          templateUrl: FILE.timesheet,
+          controller: 'Timesheet',
+          controllerAs: 'time'
         })
         .otherwise({
           redirectTo: URL.home

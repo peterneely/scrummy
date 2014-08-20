@@ -1,7 +1,9 @@
 <div class="container">
   <form class="form-login" ng-submit="log.login(log.user)" role="form">
 
-    <h2 class="form-login-heading">Please log in</h2>
+    <h2 class="form-login-heading">
+      Log in here or <a ng-href="{{ log.urlFor('register') }}">register</a>
+    </h2>
 
     <p ng-show="log.error" class="text-danger">{{ log.error }}</p>
 

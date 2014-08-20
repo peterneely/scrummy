@@ -1,13 +1,17 @@
 <div class="container">
   <form class="form-login" role="form" ng-submit="reg.register(reg.user)">
 
-    <h2 class="form-login-heading">Register here</h2>
+    <h2 class="form-login-heading">
+      Register here or <a ng-href="{{ reg.urlFor('login') }}">login</a>
+    </h2>
 
     <p ng-show="reg.error" class="text-danger">{{ reg.error }}</p>
 
-    <input type="email" class="form-control" placeholder="Email address" ng-model="reg.user.email" required="" autofocus="">
+    <input type="email" class="form-control" placeholder="Email address" ng-model="reg.user.email" required=""
+           autofocus="">
     <input type="password" class="first form-control" placeholder="Password" ng-model="reg.user.password" required="">
-    <input type="password" class="last form-control" placeholder="Confirm password" ng-model="reg.user.confirmPassword" required="">
+    <input type="password" class="last form-control" placeholder="Confirm password" ng-model="reg.user.confirmPassword"
+           required="">
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
   </form>

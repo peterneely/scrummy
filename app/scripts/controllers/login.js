@@ -14,6 +14,10 @@
 
       self.error = null;
 
+      self.urlFor = function (key) {
+        return Location.urlFor(key);
+      };
+
       self.login = function () {
 
         var success = function (authUser) {

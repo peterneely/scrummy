@@ -26,6 +26,12 @@
         <li class="nav" ng-class="{active: nav.isLocation('register')}" ng-hide="nav.isLoggedIn()">
           <a ng-href="{{ nav.urlFor('register') }}">Register</a>
         </li>
+        <li class="nav" ng-class="{active: nav.isLocation('timesheet')}" ng-show="nav.isLoggedIn()">
+          <a ng-href="{{ nav.urlFor('timesheet') }}">Timesheet</a>
+        </li>
+        <li class="nav" ng-class="{active: nav.isLocation('manage')}" ng-show="nav.isLoggedIn()">
+          <a ng-href="{{ nav.urlFor('manage') }}">Manage</a>
+        </li>
         <li class="nav" ng-class="{active: nav.isLocation('user')}" ng-show="nav.isLoggedIn()">
           <a ng-href="{{ nav.urlFor('user') }}">User</a>
         </li>

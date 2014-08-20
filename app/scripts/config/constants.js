@@ -8,7 +8,9 @@
     home:  '/',
     login: '/login',
     register: '/register',
-    user: '/user'
+    user: '/user',
+    manage: '/manage',
+    timesheet: '/timesheet'
   };
 
   var files = {
@@ -16,6 +18,8 @@
     login: 'views/login.html',
     register: 'views/register.html',
     user: 'views/user.html',
+    manage: 'views/manage.html',
+    timesheet: 'views/timesheet.html',
     footer: 'views/footer.html',
     navbar: 'views/nav.html'
   };
