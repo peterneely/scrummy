@@ -8,21 +8,34 @@
       return $location.path();
     };
 
-    var is = function (key) {
-      return $location.path() === URL[key];
+    var is = function (page) {
+      return $location.path() === URL[page];
     };
 
-    var urlFor = function (key) {
-      return '#' + URL[key];
+    var isNotPage = function (page) {
+      return $location.path() !== URL[page];
     };
 
-    var navigateTo = function (key) {
-      $location.path(URL[key]);
+    var isNotPages = function (pages) {
+      var notPage = function (page) {
+        return isNotPage(page);
+      };
+      return pages.every(notPage);
+    };
+
+    var urlFor = function (page) {
+      return '#' + URL[page];
+    };
+
+    var navigateTo = function (page) {
+      $location.path(URL[page]);
     };
 
     return {
       path: path,
       is: is,
+      isNotPage: isNotPage,
+      isNotPages: isNotPages,
       urlFor: urlFor,
       navigateTo: navigateTo
     };

@@ -7,11 +7,11 @@
 
       var success = function (authUser) {
         User.setCurrentUser(authUser);
-        Location.home();
+        Location.navigateTo('home');
       };
 
       var fail = function () {
-        Location.login();
+        Location.navigateTo('login');
       };
 
       Auth.getCurrentUser().then(success, fail);

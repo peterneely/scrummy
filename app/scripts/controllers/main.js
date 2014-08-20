@@ -6,8 +6,12 @@
 
     var self = this;
 
-    self.start = function () {
-      return User.isLoggedIn() ? Location.urlFor('timesheet') : Location.urlFor('login');
+    self.login = function () {
+      Location.navigateTo('login');
+    };
+
+    self.register = function () {
+      Location.navigateTo('register');
     };
   }];
 

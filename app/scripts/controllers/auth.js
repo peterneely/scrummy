@@ -19,6 +19,10 @@
         self.error = null;
       };
 
+      self.cancel = function () {
+        Location.navigateTo('home');
+      };
+
       self.register = function () {
         Auth.register(self.user).then(success, fail);
       };

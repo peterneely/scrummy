@@ -7,6 +7,10 @@
 
       var self = this;
 
+      self.show = function () {
+        return Location.isNotPages(['home', 'login', 'register']);
+      };
+
       self.isLocation = function (key) {
         return Location.is(key);
       };
