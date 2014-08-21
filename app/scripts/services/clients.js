@@ -14,9 +14,14 @@
         return fb.$push(client);
       };
 
+      var remove = function (id) {
+        return fb.$remove(id);
+      };
+
       return {
         clients: clients,
-        add: add
+        add: add,
+        remove: remove
       };
     }];
 

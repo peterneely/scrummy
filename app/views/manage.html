@@ -1,7 +1,7 @@
 <tabset class="manage">
   <tab heading="Clients">
 
-    <form class="add" ng-submit="man.addClient()">
+    <form class="add" ng-submit="man.add()">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Add a new client" ng-model="man.client.name">
       <span class="input-group-btn">
@@ -10,9 +10,9 @@
       </div>
     </form>
 
-    <div class="input-group" ng-repeat="client in man.clients">
+    <div class="input-group" ng-repeat="(id, client) in man.clients">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">
+        <button class="btn btn-default" type="button" ng-click="man.remove(id)">
           <span class="glyphicon glyphicon-minus-sign"></span>
         </button>
       </span>
