@@ -4,11 +4,7 @@
 
   var location = ['$location', 'URL', function ($location, URL) {
 
-    var path = function () {
-      return $location.path();
-    };
-
-    var is = function (page) {
+    var isPage = function (page) {
       return $location.path() === URL[page];
     };
 
@@ -17,27 +13,25 @@
     };
 
     var isNotPages = function (pages) {
-      var notPage = function (page) {
+      return pages.every(function (page) {
         return isNotPage(page);
-      };
-      return pages.every(notPage);
+      });
     };
 
     var urlFor = function (page) {
       return '#' + URL[page];
     };
 
-    var navigateTo = function (page) {
+    var go = function (page) {
       $location.path(URL[page]);
     };
 
     return {
-      path: path,
-      is: is,
+      isPage: isPage,
       isNotPage: isNotPage,
       isNotPages: isNotPages,
       urlFor: urlFor,
-      navigateTo: navigateTo
+      go: go
     };
   }];
 

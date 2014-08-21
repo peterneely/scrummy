@@ -1,12 +1,17 @@
-<div class="" ng-show="nav.show()">
+<div class="nav-head" ng-show="nav.show()">
   <ul class="pull-right">
 
+    <!--Setup button-->
     <li class="nav-item setup">
-      <a ng-href="{{ nav.urlFor('manage') }}">
-        <span class="glyphicon glyphicon-cog"></span>
+      <a ng-href="{{ nav.urlFor('manage') }}" ng-show="nav.isPage('timesheet')">
+        <span class="pointer glyphicon glyphicon-cog"></span>
+      </a>
+      <a ng-href="{{ nav.urlFor('timesheet') }}" ng-show="nav.isPage('manage')">
+        <span class="pointer glyphicon glyphicon-time"></span>
       </a>
     </li>
 
+    <!--User button-->
     <li class="nav-item nav-user">
       <div class="btn-group" dropdown>
         <a href="#" class="dropdown-toggle">
@@ -20,6 +25,6 @@
         </ul>
       </div>
     </li>
-
   </ul>
+
 </div>

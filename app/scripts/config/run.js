@@ -2,22 +2,34 @@
 
 (function () {
 
-  var bootstrapAppForLoginState = ['Location', 'Auth', 'User',
+  var setDefaultView = ['Location', 'Auth', 'User',
     function (Location, Auth, User) {
 
       var success = function (authUser) {
-        User.setCurrentUser(authUser);
-        Location.navigateTo('timesheet');
+        if (authUser) {
+          userLoggedIn(authUser);
+        } else {
+          userNotLoggedIn();
+        }
       };
 
       var fail = function () {
-        Location.navigateTo('login');
+        Location.go('login');
       };
+
+      function userLoggedIn(authUser) {
+        User.setCurrentUser(authUser);
+        Location.go('timesheet');
+      }
+
+      function userNotLoggedIn() {
+        Location.go('home');
+      }
 
       Auth.getCurrentUser().then(success, fail);
     }];
 
   angular
     .module('scrummyApp')
-    .run(bootstrapAppForLoginState);
+    .run(setDefaultView);
 })();

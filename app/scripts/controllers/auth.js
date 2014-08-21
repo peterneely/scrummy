@@ -20,7 +20,7 @@
       };
 
       self.cancel = function () {
-        Location.navigateTo('home');
+        Location.go('home');
       };
 
       self.register = function () {
@@ -33,7 +33,7 @@
 
       function success(authUser) {
         User.setCurrentUser(authUser);
-        Location.navigateTo('timesheet');
+        Location.go('timesheet');
       }
 
       function fail(error) {

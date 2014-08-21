@@ -4,14 +4,14 @@
 
   var urls = {
     firebase: 'https://scrummy.firebaseio.com/',
+    gravatar: 'http://www.gravatar.com/avatar/',
     current: '',
     home:  '/',
     login: '/login',
     register: '/register',
     user: '/user',
     manage: '/manage',
-    timesheet: '/timesheet',
-    gravatar: 'http://www.gravatar.com/avatar/'
+    timesheet: '/timesheet'
   };
 
   var files = {

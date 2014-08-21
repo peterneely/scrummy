@@ -2,16 +2,12 @@
 
 (function () {
 
-  var mainController = ['User', 'Location', function (User, Location) {
+  var mainController = ['Location', function (Location) {
 
     var self = this;
 
-    self.login = function () {
-      Location.navigateTo('login');
-    };
-
-    self.register = function () {
-      Location.navigateTo('register');
+    self.go = function (page) {
+      Location.go(page);
     };
   }];
 

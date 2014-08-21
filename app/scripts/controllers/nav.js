@@ -25,17 +25,12 @@
       self.logout = function () {
         Auth.logout();
         User.removeCurrentUser();
-        Location.navigateTo('home');
+        Location.go('home');
       };
 
-//      self.isLocation = function (page) {
-//        return Location.is(page);
-//      };
-//
-//
-//      self.isLoggedIn = function () {
-//        return User.isLoggedIn();
-//      };
+      self.isPage = function (page) {
+        return Location.isPage(page);
+      };
     }];
 
   angular

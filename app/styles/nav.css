@@ -1,3 +1,8 @@
+nav .nav-head {
+    display: block;
+    height: 60px;
+}
+
 nav .nav-item {
     list-style-type: none;
     display: inline-block;
