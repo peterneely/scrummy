@@ -10,7 +10,7 @@
       self.selected = 'timesheet';
 
       self.show = function () {
-        return Location.isNotPages(['home', 'login', 'register']);
+        return User.isLoggedIn();
       };
 
       self.picUrl = function () {
@@ -28,14 +28,6 @@
         Auth.logout();
         User.removeCurrentUser();
         Location.go('home');
-      };
-
-      self.isPage = function (page) {
-        return Location.isPage(page);
-      };
-
-      self.isNotPage = function (page) {
-        return Location.isNotPage(page);
       };
     }];
 

@@ -1,8 +1,42 @@
-<form ng-submit="user.saveProject()">
-  <div class="form-group">
-    <div class="form-inline">
-      <input type="text" name="project" class="form-control" placeholder="Project"/>
-      <input type="submit" value="Save" class="btn btn-primary"/>
+<tabset class="manage">
+  <tab heading="Clients">
+
+    <form class="add" ng-submit="man.addClient()">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Add a new client">
+      <span class="input-group-btn">
+        <input class="btn btn-primary" type="submit" value="Add"/>
+      </span>
+      </div>
+    </form>
+
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+          <span class="glyphicon glyphicon-minus-sign"></span>
+        </button>
+      </span>
+      <input type="text" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+      </span>
     </div>
-  </div>
-</form>
+
+  </tab>
+
+  <tab heading="Projects">
+    <form ng-submit="user.saveProject()">
+      <div class="form-group">
+        <div class="form-inline">
+          <input type="text" name="project" class="form-control" placeholder="Project"/>
+          <input type="submit" value="Save" class="btn btn-primary"/>
+        </div>
+      </div>
+    </form>
+  </tab>
+
+  <tab heading="Tasks">Long Labeled Justified content</tab>
+</tabset>
+

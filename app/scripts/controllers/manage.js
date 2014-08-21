@@ -1,9 +1,14 @@
 'use strict';
 
-(function(){
+(function () {
 
-  var manageController = function(){
+  var manageController = function () {
 
+    var self = this;
+
+    self.addClient = function (client) {
+      alert(client);
+    };
   };
 
   angular
