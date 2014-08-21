@@ -3,20 +3,20 @@
 
     <form class="add" ng-submit="man.addClient()">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Add a new client">
+        <input type="text" class="form-control" placeholder="Add a new client" ng-model="man.client.name">
       <span class="input-group-btn">
         <input class="btn btn-primary" type="submit" value="Add"/>
       </span>
       </div>
     </form>
 
-    <div class="input-group">
+    <div class="input-group" ng-repeat="client in man.clients">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">
           <span class="glyphicon glyphicon-minus-sign"></span>
         </button>
       </span>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" value="{{ client.name }}">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">
           <span class="glyphicon glyphicon-ok"></span>
