@@ -5,19 +5,19 @@
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Add a new client" ng-model="man.newClient.name">
       <span class="input-group-btn">
-        <input class="btn btn-primary" type="submit" value="Add"/>
+        <input class="btn btn-primary" type="submit" value="Add Client"/>
       </span>
       </div>
     </form>
 
     <div class="input-group" ng-repeat="(id, client) in man.clients">
-      <span class="input-group-btn">
+      <span class="remove input-group-btn">
         <button class="btn btn-default" type="button" ng-click="man.remove(id)">
           <span class="glyphicon glyphicon-minus-sign"></span>
         </button>
       </span>
       <input type="text" class="form-control" ng-model="client.name">
-      <span class="input-group-btn">
+      <span class="update input-group-btn">
         <button class="btn btn-default" type="button" ng-click="man.update(id, client)">
           <span class="glyphicon glyphicon-ok"></span>
         </button>
