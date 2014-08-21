@@ -87,6 +87,10 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+    .app.container {
+        padding-top: 10px;
+    }
+
     .subtext .lead {
         font-size: 21px;
     }

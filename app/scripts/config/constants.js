@@ -10,7 +10,8 @@
     register: '/register',
     user: '/user',
     manage: '/manage',
-    timesheet: '/timesheet'
+    timesheet: '/timesheet',
+    gravatar: 'http://www.gravatar.com/avatar/'
   };
 
   var files = {

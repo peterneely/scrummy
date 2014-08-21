@@ -1,46 +1,24 @@
-<div class="container">
-  <div class="btn-group pull-right" ng-show="nav.show()">
-    <button type="button" class="btn btn-default">Timesheet</button>
-    <button type="button" class="btn btn-default">Setup</button>
-  </div>
+<div class="" ng-show="nav.show()">
+  <ul class="pull-right">
+
+    <li class="nav-user">
+      <div class="btn-group" dropdown>
+        <a href="#" class="dropdown-toggle">
+          <img ng-src="{{ nav.picUrl() }}" class="nav-pic"/>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a ng-href="{{ nav.urlFor('user') }}">Account</a></li>
+          <li class="divider"></li>
+          <li ng-click="nav.logout()"><a href="#">Logout</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="setup">
+      <a ng-href="{{ nav.urlFor('manage') }}">
+        <span class="glyphicon glyphicon-cog"></span>
+      </a>
+    </li>
+
+  </ul>
 </div>
-
-
-<!--<div class="navbar navbar-default">-->
-  <!--<div class="container">-->
-    <!--<ul class="nav navbar-nav nav-pills navbar-right">-->
-      <!--<li class="nav" ng-hide="nav.isLoggedIn()">-->
-        <!--<a ng-href="{{ nav.urlFor('home') }}"><span class="glyphicon glyphicon-home"></span></a>-->
-      <!--</li>-->
-      <!--<li class="nav" ng-class="{active: nav.isLocation('login')}" ng-hide="nav.isLoggedIn()">-->
-        <!--<a ng-href="{{ nav.urlFor('login') }}">Log In</a>-->
-      <!--</li>-->
-      <!--<li class="nav" ng-class="{active: nav.isLocation('register')}" ng-hide="nav.isLoggedIn()">-->
-        <!--<a ng-href="{{ nav.urlFor('register') }}">Register</a>-->
-      <!--</li>-->
-      <!--<li class="nav" ng-class="{active: nav.isLocation('timesheet')}" ng-show="nav.isLoggedIn()">-->
-        <!--<a ng-href="{{ nav.urlFor('timesheet') }}">Timesheet</a>-->
-      <!--</li>-->
-      <!--<li class="nav" ng-class="{active: nav.isLocation('manage')}" ng-show="nav.isLoggedIn()">-->
-        <!--<a ng-href="{{ nav.urlFor('manage') }}">Manage</a>-->
-      <!--</li>-->
-      <!--<li class="nav dropdown" ng-class="{active: nav.isLocation('user')}" ng-show="nav.isLoggedIn()">-->
-        <!--<div class="btn-group" dropdown is-open="status.isopen">-->
-          <!--<button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="disabled">-->
-            <!--Button dropdown <span class="caret"></span>-->
-          <!--</button>-->
-          <!--<ul class="dropdown-menu" role="menu">-->
-            <!--<li><a href="#">Action</a></li>-->
-            <!--<li><a href="#">Another action</a></li>-->
-            <!--<li><a href="#">Something else here</a></li>-->
-            <!--<li class="divider"></li>-->
-            <!--<li><a href="#">Separated link</a></li>-->
-            <!--<li class="nav" ng-show="nav.isLoggedIn()" ng-click="nav.logout()">-->
-              <!--<a ng-href="{{ nav.urlFor('current') }}">Log Out</a>-->
-            <!--</li>-->
-          <!--</ul>-->
-        <!--</div>-->
-      <!--</li>-->
-    <!--</ul>-->
-  <!--</div>-->
-<!--</div>-->

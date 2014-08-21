@@ -7,7 +7,7 @@
 
       var success = function (authUser) {
         User.setCurrentUser(authUser);
-        Location.navigateTo('home');
+        Location.navigateTo('timesheet');
       };
 
       var fail = function () {
