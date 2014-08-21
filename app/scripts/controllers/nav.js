@@ -12,7 +12,10 @@
       };
 
       self.picUrl = function () {
-        return URL.gravatar + User.getCurrentUser().md5_hash;
+        var userCode = User.getCurrentUser().md5_hash;
+        var defaultPic = '?d=wavatar'; // See https://en.gravatar.com/site/implement/images/
+        return URL.gravatar + userCode + defaultPic;
+//        return "http://www.gravatar.com/avatar/00000000000000000000000000000000?d=wavatar";
       };
 
       self.urlFor = function (page) {

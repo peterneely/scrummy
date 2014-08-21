@@ -1,9 +1,16 @@
 <div class="" ng-show="nav.show()">
   <ul class="pull-right">
 
-    <li class="nav-user">
+    <li class="nav-item setup">
+      <a ng-href="{{ nav.urlFor('manage') }}">
+        <span class="glyphicon glyphicon-cog"></span>
+      </a>
+    </li>
+
+    <li class="nav-item nav-user">
       <div class="btn-group" dropdown>
         <a href="#" class="dropdown-toggle">
+          <!--<span ng-hide="nav.hasPicUrl()" class="glyphicon glyphicon-user"></span>-->
           <img ng-src="{{ nav.picUrl() }}" class="nav-pic"/>
         </a>
         <ul class="dropdown-menu" role="menu">
@@ -12,12 +19,6 @@
           <li ng-click="nav.logout()"><a href="#">Logout</a></li>
         </ul>
       </div>
-    </li>
-
-    <li class="setup">
-      <a ng-href="{{ nav.urlFor('manage') }}">
-        <span class="glyphicon glyphicon-cog"></span>
-      </a>
     </li>
 
   </ul>
