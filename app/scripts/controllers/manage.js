@@ -6,32 +6,28 @@
 
     var self = this;
 
-    self.client = null;
+    self.newClient = null;
 
-    self.clients = [];
+    self.clients = null;
 
     Clients.clients.$loaded().then(function (data) {
       self.clients = data;
-      angular.forEach(data, function (value, key) {
-        console.log(key, value);
-//        if (key.substring(0, 1) !== '$') {
-//          var client = {id: key, name: value.name};
-//          console.log(client);
-//          self.clients.push(client);
-//        }
-      });
     });
 
     self.add = function () {
-      Clients.add(self.client).then(resetClient);
+      Clients.add(self.newClient).then(resetClient);
     };
 
     self.remove = function (id) {
       Clients.remove(id);
     };
 
+    self.update = function (id, client) {
+      Clients.update(id, client);
+    };
+
     function resetClient() {
-      self.client = [];
+      self.newClient = null;
     }
   }];
 

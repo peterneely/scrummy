@@ -18,10 +18,15 @@
         return fb.$remove(id);
       };
 
+      var update = function (id, client) {
+        return fb.$update(id, client);
+      };
+
       return {
         clients: clients,
         add: add,
-        remove: remove
+        remove: remove,
+        update: update
       };
     }];
 
