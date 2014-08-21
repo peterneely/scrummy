@@ -1,30 +1,34 @@
-<div class="nav-head" ng-show="nav.show()">
-  <ul class="pull-right">
+<div class="navbar" ng-show="nav.show()">
 
-    <!--Setup button-->
-    <li class="nav-item setup">
-      <a ng-href="{{ nav.urlFor('manage') }}" ng-show="nav.isPage('timesheet')">
-        <span class="pointer glyphicon glyphicon-cog"></span>
-      </a>
-      <a ng-href="{{ nav.urlFor('timesheet') }}" ng-show="nav.isPage('manage')">
-        <span class="pointer glyphicon glyphicon-time"></span>
-      </a>
-    </li>
+  <ul class="navbar-nav navbar-right">
+    <div class="btn-group">
 
-    <!--User button-->
-    <li class="nav-item nav-user">
-      <div class="btn-group" dropdown>
-        <a href="#" class="dropdown-toggle">
-          <!--<span ng-hide="nav.hasPicUrl()" class="glyphicon glyphicon-user"></span>-->
-          <img ng-src="{{ nav.picUrl() }}" class="nav-pic"/>
+      <li class="timesheet btn btn-default" ng-model="nav.selected" btn-radio="'timesheet'">
+        <a ng-href="{{ nav.urlFor('timesheet') }}">
+          <span class="pointer glyphicon glyphicon-time"></span>
         </a>
-        <ul class="dropdown-menu" role="menu">
-          <li><a ng-href="{{ nav.urlFor('user') }}">Account</a></li>
-          <li class="divider"></li>
-          <li ng-click="nav.logout()"><a href="#">Logout</a></li>
-        </ul>
-      </div>
-    </li>
+      </li>
+
+      <li class="manage btn btn-default" ng-model="nav.selected" btn-radio="'manage'">
+        <a ng-href="{{ nav.urlFor('manage') }}">
+          <span class="pointer glyphicon glyphicon-cog"></span>
+        </a>
+      </li>
+
+      <li class="user btn btn-default" ng-model="nav.selected" btn-radio="'user'">
+        <div class="btn-group" dropdown>
+          <a href="#" class="dropdown-toggle">
+            <!--<span ng-hide="nav.hasPicUrl()" class="glyphicon glyphicon-user"></span>-->
+            <img ng-src="{{ nav.picUrl() }}" class="nav-pic"/>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a ng-href="{{ nav.urlFor('user') }}">Account</a></li>
+            <li class="divider"></li>
+            <li ng-click="nav.logout()"><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </li>
+    </div>
   </ul>
 
 </div>

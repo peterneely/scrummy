@@ -1,16 +1,8 @@
-nav .nav-head {
-    display: block;
-    height: 60px;
-}
-
-nav .nav-item {
-    list-style-type: none;
-    display: inline-block;
-    vertical-align: top;
-}
-
-nav .setup {
-    font-size: 36px;
+nav li.timesheet,
+nav li.manage {
+    font-size: 34px;
+    padding: 7px 12px 0 12px;
+    line-height: 43px;
 }
 
 nav .nav-pic {

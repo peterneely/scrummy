@@ -7,6 +7,8 @@
 
       var self = this;
 
+      self.selected = 'timesheet';
+
       self.show = function () {
         return Location.isNotPages(['home', 'login', 'register']);
       };
@@ -30,6 +32,10 @@
 
       self.isPage = function (page) {
         return Location.isPage(page);
+      };
+
+      self.isNotPage = function (page) {
+        return Location.isNotPage(page);
       };
     }];
 
