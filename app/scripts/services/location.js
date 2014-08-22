@@ -8,8 +8,7 @@
     var selectedNavButton = defaultNavButton;
 
     var urlFor = function (page) {
-//      return '#' + URL[page];
-      return URL[page];
+      return '#' + URL[page];
     };
 
     var go = function (page) {

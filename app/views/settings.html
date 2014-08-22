@@ -1,16 +1,24 @@
 <tabset class="settings">
 
-  <tab heading="Clients">
-    <div ui-view="clients"></div>
+  <tab>
+    <tab-heading>
+      <a ui-sref=".clients">Clients</a>
+    </tab-heading>
   </tab>
 
-  <tab heading="Projects">
-    <div ui-view="projects"></div>
+  <tab>
+    <tab-heading>
+      <a ui-sref=".projects">Projects</a>
+    </tab-heading>
   </tab>
 
-  <tab heading="Tasks">
-    <div ui-view="tasks"></div>
+  <tab>
+    <tab-heading>
+      <a ui-sref=".tasks">Tasks</a>
+    </tab-heading>
   </tab>
 
 </tabset>
+
+<div ui-view></div>
 

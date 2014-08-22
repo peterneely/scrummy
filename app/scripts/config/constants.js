@@ -11,7 +11,7 @@
     register: '/register',
     user: '/user',
     settings: '/settings',
-    settingsClients: 'clients',
+    settingsClients: '/clients',
     settingsProjects: '/projects',
     settingsTasks: '/tasks',
     timesheet: '/timesheet'

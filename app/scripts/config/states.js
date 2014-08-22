@@ -2,10 +2,8 @@
 
 (function () {
 
-  var states = ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'URL', 'FILE',
-    function ($stateProvider, $urlRouterProvider, $locationProvider, URL, FILE) {
-
-      $locationProvider.html5Mode(true);
+  var states = ['$stateProvider', '$urlRouterProvider', 'URL', 'FILE',
+    function ($stateProvider, $urlRouterProvider, URL, FILE) {
 
       var home = {
         url: URL.home,
@@ -32,6 +30,7 @@
       };
 
       var settings = {
+        abstract: true,
         url: URL.settings,
         templateUrl: FILE.settings,
         controller: 'Settings as set'
@@ -39,7 +38,8 @@
 
       var settingsClients = {
         url: URL.settingsClients,
-        templateUrl: FILE.settingsClients
+        templateUrl: FILE.settingsClients,
+        controller: 'Settings as set'
       };
 
       var timesheet = {
@@ -57,7 +57,9 @@
         .state('settings.clients', settingsClients)
         .state('timesheet', timesheet);
 
-      $urlRouterProvider.otherwise(URL.home);
+      $urlRouterProvider
+        .when('/settings', '/settings/clients')
+        .otherwise(URL.home);
     }];
 
   angular
