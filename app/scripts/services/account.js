@@ -7,7 +7,8 @@
       /*jshint camelcase: false */
 
       var ref = new Firebase(URL.firebase + 'users');
-      var fb = $firebase(ref);
+      var users = $firebase(ref);
+      var path = 'account';
 
       var create = function (authUser) {
         var deferred = $q.defer();
@@ -15,8 +16,8 @@
           email: authUser.email,
           hash: authUser.md5_hash
         };
-        var username = getUserName(authUser);
-        fb.$set(username, user).then(function () {
+        var location = getUserName(authUser) + '/' + path;
+        users.$set(location, user).then(function () {
           deferred.resolve(authUser);
         });
         return deferred.promise;
@@ -24,33 +25,33 @@
 
       var getUser = function (authUser) {
         var deferred = $q.defer();
-        var users = fb.$asArray();
-        users.$loaded().then(function (data) {
-          var username = getUserName(authUser);
-          var user = data.$getRecord(username);
+        var usersArray = users.$asArray();
+        usersArray.$loaded().then(function (array) {
+          var key = getUserName(authUser);
+          var user = array.$getRecord(key)[path];
           deferred.resolve(user);
         });
         return deferred.promise;
       };
 
       function getUserName(authUser) {
-        var dirty = authUser.email.split('@')[0];
-        return dirty.replace(/[|&;$%@"<>()+,#.\[\]]/g, "");
+        var userName = authUser.email.split('@')[0];
+        return userName.replace(/[|&;$%@"<>()+,#.\[\]]/g, "");
       }
 
-      var remove = function (id) {
-        return fb.$remove(id);
-      };
-
-      var update = function (id, user) {
-        return fb.$update(id, user);
-      };
+//      var remove = function (id) {
+//        return users.$remove(id);
+//      };
+//
+//      var update = function (id, user) {
+//        return users.$update(id, user);
+//      };
 
       return {
         create: create,
         getUser: getUser,
-        remove: remove,
-        update: update
+//        remove: remove,
+//        update: update
       };
     }];
 
