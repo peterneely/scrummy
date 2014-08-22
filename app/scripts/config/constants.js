@@ -10,7 +10,7 @@
     login: '/login',
     register: '/register',
     user: '/user',
-    manage: '/manage',
+    settings: '/settings',
     timesheet: '/timesheet'
   };
 
@@ -19,7 +19,7 @@
     login: 'views/login.html',
     register: 'views/register.html',
     user: 'views/user.html',
-    manage: 'views/manage.html',
+    settings: 'views/settings.html',
     timesheet: 'views/timesheet.html',
     footer: 'views/footer.html',
     navbar: 'views/nav.html'

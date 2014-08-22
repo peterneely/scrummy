@@ -10,7 +10,7 @@
       self.logout = function () {
         Auth.logout();
         User.removeCurrentUser();
-        Location.go('home');
+        Location.onLogout();
       };
     }];
 

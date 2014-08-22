@@ -14,7 +14,7 @@
       };
 
       var fail = function () {
-        Location.go('login');
+        Location.go('home');
       };
 
       function userLoggedIn(authUser) {

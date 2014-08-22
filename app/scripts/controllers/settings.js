@@ -2,7 +2,7 @@
 
 (function () {
 
-  var manageController = ['Clients', function (Clients) {
+  var settingsController = ['Clients', function (Clients) {
 
     var self = this;
 
@@ -33,5 +33,5 @@
 
   angular
     .module('scrummyApp')
-    .controller('Manage', manageController);
+    .controller('Settings', settingsController);
 })();

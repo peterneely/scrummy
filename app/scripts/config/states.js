@@ -29,10 +29,10 @@
         controller: 'User as user'
       };
 
-      var manage = {
-        url: URL.manage,
-        templateUrl: FILE.manage,
-        controller: 'Manage as man'
+      var settings = {
+        url: URL.settings,
+        templateUrl: FILE.settings,
+        controller: 'Settings as set'
       };
 
       var timesheet = {
@@ -46,7 +46,7 @@
         .state('login', login)
         .state('register', register)
         .state('user', user)
-        .state('manage', manage)
+        .state('settings', settings)
         .state('timesheet', timesheet);
 
       $urlRouterProvider.otherwise(URL.home);

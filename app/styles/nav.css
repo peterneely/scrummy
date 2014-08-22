@@ -1,8 +1,14 @@
 nav li.timesheet,
-nav li.manage {
+nav li.settings {
     font-size: 34px;
     padding: 7px 12px 0 12px;
     line-height: 43px;
+    color: #428BCA;
+}
+
+nav li.user {
+    height: 52px;
+    width: 64px;
 }
 
 nav .nav-pic {
@@ -12,13 +18,7 @@ nav .nav-pic {
     border-radius: 100px;
 }
 
-nav .user {
-    height: 52px;
-    width: 64px;
-}
-
-nav .dropdown-menu {
-    left: -58px;
-    min-width: 100px;
-    text-align: right;
+nav li.active,
+nav li:hover {
+    color: #428BCA !important;
 }

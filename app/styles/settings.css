@@ -1,19 +1,19 @@
-.manage .nav-tabs {
+.settings .nav-tabs {
     margin-bottom: 20px;
 }
 
-.manage .add {
+.settings .add {
     margin-bottom: 20px;
 }
 
-.manage .remove .glyphicon {
+.settings .remove .glyphicon {
     color: #D9534F;
 }
 
-.manage .update .glyphicon {
+.settings .update .glyphicon {
     color: #428BCA;
 }
 
-.manage .input-group {
+.settings .input-group {
     margin-bottom: 10px;
 }

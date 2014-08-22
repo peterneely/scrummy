@@ -1,24 +1,24 @@
-<tabset class="manage">
+<tabset class="settings">
   <tab heading="Clients">
 
-    <form class="add" ng-submit="man.add()">
+    <form class="add" ng-submit="set.add()">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Add a new client" ng-model="man.newClient.name">
+        <input type="text" class="form-control" placeholder="Add a new client" ng-model="set.newClient.name">
       <span class="input-group-btn">
         <input class="btn btn-primary" type="submit" value="Add Client"/>
       </span>
       </div>
     </form>
 
-    <div class="input-group" ng-repeat="(id, client) in man.clients">
+    <div class="input-group" ng-repeat="(id, client) in set.clients">
       <span class="remove input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="man.remove(id)">
+        <button class="btn btn-default" type="button" ng-click="set.remove(id)">
           <span class="glyphicon glyphicon-minus-sign"></span>
         </button>
       </span>
       <input type="text" class="form-control" ng-model="client.name">
       <span class="update input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="man.update(id, client)">
+        <button class="btn btn-default" type="button" ng-click="set.update(id, client)">
           <span class="glyphicon glyphicon-ok"></span>
         </button>
       </span>

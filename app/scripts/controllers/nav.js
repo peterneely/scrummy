@@ -2,21 +2,19 @@
 
 (function () {
 
-  var navController = ['User', 'Location', 'URL',
-    function (User, Location, URL) {
+  var navController = ['User', 'Location',
+    function (User, Location) {
 
       var self = this;
 
-      self.selected = 'timesheet';
+      self.selected = Location.selectedNavButton;
 
       self.show = function () {
         return User.isLoggedIn();
       };
 
       self.picUrl = function () {
-        var userCode = User.getCurrentUser().md5_hash;
-        var defaultPic = '?d=mm'; // See https://en.gravatar.com/site/implement/images/
-        return URL.gravatar + userCode + defaultPic;
+        return User.picUrl();
       };
 
       self.go = function (page) {
