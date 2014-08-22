@@ -2,8 +2,10 @@
 
 (function () {
 
-  var states = ['$stateProvider', '$urlRouterProvider', 'URL', 'FILE',
-    function ($stateProvider, $urlRouterProvider, URL, FILE) {
+  var states = ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'URL', 'FILE',
+    function ($stateProvider, $urlRouterProvider, $locationProvider, URL, FILE) {
+
+      $locationProvider.html5Mode(true);
 
       var home = {
         url: URL.home,
@@ -35,6 +37,11 @@
         controller: 'Settings as set'
       };
 
+      var settingsClients = {
+        url: URL.settingsClients,
+        templateUrl: FILE.settingsClients
+      };
+
       var timesheet = {
         url: URL.timesheet,
         templateUrl: FILE.timesheet,
@@ -47,6 +54,7 @@
         .state('register', register)
         .state('user', user)
         .state('settings', settings)
+        .state('settings.clients', settingsClients)
         .state('timesheet', timesheet);
 
       $urlRouterProvider.otherwise(URL.home);

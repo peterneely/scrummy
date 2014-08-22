@@ -11,6 +11,9 @@
     register: '/register',
     user: '/user',
     settings: '/settings',
+    settingsClients: 'clients',
+    settingsProjects: '/projects',
+    settingsTasks: '/tasks',
     timesheet: '/timesheet'
   };
 
@@ -20,6 +23,9 @@
     register: 'views/register.html',
     user: 'views/user.html',
     settings: 'views/settings.html',
+    settingsClients: 'views/settings.clients.html',
+    settingsProjects: 'views/settings.projects.html',
+    settingsTasks: 'views/settings.tasks.html',
     timesheet: 'views/timesheet.html',
     footer: 'views/footer.html',
     navbar: 'views/nav.html'

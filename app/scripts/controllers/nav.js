@@ -18,8 +18,8 @@
       };
 
       self.go = function (page) {
-        Location.go(page)
-      }
+        Location.go(page);
+      };
     }];
 
   angular
