@@ -10,7 +10,7 @@
       var users = $firebase(ref);
       var path = 'account';
 
-      var create = function (authUser) {
+      var createUser = function (authUser) {
         var deferred = $q.defer();
         var user = {
           email: authUser.email,
@@ -29,14 +29,19 @@
         usersArray.$loaded().then(function (array) {
           var key = getUserName(authUser);
           var user = array.$getRecord(key)[path];
-          deferred.resolve(user);
+          var currentUser = {
+            id: key,
+            email: user.email,
+            hash: user.hash
+          };
+          deferred.resolve(currentUser);
         });
         return deferred.promise;
       };
 
       function getUserName(authUser) {
         var userName = authUser.email.split('@')[0];
-        return userName.replace(/[|&;$%@"<>()+,#.\[\]]/g, "");
+        return userName.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
       }
 
 //      var remove = function (id) {
@@ -48,8 +53,8 @@
 //      };
 
       return {
-        create: create,
-        getUser: getUser,
+        createUser: createUser,
+        getUser: getUser
 //        remove: remove,
 //        update: update
       };

@@ -32,7 +32,7 @@
       };
 
       function createAccount(authUser) {
-        Account.create(authUser).then(self.login(), fail);
+        Account.createUser(authUser).then(self.login(), fail);
       }
 
       function getAccount(authUser) {
