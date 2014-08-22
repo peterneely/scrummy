@@ -6,7 +6,7 @@
     function ($q, $firebase, URL) {
       /*jshint camelcase: false */
 
-      var ref = new Firebase(URL.firebase + 'users');
+      var ref = new Firebase(URL.firebase);
       var users = $firebase(ref);
       var path = 'account';
 
@@ -16,7 +16,7 @@
           email: authUser.email,
           hash: authUser.md5_hash
         };
-        var location = getUserName(authUser) + '/' + path;
+        var location = getUserName(authUser) + path;
         users.$set(location, user).then(function () {
           deferred.resolve(authUser);
         });

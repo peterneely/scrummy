@@ -3,7 +3,7 @@
 (function () {
 
   var urls = {
-    firebase: 'https://scrummy.firebaseio.com/',
+    firebase: 'https://scrummy.firebaseio.com/users/',
     gravatar: 'http://www.gravatar.com/avatar/',
     current: '',
     home:  '/',

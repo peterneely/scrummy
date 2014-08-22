@@ -2,27 +2,33 @@
 
 (function () {
 
-  var clientDataService = ['$firebase', 'URL',
+  var dataService = ['$firebase', 'URL',
     function ($firebase, URL) {
 
-      var ref = new Firebase(URL.firebase + 'clients');
-      var fb = $firebase(ref);
+      var objects = null;
 
-      var all = fb.$asObject();
+      var init = function (currentUser, objectType) {
+        console.log('called');
+        var url = URL.firebase + currentUser.id + '/' + objectType;
+        objects = $firebase(new Firebase(url));
+      };
 
-      var add = function (client) {
-        return fb.$push(client);
+      var all = objects.$asObject();
+
+      var add = function (object) {
+        return objects.$push(object);
       };
 
       var remove = function (id) {
-        return fb.$remove(id);
+        return objects.$remove(id);
       };
 
-      var update = function (id, client) {
-        return fb.$update(id, client);
+      var update = function (id, object) {
+        return objects.$update(id, object);
       };
 
       return {
+        init: init,
         all: all,
         add: add,
         remove: remove,
@@ -32,5 +38,5 @@
 
   angular
     .module('scrummyApp')
-    .factory('Clients', clientDataService);
+    .factory('Clients', dataService);
 })();

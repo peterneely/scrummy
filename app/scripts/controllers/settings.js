@@ -2,7 +2,7 @@
 
 (function () {
 
-  var settingsController = ['Clients', function (Clients) {
+  var settingsController = ['Clients', 'User', function (Clients, User) {
 
     var self = this;
 
@@ -29,6 +29,8 @@
     function resetClient() {
       self.newClient = null;
     }
+
+    Clients.init(User.getCurrentUser(), 'clients');
   }];
 
   angular
