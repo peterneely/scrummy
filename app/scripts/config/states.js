@@ -42,6 +42,18 @@
         controller: 'Settings as set'
       };
 
+      var settingsProjects = {
+        url: URL.settingsProjects,
+        templateUrl: FILE.settingsProjects,
+        controller: 'Settings as set'
+      };
+
+      var settingsTasks = {
+        url: URL.settingsTasks,
+        templateUrl: FILE.settingsTasks,
+        controller: 'Settings as set'
+      };
+
       var timesheet = {
         url: URL.timesheet,
         templateUrl: FILE.timesheet,
@@ -55,10 +67,13 @@
         .state('user', user)
         .state('settings', settings)
         .state('settings.clients', settingsClients)
+        .state('settings.projects', settingsProjects)
+        .state('settings.tasks', settingsTasks)
         .state('timesheet', timesheet);
 
       $urlRouterProvider
         .when('/settings', '/settings/clients')
+        .when('/settings/', '/settings/clients')
         .otherwise(URL.home);
     }];
 

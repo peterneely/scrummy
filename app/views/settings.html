@@ -1,24 +1,21 @@
-<tabset class="settings">
-
-  <tab>
-    <tab-heading>
-      <a ui-sref=".clients">Clients</a>
-    </tab-heading>
-  </tab>
-
-  <tab>
-    <tab-heading>
-      <a ui-sref=".projects">Projects</a>
-    </tab-heading>
-  </tab>
-
-  <tab>
-    <tab-heading>
-      <a ui-sref=".tasks">Tasks</a>
-    </tab-heading>
-  </tab>
-
-</tabset>
-
-<div ui-view></div>
+<div class="settings">
+  <tabset>
+    <tab>
+      <tab-heading>
+        <a ui-sref="settings.clients" ui-sref-active="active">Clients</a>
+      </tab-heading>
+    </tab>
+    <tab>
+      <tab-heading>
+        <a ui-sref="settings.projects" ui-sref-active="active">Projects</a>
+      </tab-heading>
+    </tab>
+    <tab>
+      <tab-heading>
+        <a ui-sref="settings.tasks" ui-sref-active="active">Tasks</a>
+      </tab-heading>
+    </tab>
+  </tabset>
+  <div ui-view></div>
+</div>
 

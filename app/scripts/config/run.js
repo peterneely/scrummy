@@ -19,7 +19,7 @@
 
       function userLoggedIn(authUser) {
         User.setCurrentUser(authUser);
-        Location.go('timesheet');
+//        Location.go('timesheet');
       }
 
       function userNotLoggedIn() {
