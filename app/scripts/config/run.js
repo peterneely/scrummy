@@ -23,7 +23,7 @@
       }
 
       function userNotLoggedIn() {
-        Location.go('home');
+//        Location.go('home');
       }
 
       Auth.getCurrentUser().then(success, fail);
