@@ -2,8 +2,8 @@
 
 (function () {
 
-  var navController = ['User', 'Auth', 'Location', 'URL',
-    function (User, Auth, Location, URL) {
+  var navController = ['User', 'Location', 'URL',
+    function (User, Location, URL) {
 
       var self = this;
 
@@ -15,20 +15,13 @@
 
       self.picUrl = function () {
         var userCode = User.getCurrentUser().md5_hash;
-        var defaultPic = '?d=wavatar'; // See https://en.gravatar.com/site/implement/images/
+        var defaultPic = '?d=mm'; // See https://en.gravatar.com/site/implement/images/
         return URL.gravatar + userCode + defaultPic;
-//        return "http://www.gravatar.com/avatar/00000000000000000000000000000000?d=wavatar";
       };
 
-      self.urlFor = function (page) {
-        return Location.urlFor(page);
-      };
-
-      self.logout = function () {
-        Auth.logout();
-        User.removeCurrentUser();
-        Location.go('home');
-      };
+      self.go = function (page) {
+        Location.go(page)
+      }
     }];
 
   angular

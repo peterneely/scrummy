@@ -1,17 +1,18 @@
 'use strict';
 
-(function(){
+(function () {
 
-  var userController = function () {
+  var userController = ['Auth', 'User', 'Location',
+    function (Auth, User, Location) {
 
-    var self = this;
+      var self = this;
 
-    self.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  };
+      self.logout = function () {
+        Auth.logout();
+        User.removeCurrentUser();
+        Location.go('home');
+      };
+    }];
 
   angular
     .module('scrummyApp')

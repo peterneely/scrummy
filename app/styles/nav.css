@@ -12,8 +12,9 @@ nav .nav-pic {
     border-radius: 100px;
 }
 
-nav .nav-user {
-    padding: 2px 0 0 20px;
+nav .user {
+    height: 52px;
+    width: 64px;
 }
 
 nav .dropdown-menu {

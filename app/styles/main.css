@@ -18,8 +18,12 @@ input[type='text'] {
     background-color: #F8F8F8;
 }
 
+.navbar {
+    margin-bottom: 0;
+}
+
 ul.navbar-right {
-    margin-right: 16px !important;
+    margin-right: 0 !important;
 }
 
 /* Make the masthead heading the same height as the navigation */
@@ -88,7 +92,7 @@ footer {
 
     /* Space out the masthead */
     nav {
-        margin: 20px 0 20px 0;
+        margin: 20px 0 0 0;
     }
 
     /* Remove the bottom border on the jumbotron for visual effect */

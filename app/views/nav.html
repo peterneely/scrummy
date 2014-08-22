@@ -3,30 +3,19 @@
   <ul class="navbar-nav navbar-right">
     <div class="btn-group">
 
-      <li class="timesheet btn btn-default" ng-model="nav.selected" btn-radio="'timesheet'">
-        <a ng-href="{{ nav.urlFor('timesheet') }}">
-          <span class="pointer glyphicon glyphicon-time"></span>
-        </a>
+      <li class="timesheet btn btn-default" ng-model="nav.selected" btn-radio="'timesheet'"
+          ng-click="nav.go('timesheet')">
+        <span class="pointer glyphicon glyphicon-time"></span>
       </li>
 
-      <li class="manage btn btn-default" ng-model="nav.selected" btn-radio="'manage'">
-        <a ng-href="{{ nav.urlFor('manage') }}">
-          <span class="pointer glyphicon glyphicon-cog"></span>
-        </a>
+      <li class="manage btn btn-default" ng-model="nav.selected" btn-radio="'manage'" ng-click="nav.go('manage')">
+        <span class="pointer glyphicon glyphicon-cog"></span>
       </li>
 
-      <li class="user btn btn-default" ng-model="nav.selected" btn-radio="'user'">
-        <div class="btn-group" dropdown>
-          <a href="#" class="dropdown-toggle">
-            <img ng-src="{{ nav.picUrl() }}" class="nav-pic"/>
-          </a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a ng-href="{{ nav.urlFor('user') }}">Account</a></li>
-            <li class="divider"></li>
-            <li ng-click="nav.logout()"><a href="#">Logout</a></li>
-          </ul>
-        </div>
+      <li class="user btn btn-default" ng-model="nav.selected" btn-radio="'user'" ng-click="nav.go('user')">
+        <img ng-src="{{ nav.picUrl() }}" class="nav-pic"/>
       </li>
+
     </div>
   </ul>
 

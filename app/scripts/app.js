@@ -9,6 +9,7 @@
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ui.router',
     'firebase',
     'ui.bootstrap'
   ];
