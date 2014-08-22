@@ -8,7 +8,7 @@
       var ref = new Firebase(URL.firebase + 'clients');
       var fb = $firebase(ref);
 
-      var clients = fb.$asObject();
+      var all = fb.$asObject();
 
       var add = function (client) {
         return fb.$push(client);
@@ -23,7 +23,7 @@
       };
 
       return {
-        clients: clients,
+        all: all,
         add: add,
         remove: remove,
         update: update

@@ -2,8 +2,8 @@
 
 (function () {
 
-  var authController = ['Auth', 'User', 'Errors', 'Location',
-    function (Auth, User, Errors, Location) {
+  var authController = ['Auth', 'User', 'Account', 'Errors', 'Location',
+    function (Auth, User, Account, Errors, Location) {
 
       var self = this;
 
@@ -24,15 +24,23 @@
       };
 
       self.register = function () {
-        Auth.register(self.user).then(success, fail);
+        Auth.register(self.user).then(createAccount, fail);
       };
 
       self.login = function () {
-        Auth.login(self.user).then(success, fail);
+        Auth.login(self.user).then(getAccount, fail);
       };
 
-      function success(authUser) {
-        User.setCurrentUser(authUser);
+      function createAccount(authUser) {
+        Account.create(authUser).then(self.login(), fail);
+      }
+
+      function getAccount(authUser) {
+        Account.getUser(authUser).then(setUser, fail);
+      }
+
+      function setUser(user) {
+        User.setCurrentUser(user);
         Location.go('timesheet');
       }
 

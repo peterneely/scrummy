@@ -24,9 +24,11 @@
 
     // See https://en.gravatar.com/site/implement/images/
     var picUrl = function () {
-      var userId = currentUser.md5_hash;
-      var defaultPic = '?d=mm';
-      return URL.gravatar + userId + defaultPic;
+      if (currentUser) {
+        var userId = currentUser.hash;
+        var defaultPic = '?d=mm';
+        return URL.gravatar + userId + defaultPic;
+      }
     };
 
     return {

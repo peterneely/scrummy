@@ -10,7 +10,7 @@
 
     self.clients = null;
 
-    Clients.clients.$loaded().then(function (data) {
+    Clients.all.$loaded().then(function (data) {
       self.clients = data;
     });
 

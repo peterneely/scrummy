@@ -2,8 +2,8 @@
 
 (function () {
 
-  var setDefaultView = ['Location', 'Auth', 'User',
-    function (Location, Auth, User) {
+  var setDefaultView = ['Location', 'Auth', 'User', 'Account',
+    function (Location, Auth, User, Account) {
 
       var success = function (authUser) {
         if (authUser) {
@@ -18,12 +18,15 @@
       };
 
       function userLoggedIn(authUser) {
-        User.setCurrentUser(authUser);
-//        Location.go('timesheet');
+        Account.getUser(authUser).then(setUser, fail);
+      }
+
+      function setUser(user) {
+        User.setCurrentUser(user);
       }
 
       function userNotLoggedIn() {
-//        Location.go('home');
+        Location.go('login');
       }
 
       Auth.getCurrentUser().then(success, fail);
