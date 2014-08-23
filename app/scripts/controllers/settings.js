@@ -8,7 +8,7 @@
 
     self.newClient = null;
 
-    User.whenReady(function(){
+    User.ready(function(){
       self.clients = Clients.all();
     });
 

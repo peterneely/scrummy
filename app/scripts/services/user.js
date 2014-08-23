@@ -8,12 +8,11 @@
 
     var setCurrentUser = function (user) {
       currentUser = user;
-      $rootScope.userReady = true;
     };
 
-    var whenReady = function (callback) {
-      return $rootScope.$watch('userReady', function (ready) {
-        if (ready) {
+    var ready = function (callback) {
+      return $rootScope.$watch(getCurrentUser, function (currentUser) {
+        if (currentUser !== null) {
           callback();
         }
       });
@@ -42,7 +41,7 @@
 
     return {
       setCurrentUser: setCurrentUser,
-      whenReady: whenReady,
+      ready: ready,
       getCurrentUser: getCurrentUser,
       isLoggedIn: isLoggedIn,
       removeCurrentUser: removeCurrentUser,
