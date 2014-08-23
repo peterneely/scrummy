@@ -2,33 +2,33 @@
 
 (function () {
 
-  var dataService = ['$firebase', 'URL',
-    function ($firebase, URL) {
+  var dataService = ['$firebase', 'URL', 'User',
+    function ($firebase, URL, User) {
 
-      var objects = null;
-
-      var init = function (currentUser, objectType) {
-        console.log('called');
-        var url = URL.firebase + currentUser.id + '/' + objectType;
-        objects = $firebase(new Firebase(url));
+      var all = function () {
+        return clients().$asObject();
       };
 
-      var all = objects.$asObject();
-
       var add = function (object) {
-        return objects.$push(object);
+        return clients().$push(object);
       };
 
       var remove = function (id) {
-        return objects.$remove(id);
+        return clients().$remove(id);
       };
 
       var update = function (id, object) {
-        return objects.$update(id, object);
+        return clients().$update(id, object);
       };
 
+      function clients() {
+        var currentUser = User.getCurrentUser();
+        console.log('clients: ', currentUser);
+        var url = URL.firebase + currentUser.id + '/clients';
+        return $firebase(new Firebase(url));
+      }
+
       return {
-        init: init,
         all: all,
         add: add,
         remove: remove,
