@@ -26,7 +26,10 @@
       var user = {
         url: URL.user,
         templateUrl: FILE.user,
-        controller: 'User as user'
+        controller: 'User as user',
+        data: {
+          selectedNav: 'user'
+        }
       };
 
       var settings = {
@@ -39,25 +42,40 @@
       var settingsClients = {
         url: URL.settingsClients,
         templateUrl: FILE.settingsClients,
-        controller: 'Settings as set'
+        controller: 'Settings as set',
+        data: {
+          selectedNav: 'settings',
+          selectedTab: 'clients'
+        }
       };
 
       var settingsProjects = {
         url: URL.settingsProjects,
         templateUrl: FILE.settingsProjects,
-        controller: 'Settings as set'
+        controller: 'Settings as set',
+        data: {
+          selectedNav: 'settings',
+          selectedTab: 'projects'
+        }
       };
 
       var settingsTasks = {
         url: URL.settingsTasks,
         templateUrl: FILE.settingsTasks,
-        controller: 'Settings as set'
+        controller: 'Settings as set',
+        data: {
+          selectedNav: 'settings',
+          selectedTab: 'tasks'
+        }
       };
 
       var timesheet = {
         url: URL.timesheet,
         templateUrl: FILE.timesheet,
-        controller: 'Timesheet as time'
+        controller: 'Timesheet as time',
+        data: {
+          selectedNav: 'timesheet'
+        }
       };
 
       $stateProvider

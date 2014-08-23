@@ -1,21 +1,9 @@
-<div class="settings">
-  <tabset>
-    <tab>
-      <tab-heading>
-        <a ui-sref="settings.clients" ui-sref-active="active">Clients</a>
-      </tab-heading>
-    </tab>
-    <tab>
-      <tab-heading>
-        <a ui-sref="settings.projects" ui-sref-active="active">Projects</a>
-      </tab-heading>
-    </tab>
-    <tab>
-      <tab-heading>
-        <a ui-sref="settings.tasks" ui-sref-active="active">Tasks</a>
-      </tab-heading>
-    </tab>
-  </tabset>
+<div class="settings" ng-show="set.show">
+  <ul class="nav nav-tabs" role="tablist">
+    <li ng-class="set.activeTab('clients')"><a ui-sref="settings.clients">Clients</a></li>
+    <li ng-class="set.activeTab('projects')"><a ui-sref="settings.projects">Projects</a></li>
+    <li ng-class="set.activeTab('tasks')"><a ui-sref="settings.tasks">Tasks</a></li>
+  </ul>
   <div ui-view></div>
 </div>
 

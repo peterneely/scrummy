@@ -10,14 +10,6 @@
       currentUser = user;
     };
 
-    var ready = function (callback) {
-      return $rootScope.$watch(getCurrentUser, function (currentUser) {
-        if (currentUser !== null) {
-          callback();
-        }
-      });
-    };
-
     var getCurrentUser = function () {
       return currentUser;
     };
@@ -26,8 +18,20 @@
       return currentUser !== null;
     };
 
-    var removeCurrentUser = function () {
-      currentUser = null;
+    var whenLoggedIn = function (callback) {
+      return $rootScope.$watch(isLoggedIn, function (loggedIn) {
+        if (loggedIn) {
+          callback();
+        }
+      });
+    };
+
+    var whenLoggedOut = function (callback) {
+      return $rootScope.$watch(isLoggedIn, function (loggedIn) {
+        if (!loggedIn) {
+          callback();
+        }
+      });
     };
 
     // See https://en.gravatar.com/site/implement/images/
@@ -39,13 +43,18 @@
       }
     };
 
+    var removeCurrentUser = function () {
+      currentUser = null;
+    };
+
     return {
       setCurrentUser: setCurrentUser,
-      ready: ready,
       getCurrentUser: getCurrentUser,
       isLoggedIn: isLoggedIn,
-      removeCurrentUser: removeCurrentUser,
-      picUrl: picUrl
+      whenLoggedIn: whenLoggedIn,
+      whenLoggedOut: whenLoggedOut,
+      picUrl: picUrl,
+      removeCurrentUser: removeCurrentUser
     };
   }];
 

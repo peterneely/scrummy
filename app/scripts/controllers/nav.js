@@ -2,20 +2,24 @@
 
 (function () {
 
-  var navController = ['User', 'Location',
-    function (User, Location) {
+  var navController = ['$state', 'User', 'Location',
+    function ($state, User, Location) {
 
       var self = this;
 
-      self.selected = Location.selectedNavButton;
+      User.whenLoggedIn(function () {
+        self.selected = $state.current.data.selectedNav;
 
-      self.show = function () {
-        return User.isLoggedIn();
-      };
+        self.show = true;
 
-      self.picUrl = function () {
-        return User.picUrl();
-      };
+        self.picUrl = function () {
+          return User.picUrl();
+        };
+      });
+
+      User.whenLoggedOut(function () {
+        self.show = false;
+      });
 
       self.go = function (page) {
         Location.go(page);
