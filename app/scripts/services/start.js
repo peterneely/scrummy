@@ -2,8 +2,8 @@
 
 (function () {
 
-  var startService = ['$q', 'Location', 'Auth', 'User', 'Account',
-    function ($q, Location, Auth, User, Account) {
+  var startService = ['Location', 'Auth', 'User', 'Account',
+    function (Location, Auth, User, Account) {
 
       var getUser = function () {
         Auth.getCurrentUser().then(success, fail);

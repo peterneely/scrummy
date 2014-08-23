@@ -2,16 +2,14 @@
 
 (function () {
 
-  var settingsController = ['$scope', 'Clients', function ($scope, Clients) {
+  var settingsController = ['User', 'Clients', function (User, Clients) {
 
     var self = this;
 
     self.newClient = null;
 
-    $scope.$watch('userReady', function (ready) {
-      if (ready) {
-        self.clients = Clients.all();
-      }
+    User.whenReady(function(){
+      self.clients = Clients.all();
     });
 
     self.add = function () {

@@ -5,7 +5,13 @@
   var dataService = ['$firebase', 'URL', 'User',
     function ($firebase, URL, User) {
 
-      var all = function () {
+      function clients() {
+        var currentUser = User.getCurrentUser();
+        var url = URL.firebase + currentUser.id + '/clients';
+        return $firebase(new Firebase(url));
+      }
+
+      var all = function(){
         return clients().$asObject();
       };
 
@@ -20,12 +26,6 @@
       var update = function (id, object) {
         return clients().$update(id, object);
       };
-
-      function clients() {
-        var currentUser = User.getCurrentUser();
-        var url = URL.firebase + currentUser.id + '/clients';
-        return $firebase(new Firebase(url));
-      }
 
       return {
         all: all,
