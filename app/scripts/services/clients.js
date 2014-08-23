@@ -23,7 +23,6 @@
 
       function clients() {
         var currentUser = User.getCurrentUser();
-        console.log('clients: ', currentUser);
         var url = URL.firebase + currentUser.id + '/clients';
         return $firebase(new Firebase(url));
       }

@@ -2,12 +2,13 @@
 
 (function () {
 
-  var userService = ['URL', function (URL) {
+  var userService = ['$rootScope', 'URL', function ($rootScope, URL) {
 
     var currentUser = null;
 
     var setCurrentUser = function (user) {
       currentUser = user;
+      $rootScope.userReady = true;
     };
 
     var getCurrentUser = function () {
