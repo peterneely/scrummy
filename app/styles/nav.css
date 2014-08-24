@@ -3,11 +3,25 @@ nav .navbar-nav {
 }
 
 nav .scrummy button.btn {
-    padding: 12px 20px 12px 20px;
+    /*padding: 12px 20px 12px 20px;*/
 }
 
+nav button.timesheet,
+nav button.settings {
+    font-size: 32px;
+    padding: 4px 9px 3px 9px;
+    line-height: 33px;
+    color: #428BCA;
+}
+
+nav button.active,
+nav button:hover {
+    color: #428BCA !important;
+}
+
+
 nav .scrummy button.user.btn {
-    padding: 5px 10px 5px 10px;
+    padding: 4px 10px 5px 10px;
 }
 
 nav .user.btn {
@@ -15,8 +29,9 @@ nav .user.btn {
 }
 
 nav .nav-pic {
-    max-height: 34px;
+    max-height: 35px;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
+    border: 1px solid #B2B2B2;
 }
