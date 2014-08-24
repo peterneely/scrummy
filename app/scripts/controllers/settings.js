@@ -16,9 +16,9 @@
 
         self.show = true;
 
-        self.activeTab = function(tab){
-          return $state.current.data.selectedTab === tab ? 'active' : '';
-        };
+//        self.activeTab = function(tab){
+//          return $state.current.data.selectedTab === tab ? 'active' : '';
+//        };
       });
 
       self.add = function () {

@@ -93,6 +93,7 @@ footer {
     /* Space out the masthead */
     nav {
         margin: 20px 0 0 0;
+        height: 53px;
     }
 
     /* Remove the bottom border on the jumbotron for visual effect */

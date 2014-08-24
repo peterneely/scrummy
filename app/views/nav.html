@@ -1,22 +1,22 @@
 <div class="navbar" ng-show="nav.show">
 
-  <ul class="navbar-nav navbar-right">
-    <div class="btn-group">
+  <div class="navbar-nav navbar-right">
 
-      <li class="timesheet btn btn-default" ng-model="nav.selected" btn-radio="'timesheet'"
-          ng-click="nav.go('timesheet')">
+    <ul class="btn-group">
+
+      <li class="timesheet btn btn-default" btn-radio="'timesheet'" ng-model="nav.selected" ng-click="nav.go('timesheet')">
         <span class="pointer glyphicon glyphicon-time"></span>
       </li>
 
-      <li class="settings btn btn-default" ng-model="nav.selected" btn-radio="'settings'" ng-click="nav.go('settings')">
+      <li class="settings btn btn-default" btn-radio="'settings'" ng-model="nav.selected" ng-click="nav.go('settings')">
         <span class="pointer glyphicon glyphicon-cog"></span>
       </li>
 
-      <li class="user btn btn-default" ng-model="nav.selected" btn-radio="'user'" ng-click="nav.go('user')">
+      <li class="user btn btn-default" btn-radio="'user'" ng-model="nav.selected" ng-click="nav.go('user')">
         <img ng-src="{{ nav.picUrl() }}" class="nav-pic"/>
       </li>
 
-    </div>
-  </ul>
+    </ul>
+  </div>
 
 </div>

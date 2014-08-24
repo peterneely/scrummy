@@ -44,8 +44,7 @@
         templateUrl: FILE.settingsClients,
         controller: 'Settings as set',
         data: {
-          selectedNav: 'settings',
-          selectedTab: 'clients'
+          selectedNav: 'settings'
         }
       };
 
@@ -54,8 +53,7 @@
         templateUrl: FILE.settingsProjects,
         controller: 'Settings as set',
         data: {
-          selectedNav: 'settings',
-          selectedTab: 'projects'
+          selectedNav: 'settings'
         }
       };
 
@@ -64,8 +62,7 @@
         templateUrl: FILE.settingsTasks,
         controller: 'Settings as set',
         data: {
-          selectedNav: 'settings',
-          selectedTab: 'tasks'
+          selectedNav: 'settings'
         }
       };
 

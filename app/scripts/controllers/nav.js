@@ -8,9 +8,9 @@
       var self = this;
 
       User.whenLoggedIn(function () {
-        self.selected = $state.current.data.selectedNav;
-
         self.show = true;
+
+        self.selected = $state.current.data.selectedNav;
 
         self.picUrl = function () {
           return User.picUrl();

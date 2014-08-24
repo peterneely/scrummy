@@ -1,3 +1,7 @@
+nav .navbar-nav {
+    margin-right: 0 !important;
+}
+
 nav li.timesheet,
 nav li.settings {
     font-size: 34px;
