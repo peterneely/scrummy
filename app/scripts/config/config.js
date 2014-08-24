@@ -27,9 +27,6 @@
         url: URL.user,
         templateUrl: FILE.user,
         controller: 'User as user',
-        data: {
-          selectedNav: 'user'
-        }
       };
 
       var settings = {
@@ -44,7 +41,7 @@
         templateUrl: FILE.settingsClients,
         controller: 'Settings as set',
         data: {
-          selectedNav: 'settings'
+          activeNav: 'settings'
         }
       };
 
@@ -53,7 +50,7 @@
         templateUrl: FILE.settingsProjects,
         controller: 'Settings as set',
         data: {
-          selectedNav: 'settings'
+          activeNav: 'projects'
         }
       };
 
@@ -62,7 +59,7 @@
         templateUrl: FILE.settingsTasks,
         controller: 'Settings as set',
         data: {
-          selectedNav: 'settings'
+          activeNav: 'tasks'
         }
       };
 
@@ -70,9 +67,6 @@
         url: URL.timesheet,
         templateUrl: FILE.timesheet,
         controller: 'Timesheet as time',
-        data: {
-          selectedNav: 'timesheet'
-        }
       };
 
       $stateProvider

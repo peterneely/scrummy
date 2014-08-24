@@ -2,27 +2,21 @@ nav .navbar-nav {
     margin-right: 0 !important;
 }
 
-nav li.timesheet,
-nav li.settings {
-    font-size: 34px;
-    padding: 7px 12px 0 12px;
-    line-height: 43px;
-    color: #428BCA;
+nav .scrummy button.btn {
+    padding: 12px 20px 12px 20px;
 }
 
-nav li.user {
-    height: 52px;
-    width: 64px;
+nav .scrummy button.user.btn {
+    padding: 5px 10px 5px 10px;
+}
+
+nav .user.btn {
+    padding: 0 10px 0 10px;
 }
 
 nav .nav-pic {
-    max-height: 38px;
+    max-height: 34px;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
-}
-
-nav li.active,
-nav li:hover {
-    color: #428BCA !important;
 }

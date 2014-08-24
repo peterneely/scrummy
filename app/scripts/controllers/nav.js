@@ -8,9 +8,14 @@
       var self = this;
 
       User.whenLoggedIn(function () {
+
         self.show = true;
 
-        self.selected = $state.current.data.selectedNav;
+        self.active = function(){
+          var activeStates = ['settings.clients', 'settings.projects', 'settings.tasks'];
+          var isActive = activeStates.indexOf($state.current.name) > -1;
+          return isActive ? 'active' : '';
+        };
 
         self.picUrl = function () {
           return User.picUrl();
