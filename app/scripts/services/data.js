@@ -5,36 +5,34 @@
   var dataService = ['$firebase', 'URL', 'User',
     function ($firebase, URL, User) {
 
-      var dataLocation = null;
+      var data, list;
 
-      var is = function(dataType){
-        dataLocation = '/' + dataType;
-      };
-
-      var all = function(){
-        return data().$asObject();
+      var all = function (dataType) {
+        data = getData(dataType);
+        list = data.$asArray();
+        return list;
       };
 
       var add = function (object) {
-        return data().$push(object);
+        return data.$push(object);
       };
 
-      var remove = function (id) {
-        return data().$remove(id);
+      var remove = function (object) {
+        list.$remove(object);
       };
 
       var update = function (id, object) {
-        return data().$update(id, object);
+        return data.$update(id, object);
       };
 
-      function data() {
+      function getData(dataType){
         var currentUser = User.getCurrentUser();
+        var dataLocation = '/' + dataType;
         var url = URL.firebase + currentUser.id + dataLocation;
         return $firebase(new Firebase(url));
       }
 
       return {
-        is: is,
         all: all,
         add: add,
         remove: remove,

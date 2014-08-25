@@ -7,15 +7,15 @@
   </div>
 </form>
 
-<div class="input-group" ng-repeat="(id, client) in set.clients">
+<div class="input-group" ng-repeat="client in set.clients | orderBy:'name'">
       <span class="remove input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="set.remove(id)">
+        <button class="btn btn-default" type="button" ng-click="set.remove(client)">
           <span class="glyphicon glyphicon-minus-sign"></span>
         </button>
       </span>
   <input type="text" class="form-control" ng-model="client.name">
       <span class="update input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="set.update(id, client)">
+        <button class="btn btn-default" type="button" ng-click="set.update(client)">
           <span class="glyphicon glyphicon-ok"></span>
         </button>
       </span>
