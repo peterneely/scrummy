@@ -22,8 +22,8 @@
         Data.remove(client);
       };
 
-      self.update = function (id, client) {
-        Data.update(id, client);
+      self.update = function (client) {
+        Data.update(client);
       };
 
       function resetClient() {

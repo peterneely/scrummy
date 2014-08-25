@@ -21,8 +21,8 @@
         list.$remove(object);
       };
 
-      var update = function (id, object) {
-        return data.$update(id, object);
+      var update = function (object) {
+        return list.$save(object);
       };
 
       function getData(dataType){
