@@ -2,23 +2,17 @@ nav .navbar-nav {
     margin-right: 0 !important;
 }
 
-nav .scrummy button.btn {
-    /*padding: 12px 20px 12px 20px;*/
-}
+/*nav .settings {*/
+    /*-webkit-transition:all linear 0.5s;*/
+    /*transition:all linear 0.5s;*/
+/*}*/
 
 nav button.timesheet,
 nav button.settings {
     font-size: 32px;
     padding: 4px 9px 3px 9px;
     line-height: 33px;
-    color: #428BCA;
 }
-
-nav button.active,
-nav button:hover {
-    color: #428BCA !important;
-}
-
 
 nav .scrummy button.user.btn {
     padding: 4px 10px 5px 10px;
@@ -34,4 +28,10 @@ nav .nav-pic {
     -moz-border-radius: 100px;
     border-radius: 100px;
     border: 1px solid #B2B2B2;
+}
+
+@media screen and (max-width: 640px) {
+    nav .scrummy.btn-group {
+        float: right;
+    }
 }

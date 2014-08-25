@@ -1,17 +1,32 @@
-<form class="add" ng-submit="set.add()">
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="Add a new client" ng-model="set.newClient.name">
+<div class="col-xs-12">
+  <div class="row">
+    <div class="col-xs-7 no-padding-left">
+      <form class="add" ng-submit="set.add()">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Add a client" ng-model="set.newClient.name">
       <span class="input-group-btn">
-        <input class="btn btn-primary" type="submit" value="Add Client"/>
+        <input class="btn btn-primary" type="submit" value="Add"/>
       </span>
-  </div>
-</form>
-
-<div class="input-group" ng-repeat="client in set.clients | orderBy:'name'">
-      <span class="remove input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="set.remove(client)">
-          <span class="glyphicon glyphicon-minus-sign"></span>
+        </div>
+      </form>
+    </div>
+    <div class="input-group col-xs-5">
+      <input type="text" class="form-control" placeholder="Search" ng-model="set.searchClient.name">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+          <span class="glyphicon glyphicon-search text-muted" ng-show="true"></span>
+          <span class="glyphicon glyphicon-remove text-muted" ng-show="false"></span>
         </button>
       </span>
+    </div>
+  </div>
+</div>
+
+<div class="input-group" ng-repeat="client in set.clients | orderBy:'name'">
+  <span class="remove input-group-btn">
+    <button class="btn btn-default" type="button" ng-click="set.remove(client)">
+      <span class="glyphicon glyphicon-minus-sign"></span>
+    </button>
+  </span>
   <input type="text" class="form-control" ng-model="client.name" ng-change="set.update(client)">
 </div>

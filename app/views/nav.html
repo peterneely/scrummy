@@ -1,37 +1,19 @@
 <div class="navbar" ng-show="nav.show">
-
   <div class="navbar-nav navbar-right">
-
     <div class="scrummy btn-group">
 
       <button type="button" class="timesheet btn btn-default" ui-sref="timesheet" ui-sref-active="active">
-        <span class="pointer glyphicon glyphicon-time"></span>
+        <span class="pointer glyphicon glyphicon-time text-primary"></span>
       </button>
 
       <button type="button" class="settings btn btn-default" ui-sref="settings.clients" ng-class="nav.active()">
-        <span class="pointer glyphicon glyphicon-cog"></span>
+        <span class="pointer glyphicon glyphicon-cog text-primary"></span>
       </button>
 
       <button type="button" class="user btn btn-default" ui-sref="user" ui-sref-active="active">
         <img ng-src="{{ nav.picUrl() }}" class="nav-pic"/>
       </button>
+
     </div>
-
-    <!--<ul class="btn-group">-->
-
-      <!--<li class="timesheet btn btn-default" btn-radio="'timesheet'" ng-model="nav.selected" ng-click="nav.go('timesheet')">-->
-        <!--<span class="pointer glyphicon glyphicon-time"></span>-->
-      <!--</li>-->
-
-      <!--<li class="settings btn btn-default" btn-radio="'settings'" ng-model="nav.selected" ng-click="nav.go('settings')">-->
-        <!--<span class="pointer glyphicon glyphicon-cog"></span>-->
-      <!--</li>-->
-
-      <!--<li class="user btn btn-default" btn-radio="'user'" ng-model="nav.selected" ng-click="nav.go('user')">-->
-        <!--<img ng-src="{{ nav.picUrl() }}" class="nav-pic"/>-->
-      <!--</li>-->
-
-    <!--</ul>-->
   </div>
-
 </div>

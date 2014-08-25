@@ -17,3 +17,11 @@
 .settings .input-group {
     margin-bottom: 10px;
 }
+
+.settings .no-padding-left {
+    padding-left: 0;
+}
+
+/*.reduce-10{*/
+    /*width: 39.5% !important;*/
+/*}*/
