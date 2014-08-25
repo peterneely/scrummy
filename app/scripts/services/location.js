@@ -13,10 +13,14 @@
         $location.path(URL[page]);
       };
 
-      var isActive = function(){
+      var isActive = function () {
         var activeStates = ['clients', 'projects', 'tasks'];
         var isActive = activeStates.indexOf($state.current.name) > -1;
         return isActive ? 'active' : '';
+      };
+
+      var data = function () {
+        return $state.current.data;
       };
 
       var onLogout = function () {
@@ -27,6 +31,7 @@
         urlFor: urlFor,
         go: go,
         isActive: isActive,
+        data: data,
         onLogout: onLogout
       };
     }];

@@ -30,7 +30,7 @@ nav .nav-pic {
     border: 1px solid #B2B2B2;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 768px) {
     nav .scrummy.btn-group {
         float: right;
     }

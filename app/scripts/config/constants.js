@@ -10,8 +10,7 @@
     login: '/login',
     register: '/register',
     user: '/user',
-    settings: '/settings',
-    all: '/clients',
+    clients: '/clients',
     projects: '/projects',
     tasks: '/tasks',
     timesheet: '/timesheet'
@@ -23,9 +22,7 @@
     register: 'views/register.html',
     user: 'views/user.html',
     tabs: 'views/tabs.html',
-    all: 'views/clients.html',
-    projects: 'views/projects.html',
-    tasks: 'views/tasks.html',
+    manage: 'views/manage.html',
     timesheet: 'views/timesheet.html',
     footer: 'views/footer.html',
     navbar: 'views/nav.html'

@@ -1,0 +1,42 @@
+<section class="settings" ng-show="manage.show">
+
+  <div ui-view="tabs"></div>
+
+  <div class="col-xs-12">
+    <div class="row">
+
+      <div class="col-xs-7 no-padding-left">
+        <form class="add" ng-submit="manage.add()">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Add a {{ manage.placeholder }}" ng-model="manage.new.name">
+            <span class="input-group-btn">
+              <input class="btn btn-default" type="submit" value="Add"/>
+            </span>
+          </div>
+        </form>
+      </div>
+
+      <div class="input-group col-xs-5">
+        <input type="text" class="form-control" placeholder="Search" ng-model="manage.search.name">
+        <span class="input-group-addon" ng-hide="manage.searching()">
+          <span class="glyphicon glyphicon-search text-muted"></span>
+        </span>
+        <span class="input-group-btn" ng-if="manage.searching()">
+          <button class="btn btn-default" type="button" ng-click="manage.clearSearch()">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="input-group" ng-repeat="client in manage.all | orderBy:'name' | filter:manage.search.name">
+    <span class="remove input-group-btn">
+      <button class="btn btn-default" type="button" ng-click="manage.remove(client)">
+        <span class="glyphicon glyphicon-minus-sign"></span>
+      </button>
+    </span>
+    <input type="text" class="form-control" ng-model="client.name" ng-change="manage.update(client)">
+  </div>
+</section>

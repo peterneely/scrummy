@@ -26,20 +26,24 @@
       var timesheet = {
         url: URL.timesheet,
         templateUrl: FILE.timesheet,
-        controller: 'Timesheet as time',
+        controller: 'Timesheet as time'
       };
 
       var clients = {
-        url: URL.all,
+        url: URL.clients,
         views: {
           '': {
-            templateUrl: FILE.all,
-            controller: 'Clients as clients'
+            templateUrl: FILE.manage,
+            controller: 'Manage as manage'
           },
           'tabs@clients': {
             templateUrl: FILE.tabs,
             controller: 'Tabs as tabs'
           }
+        },
+        data: {
+          url: 'clients',
+          placeholder: 'client'
         }
       };
 
@@ -47,13 +51,17 @@
         url: URL.projects,
         views: {
           '': {
-            templateUrl: FILE.projects,
-            controller: 'Projects as proj'
+            templateUrl: FILE.manage,
+            controller: 'Manage as manage'
           },
           'tabs@projects': {
             templateUrl: FILE.tabs,
             controller: 'Tabs as tabs'
           }
+        },
+        data: {
+          url: 'projects',
+          placeholder: 'project'
         }
       };
 
@@ -61,13 +69,17 @@
         url: URL.tasks,
         views: {
           '': {
-            templateUrl: FILE.tasks,
-            controller: 'Tasks as tasks'
+            templateUrl: FILE.manage,
+            controller: 'Manage as manage'
           },
           'tabs@tasks': {
             templateUrl: FILE.tabs,
             controller: 'Tabs as tabs'
           }
+        },
+        data: {
+          url: 'tasks',
+          placeholder: 'task'
         }
       };
 
