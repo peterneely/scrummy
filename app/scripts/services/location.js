@@ -13,7 +13,7 @@
         $location.path(URL[page]);
       };
 
-      var tabActive = function(){
+      var isActive = function(){
         var activeStates = ['settings.clients', 'settings.projects', 'settings.tasks'];
         var isActive = activeStates.indexOf($state.current.name) > -1;
         return isActive ? 'active' : '';
@@ -26,7 +26,7 @@
       return {
         urlFor: urlFor,
         go: go,
-        tabActive: tabActive,
+        tabActive: isActive,
         onLogout: onLogout
       };
     }];

@@ -9,7 +9,7 @@
         self.show = true;
 
         self.active = function(){
-          return Location.tabActive();
+          return Location.isActive();
         };
 
         self.picUrl = function () {
