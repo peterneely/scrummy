@@ -14,7 +14,7 @@
       };
 
       var isActive = function(){
-        var activeStates = ['settings.clients', 'settings.projects', 'settings.tasks'];
+        var activeStates = ['clients', 'projects', 'tasks'];
         var isActive = activeStates.indexOf($state.current.name) > -1;
         return isActive ? 'active' : '';
       };

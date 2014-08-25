@@ -23,57 +23,71 @@
         controller: 'Auth as auth'
       };
 
-      var user = {
-        url: URL.user,
-        templateUrl: FILE.user,
-        controller: 'User as user'
-      };
-
-      var settings = {
-        abstract: true,
-        url: URL.settings,
-        templateUrl: FILE.settings,
-        controller: 'Settings as set'
-      };
-
-      var settingsClients = {
-        url: URL.settingsClients,
-        templateUrl: FILE.settingsClients,
-        controller: 'Settings as set'
-      };
-
-      var settingsProjects = {
-        url: URL.settingsProjects,
-        templateUrl: FILE.settingsProjects,
-        controller: 'Settings as set'
-      };
-
-      var settingsTasks = {
-        url: URL.settingsTasks,
-        templateUrl: FILE.settingsTasks,
-        controller: 'Settings as set'
-      };
-
       var timesheet = {
         url: URL.timesheet,
         templateUrl: FILE.timesheet,
         controller: 'Timesheet as time',
       };
 
+      var clients = {
+        url: URL.all,
+        views: {
+          '': {
+            templateUrl: FILE.all,
+            controller: 'Clients as clients'
+          },
+          'tabs@clients': {
+            templateUrl: FILE.tabs,
+            controller: 'Tabs as tabs'
+          }
+        }
+      };
+
+      var projects = {
+        url: URL.projects,
+        views: {
+          '': {
+            templateUrl: FILE.projects,
+            controller: 'Projects as proj'
+          },
+          'tabs@projects': {
+            templateUrl: FILE.tabs,
+            controller: 'Tabs as tabs'
+          }
+        }
+      };
+
+      var tasks = {
+        url: URL.tasks,
+        views: {
+          '': {
+            templateUrl: FILE.tasks,
+            controller: 'Tasks as tasks'
+          },
+          'tabs@tasks': {
+            templateUrl: FILE.tabs,
+            controller: 'Tabs as tabs'
+          }
+        }
+      };
+
+      var user = {
+        url: URL.user,
+        templateUrl: FILE.user,
+        controller: 'User as user'
+      };
+
       $stateProvider
         .state('home', home)
         .state('login', login)
         .state('register', register)
-        .state('user', user)
-        .state('settings', settings)
-        .state('settings.clients', settingsClients)
-        .state('settings.projects', settingsProjects)
-        .state('settings.tasks', settingsTasks)
-        .state('timesheet', timesheet);
+        .state('timesheet', timesheet)
+        .state('clients', clients)
+        .state('projects', projects)
+        .state('tasks', tasks)
+        .state('user', user);
 
       $urlRouterProvider
-        .when('/settings', '/settings/clients')
-        .when('/settings/', '/settings/clients')
         .otherwise(URL.home);
     }];
 

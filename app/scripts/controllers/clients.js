@@ -2,20 +2,19 @@
 
 (function () {
 
-  var settingsController = ['User', 'Data', function (User, Data) {
+  var clientsController = ['User', 'Data', function (User, Data) {
     var self = this;
 
-    self.newClient = null;
-
+    self.new = null;
     self.search = { name: '' };
 
     User.whenLoggedIn(function () {
-      self.clients = Data.all('clients');
+      self.all = Data.all('clients');
       self.show = true;
     });
 
     self.add = function () {
-      Data.add(self.newClient).then(resetClient);
+      Data.add(self.new).then(self.new = null);
     };
 
     self.remove = function (client) {
@@ -33,13 +32,9 @@
     self.clearSearch = function () {
       self.search.name = '';
     };
-
-    function resetClient() {
-      self.newClient = null;
-    }
   }];
 
   angular
     .module('scrummyApp')
-    .controller('Settings', settingsController);
+    .controller('Clients', clientsController);
 })();

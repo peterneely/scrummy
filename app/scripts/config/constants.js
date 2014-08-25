@@ -11,9 +11,9 @@
     register: '/register',
     user: '/user',
     settings: '/settings',
-    settingsClients: '/clients',
-    settingsProjects: '/projects',
-    settingsTasks: '/tasks',
+    all: '/clients',
+    projects: '/projects',
+    tasks: '/tasks',
     timesheet: '/timesheet'
   };
 
@@ -22,10 +22,10 @@
     login: 'views/login.html',
     register: 'views/register.html',
     user: 'views/user.html',
-    settings: 'views/settings.html',
-    settingsClients: 'views/settings-clients.html',
-    settingsProjects: 'views/settings-projects.html',
-    settingsTasks: 'views/settings-tasks.html',
+    tabs: 'views/tabs.html',
+    all: 'views/clients.html',
+    projects: 'views/projects.html',
+    tasks: 'views/tasks.html',
     timesheet: 'views/timesheet.html',
     footer: 'views/footer.html',
     navbar: 'views/nav.html'
