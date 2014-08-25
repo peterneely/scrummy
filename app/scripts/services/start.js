@@ -6,10 +6,10 @@
     function (Location, Auth, User, Account) {
 
       var getUser = function () {
-        Auth.getCurrentUser().then(success, fail);
+        Auth.getCurrentUser().then(isLoggedIn, fail);
       };
 
-      function success (authUser) {
+      function isLoggedIn (authUser) {
         if (authUser) {
           userLoggedIn(authUser);
         } else {

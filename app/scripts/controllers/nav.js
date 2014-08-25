@@ -2,19 +2,14 @@
 
 (function () {
 
-  var navController = ['$state', 'User', 'Location',
-    function ($state, User, Location) {
-
+  var navController = ['User', 'Location', function (User, Location) {
       var self = this;
 
       User.whenLoggedIn(function () {
-
         self.show = true;
 
         self.active = function(){
-          var activeStates = ['settings.clients', 'settings.projects', 'settings.tasks'];
-          var isActive = activeStates.indexOf($state.current.name) > -1;
-          return isActive ? 'active' : '';
+          return Location.tabActive();
         };
 
         self.picUrl = function () {

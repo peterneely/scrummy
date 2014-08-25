@@ -2,26 +2,34 @@
 
 (function () {
 
-  var location = ['$location', 'URL', function ($location, URL) {
+  var location = ['$location', '$state', 'URL',
+    function ($location, $state, URL) {
 
-    var urlFor = function (page) {
-      return '#' + URL[page];
-    };
+      var urlFor = function (page) {
+        return '#' + URL[page];
+      };
 
-    var go = function (page) {
-      $location.path(URL[page]);
-    };
+      var go = function (page) {
+        $location.path(URL[page]);
+      };
 
-    var onLogout = function(){
-      go('home');
-    };
+      var tabActive = function(){
+        var activeStates = ['settings.clients', 'settings.projects', 'settings.tasks'];
+        var isActive = activeStates.indexOf($state.current.name) > -1;
+        return isActive ? 'active' : '';
+      };
 
-    return {
-      urlFor: urlFor,
-      go: go,
-      onLogout: onLogout
-    };
-  }];
+      var onLogout = function () {
+        go('home');
+      };
+
+      return {
+        urlFor: urlFor,
+        go: go,
+        tabActive: tabActive,
+        onLogout: onLogout
+      };
+    }];
 
   angular
     .module('scrummyApp')

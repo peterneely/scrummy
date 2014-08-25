@@ -26,7 +26,7 @@
       var user = {
         url: URL.user,
         templateUrl: FILE.user,
-        controller: 'User as user',
+        controller: 'User as user'
       };
 
       var settings = {
@@ -39,28 +39,19 @@
       var settingsClients = {
         url: URL.settingsClients,
         templateUrl: FILE.settingsClients,
-        controller: 'Settings as set',
-        data: {
-          activeNav: 'settings'
-        }
+        controller: 'Settings as set'
       };
 
       var settingsProjects = {
         url: URL.settingsProjects,
         templateUrl: FILE.settingsProjects,
-        controller: 'Settings as set',
-        data: {
-          activeNav: 'projects'
-        }
+        controller: 'Settings as set'
       };
 
       var settingsTasks = {
         url: URL.settingsTasks,
         templateUrl: FILE.settingsTasks,
-        controller: 'Settings as set',
-        data: {
-          activeNav: 'tasks'
-        }
+        controller: 'Settings as set'
       };
 
       var timesheet = {

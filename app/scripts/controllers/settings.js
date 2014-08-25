@@ -2,9 +2,7 @@
 
 (function () {
 
-  var settingsController = ['$state', 'User', 'Data',
-    function ($state, User, Data) {
-
+  var settingsController = ['User', 'Data', function (User, Data) {
       var self = this;
 
       self.newClient = null;

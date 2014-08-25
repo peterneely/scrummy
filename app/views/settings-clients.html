@@ -13,10 +13,5 @@
           <span class="glyphicon glyphicon-minus-sign"></span>
         </button>
       </span>
-  <input type="text" class="form-control" ng-model="client.name">
-      <span class="update input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="set.update(client)">
-          <span class="glyphicon glyphicon-ok"></span>
-        </button>
-      </span>
+  <input type="text" class="form-control" ng-model="client.name" ng-change="set.update(client)">
 </div>

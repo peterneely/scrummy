@@ -6,8 +6,7 @@
     function ($q, $firebase, URL) {
       /*jshint camelcase: false */
 
-      var ref = new Firebase(URL.firebase);
-      var users = $firebase(ref);
+      var users = $firebase(new Firebase(URL.firebase));
       var path = 'account';
 
       var createUser = function (authUser) {
