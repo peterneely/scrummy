@@ -26,7 +26,7 @@
       return {
         urlFor: urlFor,
         go: go,
-        tabActive: isActive,
+        isActive: isActive,
         onLogout: onLogout
       };
     }];
