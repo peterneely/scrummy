@@ -4,12 +4,49 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">New time entry</h3>
+          <h3 class="panel-title">New Time Entry</h3>
         </div>
 
         <div class="panel-body">
-          <form>
-            Panel content
+          <form class="" role="form">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Client">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Project">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Task">
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" rows="3" placeholder="Notes (optional)"></textarea>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-3">
+                  <input type="text" class="form-control" placeholder="Start Time">
+                </div>
+                <div class="col-xs-1">
+                  <span>to</span>
+                </div>
+                <div class="col-xs-3">
+                  <input type="text" class="form-control col-xs-1" placeholder="End Time">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-3">
+                  <button class="btn btn-primary">Start Timer</button>
+                </div>
+                <div class="col-xs-3">
+                  <button class="btn btn-default">Cancel</button>
+                </div>
+              </div>
+            </div>
+
           </form>
         </div>
       </div>
