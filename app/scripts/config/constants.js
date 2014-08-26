@@ -25,7 +25,8 @@
     manage: 'views/manage.html',
     timesheet: 'views/timesheet.html',
     footer: 'views/footer.html',
-    navbar: 'views/nav.html'
+    navbar: 'views/nav.html',
+    time: 'views/time.html'
   };
 
   angular

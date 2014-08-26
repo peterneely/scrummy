@@ -1,10 +1,23 @@
 'use strict';
 
-(function(){
+(function () {
+  var timesheetController = ['$modal', 'FILE', function ($modal, FILE) {
+    var self = this;
 
-  var timesheetController = function(){
+    self.open = function () {
 
-  };
+      var config = {
+        templateUrl: FILE.time,
+        controller: 'Time as time'
+      };
+
+      var modalInstance = $modal.open(config);
+
+      modalInstance.result.then(function () {
+
+      });
+    };
+  }];
 
   angular
     .module('scrummyApp')

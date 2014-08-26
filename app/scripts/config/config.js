@@ -26,7 +26,7 @@
       var timesheet = {
         url: URL.timesheet,
         templateUrl: FILE.timesheet,
-        controller: 'Timesheet as time'
+        controller: 'Timesheet as timesheet'
       };
 
       var clients = {
