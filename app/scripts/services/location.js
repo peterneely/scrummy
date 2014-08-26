@@ -15,23 +15,27 @@
 
       var isActive = function () {
         var activeStates = ['clients', 'projects', 'tasks'];
-        var isActive = activeStates.indexOf($state.current.name) > -1;
+        var isActive = _.contains(activeStates, currentState());
         return isActive ? 'active' : '';
       };
 
-      var data = function () {
-        return $state.current.data;
+      var placeholder = function () {
+        return currentState().slice(0, -1);
       };
 
       var onLogout = function () {
         go('home');
       };
 
+      function currentState() {
+        return $state.current.name;
+      }
+
       return {
         urlFor: urlFor,
         go: go,
         isActive: isActive,
-        data: data,
+        placeholder: placeholder,
         onLogout: onLogout
       };
     }];

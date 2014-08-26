@@ -6,17 +6,17 @@
     function (User, Data, Location) {
       var self = this;
 
-      self.new = null;
+      self.new = '';
       self.search = { name: '' };
 
       User.whenLoggedIn(function () {
-        self.all = Data.all(Location.data().url);
-        self.placeholder = Location.data().placeholder;
+        self.all = Data.allCurrent();
+        self.placeholder = Location.placeholder();
         self.show = true;
       });
 
       self.add = function () {
-        Data.add(self.new).then(self.new = null);
+        Data.add(self.new).then(self.new = '');
       };
 
       self.remove = function (client) {

@@ -40,10 +40,6 @@
             templateUrl: FILE.tabs,
             controller: 'Tabs as tabs'
           }
-        },
-        data: {
-          url: 'clients',
-          placeholder: 'client'
         }
       };
 
@@ -58,10 +54,6 @@
             templateUrl: FILE.tabs,
             controller: 'Tabs as tabs'
           }
-        },
-        data: {
-          url: 'projects',
-          placeholder: 'project'
         }
       };
 
@@ -76,10 +68,6 @@
             templateUrl: FILE.tabs,
             controller: 'Tabs as tabs'
           }
-        },
-        data: {
-          url: 'tasks',
-          placeholder: 'task'
         }
       };
 

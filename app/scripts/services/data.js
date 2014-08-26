@@ -2,16 +2,27 @@
 
 (function () {
 
-  var dataService = ['$firebase', 'URL', 'User',
-    function ($firebase, URL, User) {
+  var dataService = ['$q', '$firebase', '$state', 'URL', 'User',
+    function ($q, $firebase, $state, URL, User) {
 
       var data, list;
 
-      var all = function (dataType) {
-        data = getData(dataType);
-        list = data.$asArray();
+      var allCurrent = function () {
+        var dataUrl = '/' + $state.current.name;
+        return all(dataUrl);
+      };
+
+      var all = function(dataUrl){
+        data = getData('/' +dataUrl);
+        list = data.$asObject();
         return list;
       };
+
+      function getData(dataUrl){
+        var currentUser = User.getCurrentUser();
+        var url = URL.firebase + currentUser.id + dataUrl;
+        return $firebase(new Firebase(url));
+      }
 
       var add = function (object) {
         return data.$push(object);
@@ -25,14 +36,8 @@
         return list.$save(object);
       };
 
-      function getData(dataType){
-        var currentUser = User.getCurrentUser();
-        var dataLocation = '/' + dataType;
-        var url = URL.firebase + currentUser.id + dataLocation;
-        return $firebase(new Firebase(url));
-      }
-
       return {
+        allCurrent: allCurrent,
         all: all,
         add: add,
         remove: remove,
