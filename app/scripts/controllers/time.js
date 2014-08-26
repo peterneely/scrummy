@@ -9,7 +9,7 @@
     self.selectedClient = null;
 
     self.clients = function(){
-      return clientsCache ? clientsCache : clientsCache = list('clients');
+      return clientsCache ? clientsCache : list('clients');
     };
 
     function list(type){
@@ -21,9 +21,30 @@
           }
         });
         list = _.sortBy(list, 'name');
+        console.log(list);
+        console.log('got data');
+        clientsCache = list;
         return list;
       });
     }
+
+    self.filterClients = function(value){
+      console.log(clientsCache.length);
+      if(clientsCache.length > 0) {
+        console.log(clientsCache);
+        var result = clientsCache.filter(function (client){
+          console.log(client);
+          return client.name.indexOf(value) > -1;
+        });
+//      var filtered = _.filter(clientsCache, function(client){
+//        console.log(client, value, client.name.indexOf(value));
+//        return client.name.indexOf(value) > -1;
+//      });
+//      console.log(filtered);
+        return result;
+      }
+
+    };
 
     self.ok = function () {
       $modalInstance.close();
