@@ -10,8 +10,8 @@
         <div class="panel-body">
           <form class="" role="form">
             <div class="form-group">
-              <pre>{{ time.selectedClient | json }}</pre>
-              <input type="text" class="form-control" placeholder="Client" ng-model="time.selectedClient" ng-change="time.filterClients(time.selectedClient)" typeahead="client as client.name for client in time.clients()">
+              <pre>{{ time.selected.client | json }}</pre>
+              <input type="text" class="form-control" placeholder="Client" ng-model="time.selected.client" ng-change="time.filter('clients', time.selected.client)" typeahead="client as client.name for client in time.clients()">
             </div>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Project">

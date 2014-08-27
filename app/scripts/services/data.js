@@ -7,15 +7,14 @@
 
       var data, list;
 
-      var allCurrent = function () {
+      var all = function () {
         var dataUrl = '/' + $state.current.name;
-        return all(dataUrl);
+        return allFor(dataUrl);
       };
 
-      var all = function(dataUrl){
-        data = getData('/' +dataUrl);
-        list = data.$asObject();
-        return list;
+      var allFor = function(dataUrl){
+        data = getData('/' + dataUrl);
+        return data.$asArray();
       };
 
       function getData(dataUrl){
@@ -37,8 +36,8 @@
       };
 
       return {
-        allCurrent: allCurrent,
         all: all,
+        allFor: allFor,
         add: add,
         remove: remove,
         update: update

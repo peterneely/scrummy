@@ -3,47 +3,55 @@
 (function () {
   var timeController = ['$modalInstance', 'Data', function ($modalInstance, Data) {
     var self = this;
+    var menu = {};
 
-    var clientsCache = null;
-
-    self.selectedClient = null;
+    self.selected = null;
 
     self.clients = function(){
-      return clientsCache ? clientsCache : list('clients');
+      return menu.clients ? menu.clients : loadMenu('clients');
     };
 
-    function list(type){
-      return Data.all(type).$loaded().then(function(data){
-        var list = [];
-        angular.forEach(data, function(value, key){
-          if(key.indexOf('-') === 0) {
-            list.push({id: key, name: value['name']});
-          }
-        });
-        list = _.sortBy(list, 'name');
-        console.log(list);
-        console.log('got data');
-        clientsCache = list;
-        return list;
+    function loadMenu(type){
+      dataFor(type).then(function(data){
+        return data;
+      }).then(function(data){
+        console.log(data);
+        var menu = menuFrom(data);
+        console.log(menu);
+        var sorted = sortMenu(menu);
+        return menu.clients = sorted;
       });
     }
 
-    self.filterClients = function(value){
-      console.log(clientsCache.length);
-      if(clientsCache.length > 0) {
-        console.log(clientsCache);
-        var result = clientsCache.filter(function (client){
-          console.log(client);
-          return client.name.indexOf(value) > -1;
-        });
-//      var filtered = _.filter(clientsCache, function(client){
-//        console.log(client, value, client.name.indexOf(value));
-//        return client.name.indexOf(value) > -1;
-//      });
-//      console.log(filtered);
-        return result;
-      }
+    function dataFor(type){
+      return Data.allFor(type).$loaded();
+    }
 
+    function menuFrom(data){
+      var list = [];
+      angular.forEach(data, function(value, key){
+        if(key.indexOf('-') === 0) {
+          list.push({id: key, name: value['name']});
+        }
+      });
+      return list;
+    }
+
+    function sortMenu(menu){
+      return _.sortBy(menu, 'name');
+    }
+
+    self.filter = function(type, value){
+      console.log(type, value);
+      loadMenu(type);
+      var items = menu[type];
+      if(items) {
+        var filtered = items.filter(function (item){
+          return item.name.indexOf(value) > -1;
+        });
+        console.log(filtered);
+        return filtered;
+      }
     };
 
     self.ok = function () {
