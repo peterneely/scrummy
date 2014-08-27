@@ -11,7 +11,8 @@
           <form class="" role="form">
             <div class="form-group">
               <pre>{{ time.selected.client | json }}</pre>
-              <input type="text" class="form-control" placeholder="Client" ng-model="time.selected.client" ng-change="time.filter('clients', time.selected.client)" typeahead="client as client.name for client in time.clients()">
+              <input type="text" class="form-control" placeholder="Client" ng-model="time.selected.client"
+                     typeahead="client as client.name for client in time.clients() | orderBy:'name' | filter:{name:$viewValue}">
             </div>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Project">
