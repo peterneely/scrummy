@@ -12,11 +12,7 @@
           template: '<div ui-view></div>',
           resolve: {
             clients: ['Clients', function(Clients){
-//              return Data.all('clients').$loaded().then(function(data){
-//                //console.log(data);
-//                return data;
-//              });
-              return Clients.clientsPromise();
+              return Clients.promiseToHaveAll();
             }]
           }
         })
@@ -59,7 +55,7 @@
           },
           resolve: {
             clients: function(clients){
-              console.log(clients);
+//              console.log(clients);
               return clients;
             }
           }

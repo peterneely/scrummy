@@ -5,36 +5,67 @@
   var clientsService = ['$q', '$firebase', '$state', 'URL', 'User',
     function ($q, $firebase, $state, URL, User) {
 
-      var clients = null;
+      var _promise = {
+        clients: null,
+        projects: null,
+        tasks: null
+      };
 
-      var clientsPromise = function () {
+      var _data = {
+        clients: null,
+        projects: null,
+        tasks: null
+      };
+
+      var promiseToHaveAll = function () {
         var deferred = $q.defer();
-
-        if (clients === null) {
-          var dataPromise = getData('/clients').$asArray();
-          dataPromise.$loaded().then(function (data) {
-            clients = data;
-            console.log(clients);
-            deferred.resolve(clients);
-          });
-        } else {
-          deferred.resolve(clients);
-        }
-
+        var types = ['clients', 'projects', 'tasks'];
+        angular.forEach(types, function (type) {
+          promiseToHave(type, deferred);
+        });
         return deferred.promise;
       };
 
-      function getData(dataUrl) {
-        var currentUser = User.getCurrentUser();
-        var url = URL.firebase + currentUser.id + dataUrl;
-        return $firebase(new Firebase(url));
+      function promiseToHave(type, deferred){
+        if (_data[type] === null) {
+          var promise = _promise[type] = dataPromise(type);
+          promise.$loaded().then(function (data) {
+            deferred.resolve(_data[type] = data);
+          });
+        } else {
+          deferred.resolve(_data[type]);
+        }
       }
 
+      var all = function (type) {
+        console.log('all', _data[type]);
+        return _data[type];
+      };
+
+      function dataPromise(type) {
+        var currentUser = User.getCurrentUser();
+        var url = URL.firebase + currentUser.id + '/' + type;
+        return $firebase(new Firebase(url)).$asArray();
+      }
+
+      var add = function (type, object) {
+        return _promise[type].$push(object);
+      };
+
+      var remove = function (type, object) {
+        _promise[type].$remove(object);
+      };
+
+      var update = function (type, object) {
+        return _promise[type].$save(object);
+      };
+
       return {
-        clients: function(){
-          return clients;
-        },
-        clientsPromise: clientsPromise
+        promiseToHaveAll: promiseToHaveAll,
+        all: all,
+        add: add,
+        remove: remove,
+        update: update
       };
     }];
 

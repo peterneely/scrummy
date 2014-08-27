@@ -10,7 +10,7 @@
       self.search = { name: '' };
 
       User.whenLoggedIn(function () {
-        self.all = Clients.clients();// Data.all();
+        self.all = Clients.all('clients');// Data.all();
         self.placeholder = Location.placeholder();
         self.show = true;
       });
