@@ -2,29 +2,30 @@
 
 (function () {
 
-  var manageController = ['User', 'Data', 'Location', 'Clients',
-    function (User, Data, Location, Clients) {
+  var manageController = ['User', 'Data', 'Location',
+    function (User, Data, Location) {
       var self = this;
+      var type = Location.name();
 
       self.new = '';
       self.search = { name: '' };
 
       User.whenLoggedIn(function () {
-        self.all = Clients.all('clients');// Data.all();
+        self.all = Data.all(type);
         self.placeholder = Location.placeholder();
         self.show = true;
       });
 
       self.add = function () {
-        Data.add(self.new).then(self.new = '');
+        Data.add(type, self.new).then(self.new = '');
       };
 
-      self.remove = function (client) {
-        Data.remove(client);
+      self.remove = function (object) {
+        Data.remove(type, object);
       };
 
-      self.update = function (client) {
-        Data.update(client);
+      self.update = function (object) {
+        Data.update(type, object);
       };
 
       self.searching = function () {

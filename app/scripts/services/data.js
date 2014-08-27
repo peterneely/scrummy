@@ -5,39 +5,67 @@
   var dataService = ['$q', '$firebase', '$state', 'URL', 'User',
     function ($q, $firebase, $state, URL, User) {
 
-      var data, list;
-
-      var all = function () {
-        var dataUrl = '/' + $state.current.name.replace('root.', '');
-        return allFor(dataUrl);
+      var _promise = {
+        clients: null,
+        projects: null,
+        tasks: null
       };
 
-      var allFor = function(dataUrl){
-        data = getData('/' + dataUrl);
-        return data.$asArray();
+      var _data = {
+        clients: null,
+        projects: null,
+        tasks: null
       };
 
-      function getData(dataUrl){
+      var promiseToHaveAll = function () {
+        var deferred = $q.defer();
+        var types = ['clients', 'projects', 'tasks'];
+        angular.forEach(types, function (type) {
+          promiseToHave(type, deferred);
+        });
+        return deferred.promise;
+      };
+
+      function promiseToHave(type, deferred){
+        if (_data[type] === null) {
+          var promise = _promise[type] = dataPromise(type);
+          promise.$loaded().then(function (data) {
+            deferred.resolve(_data[type] = data);
+          });
+        } else {
+          deferred.resolve(_data[type]);
+        }
+      }
+
+      function dataPromise(type) {
+        return dataRef(type).$asArray();
+      }
+
+      function dataRef(type){
         var currentUser = User.getCurrentUser();
-        var url = URL.firebase + currentUser.id + dataUrl;
+        var url = URL.firebase + currentUser.id + '/' + type;
         return $firebase(new Firebase(url));
       }
 
-      var add = function (object) {
-        return data.$push(object);
+      var all = function (type) {
+        return _data[type];
       };
 
-      var remove = function (object) {
-        list.$remove(object);
+      var add = function (type, object) {
+        return dataRef(type).$push(object);
       };
 
-      var update = function (object) {
-        return list.$save(object);
+      var remove = function (type, object) {
+        _promise[type].$remove(object);
+      };
+
+      var update = function (type, object) {
+        return _promise[type].$save(object);
       };
 
       return {
+        promiseToHaveAll: promiseToHaveAll,
         all: all,
-        allFor: allFor,
         add: add,
         remove: remove,
         update: update

@@ -11,8 +11,8 @@
           url: '/root',
           template: '<div ui-view></div>',
           resolve: {
-            clients: ['Clients', function(Clients){
-              return Clients.promiseToHaveAll();
+            data: ['Data', function(Data){
+              return Data.promiseToHaveAll();
             }]
           }
         })
@@ -54,9 +54,8 @@
             }
           },
           resolve: {
-            clients: function(clients){
-//              console.log(clients);
-              return clients;
+            data: function(data){
+              return data;
             }
           }
         })

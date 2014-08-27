@@ -19,6 +19,10 @@
         return isActive ? 'active' : '';
       };
 
+      var name = function(){
+        return currentState();
+      };
+
       var placeholder = function () {
         return currentState().slice(0, -1);
       };
@@ -28,13 +32,14 @@
       };
 
       function currentState() {
-        return $state.current.name;
+        return $state.current.name.replace('root.', '');
       }
 
       return {
         urlFor: urlFor,
         go: go,
         isActive: isActive,
+        name: name,
         placeholder: placeholder,
         onLogout: onLogout
       };
