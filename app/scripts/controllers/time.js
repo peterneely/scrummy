@@ -31,7 +31,7 @@
       var list = [];
       angular.forEach(data, function(value, key){
         if(key.indexOf('-') === 0) {
-          list.push({id: key, name: value['name']});
+          list.push({id: key, name: value.name});
         }
       });
       return list;

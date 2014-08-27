@@ -2,8 +2,8 @@
 
 (function () {
 
-  var states = ['$stateProvider', '$urlRouterProvider', 'URL', 'FILE',
-    function ($stateProvider, $urlRouterProvider, URL, FILE) {
+  var states = ['$stateProvider', '$urlRouterProvider',
+    function ($stateProvider, $urlRouterProvider) {
 
       $stateProvider
         .state('root', {
@@ -11,8 +11,8 @@
           url: '/root',
           template: '<div ui-view></div>',
           resolve: {
-            data: ['Data', function(Data){
-              return Data.promiseToHaveAll();
+            coreData: ['Data', function(Data){
+              return Data.core();
             }]
           }
         })
@@ -25,20 +25,25 @@
 
         .state('root.login', {
           url: '^/login',
-          templateUrl: FILE.login,
+          templateUrl: 'views/login.html',
           controller: 'Auth as auth'
         })
 
         .state('root.register', {
           url: '^/register',
-          templateUrl: FILE.register,
+          templateUrl: 'views/register.html',
           controller: 'Auth as auth'
         })
 
         .state('root.timesheet', {
           url: '^/timesheet',
-          templateUrl: FILE.timesheet,
-          controller: 'Timesheet as timesheet'
+          templateUrl: 'views/timesheet.html',
+          controller: 'Timesheet as timesheet',
+          resolve: {
+            data: function(coreData){
+              return coreData;
+            }
+          }
         })
 
         .state('root.clients', {
@@ -54,8 +59,8 @@
             }
           },
           resolve: {
-            data: function(data){
-              return data;
+            data: function(coreData){
+              return coreData.clients;
             }
           }
         })
@@ -64,12 +69,17 @@
           url: '^/projects',
           views: {
             '': {
-              templateUrl: FILE.manage,
+              templateUrl: 'views/manage.html',
               controller: 'Manage as manage'
             },
             'tabs@projects': {
-              templateUrl: FILE.tabs,
+              templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
+            }
+          },
+          resolve: {
+            data: function(coreData){
+              return coreData.projects;
             }
           }
         })
@@ -78,12 +88,17 @@
           url: '^/tasks',
           views: {
             '': {
-              templateUrl: FILE.manage,
+              templateUrl: 'views/manage.html',
               controller: 'Manage as manage'
             },
             'tabs@tasks': {
-              templateUrl: FILE.tabs,
+              templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
+            }
+          },
+          resolve: {
+            data: function(coreData){
+              return coreData.tasks;
             }
           }
         })

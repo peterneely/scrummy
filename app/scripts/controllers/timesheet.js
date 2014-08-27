@@ -1,13 +1,13 @@
 'use strict';
 
 (function () {
-  var timesheetController = ['$modal', 'FILE', function ($modal, FILE) {
+  var timesheetController = ['$modal', function ($modal) {
     var self = this;
 
     self.open = function () {
 
       var config = {
-        templateUrl: FILE.time,
+        templateUrl: 'views/time.html',
         controller: 'Time as time'
       };
 

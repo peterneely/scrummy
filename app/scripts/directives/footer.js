@@ -2,14 +2,14 @@
 
 (function(){
 
-  var footerDirective = ['FILE', function (FILE){
+  var footerDirective = function (){
     return {
       restrict: 'A',
-      templateUrl: FILE.footer,
+      templateUrl: 'views/footer.html',
       controller: 'Footer',
       controllerAs: 'foot'
     };
-  }];
+  };
 
   angular
     .module('scrummyApp')
