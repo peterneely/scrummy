@@ -2,15 +2,15 @@
 
 (function () {
 
-  var manageController = ['User', 'Data', 'Location',
-    function (User, Data, Location) {
+  var manageController = ['User', 'Data', 'Location', 'Clients',
+    function (User, Data, Location, Clients) {
       var self = this;
 
       self.new = '';
       self.search = { name: '' };
 
       User.whenLoggedIn(function () {
-        self.allFor = Data.all();
+        self.all = Clients.clients();// Data.all();
         self.placeholder = Location.placeholder();
         self.show = true;
       });

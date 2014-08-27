@@ -24,7 +24,7 @@
     }
 
     function dataFor(type){
-      return Data.allFor(type).$loaded();
+      return Data.all(type).$loaded();
     }
 
     function menuFrom(data){

@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div class="input-group" ng-repeat="item in manage.allFor | orderBy:'name' | filter:manage.search.name">
+  <div class="input-group" ng-repeat="item in manage.all | orderBy:'name' | filter:manage.search.name">
     <span class="remove input-group-btn">
       <button class="btn btn-default" type="button" ng-click="manage.remove(item)">
         <span class="glyphicon glyphicon-minus-sign"></span>

@@ -5,90 +5,102 @@
   var states = ['$stateProvider', '$urlRouterProvider', 'URL', 'FILE',
     function ($stateProvider, $urlRouterProvider, URL, FILE) {
 
-      var home = {
-        url: URL.home,
-        templateUrl: FILE.home,
-        controller: 'Main as main'
-      };
-
-      var login = {
-        url: URL.login,
-        templateUrl: FILE.login,
-        controller: 'Auth as auth'
-      };
-
-      var register = {
-        url: URL.register,
-        templateUrl: FILE.register,
-        controller: 'Auth as auth'
-      };
-
-      var timesheet = {
-        url: URL.timesheet,
-        templateUrl: FILE.timesheet,
-        controller: 'Timesheet as timesheet'
-      };
-
-      var clients = {
-        url: URL.clients,
-        views: {
-          '': {
-            templateUrl: FILE.manage,
-            controller: 'Manage as manage'
-          },
-          'tabs@clients': {
-            templateUrl: FILE.tabs,
-            controller: 'Tabs as tabs'
-          }
-        }
-      };
-
-      var projects = {
-        url: URL.projects,
-        views: {
-          '': {
-            templateUrl: FILE.manage,
-            controller: 'Manage as manage'
-          },
-          'tabs@projects': {
-            templateUrl: FILE.tabs,
-            controller: 'Tabs as tabs'
-          }
-        }
-      };
-
-      var tasks = {
-        url: URL.tasks,
-        views: {
-          '': {
-            templateUrl: FILE.manage,
-            controller: 'Manage as manage'
-          },
-          'tabs@tasks': {
-            templateUrl: FILE.tabs,
-            controller: 'Tabs as tabs'
-          }
-        }
-      };
-
-      var user = {
-        url: URL.user,
-        templateUrl: FILE.user,
-        controller: 'User as user'
-      };
-
       $stateProvider
-        .state('home', home)
-        .state('login', login)
-        .state('register', register)
-        .state('timesheet', timesheet)
-        .state('clients', clients)
-        .state('projects', projects)
-        .state('tasks', tasks)
-        .state('user', user);
+        .state('root', {
+          abstract: true,
+          url: '/root',
+          template: '<div ui-view></div>',
+          resolve: {
+            clients: ['Clients', function(Clients){
+//              return Data.all('clients').$loaded().then(function(data){
+//                //console.log(data);
+//                return data;
+//              });
+              return Clients.clientsPromise();
+            }]
+          }
+        })
+
+        .state('root.home', {
+          url: '^/',
+          templateUrl: 'views/main.html',
+          controller: 'Main as main'
+        })
+
+        .state('root.login', {
+          url: '^/login',
+          templateUrl: FILE.login,
+          controller: 'Auth as auth'
+        })
+
+        .state('root.register', {
+          url: '^/register',
+          templateUrl: FILE.register,
+          controller: 'Auth as auth'
+        })
+
+        .state('root.timesheet', {
+          url: '^/timesheet',
+          templateUrl: FILE.timesheet,
+          controller: 'Timesheet as timesheet'
+        })
+
+        .state('root.clients', {
+          url: '^/clients',
+          views: {
+            '': {
+              templateUrl: 'views/manage.html',
+              controller: 'Manage as manage'
+            },
+            'tabs@clients': {
+              templateUrl: 'views/tabs.html',
+              controller: 'Tabs as tabs'
+            }
+          },
+          resolve: {
+            clients: function(clients){
+              console.log(clients);
+              return clients;
+            }
+          }
+        })
+
+        .state('root.projects', {
+          url: '^/projects',
+          views: {
+            '': {
+              templateUrl: FILE.manage,
+              controller: 'Manage as manage'
+            },
+            'tabs@projects': {
+              templateUrl: FILE.tabs,
+              controller: 'Tabs as tabs'
+            }
+          }
+        })
+
+        .state('root.tasks', {
+          url: '^/tasks',
+          views: {
+            '': {
+              templateUrl: FILE.manage,
+              controller: 'Manage as manage'
+            },
+            'tabs@tasks': {
+              templateUrl: FILE.tabs,
+              controller: 'Tabs as tabs'
+            }
+          }
+        })
+
+        .state('root.user', {
+          url: '^/user',
+          templateUrl: 'views/user.html',
+          controller: 'User as user'
+        });
 
       $urlRouterProvider
-        .otherwise(URL.home);
+        .otherwise('^/');
     }];
 
   angular

@@ -8,7 +8,7 @@
       var data, list;
 
       var all = function () {
-        var dataUrl = '/' + $state.current.name;
+        var dataUrl = '/' + $state.current.name.replace('root.', '');
         return allFor(dataUrl);
       };
 

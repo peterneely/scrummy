@@ -14,7 +14,7 @@
       };
 
       var isActive = function () {
-        var activeStates = ['clients', 'projects', 'tasks'];
+        var activeStates = ['root.clients', 'root.projects', 'root.tasks'];
         var isActive = _.contains(activeStates, currentState());
         return isActive ? 'active' : '';
       };
