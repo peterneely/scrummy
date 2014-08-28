@@ -53,7 +53,7 @@
 
       return {
         createUser: createUser,
-        getUser: getUser
+        getCoreData: getUser
 //        remove: remove,
 //        update: update
       };

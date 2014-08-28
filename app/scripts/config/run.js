@@ -3,7 +3,7 @@
 (function () {
 
   var bootstrap = ['Start', function (Start) {
-    Start.getUser();
+//    Start.getUser();
   }];
 
   angular

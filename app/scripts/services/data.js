@@ -2,8 +2,10 @@
 
 (function () {
 
-  var dataService = ['$q', '$firebase', 'URL', 'User',
-    function ($q, $firebase, URL, User) {
+  var dataService = ['$q', '$firebase', 'URL',
+    function ($q, $firebase, URL) {
+
+      var _user = null;
 
       var _promise = {
         clients: null,
@@ -17,33 +19,36 @@
         tasks: null
       };
 
-      var coreData = function () {
+      var coreData = function (user) {
+        _user = user;
         var deferred = $q.defer();
+
         var types = ['clients', 'projects', 'tasks'];
+        var promises = [];
         angular.forEach(types, function (type) {
-          coreDataFor(type, deferred);
+
+          _promise[type] = dataArray(type);
+          var promise = _promise[type].$loaded();
+          promises.push(promise);
         });
+
+        $q.all(promises).then(function (results) {
+          _data.clients = results[0];
+          _data.projects = results[1];
+          _data.tasks = results[2];
+
+          deferred.resolve(_data);
+        });
+
         return deferred.promise;
       };
-
-      function coreDataFor(type, deferred){
-        if (_data[type] === null) {
-          var array = _promise[type] = dataArray(type);
-          array.$loaded().then(function (data) {
-            deferred.resolve(_data[type] = data);
-          });
-        } else {
-          deferred.resolve(_data[type]);
-        }
-      }
 
       function dataArray(type) {
         return data(type).$asArray();
       }
 
-      function data(type){
-        var currentUser = User.getCurrentUser();
-        var url = URL.firebase + currentUser.id + '/' + type;
+      function data(type) {
+        var url = URL.firebase + _user.id + '/' + type;
         return $firebase(new Firebase(url));
       }
 

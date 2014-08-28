@@ -2,39 +2,36 @@
 
 (function () {
 
-  var startService = ['Location', 'Auth', 'User', 'Account',
-    function (Location, Auth, User, Account) {
+  var startService = ['$q', 'Location', 'Auth', 'User', 'Account', 'Data',
+    function ($q, Location, Auth, User, Account, Data) {
 
-      var getUser = function () {
-        Auth.getCurrentUser().then(isLoggedIn, fail);
+      var coreData = function () {
+        var deferred = $q.defer();
+
+        Auth.getCurrentUser()
+          .then(function (authUser) {
+
+            if (authUser) {
+              Account.getCoreData(authUser).then(function (user) {
+
+                User.setCurrentUser(user);
+
+                Data.core(user).then(function (data) {
+                  console.log(data);
+                  return deferred.resolve(data);
+                });
+              });
+            } else {
+              Location.go('login');
+            }
+
+          });
+
+        return deferred.promise;
       };
 
-      function isLoggedIn (authUser) {
-        if (authUser) {
-          userLoggedIn(authUser);
-        } else {
-          userNotLoggedIn();
-        }
-      }
-
-      function fail () {
-        Location.go('home');
-      }
-
-      function userLoggedIn(authUser) {
-        Account.getUser(authUser).then(setUser, fail);
-      }
-
-      function setUser(user) {
-        User.setCurrentUser(user);
-      }
-
-      function userNotLoggedIn() {
-        Location.go('login');
-      }
-
       return {
-        getUser: getUser
+        getCoreData: coreData
       };
     }];
 

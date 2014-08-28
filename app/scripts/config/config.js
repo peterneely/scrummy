@@ -10,11 +10,11 @@
           abstract: true,
           url: '/root',
           template: '<div ui-view></div>',
-//          resolve: {
-//            coreData: ['Data', function(Data){
-//              return Data.core();
-//            }]
-//          }
+          resolve: {
+            getCoreData: ['Start', function(Start){
+              return Start.getCoreData();
+            }]
+          }
         })
 
         .state('root.home', {
