@@ -11,8 +11,8 @@
           url: '/root',
           template: '<div ui-view></div>',
           resolve: {
-            coreData: ['Data', function(Data){
-              return Data.core();
+            coreData: ['CoreData', function(CoreData){
+              return CoreData.get();
             }]
           }
         })

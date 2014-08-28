@@ -2,82 +2,31 @@
 
 (function () {
 
-  var dataService = ['$q', '$firebase', 'User', 'URL',
-    function ($q, $firebase, User, URL) {
+  var dataService = ['CoreData', function (CoreData) {
 
-      var _promise = {
-        clients: null,
-        projects: null,
-        tasks: null
-      };
+    var all = function (type) {
+      return CoreData.forType(type).resolved;
+    };
 
-      var _data = {
-        clients: null,
-        projects: null,
-        tasks: null
-      };
+    var add = function (type, object) {
+      return CoreData.forType(type).store.$push(object);
+    };
 
-      var coreData = function () {
-        var deferred = $q.defer();
-        User.getFromAuthUser().then(function () {
-          $q.all(coreDataPromises()).then(function (resolvedData) {
-            deferred.resolve(map(resolvedData));
-          });
-        });
-        return deferred.promise;
-      };
+    var remove = function (type, object) {
+      CoreData.forType(type).array.$remove(object);
+    };
 
-      function coreDataPromises() {
-        var types = ['clients', 'projects', 'tasks'];
-        var promises = [];
-        angular.forEach(types, function (type) {
-          _promise[type] = dataArray(type);
-          var promise = _promise[type].$loaded();
-          promises.push(promise);
-        });
-        return promises;
-      }
+    var update = function (type, object) {
+      return CoreData.forType(type).array.$save(object);
+    };
 
-      function map(results) {
-        _data.clients = results[0];
-        _data.projects = results[1];
-        _data.tasks = results[2];
-        return _data;
-      }
-
-      function dataArray(type) {
-        return data(type).$asArray();
-      }
-
-      function data(type) {
-        var url = URL.firebase + User.getCurrentUser().id + '/' + type;
-        return $firebase(new Firebase(url));
-      }
-
-      var all = function (type) {
-        return _data[type];
-      };
-
-      var add = function (type, object) {
-        return data(type).$push(object);
-      };
-
-      var remove = function (type, object) {
-        _promise[type].$remove(object);
-      };
-
-      var update = function (type, object) {
-        return _promise[type].$save(object);
-      };
-
-      return {
-        core: coreData,
-        all: all,
-        add: add,
-        remove: remove,
-        update: update
-      };
-    }];
+    return {
+      all: all,
+      add: add,
+      remove: remove,
+      update: update
+    };
+  }];
 
   angular
     .module('scrummyApp')
