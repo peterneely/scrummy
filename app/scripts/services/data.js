@@ -2,8 +2,8 @@
 
 (function () {
 
-  var dataService = ['$q', '$firebase', 'URL',
-    function ($q, $firebase, URL) {
+  var dataService = ['$q', '$firebase', 'User', 'URL',
+    function ($q, $firebase, User, URL) {
 
       var _user = null;
 
@@ -19,29 +19,34 @@
         tasks: null
       };
 
-      var coreData = function (user) {
-        _user = user;
+      var coreData = function () {
         var deferred = $q.defer();
+        User.afterLogin().then(function (user) {
+          _user = user;
+          $q.all(coreDataPromises()).then(function (resolvedData) {
+            deferred.resolve(map(resolvedData));
+          });
+        });
+        return deferred.promise;
+      };
 
+      function coreDataPromises() {
         var types = ['clients', 'projects', 'tasks'];
         var promises = [];
         angular.forEach(types, function (type) {
-
           _promise[type] = dataArray(type);
           var promise = _promise[type].$loaded();
           promises.push(promise);
         });
+        return promises;
+      }
 
-        $q.all(promises).then(function (results) {
-          _data.clients = results[0];
-          _data.projects = results[1];
-          _data.tasks = results[2];
-
-          deferred.resolve(_data);
-        });
-
-        return deferred.promise;
-      };
+      function map(results) {
+        _data.clients = results[0];
+        _data.projects = results[1];
+        _data.tasks = results[2];
+        return _data;
+      }
 
       function dataArray(type) {
         return data(type).$asArray();

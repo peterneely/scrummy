@@ -7,26 +7,11 @@
 
       var coreData = function () {
         var deferred = $q.defer();
-        user().then(function (user) {
+        User.afterLogin().then(function (user) {
           deferred.resolve(Data.core(user));
         });
         return deferred.promise;
       };
-
-      function user(){
-        var deferred = $q.defer();
-        Auth.getCurrentUser().then(function (authUser) {
-          if (authUser) {
-            Account.getUser(authUser).then(function (user) {
-              User.setCurrentUser(user);
-              deferred.resolve(user);
-            });
-          } else {
-            Location.go('login');
-          }
-        });
-        return deferred.promise;
-      }
 
       return {
         getCoreData: coreData
