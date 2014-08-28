@@ -2,29 +2,24 @@
 
 (function () {
 
-  var navController = ['User', 'Location', function (User, Location) {
-      var self = this;
+  var navController = ['User', 'Location', 'coreData', function (User, Location, coreData) {
+    var self = this;
 
-      User.whenLoggedIn(function () {
-        self.show = true;
+    console.log(coreData);
+    self.show = coreData.user !== null;
 
-        self.active = function(){
-          return Location.isActive();
-        };
+    self.active = function () {
+      return Location.isActive();
+    };
 
-        self.picUrl = function () {
-          return User.picUrl();
-        };
-      });
+    self.picUrl = function () {
+      return User.picUrl();
+    };
 
-      User.whenLoggedOut(function () {
-        self.show = false;
-      });
-
-      self.go = function (page) {
-        Location.go(page);
-      };
-    }];
+    self.go = function (page) {
+      Location.go(page);
+    };
+  }];
 
   angular
     .module('scrummyApp')

@@ -2,76 +2,38 @@
 
 (function () {
 
-  var userService = ['$q', '$rootScope', 'Auth', 'Account', 'Location', 'URL',
-    function ($q, $rootScope, Auth, Account, Location, URL) {
-
-      var currentUser = null;
-
-      var setCurrentUser = function (user) {
-        currentUser = user;
-      };
+  var userService = ['$q', '$rootScope', 'CoreData', 'Auth', 'Location', 'URL',
+    function ($q, $rootScope, CoreData, Auth, Location, URL) {
 
       var getCurrentUser = function () {
-        return currentUser;
-      };
-
-      var getFromAuthUser = function () {
-        var deferred = $q.defer();
-        Auth.getCurrentUser().then(function (authUser) {
-          if (authUser) {
-            Account.getUser(authUser).then(function (user) {
-              currentUser = user;
-              deferred.resolve(user);
-            });
-          } else {
-            Location.go('login');
-          }
-        });
-        return deferred.promise;
+        return CoreData.user();
       };
 
       var isLoggedIn = function () {
-        return currentUser !== null;
-      };
-
-      var whenLoggedIn = function (callback) {
-        return $rootScope.$watch(isLoggedIn, function (loggedIn) {
-          if (loggedIn) {
-            callback();
-          }
-        });
-      };
-
-      var whenLoggedOut = function (callback) {
-        return $rootScope.$watch(isLoggedIn, function (loggedIn) {
-          if (!loggedIn) {
-            callback();
-          }
-        });
+        console.log(CoreData.user());
+        return CoreData.user() !== null;
       };
 
       // See https://en.gravatar.com/site/implement/images/
       var picUrl = function () {
-        if (currentUser) {
-          var userId = currentUser.hash;
+        var user = CoreData.user();
+        if (user) {
+          var userId = user.hash;
           var defaultPic = '?d=mm';
           return URL.gravatar + userId + defaultPic;
         }
       };
 
-      var removeCurrentUser = function () {
-        currentUser = null;
+      var logout = function(){
+        Auth.logout();
+        Location.onLogout();
       };
 
       return {
-        setCurrentUser: setCurrentUser,
         getCurrentUser: getCurrentUser,
-        getFromAuthUser: getFromAuthUser,
         isLoggedIn: isLoggedIn,
-        whenLoggedIn: whenLoggedIn,
-        whenLoggedOut: whenLoggedOut,
-        picUrl: picUrl,
-        removeCurrentUser: removeCurrentUser
+        logout: logout,
+        picUrl: picUrl
       };
     }];
 

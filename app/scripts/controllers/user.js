@@ -2,17 +2,14 @@
 
 (function () {
 
-  var userController = ['Auth', 'User', 'Location',
-    function (Auth, User, Location) {
+  var userController = ['User', function (User) {
 
-      var self = this;
+    var self = this;
 
-      self.logout = function () {
-        Auth.logout();
-        User.removeCurrentUser();
-        Location.onLogout();
-      };
-    }];
+    self.logout = function () {
+      User.logout();
+    };
+  }];
 
   angular
     .module('scrummyApp')

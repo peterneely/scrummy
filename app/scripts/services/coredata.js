@@ -2,71 +2,89 @@
 
 (function () {
 
-  var coreDataService = ['$q', '$firebase', 'User', function ($q, $firebase, User) {
+  var coreDataService = ['$q', '$firebase', 'Auth', 'Account', 'Location', 'URL',
+    function ($q, $firebase, Auth, Account, Location, URL) {
 
-    var _coreData = {
-      clients: {
-        store: null,
-        array: null,
-        promise: null,
-        resolved: null
-      },
-      projects: {
-        store: null,
-        array: null,
-        promise: null,
-        resolved: null
-      },
-      tasks: {
-        store: null,
-        array: null,
-        promise: null,
-        resolved: null
-      }
-    };
+      var _coreData = {
+        user: null,
+        clients: {
+          store: null,
+          array: null,
+          resolved: null
+        },
+        projects: {
+          store: null,
+          array: null,
+          resolved: null
+        },
+        tasks: {
+          store: null,
+          array: null,
+          resolved: null
+        }
+      };
 
-    var get = function () {
-      var deferred = $q.defer();
-      User.getFromAuthUser().then(function (user) {
-        $q.all(dataPromises(user)).then(function (resolvedData) {
-          deferred.resolve(map(resolvedData));
+      var getAll = function () {
+        var deferred = $q.defer();
+        userFromAuthUser().then(function (user) {
+          $q.all(dataPromises(user)).then(function (resolvedData) {
+            deferred.resolve(map(resolvedData));
+          });
         });
-      });
-      return deferred.promise;
-    };
+        return deferred.promise;
+      };
 
-    var forType = function (type) {
-      return _coreData[type];
-    };
+      var getForType = function (type) {
+        return _coreData[type];
+      };
 
-    function dataPromises(user) {
-      var types = ['clients', 'projects', 'tasks'];
-      var promises = [];
-      angular.forEach(types, function (type) {
-        var url = 'https://scrummy.firebaseio.com/users/' + user.id + '/' + type;
-        var store = $firebase(new Firebase(url));
-        var array = store.$asArray();
-        var promise = array.$loaded();
-        _coreData[type].store = store;
-        _coreData[type].array = array;
-        _coreData[type].promise = promise;
-        promises.push(promise);
-      });
-      return promises;
-    }
+      var getUser = function () {
+        return _coreData.user;
+      };
 
-    function map(results) {
-      _coreData.clients.resolved = results[0];
-      _coreData.projects.resolved = results[1];
-      _coreData.tasks.resolved = results[2];
-      return _coreData;
-    }
+      function userFromAuthUser() {
+        var deferred = $q.defer();
+        Auth.getCurrentUser().then(function (authUser) {
+          if (authUser) {
+            Account.getUser(authUser).then(function (user) {
+              deferred.resolve(user);
+            });
+          } else {
+            Location.go('login');
+          }
+        });
+        return deferred.promise;
+      }
 
-    return {
-      get: get,
-      forType: forType
-    };
-  }];
+      function dataPromises(user) {
+        var types = ['clients', 'projects', 'tasks'];
+        var promises = [];
+        angular.forEach(types, function (type) {
+          var url = URL.firebase + user.id + '/' + type;
+          var store = $firebase(new Firebase(url));
+          var array = store.$asArray();
+          var promise = array.$loaded();
+          promises.push(promise);
+          _coreData.user = user;
+          _coreData[type].store = store;
+          _coreData[type].array = array;
+        });
+        return promises;
+      }
+
+      function map(results) {
+        _coreData.clients.resolved = results[0];
+        _coreData.projects.resolved = results[1];
+        _coreData.tasks.resolved = results[2];
+        return _coreData;
+      }
+
+      return {
+        get: getAll,
+        forType: getForType,
+        user: getUser
+      };
+    }];
 
   angular
     .module('scrummyApp')

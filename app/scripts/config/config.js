@@ -10,6 +10,7 @@
           abstract: true,
           url: '/root',
           template: '<div ui-view></div>',
+          controller: 'Nav as nav',
           resolve: {
             coreData: ['CoreData', function(CoreData){
               return CoreData.get();
@@ -20,19 +21,34 @@
         .state('root.home', {
           url: '^/',
           templateUrl: 'views/main.html',
-          controller: 'Main as main'
+          controller: 'Main as main',
+          resolve: {
+            data: function(coreData){
+              return coreData;
+            }
+          }
         })
 
         .state('root.login', {
           url: '^/login',
           templateUrl: 'views/login.html',
-          controller: 'Auth as auth'
+          controller: 'Auth as auth',
+          resolve: {
+            data: function(coreData){
+              return coreData;
+            }
+          }
         })
 
         .state('root.register', {
           url: '^/register',
           templateUrl: 'views/register.html',
-          controller: 'Auth as auth'
+          controller: 'Auth as auth',
+          resolve: {
+            data: function(coreData){
+              return coreData;
+            }
+          }
         })
 
         .state('root.timesheet', {
@@ -106,7 +122,12 @@
         .state('root.user', {
           url: '^/user',
           templateUrl: 'views/user.html',
-          controller: 'User as user'
+          controller: 'User as user',
+          resolve: {
+            data: function(coreData){
+              return coreData;
+            }
+          }
         });
 
       $urlRouterProvider

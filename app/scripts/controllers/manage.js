@@ -10,11 +10,9 @@
       self.new = '';
       self.search = { name: '' };
 
-      User.whenLoggedIn(function () {
-        self.all = Data.all(type);
-        self.placeholder = Location.placeholder();
-        self.show = true;
-      });
+      self.all = Data.all(type);
+
+      self.placeholder = Location.placeholder();
 
       self.add = function () {
         Data.add(type, self.new).then(self.new = '');

@@ -11,7 +11,6 @@
     };
 
     self.clients = function(){
-      console.log(Data.all('clients'));
       return Data.all('clients');
     };
 
