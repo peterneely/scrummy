@@ -36,7 +36,7 @@
       }
 
       function getAccount(authUser) {
-        Account.getCoreData(authUser).then(setUser, fail);
+        Account.getUser(authUser).then(setUser, fail);
       }
 
       function setUser(user) {

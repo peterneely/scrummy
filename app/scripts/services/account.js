@@ -2,8 +2,8 @@
 
 (function () {
 
-  var accountService = ['$q', '$firebase', 'URL',
-    function ($q, $firebase, URL) {
+  var accountService = ['$q', '$firebase', 'Auth', 'Location', 'URL',
+    function ($q, $firebase, Auth, Location, URL) {
       /*jshint camelcase: false */
 
       var users = $firebase(new Firebase(URL.firebase));
@@ -53,7 +53,7 @@
 
       return {
         createUser: createUser,
-        getCoreData: getUser
+        getUser: getUser
 //        remove: remove,
 //        update: update
       };

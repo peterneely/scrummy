@@ -7,28 +7,26 @@
 
       var coreData = function () {
         var deferred = $q.defer();
-
-        Auth.getCurrentUser()
-          .then(function (authUser) {
-
-            if (authUser) {
-              Account.getCoreData(authUser).then(function (user) {
-
-                User.setCurrentUser(user);
-
-                Data.core(user).then(function (data) {
-                  console.log(data);
-                  return deferred.resolve(data);
-                });
-              });
-            } else {
-              Location.go('login');
-            }
-
-          });
-
+        user().then(function (user) {
+          deferred.resolve(Data.core(user));
+        });
         return deferred.promise;
       };
+
+      function user(){
+        var deferred = $q.defer();
+        Auth.getCurrentUser().then(function (authUser) {
+          if (authUser) {
+            Account.getUser(authUser).then(function (user) {
+              User.setCurrentUser(user);
+              deferred.resolve(user);
+            });
+          } else {
+            Location.go('login');
+          }
+        });
+        return deferred.promise;
+      }
 
       return {
         getCoreData: coreData

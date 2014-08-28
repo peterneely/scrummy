@@ -2,7 +2,7 @@
 
 (function () {
 
-  var userService = ['$rootScope', 'URL', function ($rootScope, URL) {
+  var userService = ['$q', '$rootScope', 'URL', function ($q, $rootScope, URL) {
 
     var currentUser = null;
 

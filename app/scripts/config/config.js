@@ -11,7 +11,7 @@
           url: '/root',
           template: '<div ui-view></div>',
           resolve: {
-            getCoreData: ['Start', function(Start){
+            coreData: ['Start', function(Start){
               return Start.getCoreData();
             }]
           }
@@ -39,11 +39,11 @@
           url: '^/timesheet',
           templateUrl: 'views/timesheet.html',
           controller: 'Timesheet as timesheet',
-//          resolve: {
-//            data: function(coreData){
-//              return coreData;
-//            }
-//          }
+          resolve: {
+            data: function(coreData){
+              return coreData;
+            }
+          }
         })
 
         .state('root.clients', {
@@ -58,11 +58,11 @@
               controller: 'Tabs as tabs'
             }
           },
-//          resolve: {
-//            data: function(coreData){
-//              return coreData.clients;
-//            }
-//          }
+          resolve: {
+            data: function(coreData){
+              return coreData.clients;
+            }
+          }
         })
 
         .state('root.projects', {
@@ -77,11 +77,11 @@
               controller: 'Tabs as tabs'
             }
           },
-//          resolve: {
-//            data: function(coreData){
-//              return coreData.projects;
-//            }
-//          }
+          resolve: {
+            data: function(coreData){
+              return coreData.projects;
+            }
+          }
         })
 
         .state('root.tasks', {
@@ -96,11 +96,11 @@
               controller: 'Tabs as tabs'
             }
           },
-//          resolve: {
-//            data: function(coreData){
-//              return coreData.tasks;
-//            }
-//          }
+          resolve: {
+            data: function(coreData){
+              return coreData.tasks;
+            }
+          }
         })
 
         .state('root.user', {
