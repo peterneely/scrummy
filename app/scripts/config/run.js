@@ -2,8 +2,8 @@
 
 (function () {
 
-  var bootstrap = ['Start', function (Start) {
-//    Start.getUser();
+  var bootstrap = [function () {
+
   }];
 
   angular

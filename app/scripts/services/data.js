@@ -5,8 +5,6 @@
   var dataService = ['$q', '$firebase', 'User', 'URL',
     function ($q, $firebase, User, URL) {
 
-      var _user = null;
-
       var _promise = {
         clients: null,
         projects: null,
@@ -21,8 +19,7 @@
 
       var coreData = function () {
         var deferred = $q.defer();
-        User.afterLogin().then(function (user) {
-          _user = user;
+        User.getFromAuthUser().then(function () {
           $q.all(coreDataPromises()).then(function (resolvedData) {
             deferred.resolve(map(resolvedData));
           });
@@ -53,7 +50,7 @@
       }
 
       function data(type) {
-        var url = URL.firebase + _user.id + '/' + type;
+        var url = URL.firebase + User.getCurrentUser().id + '/' + type;
         return $firebase(new Firebase(url));
       }
 

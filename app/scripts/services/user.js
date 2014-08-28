@@ -15,7 +15,7 @@
         return currentUser;
       };
 
-      var afterLogin = function () {
+      var getFromAuthUser = function () {
         var deferred = $q.defer();
         Auth.getCurrentUser().then(function (authUser) {
           if (authUser) {
@@ -66,7 +66,7 @@
       return {
         setCurrentUser: setCurrentUser,
         getCurrentUser: getCurrentUser,
-        afterLogin: afterLogin,
+        getFromAuthUser: getFromAuthUser,
         isLoggedIn: isLoggedIn,
         whenLoggedIn: whenLoggedIn,
         whenLoggedOut: whenLoggedOut,
