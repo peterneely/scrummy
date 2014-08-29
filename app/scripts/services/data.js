@@ -9,22 +9,22 @@
         user: null,
         clients: {
           store: null,
-          array: null,
-          resolved: null
+          array: [],
+          resolved: []
         },
         projects: {
           store: null,
-          array: null,
-          resolved: null
+          array: [],
+          resolved: []
         },
         tasks: {
           store: null,
-          array: null,
-          resolved: null
+          array: [],
+          resolved: []
         }
       };
 
-      var load = function () {
+      var getInitial = function () {
 
         function dataPromises(user) {
           var types = ['clients', 'projects', 'tasks'];
@@ -81,7 +81,7 @@
       };
 
       return {
-        load: load,
+        getInitial: getInitial,
         get: get,
         add: add,
         update: update,

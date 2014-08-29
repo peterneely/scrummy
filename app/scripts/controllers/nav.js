@@ -2,10 +2,8 @@
 
 (function () {
 
-  var navController = ['Location', function (Location) {
+  var navController = ['Location', 'initialData', function (Location, initialData) {
     var self = this;
-
-    self.show = true;
 
     self.active = function () {
       return Location.isActive();
@@ -14,6 +12,8 @@
     self.go = function (page) {
       Location.go(page);
     };
+
+    self.picUrl = initialData.user.pic;
   }];
 
   angular

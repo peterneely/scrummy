@@ -1,29 +1,30 @@
 'use strict';
 
 (function () {
-  var timesheetController = ['$modal', 'coreData', function ($modal, coreData) {
-    var self = this;
+  var timesheetController = ['$modal', 'initialData',
+    function ($modal, initialData) {
 
-    console.log(coreData);
-    self.open = function () {
+      var self = this;
 
-      var config = {
-        templateUrl: 'views/time.html',
-        controller: 'Time as time',
-        resolve: {
-          coreData: function () {
-            return coreData;
+      self.open = function () {
+
+        var config = {
+          templateUrl: 'views/time.html',
+          controller: 'Time as time',
+          resolve: {
+            initialData: function () {
+              return initialData;
+            }
           }
-        }
+        };
+
+        var modalInstance = $modal.open(config);
+
+        modalInstance.result.then(function () {
+
+        });
       };
-
-      var modalInstance = $modal.open(config);
-
-      modalInstance.result.then(function () {
-
-      });
-    };
-  }];
+    }];
 
   angular
     .module('scrummyApp')

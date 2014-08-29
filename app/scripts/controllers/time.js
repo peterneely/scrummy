@@ -1,27 +1,29 @@
 'use strict';
 
 (function () {
-  var timeController = ['$modalInstance', 'coreData', function ($modalInstance, coreData) {
-    var self = this;
+  var timeController = ['$modalInstance', 'initialData',
+    function ($modalInstance, initialData) {
 
-    self.selected = {
-      client: null,
-      project: null,
-      task: null
-    };
+      var self = this;
 
-    self.clients = function () {
-      return coreData.clients.resolved;
-    };
+      self.selected = {
+        client: null,
+        project: null,
+        task: null
+      };
 
-    self.ok = function () {
-      $modalInstance.close();
-    };
+      self.clients = function () {
+        return initialData.clients.resolved;
+      };
 
-    self.cancel = function () {
-      $modalInstance.dismiss('cancel');
-    };
-  }];
+      self.ok = function () {
+        $modalInstance.close();
+      };
+
+      self.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+    }];
 
   angular
     .module('scrummyApp')

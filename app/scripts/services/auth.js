@@ -18,7 +18,7 @@
 
       var logout = function () {
         fb.$logout();
-        Location.onLogout();
+        Location.go('home');
       };
 
       var getAuthenticatedUser = function () {

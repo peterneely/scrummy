@@ -2,16 +2,16 @@
 
 (function () {
 
-  var manageController = ['Location', 'Data', 'coreData',
-    function (Location, Data, coreData) {
+  var manageController = ['Location', 'Data', 'initialData',
+    function (Location, Data, initialData) {
+
       var self = this;
       var type = Location.name();
 
       self.new = '';
       self.search = { name: '' };
 
-      console.log(coreData[type]);
-      self.items = coreData[type].resolved;
+      self.items = initialData[type].resolved;
 
       self.placeholder = Location.placeholder();
 

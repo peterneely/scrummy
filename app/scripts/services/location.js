@@ -14,7 +14,7 @@
       };
 
       var isActive = function () {
-        var activeStates = ['root.clients', 'root.projects', 'root.tasks'];
+        var activeStates = ['clients', 'projects', 'tasks'];
         var isActive = _.contains(activeStates, currentState());
         return isActive ? 'active' : '';
       };
@@ -28,7 +28,7 @@
       };
 
       function currentState() {
-        return $state.current.name.replace('root.', '');
+        return $state.current.name.replace('nav.', '');
       }
 
       return {

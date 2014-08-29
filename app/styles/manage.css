@@ -1,0 +1,23 @@
+.manage .nav-tabs {
+    margin-bottom: 20px;
+}
+
+.manage .add {
+    margin-bottom: 20px;
+}
+
+.manage .remove .glyphicon {
+    color: #D9534F;
+}
+
+.manage .update .glyphicon {
+    color: #428BCA;
+}
+
+.manage .input-group {
+    margin-bottom: 10px;
+}
+
+.manage .no-padding-left {
+    padding-left: 0;
+}

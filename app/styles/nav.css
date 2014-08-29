@@ -1,28 +1,23 @@
-nav .navbar-nav {
+.app .navbar-nav {
     margin-right: 0 !important;
 }
 
-/*nav .settings {*/
-    /*-webkit-transition:all linear 0.5s;*/
-    /*transition:all linear 0.5s;*/
-/*}*/
-
-nav button.timesheet,
-nav button.settings {
+.app button.timesheet,
+.app button.settings {
     font-size: 32px;
     padding: 4px 9px 3px 9px;
     line-height: 33px;
 }
 
-nav .scrummy button.user.btn {
+.app .scrummy button.user.btn {
     padding: 4px 10px 5px 10px;
 }
 
-nav .user.btn {
+.app .user.btn {
     padding: 0 10px 0 10px;
 }
 
-nav .nav-pic {
+.app .nav-pic {
     max-height: 35px;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
@@ -31,7 +26,7 @@ nav .nav-pic {
 }
 
 @media screen and (max-width: 768px) {
-    nav .scrummy.btn-group {
+    .app .scrummy.btn-group {
         float: right;
     }
 }

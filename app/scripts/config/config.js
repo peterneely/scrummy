@@ -32,8 +32,8 @@
           templateUrl: 'views/nav.html',
           controller: 'Nav as nav',
           resolve: {
-            coreData: ['Data', function (Data) {
-              return Data.load();
+            initialData: ['Data', function (Data) {
+              return Data.getInitial();
             }]
           }
         })
@@ -41,7 +41,12 @@
         .state('nav.timesheet', {
           url: '^/timesheet',
           templateUrl: 'views/timesheet.html',
-          controller: 'Timesheet as timesheet'
+          controller: 'Timesheet as timesheet',
+          resolve: {
+            initialData: ['initialData', function (initialData) {
+              return initialData;
+            }]
+          }
         })
 
         .state('nav.clients', {
@@ -55,6 +60,11 @@
               templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
             }
+          },
+          resolve: {
+            initialData: ['initialData', function (initialData) {
+              return initialData;
+            }]
           }
         })
 
@@ -69,6 +79,11 @@
               templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
             }
+          },
+          resolve: {
+            initialData: ['initialData', function (initialData) {
+              return initialData;
+            }]
           }
         })
 
@@ -83,6 +98,11 @@
               templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
             }
+          },
+          resolve: {
+            initialData: ['initialData', function (initialData) {
+              return initialData;
+            }]
           }
         })
 
@@ -90,11 +110,10 @@
           url: '^/user',
           templateUrl: 'views/user.html',
           controller: 'User as user',
-          views: {
-            'nav@auth.timesheet': {
-              templateUrl: 'views/nav.html',
-              controller: 'Nav as nav'
-            }
+          resolve: {
+            initialData: ['initialData', function (initialData) {
+              return initialData;
+            }]
           }
         });
     }];
