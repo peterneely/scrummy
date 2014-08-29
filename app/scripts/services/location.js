@@ -27,10 +27,6 @@
         return currentState().slice(0, -1);
       };
 
-      var onLogout = function () {
-        go('home');
-      };
-
       function currentState() {
         return $state.current.name.replace('root.', '');
       }
@@ -40,8 +36,7 @@
         go: go,
         isActive: isActive,
         name: name,
-        placeholder: placeholder,
-        onLogout: onLogout
+        placeholder: placeholder
       };
     }];
 

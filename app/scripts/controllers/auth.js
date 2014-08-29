@@ -2,8 +2,8 @@
 
 (function () {
 
-  var authController = ['Auth', 'User', 'Account', 'Errors', 'Location',
-    function (Auth, User, Account, Errors, Location) {
+  var authController = ['Auth', 'Account', 'Errors', 'Location',
+    function (Auth, Account, Errors, Location) {
 
       var self = this;
 

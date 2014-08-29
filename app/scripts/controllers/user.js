@@ -2,12 +2,12 @@
 
 (function () {
 
-  var userController = ['User', function (User) {
+  var userController = ['Auth', function (Auth) {
 
     var self = this;
 
     self.logout = function () {
-      User.logout();
+      Auth.logout();
     };
   }];
 

@@ -32,8 +32,8 @@
           templateUrl: 'views/nav.html',
           controller: 'Nav as nav',
           resolve: {
-            coreData: ['CoreData', function (CoreData) {
-              return CoreData.get();
+            coreData: ['Data', function (Data) {
+              return Data.load();
             }]
           }
         })

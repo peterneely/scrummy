@@ -2,34 +2,36 @@
 
 (function () {
 
-  var authService = ['$firebaseSimpleLogin', 'URL', function ($firebaseSimpleLogin, URL) {
+  var authService = ['$firebaseSimpleLogin', 'Location', 'URL',
+    function ($firebaseSimpleLogin, Location, URL) {
 
-    var ref = new Firebase(URL.firebase);
-    var fb = $firebaseSimpleLogin(ref);
+      var ref = new Firebase(URL.firebase);
+      var fb = $firebaseSimpleLogin(ref);
 
-    var registerPromise = function (user) {
-      return fb.$createUser(user.email, user.password);
-    };
+      var register = function (user) {
+        return fb.$createUser(user.email, user.password);
+      };
 
-    var loginPromise = function (user) {
-      return fb.$login('password', user);
-    };
+      var login = function (user) {
+        return fb.$login('password', user);
+      };
 
-    var logout = function () {
-      fb.$logout();
-    };
+      var logout = function () {
+        fb.$logout();
+        Location.onLogout();
+      };
 
-    var getCurrentUserPromise = function () {
-      return fb.$getCurrentUser();
-    };
+      var getAuthenticatedUser = function () {
+        return fb.$getCurrentUser();
+      };
 
-    return {
-      register: registerPromise,
-      login: loginPromise,
-      logout: logout,
-      getAuthenticatedUser: getCurrentUserPromise
-    };
-  }];
+      return {
+        register: register,
+        login: login,
+        logout: logout,
+        getAuthenticatedUser: getAuthenticatedUser
+      };
+    }];
 
   angular
     .module('scrummyApp')
