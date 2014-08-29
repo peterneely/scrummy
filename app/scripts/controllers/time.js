@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var timeController = ['$modalInstance', 'Data', function ($modalInstance, Data) {
+  var timeController = ['$modalInstance', 'coreData', function ($modalInstance, coreData) {
     var self = this;
 
     self.selected = {
@@ -10,8 +10,8 @@
       task: null
     };
 
-    self.clients = function(){
-      return Data.all('clients');
+    self.clients = function () {
+      return coreData.clients.resolved;
     };
 
     self.ok = function () {

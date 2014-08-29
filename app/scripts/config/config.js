@@ -12,44 +12,28 @@
         .state('home', {
           url: '/',
           templateUrl: 'views/main.html',
-          controller: 'Main as main',
-//          resolve: {
-//            data: function (coreData) {
-//              return coreData;
-//            }
-//          }
+          controller: 'Main as main'
         })
 
         .state('login', {
           url: '/login',
           templateUrl: 'views/login.html',
-          controller: 'Auth as auth',
-//          resolve: {
-//            data: function (coreData) {
-//              return coreData;
-//            }
-//          }
+          controller: 'Auth as auth'
         })
 
         .state('register', {
           url: '/register',
           templateUrl: 'views/register.html',
-          controller: 'Auth as auth',
-//          resolve: {
-//            data: function (coreData) {
-//              return coreData;
-//            }
-//          }
+          controller: 'Auth as auth'
         })
 
         .state('nav', {
           abstract: true,
-          url: '/nav',
           templateUrl: 'views/nav.html',
           controller: 'Nav as nav',
           resolve: {
-            coreData: ['Init', function (Init) {
-              return Init.onReload();
+            coreData: ['CoreData', function (CoreData) {
+              return CoreData.get();
             }]
           }
         })
@@ -77,22 +61,13 @@
         .state('nav.projects', {
           url: '^/projects',
           views: {
-            '@auth': {
+            '': {
               templateUrl: 'views/manage.html',
               controller: 'Manage as manage'
             },
-            'nav@nav.projects': {
-              templateUrl: 'views/nav.html',
-              controller: 'Nav as nav'
-            },
-            'tabs@nav.projects': {
+            '@nav.projects': {
               templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
-            }
-          },
-          resolve: {
-            data: function (coreData) {
-              return coreData.projects;
             }
           }
         })
@@ -100,22 +75,13 @@
         .state('nav.tasks', {
           url: '^/tasks',
           views: {
-            '@auth': {
+            '': {
               templateUrl: 'views/manage.html',
               controller: 'Manage as manage'
             },
-            'nav@auth.tasks': {
-              templateUrl: 'views/nav.html',
-              controller: 'Nav as nav'
-            },
-            'tabs@auth.tasks': {
+            '@nav.tasks': {
               templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
-            }
-          },
-          resolve: {
-            data: function (coreData) {
-              return coreData.tasks;
             }
           }
         })
@@ -128,11 +94,6 @@
             'nav@auth.timesheet': {
               templateUrl: 'views/nav.html',
               controller: 'Nav as nav'
-            }
-          },
-          resolve: {
-            data: function (coreData) {
-              return coreData;
             }
           }
         });

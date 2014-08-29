@@ -9,7 +9,7 @@
       var _users = $firebase(new Firebase(URL.firebase));
       var _location = 'account';
 
-      var createUserPromise = function (authUser) {
+      var createUser = function (authUser) {
         var deferred = $q.defer();
         var user = {
           email: authUser.email,
@@ -22,7 +22,7 @@
         return deferred.promise;
       };
 
-      var getUserPromise = function (authUser) {
+      var getAccountUser = function (authUser) {
         var deferred = $q.defer();
         _users.$asArray().$loaded().then(function (data) {
           var userName = getUserName(authUser);
@@ -30,7 +30,7 @@
           var currentUser = {
             id: userName,
             email: user.email,
-            hash: user.hash
+            pic: picUrl(user)
           };
           deferred.resolve(currentUser);
         });
@@ -42,19 +42,17 @@
         return userName.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
       }
 
-//      var remove = function (id) {
-//        return users.$remove(id);
-//      };
-//
-//      var update = function (id, user) {
-//        return users.$update(id, user);
-//      };
+      function picUrl(user) {
+        if (user) {
+          var userId = user.hash;
+          var defaultPic = '?d=mm';
+          return URL.gravatar + userId + defaultPic;
+        }
+      }
 
       return {
-        createUser: createUserPromise,
-        getAccountUser: getUserPromise
-//        remove: remove,
-//        update: update
+        createUser: createUser,
+        getAccountUser: getAccountUser
       };
     }];
 

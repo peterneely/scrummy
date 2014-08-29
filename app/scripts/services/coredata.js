@@ -24,19 +24,27 @@
         }
       };
 
-      var getAllPromise = function (user) {
+      var get = function () {
         var deferred = $q.defer();
-        $q.all(dataPromises(user)).then(function (resolvedData) {
-          deferred.resolve(mapData(resolvedData));
+        Auth.getAuthenticatedUser().then(function (authUser) {
+          if (authUser) {
+            Account.getAccountUser(authUser).then(function (user) {
+              $q.all(dataPromises(user)).then(function (data) {
+                deferred.resolve(map(data));
+              });
+            });
+          } else {
+            Location.go('login');
+          }
         });
         return deferred.promise;
       };
 
-      var getForType = function (type) {
+      var forType = function (type) {
         return _coreData[type];
       };
 
-      var getUser = function () {
+      var user = function () {
         return _coreData.user;
       };
 
@@ -56,21 +64,17 @@
         return promises;
       }
 
-      function mapData(results) {
-        _coreData.clients.resolved = results[0];
-        _coreData.projects.resolved = results[1];
-        _coreData.tasks.resolved = results[2];
-        return {
-          clients: _coreData.clients,
-          project: _coreData.projects,
-          tasks: _coreData.tasks
-        };
+      function map(data) {
+        _coreData.clients.resolved = data[0];
+        _coreData.projects.resolved = data[1];
+        _coreData.tasks.resolved = data[2];
+        return _coreData;
       }
 
       return {
-        get: getAllPromise,
-        forType: getForType,
-        user: getUser
+        get: get,
+        forType: forType,
+        user: user
       };
     }];
 
