@@ -24,16 +24,22 @@
       };
 
       self.register = function () {
-        Auth.register(self.user).then(function(){
-          Location.go('timesheet');
-        });
+        attempt(Auth.register(self.user));
       };
 
       self.login = function () {
-        Auth.login(self.user).then(function(){
-          Location.go('timesheet');
-        });
+        attempt(Auth.login(self.user));
       };
+
+      function attempt(action) {
+        action
+          .then(function () {
+            Location.go('timesheet');
+          })
+          .catch(function (error) {
+            self.error = Errors.getMessage(error);
+          });
+      }
     }];
 
   angular

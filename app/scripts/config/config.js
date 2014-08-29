@@ -42,11 +42,11 @@
           url: '^/timesheet',
           templateUrl: 'views/timesheet.html',
           controller: 'Timesheet as timesheet',
-          resolve: {
-            initialData: ['initialData', function (initialData) {
-              return initialData;
-            }]
-          }
+//          resolve: {
+//            initialData: ['initialData', function (initialData) {
+//              return initialData;
+//            }]
+//          }
         })
 
         .state('nav.clients', {
@@ -61,11 +61,11 @@
               controller: 'Tabs as tabs'
             }
           },
-          resolve: {
-            initialData: ['initialData', function (initialData) {
-              return initialData;
-            }]
-          }
+//          resolve: {
+//            initialData: ['initialData', function (initialData) {
+//              return initialData;
+//            }]
+//          }
         })
 
         .state('nav.projects', {
@@ -80,11 +80,11 @@
               controller: 'Tabs as tabs'
             }
           },
-          resolve: {
-            initialData: ['initialData', function (initialData) {
-              return initialData;
-            }]
-          }
+//          resolve: {
+//            initialData: ['initialData', function (initialData) {
+//              return initialData;
+//            }]
+//          }
         })
 
         .state('nav.tasks', {
@@ -99,22 +99,22 @@
               controller: 'Tabs as tabs'
             }
           },
-          resolve: {
-            initialData: ['initialData', function (initialData) {
-              return initialData;
-            }]
-          }
+//          resolve: {
+//            initialData: ['initialData', function (initialData) {
+//              return initialData;
+//            }]
+//          }
         })
 
         .state('nav.user', {
           url: '^/user',
           templateUrl: 'views/user.html',
           controller: 'User as user',
-          resolve: {
-            initialData: ['initialData', function (initialData) {
-              return initialData;
-            }]
-          }
+//          resolve: {
+//            initialData: ['initialData', function (initialData) {
+//              return initialData;
+//            }]
+//          }
         });
     }];
 
