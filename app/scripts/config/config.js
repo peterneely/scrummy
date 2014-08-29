@@ -33,7 +33,7 @@
           controller: 'Nav as nav',
           resolve: {
             initialData: ['Data', function (Data) {
-              return Data.getInitial();
+              return Data.loadInitial();
             }]
           }
         })
@@ -61,11 +61,11 @@
               controller: 'Tabs as tabs'
             }
           },
-//          resolve: {
-//            initialData: ['initialData', function (initialData) {
-//              return initialData;
-//            }]
-//          }
+          resolve: {
+            initialData: ['Data', function (Data) {
+              return Data.loadInitial(['clients']);
+            }]
+          }
         })
 
         .state('nav.projects', {

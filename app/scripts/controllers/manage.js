@@ -11,7 +11,7 @@
       self.new = '';
       self.search = { name: '' };
 
-      self.items = initialData[type].resolved;
+      self.items = initialData[type].data;
 
       self.placeholder = Location.placeholder();
 
