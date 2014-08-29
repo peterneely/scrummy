@@ -24,12 +24,10 @@
         }
       };
 
-      var getAll = function () {
+      var getAllPromise = function (user) {
         var deferred = $q.defer();
-        userFromAuthUser().then(function (user) {
-          $q.all(dataPromises(user)).then(function (resolvedData) {
-            deferred.resolve(map(resolvedData));
-          });
+        $q.all(dataPromises(user)).then(function (resolvedData) {
+          deferred.resolve(mapData(resolvedData));
         });
         return deferred.promise;
       };
@@ -41,20 +39,6 @@
       var getUser = function () {
         return _coreData.user;
       };
-
-      function userFromAuthUser() {
-        var deferred = $q.defer();
-        Auth.getCurrentUser().then(function (authUser) {
-          if (authUser) {
-            Account.getUser(authUser).then(function (user) {
-              deferred.resolve(user);
-            });
-          } else {
-            Location.go('login');
-          }
-        });
-        return deferred.promise;
-      }
 
       function dataPromises(user) {
         var types = ['clients', 'projects', 'tasks'];
@@ -72,15 +56,19 @@
         return promises;
       }
 
-      function map(results) {
+      function mapData(results) {
         _coreData.clients.resolved = results[0];
         _coreData.projects.resolved = results[1];
         _coreData.tasks.resolved = results[2];
-        return _coreData;
+        return {
+          clients: _coreData.clients,
+          project: _coreData.projects,
+          tasks: _coreData.tasks
+        };
       }
 
       return {
-        get: getAll,
+        get: getAllPromise,
         forType: getForType,
         user: getUser
       };

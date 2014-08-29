@@ -30,7 +30,7 @@
       };
 
       return {
-        getCurrentUser: getCurrentUser,
+        getAuthenticatedUser: getCurrentUser,
         isLoggedIn: isLoggedIn,
         logout: logout,
         picUrl: picUrl

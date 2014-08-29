@@ -10,7 +10,7 @@
       self.new = '';
       self.search = { name: '' };
 
-      self.all = Data.all(type);
+      self.items = Data.all(type);
 
       self.placeholder = Location.placeholder();
 

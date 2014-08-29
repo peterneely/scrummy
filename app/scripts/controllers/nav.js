@@ -2,11 +2,10 @@
 
 (function () {
 
-  var navController = ['User', 'Location', 'coreData', function (User, Location, coreData) {
+  var navController = ['User', 'Location', function (User, Location) {
     var self = this;
 
-    console.log(coreData);
-    self.show = coreData.user !== null;
+    self.show = true;
 
     self.active = function () {
       return Location.isActive();

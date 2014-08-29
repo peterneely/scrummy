@@ -7,7 +7,7 @@
     var self = this;
 
     self.currentUser = function () {
-      return User.getCurrentUser();
+      return User.getAuthenticatedUser();
     };
   }];
 

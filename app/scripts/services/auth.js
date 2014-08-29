@@ -7,11 +7,11 @@
     var ref = new Firebase(URL.firebase);
     var fb = $firebaseSimpleLogin(ref);
 
-    var register = function (user) {
+    var registerPromise = function (user) {
       return fb.$createUser(user.email, user.password);
     };
 
-    var login = function (user) {
+    var loginPromise = function (user) {
       return fb.$login('password', user);
     };
 
@@ -19,15 +19,15 @@
       fb.$logout();
     };
 
-    var getCurrentUser = function () {
+    var getCurrentUserPromise = function () {
       return fb.$getCurrentUser();
     };
 
     return {
-      register: register,
-      login: login,
+      register: registerPromise,
+      login: loginPromise,
       logout: logout,
-      getCurrentUser: getCurrentUser
+      getAuthenticatedUser: getCurrentUserPromise
     };
   }];
 

@@ -24,29 +24,16 @@
       };
 
       self.register = function () {
-        Auth.register(self.user).then(createAccount, fail);
+        Auth.register(self.user).then(function(){
+          Location.go('timesheet');
+        });
       };
 
       self.login = function () {
-        Auth.login(self.user).then(getAccount, fail);
+        Auth.login(self.user).then(function(){
+          Location.go('timesheet');
+        });
       };
-
-      function createAccount(authUser) {
-        Account.createUser(authUser).then(self.login(), fail);
-      }
-
-      function getAccount(authUser) {
-        Account.getUser(authUser).then(setUser, fail);
-      }
-
-      function setUser(user) {
-        User.setCurrentUser(user);
-        Location.go('timesheet');
-      }
-
-      function fail(error) {
-        self.error = Errors.getMessage(error);
-      }
     }];
 
   angular

@@ -5,133 +5,137 @@
   var states = ['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
 
+      $urlRouterProvider
+        .otherwise('/');
+
       $stateProvider
-        .state('root', {
+        .state('home', {
+          url: '/',
+          templateUrl: 'views/main.html',
+          controller: 'Main as main',
+//          resolve: {
+//            data: function (coreData) {
+//              return coreData;
+//            }
+//          }
+        })
+
+        .state('login', {
+          url: '/login',
+          templateUrl: 'views/login.html',
+          controller: 'Auth as auth',
+//          resolve: {
+//            data: function (coreData) {
+//              return coreData;
+//            }
+//          }
+        })
+
+        .state('register', {
+          url: '/register',
+          templateUrl: 'views/register.html',
+          controller: 'Auth as auth',
+//          resolve: {
+//            data: function (coreData) {
+//              return coreData;
+//            }
+//          }
+        })
+
+        .state('nav', {
           abstract: true,
-          url: '/root',
-          template: '<div ui-view></div>',
+          url: '/nav',
+          templateUrl: 'views/nav.html',
           controller: 'Nav as nav',
           resolve: {
-            coreData: ['CoreData', function(CoreData){
-              return CoreData.get();
+            coreData: ['Init', function (Init) {
+              return Init.onReload();
             }]
           }
         })
 
-        .state('root.home', {
-          url: '^/',
-          templateUrl: 'views/main.html',
-          controller: 'Main as main',
-          resolve: {
-            data: function(coreData){
-              return coreData;
-            }
-          }
-        })
-
-        .state('root.login', {
-          url: '^/login',
-          templateUrl: 'views/login.html',
-          controller: 'Auth as auth',
-          resolve: {
-            data: function(coreData){
-              return coreData;
-            }
-          }
-        })
-
-        .state('root.register', {
-          url: '^/register',
-          templateUrl: 'views/register.html',
-          controller: 'Auth as auth',
-          resolve: {
-            data: function(coreData){
-              return coreData;
-            }
-          }
-        })
-
-        .state('root.timesheet', {
+        .state('nav.timesheet', {
           url: '^/timesheet',
           templateUrl: 'views/timesheet.html',
-          controller: 'Timesheet as timesheet',
-          resolve: {
-            data: function(coreData){
-              return coreData;
-            }
-          }
+          controller: 'Timesheet as timesheet'
         })
 
-        .state('root.clients', {
+        .state('nav.clients', {
           url: '^/clients',
           views: {
             '': {
               templateUrl: 'views/manage.html',
               controller: 'Manage as manage'
             },
-            'tabs@clients': {
+            '@nav.clients': {
               templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
-            }
-          },
-          resolve: {
-            data: function(coreData){
-              return coreData.clients;
             }
           }
         })
 
-        .state('root.projects', {
+        .state('nav.projects', {
           url: '^/projects',
           views: {
-            '': {
+            '@auth': {
               templateUrl: 'views/manage.html',
               controller: 'Manage as manage'
             },
-            'tabs@projects': {
+            'nav@nav.projects': {
+              templateUrl: 'views/nav.html',
+              controller: 'Nav as nav'
+            },
+            'tabs@nav.projects': {
               templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
             }
           },
           resolve: {
-            data: function(coreData){
+            data: function (coreData) {
               return coreData.projects;
             }
           }
         })
 
-        .state('root.tasks', {
+        .state('nav.tasks', {
           url: '^/tasks',
           views: {
-            '': {
+            '@auth': {
               templateUrl: 'views/manage.html',
               controller: 'Manage as manage'
             },
-            'tabs@tasks': {
+            'nav@auth.tasks': {
+              templateUrl: 'views/nav.html',
+              controller: 'Nav as nav'
+            },
+            'tabs@auth.tasks': {
               templateUrl: 'views/tabs.html',
               controller: 'Tabs as tabs'
             }
           },
           resolve: {
-            data: function(coreData){
+            data: function (coreData) {
               return coreData.tasks;
             }
           }
         })
 
-        .state('root.user', {
+        .state('nav.user', {
           url: '^/user',
           templateUrl: 'views/user.html',
           controller: 'User as user',
+          views: {
+            'nav@auth.timesheet': {
+              templateUrl: 'views/nav.html',
+              controller: 'Nav as nav'
+            }
+          },
           resolve: {
-            data: function(coreData){
+            data: function (coreData) {
               return coreData;
             }
           }
         });
-
-      $urlRouterProvider
-        .otherwise('^/');
     }];
 
   angular
