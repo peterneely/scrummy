@@ -2,44 +2,24 @@
 
 (function () {
 
-  var dataService = ['$q', '$firebase', 'Auth', 'Account', 'Location', 'URL',
-    function ($q, $firebase, Auth, Account, Location, URL) {
+  var dataService = ['$q', '$firebase', 'Cache', 'Auth', 'Account', 'Location', 'URL',
+    function ($q, $firebase, Cache, Auth, Account, Location, URL) {
 
-      var _coreData = {
-        loaded: [],
-        data: {
-          user: null,
-          clients: {
-            store: null,
-            data: []
-          },
-          projects: {
-            store: null,
-            data: []
-          },
-          tasks: {
-            store: null,
-            data: []
-          }
-        }
-      };
-
-      var getCoreData = function(){
-        return _coreData;
-      };
-
-      function setCoreData(user, data){
-        _coreData[key] = value;
-      }
-
-      var loadInitial = function (currentData, dataTypes) {
+      var loadInitial = function (dataTypes, currentData) {
+        currentData = currentData || getCoreData();
         var deferred = $q.defer();
         getUser(currentData).then(function (user) {
           getData(currentData, dataTypes, user).then(function(data){
-            cacheData(data);
             deferred.resolve(data);
           });
         });
+        return deferred.promise;
+      };
+
+      var cache = function(data){
+        var deferred = $q.defer();
+        setCoreData(data);
+        deferred.resolve(getCoreData());
         return deferred.promise;
       };
 
@@ -110,8 +90,8 @@
       };
 
       return {
-        getCoreData: getCoreData,
         loadInitial: loadInitial,
+        cache: cache,
         get: get,
         add: add,
         update: update,
