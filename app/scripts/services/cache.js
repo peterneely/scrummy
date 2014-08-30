@@ -8,19 +8,31 @@
       cached: [],
       data: {
         user: null,
-        clients: null,
-        projects: null,
-        tasks: null
+        clients: [],
+        projects: [],
+        tasks: []
       },
       resources: {
-        clients: null,
-        projects: null,
-        tasks: null
+        clients: [],
+        projects: [],
+        tasks: []
       }
     };
 
     var getTypes = function (types) {
-      var result = {};
+      var result = {
+        data: {
+          user: null,
+          clients: [],
+          projects: [],
+          tasks: []
+        },
+        resources: {
+          clients: [],
+          projects: [],
+          tasks: []
+        }
+      };
       angular.forEach(types, function (type) {
         result.data[type] = getData(type);
         result.resources[type] = getResource(type);
@@ -53,10 +65,13 @@
     }
 
     function cacheData(data){
+      console.log(data, data.data.clients.length);
       angular.forEach(data.cached, function(type){
+        console.log(type);
         _coreData.data[type] = data.data[type];
         _coreData.resources[type] = data.resources[type];
         _coreData.cached.push(type);
+
       });
     }
 

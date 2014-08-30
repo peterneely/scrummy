@@ -9,7 +9,6 @@
         var deferred = $q.defer();
         types = types || [TYPE.clients, TYPE.projects, TYPE.tasks];
         load(types).then(function (data) {
-          cache(data);
           deferred.resolve(data);
         });
         return deferred.promise;
@@ -50,15 +49,19 @@
       function getData(user, types) {
         var deferred = $q.defer();
         var coreData = {
+          cached: [],
           data: {
-            user: user
+            user: user,
+            clients: [],
+            projects: [],
+            tasks: []
+          },
+          resources: {
+            clients: [],
+            projects: [],
+            tasks: []
           }
         };
-//        var coreData = {
-//          cached: [],
-//          data: {},
-//          resources: {}
-//        };
         angular.forEach(types, function (type) {
           if (!isCached(type)) {
             var resource = Data.getResource(user, type);
@@ -82,7 +85,11 @@
       }
 
       return {
-        data: data
+        data: function(types){
+          data(types).then(function(data){
+            cache(data);
+          });
+        }
       };
     }];
 

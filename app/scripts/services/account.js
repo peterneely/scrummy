@@ -6,7 +6,7 @@
     function ($q, $firebase, Auth, Location, URL) {
       /*jshint camelcase: false */
 
-      var _users = $firebase(new Firebase(URL.firebase));
+      var _users = $firebase(new Firebase(URL.firebase + 'users'));
       var _location = 'account';
 
       var createUser = function (authUser) {
@@ -24,9 +24,10 @@
 
       var getAccountUser = function (authUser) {
         var deferred = $q.defer();
-        _users.$asArray().$loaded().then(function (data) {
-          var userName = getUserName(authUser);
-          var user = data.$getRecord(userName)[_location];
+        var userName = getUserName(authUser);
+        var url = URL.firebase + 'users/' + userName + '/account';
+        var user = $firebase(new Firebase(url));
+        user.$asObject().$loaded().then(function (user) {
           var currentUser = {
             id: userName,
             email: user.email,

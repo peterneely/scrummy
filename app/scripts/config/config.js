@@ -62,8 +62,8 @@
             }
           },
           resolve: {
-            initialData: ['Data', function (Data) {
-              return Data.loadInitial(['clients']);
+            initialData: ['Init', function (Init) {
+              return Init.data('clients');
             }]
           }
         })
