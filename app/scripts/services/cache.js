@@ -2,9 +2,9 @@
 
 (function () {
 
-  var cacheService = function () {
+  var cacheService = ['TYPE', function (TYPE) {
 
-    var coreData = {
+    var _coreData = {
       cached: [],
       data: {
         user: null,
@@ -12,41 +12,62 @@
         projects: null,
         tasks: null
       },
-      store: {
+      resources: {
         clients: null,
         projects: null,
         tasks: null
       }
     };
 
-    var getAll = function () {
-      return coreData;
+    var getTypes = function (types) {
+      var result = {};
+      angular.forEach(types, function (type) {
+        result.data[type] = getData(type);
+        result.resources[type] = getResource(type);
+      });
+      return result;
     };
 
     var getData = function (type) {
-      return coreData.data[type];
+      return _coreData.data[type];
     };
 
-    var getStore = function (type) {
-      return coreData.store[type];
+    var getResource = function (type) {
+      return _coreData.resources[type];
     };
 
     var isCached = function (type) {
-      return _.contains(coreData.cached, type);
+      return _.contains(_coreData.cached, type);
     };
 
-    var cacheData = function (data) {
-      data[key] = value;
+    var cache = function (data) {
+      cacheUser(data);
+      cacheData(data);
     };
+
+    function cacheUser(data){
+      if (!isCached(TYPE.user)) {
+        _coreData.data.user = data.data.user;
+        _coreData.cached.push(TYPE.user);
+      }
+    }
+
+    function cacheData(data){
+      angular.forEach(data.cached, function(type){
+        _coreData.data[type] = data.data[type];
+        _coreData.resources[type] = data.resources[type];
+        _coreData.cached.push(type);
+      });
+    }
 
     return {
-      getAll: getAll,
+      getTypes: getTypes,
       getData: getData,
-      getStore: getStore,
+      getResource: getResource,
       isCached: isCached,
-      cacheData: cacheData
+      cache: cache
     };
-  };
+  }];
 
   angular
     .module('scrummyApp')

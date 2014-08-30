@@ -32,8 +32,8 @@
           templateUrl: 'views/nav.html',
           controller: 'Nav as nav',
           resolve: {
-            initialData: ['Data', function (Data) {
-              return Data.loadInitial();
+            initialData: ['Init', function (Init) {
+              return Init.data();
             }]
           }
         })

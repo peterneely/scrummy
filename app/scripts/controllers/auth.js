@@ -37,6 +37,7 @@
             Location.go('timesheet');
           })
           .catch(function (error) {
+            console.log(error);
             self.error = Errors.getMessage(error);
           });
       }

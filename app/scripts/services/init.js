@@ -2,13 +2,15 @@
 
 (function () {
 
-  var initService = ['$q', 'Cache', 'Auth', 'Account', 'Location', 'URL', 'TYPE',
-    function ($q, Cache, Auth, Account, Location, URL, TYPE) {
+  var initService = ['$q', 'Cache', 'Data', 'Auth', 'Account', 'Location', 'TYPE',
+    function ($q, Cache, Data, Auth, Account, Location, TYPE) {
 
-      var data = function (dataTypes) {
+      var data = function (types) {
         var deferred = $q.defer();
-        load(dataTypes).then(function (coreData) {
-          deferred.resolve(cache(coreData));
+        types = types || [TYPE.clients, TYPE.projects, TYPE.tasks];
+        load(types).then(function (data) {
+          cache(data);
+          deferred.resolve(data);
         });
         return deferred.promise;
       };
@@ -16,27 +18,16 @@
       function load(dataTypes) {
         var deferred = $q.defer();
         getUser().then(function (user) {
-          getData(user, dataTypes).then(function (coreData) {
-            deferred.resolve(coreData);
+          getData(user, dataTypes).then(function (data) {
+            deferred.resolve(data);
           });
         });
         return deferred.promise;
       }
 
-      function cache(coreData) {
-        return Cache.cacheData(coreData);
+      function cache(data) {
+        Cache.cache(data);
       }
-
-//      var loadInitial = function (currentData, typesToLoad) {
-//        var deferred = $q.defer();
-//        getUser(currentData).then(function (user) {
-//          $q.all(dataPromises(user, typesToLoad)).then(function (data) {
-//            setCoreData(user, data);
-//            deferred.resolve(getCoreData());
-//          });
-//        });
-//        return deferred.promise;
-//      };
 
       function getUser() {
         var deferred = $q.defer();
@@ -56,32 +47,38 @@
         return deferred.promise;
       }
 
-      function isCached(type){
+      function getData(user, types) {
+        var deferred = $q.defer();
+        var coreData = {
+          data: {
+            user: user
+          }
+        };
+//        var coreData = {
+//          cached: [],
+//          data: {},
+//          resources: {}
+//        };
+        angular.forEach(types, function (type) {
+          if (!isCached(type)) {
+            var resource = Data.getResource(user, type);
+            Data.load(resource).then(function (data) {
+              coreData.cached.push(type);
+              coreData.data[type] = data;
+              coreData.resources[type] = resource;
+            });
+          }
+        });
+        deferred.resolve(coreData);
+        return deferred.promise;
+      }
+
+      function isCached(type) {
         return Cache.isCached(type);
       }
 
-      function fromCache(type){
+      function fromCache(type) {
         return Cache.getData(type);
-      }
-
-      function dataPromises(user, types) {
-        var baseUrl = URL.firebase + user.id + '/';
-        var promises = [];
-        angular.forEach(types, function (type) {
-          var url = baseUrl + type;
-          var store = $firebase(new Firebase(url));
-          _coreData[type].store = store;
-          var promise = store.$asArray().$loaded();
-          promises.push(promise);
-        });
-        return promises;
-      }
-
-      function map(data) {
-        _coreData.clients.data = data[0];
-        _coreData.projects.data = data[1];
-        _coreData.tasks.data = data[2];
-        return _coreData;
       }
 
       return {

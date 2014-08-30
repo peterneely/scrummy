@@ -6,7 +6,7 @@
     function ($q, $firebase, Auth, Location, URL) {
       /*jshint camelcase: false */
 
-      var _users = $firebase(new Firebase(URL.firebase));
+      var _users = $firebase(new Firebase(URL.store));
       var _location = 'account';
 
       var createUser = function (authUser) {
@@ -47,7 +47,7 @@
         if (user) {
           var userId = user.hash;
           var defaultPic = '?d=mm';
-          return URL.gravatar + userId + defaultPic;
+          return URL.avatar + userId + defaultPic;
         }
       }
 
