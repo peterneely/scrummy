@@ -2,8 +2,8 @@
 
 (function () {
 
-  var initService = ['$q', '$firebase', 'Cache', 'Auth', 'Account', 'Location', 'URL',
-    function ($q, $firebase, Cache, Auth, Account, Location, URL) {
+  var initService = ['$q', 'Cache', 'Auth', 'Account', 'Location', 'URL', 'TYPE',
+    function ($q, Cache, Auth, Account, Location, URL, TYPE) {
 
       var data = function (dataTypes) {
         var deferred = $q.defer();
@@ -38,11 +38,10 @@
 //        return deferred.promise;
 //      };
 
-      function getUser(coreData) {
+      function getUser() {
         var deferred = $q.defer();
-        var user = coreData.user;
-        if (user) {
-          deferred.resolve(user);
+        if (isCached(TYPE.user)) {
+          deferred.resolve(fromCache(TYPE.user));
         } else {
           Auth.getAuthenticatedUser().then(function (authUser) {
             if (authUser) {
@@ -55,6 +54,14 @@
           });
         }
         return deferred.promise;
+      }
+
+      function isCached(type){
+        return Cache.isCached(type);
+      }
+
+      function fromCache(type){
+        return Cache.getData(type);
       }
 
       function dataPromises(user, types) {

@@ -2,7 +2,7 @@
 
 (function () {
 
-  var dataService = ['Cache', function (Cache) {
+  var dataService = ['$firebase', 'Cache', function ($firebase, Cache) {
 
     var get = function (type) {
       return data(type);
@@ -21,11 +21,11 @@
     };
 
     function data(type) {
-      return Cache.getData().data[type];
+      return Cache.getData(type);
     }
 
     function store(type) {
-      return Cache.getData().store[type];
+      return Cache.getStore(type);
     }
 
     return {

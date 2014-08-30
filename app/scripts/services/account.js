@@ -23,16 +23,6 @@
       };
 
       var getAccountUser = function (authUser) {
-
-        function picUrl(user) {
-          // See https://en.gravatar.com/site/implement/images/
-          if (user) {
-            var userId = user.hash;
-            var defaultPic = '?d=mm';
-            return URL.gravatar + userId + defaultPic;
-          }
-        }
-
         var deferred = $q.defer();
         _users.$asArray().$loaded().then(function (data) {
           var userName = getUserName(authUser);
@@ -44,13 +34,21 @@
           };
           deferred.resolve(currentUser);
         });
-
         return deferred.promise;
       };
 
       function getUserName(authUser) {
         var userName = authUser.email.split('@')[0];
         return userName.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
+      }
+
+      function picUrl(user) {
+        // API at https://en.gravatar.com/site/implement/images/
+        if (user) {
+          var userId = user.hash;
+          var defaultPic = '?d=mm';
+          return URL.gravatar + userId + defaultPic;
+        }
       }
 
       return {

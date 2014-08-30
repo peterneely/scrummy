@@ -19,8 +19,16 @@
       }
     };
 
-    var getData = function () {
+    var getAll = function () {
       return coreData;
+    };
+
+    var getData = function (type) {
+      return coreData.data[type];
+    };
+
+    var getStore = function (type) {
+      return coreData.store[type];
     };
 
     var isCached = function (type) {
@@ -32,7 +40,9 @@
     };
 
     return {
+      getAll: getAll,
       getData: getData,
+      getStore: getStore,
       isCached: isCached,
       cacheData: cacheData
     };

@@ -6,7 +6,7 @@
     firebase: 'https://scrummy.firebaseio.com/users/',
     gravatar: 'http://www.gravatar.com/avatar/',
     current: '',
-    home:  '/',
+    home: '/',
     login: '/login',
     register: '/register',
     user: '/user',
@@ -29,8 +29,16 @@
     time: 'views/time.html'
   };
 
+  var types = {
+    user: 'user',
+    clients: 'clients',
+    projects: 'projects',
+    tasks: 'tasks'
+  };
+
   angular
     .module('scrummyApp')
     .constant('URL', urls)
-    .constant('FILE', files);
+    .constant('FILE', files)
+    .constant('TYPE', types);
 })();
