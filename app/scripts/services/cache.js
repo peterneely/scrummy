@@ -4,38 +4,39 @@
 
   var cacheService = function () {
 
-      var coreData = {
-        loaded: [],
-        data: {
-          user: null,
-          clients: {
-            store: null,
-            data: []
-          },
-          projects: {
-            store: null,
-            data: []
-          },
-          tasks: {
-            store: null,
-            data: []
-          }
-        }
-      };
-
-      var getCoreData = function(){
-        return coreData;
-      };
-
-      var setCoreData = function(data){
-        data[key] = value;
-      };
-
-      return {
-        getCoreData: getCoreData,
-        setCoreData: setCoreData
-      };
+    var coreData = {
+      cached: [],
+      data: {
+        user: null,
+        clients: null,
+        projects: null,
+        tasks: null
+      },
+      store: {
+        clients: null,
+        projects: null,
+        tasks: null
+      }
     };
+
+    var getData = function () {
+      return coreData;
+    };
+
+    var isCached = function (type) {
+      return _.contains(coreData.cached, type);
+    };
+
+    var cacheData = function (data) {
+      data[key] = value;
+    };
+
+    return {
+      getData: getData,
+      isCached: isCached,
+      cacheData: cacheData
+    };
+  };
 
   angular
     .module('scrummyApp')
