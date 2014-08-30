@@ -6,7 +6,7 @@
     function ($q, $firebase, Auth, Location, URL) {
       /*jshint camelcase: false */
 
-      var _users = $firebase(new Firebase(URL.store));
+      var _users = $firebase(new Firebase(URL.firebase));
       var _location = 'account';
 
       var createUser = function (authUser) {

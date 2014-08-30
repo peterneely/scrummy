@@ -5,7 +5,7 @@
   var dataService = ['$firebase', 'Cache', 'URL', function ($firebase, Cache, URL) {
 
     var getResource = function(user, type){
-      var url = URL.store + user.id + '/' + type;
+      var url = URL.firebase + user.id + '/' + type;
       return $firebase(new Firebase(url));
     };
 

@@ -5,9 +5,9 @@
   var authService = ['$firebaseSimpleLogin', 'Location', 'URL',
     function ($firebaseSimpleLogin, Location, URL) {
 
-      var ref = new Firebase(URL.store);
+      var ref = new Firebase(URL.firebase);
       var fb = $firebaseSimpleLogin(ref);
-      console.log(URL.store, ref, fb);
+//      console.log(URL.store, ref, fb);
 
       var register = function (user) {
         return fb.$createUser(user.email, user.password);
