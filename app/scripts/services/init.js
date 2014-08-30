@@ -8,34 +8,25 @@
       var data = function (types) {
         var deferred = $q.defer();
         types = types || [TYPE.clients, TYPE.projects, TYPE.tasks];
-        load(types).then(function (data) {
-          deferred.resolve(data);
-        });
-        return deferred.promise;
-      };
-
-      function load(dataTypes) {
-        var deferred = $q.defer();
         getUser().then(function (user) {
-          getData(user, dataTypes).then(function (data) {
+          getData(user, types).then(function (data) {
+            console.log(data, Cache);
             deferred.resolve(data);
           });
         });
         return deferred.promise;
-      }
-
-      function cache(data) {
-        Cache.cache(data);
-      }
+      };
 
       function getUser() {
         var deferred = $q.defer();
-        if (isCached(TYPE.user)) {
+        if (Cache.data[TYPE.user] !== null) {
           deferred.resolve(fromCache(TYPE.user));
         } else {
           Auth.getAuthenticatedUser().then(function (authUser) {
             if (authUser) {
               Account.getAccountUser(authUser).then(function (user) {
+                Cache.data.user = user;
+                Cache.cached.push(TYPE.user);
                 deferred.resolve(user);
               });
             } else {
@@ -48,48 +39,26 @@
 
       function getData(user, types) {
         var deferred = $q.defer();
-        var coreData = {
-          cached: [],
-          data: {
-            user: user,
-            clients: [],
-            projects: [],
-            tasks: []
-          },
-          resources: {
-            clients: [],
-            projects: [],
-            tasks: []
-          }
-        };
         angular.forEach(types, function (type) {
-          if (!isCached(type)) {
+          if (Cache.data[type] === null) {
             var resource = Data.getResource(user, type);
             Data.load(resource).then(function (data) {
-              coreData.cached.push(type);
-              coreData.data[type] = data;
-              coreData.resources[type] = resource;
+              Cache.cached.push(type);
+              Cache.data[type] = data;
+              Cache.resources[type] = resource;
+              deferred.resolve(Cache);
             });
           }
         });
-        deferred.resolve(coreData);
         return deferred.promise;
       }
 
-      function isCached(type) {
-        return Cache.isCached(type);
-      }
-
       function fromCache(type) {
-        return Cache.getData(type);
+        return Cache.data[type];
       }
 
       return {
-        data: function(types){
-          data(types).then(function(data){
-            cache(data);
-          });
-        }
+        data: data
       };
     }];
 

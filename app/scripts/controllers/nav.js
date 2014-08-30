@@ -13,7 +13,7 @@
       Location.go(page);
     };
 
-    self.picUrl = initialData.user.pic;
+    self.picUrl = initialData.data.user.pic;
   }];
 
   angular
