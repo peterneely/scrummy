@@ -3,7 +3,7 @@
 (function () {
 
   var urls = {
-    store: 'https://scrummy.firebaseio.com',
+    store: 'https://scrummy.firebaseio.com/',
     avatar: 'http://www.gravatar.com/avatar/',
     current: '',
     home: '/',

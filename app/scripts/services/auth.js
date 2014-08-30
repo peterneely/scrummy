@@ -5,7 +5,7 @@
   var authService = ['$firebaseSimpleLogin', 'Location', 'URL',
     function ($firebaseSimpleLogin, Location, URL) {
 
-      var ref = new Firebase('https://scrummy.firebaseio.com');
+      var ref = new Firebase(URL.store);
       var fb = $firebaseSimpleLogin(ref);
       console.log(URL.store, ref, fb);
 
