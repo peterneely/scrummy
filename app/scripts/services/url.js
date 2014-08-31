@@ -1,17 +1,27 @@
 'use strict';
 
-(function(){
+(function () {
 
-  var urlService = function(){
+  var urlService = function () {
 
-    var data = 'https://scrummy.firebaseio.com';
+    var rootData = 'https://scrummy.firebaseio.com';
 
-    var avatar = 'http://www.gravatar.com/avatar';
+    var rootAvatar = 'http://www.gravatar.com/avatar';
+
+    var data = function (user, type) {
+      return rootData + '/users/' + user.id + '/' + type;
+    };
+
+    var user = function(userName){
+      return data + '/users/' + userName + '/account';
+    };
 
     return {
+      rootData: rootData,
+      rootAvatar: rootAvatar,
       data: data,
-      avatar: avatar
-    }
+      user: user
+    };
   };
 
   angular

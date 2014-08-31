@@ -3,14 +3,19 @@
 (function () {
   var errorService = function () {
 
-    var errors = {
-      'EMAIL_TAKEN': 'Email already registered',
-      'INVALID_USER': 'Invalid email or password',
-      'INVALID_PASSWORD': 'Invalid email or password'
-    };
-
     var getMessage = function (error) {
-      return errors[error.code.toUpperCase()];
+      switch (error.code.toUpperCase()) {
+
+        case 'EMAIL_TAKEN':
+          return 'Email already registered';
+
+        case 'INVALID_USER':
+        case 'INVALID_PASSWORD':
+          return 'Invalid email or password';
+
+        default:
+          return 'Server error';
+      }
     };
 
     return {

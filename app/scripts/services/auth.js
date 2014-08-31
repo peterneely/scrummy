@@ -2,10 +2,10 @@
 
 (function () {
 
-  var authService = ['$firebaseSimpleLogin', 'Location', 'URL',
-    function ($firebaseSimpleLogin, Location, URL) {
+  var authService = ['$firebaseSimpleLogin', 'State', 'Url',
+    function ($firebaseSimpleLogin, State, Url) {
 
-      var ref = new Firebase(URL.firebase);
+      var ref = new Firebase(Url.data);
       var fb = $firebaseSimpleLogin(ref);
 
       var register = function (user) {
@@ -18,7 +18,7 @@
 
       var logout = function () {
         fb.$logout();
-        Location.go('home');
+        State.go('home');
       };
 
       var getAuthenticatedUser = function () {

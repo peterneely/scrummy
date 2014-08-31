@@ -2,15 +2,11 @@
 
 (function () {
 
-  var navController = ['Location', 'initialData', function (Location, initialData) {
+  var navController = ['State', 'initialData', function (State, initialData) {
     var self = this;
 
     self.active = function () {
-      return Location.isActive();
-    };
-
-    self.go = function (page) {
-      Location.go(page);
+      return State.isActive();
     };
 
     self.picUrl = initialData.data.user.pic;

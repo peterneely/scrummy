@@ -2,29 +2,31 @@
 
 (function () {
 
-  var manageController = ['Location', 'Data', 'initialData',
-    function (Location, Data, initialData) {
+  var manageController = ['State', 'Data', 'initialData',
+    function (State, Data, initialData) {
 
       var self = this;
-      var type = Location.name();
-
       self.new = '';
       self.search = { name: '' };
+      var context = {
+        user: initialData.data.user,
+        dataType: State.dataType()
+      };
 
-      self.items = initialData[type].data;
+      self.items = initialData.data[type];
 
-      self.placeholder = Location.placeholder();
+      self.placeholder = State.placeholder();
 
       self.add = function () {
-        Data.add(type, self.new).then(self.new = '');
+        Data.add(self.new, context).then(self.new = '');
       };
 
       self.remove = function (object) {
-        Data.remove(type, object);
+        Data.remove(object, context);
       };
 
       self.update = function (object) {
-        Data.update(type, object);
+        Data.update(object, context);
       };
 
       self.searching = function () {

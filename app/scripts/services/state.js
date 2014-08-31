@@ -4,7 +4,7 @@
 
   var state = ['$location', '$state', function ($location, $state) {
 
-    var goto = function (state) {
+    var go = function (state) {
       $state.transitionTo(state);
     };
 
@@ -14,7 +14,12 @@
     };
 
     var placeholder = function () {
-      return $state.current.data.placeholder;
+      return dataType().slice(0, -1);
+    };
+
+    var dataType = function(){
+      var currentState = currentState();
+      return currentState.substr(currentState.indexOf('.') + 1);
     };
 
     function currentState() {
@@ -22,13 +27,14 @@
     }
 
     return {
-      goto: goto,
+      go: go,
       isActive: isActive,
-      placeholder: placeholder
+      placeholder: placeholder,
+      dataType: dataType
     };
   }];
 
   angular
     .module('scrummyApp')
-    .factory('Location', state);
+    .factory('State', state);
 })();

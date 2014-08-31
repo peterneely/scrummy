@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="form-auth register" role="form" ng-submit="auth.register(auth.user)">
+  <form class="form-auth register" role="form" ng-submit="auth.register()">
 
     <h2 class="form-auth-heading">Register here</h2>
 
@@ -11,7 +11,10 @@
            required="" ng-focus="auth.focus()">
 
     <button class="btn btn-lg btn-primary" type="submit">Register</button>
-    <button class="btn btn-lg btn-default" ng-click="auth.cancel()">Cancel</button>
+
+    <a ui-sref="home">
+      <button class="btn btn-lg btn-default">Cancel</button>
+    </a>
 
     <alert type="danger" ng-show="auth.error">
       <span class="glyphicon glyphicon-exclamation-sign"></span>

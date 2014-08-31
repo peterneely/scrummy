@@ -2,41 +2,57 @@
 
 (function () {
 
-  var dataService = ['$firebase', 'URL', function ($firebase, URL) {
+  var dataService = ['$q', '$firebase', 'Auth', 'Account', 'State', 'Url',
+    function ($q, $firebase, Auth, Account, State, Url) {
 
-    var getResource = function(user, type){
-      var url = URL.firebase + 'users/' + user.id + '/' + type;
-      return $firebase(new Firebase(url));
-    };
+      var coreData = {
+        user: {},
+        clients: [],
+        projects: [],
+        tasks: []
+      };
 
-    var load = function(resource){
-      return resource.$asArray().$loaded();
-    };
+      var connection = function(url){
+        return $firebase(new Firebase(url));
+      };
 
-    var get = function (type) {
-      return data(type);
-    };
+      function resource() {
+        var user = coreData.user;
+        var type = State.dataType();
+        var url = Url.resource(user, type);
+        return $firebase(new Firebase(url));
+      }
 
-    var add = function (type, object) {
-      return resource(type).$push(object);
-    };
+      var get = function (type) {
+        return _data[type];
+      };
 
-    var update = function (type, object) {
-      return data(type).$save(object);
-    };
+      var add = function (object) {
+        return resource().$push(object);
+      };
 
-    var remove = function (type, object) {
-      data(type).$remove(object);
-    };
+      var update = function (object) {
+        return data().$save(object);
+      };
 
-    return {
-      load: load,
-      get: get,
-      add: add,
-      update: update,
-      remove: remove
-    };
-  }];
+      var remove = function (object) {
+        data().$remove(object);
+      };
+
+      function data(){
+        return _data[State.dataType()];
+      }
+
+      return {
+        coreData: coreData,
+        connection: connection,
+        getInitial: getInitial,
+        get: get,
+        add: add,
+        update: update,
+        remove: remove
+      };
+    }];
 
   angular
     .module('scrummyApp')

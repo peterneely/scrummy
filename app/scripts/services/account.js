@@ -2,8 +2,8 @@
 
 (function () {
 
-  var accountService = ['$q', '$firebase', 'Auth', 'Location', 'URL',
-    function ($q, $firebase, Auth, Location, URL) {
+  var accountService = ['$q', '$firebase', 'Auth', 'State', 'Url',
+    function ($q, $firebase, Auth, State, Url) {
       /*jshint camelcase: false */
 
       var _users = $firebase(new Firebase(URL.firebase + 'users'));
@@ -25,7 +25,7 @@
       var getAccountUser = function (authUser) {
         var deferred = $q.defer();
         var userName = getUserName(authUser);
-        var url = URL.firebase + '/users/' + userName + '/account';
+        var url = Url.user(userName);
         var user = $firebase(new Firebase(url));
         user.$asObject().$loaded().then(function (user) {
           var currentUser = {

@@ -2,8 +2,8 @@
 
 (function () {
 
-  var authController = ['Auth', 'Account', 'Errors', 'Location',
-    function (Auth, Account, Errors, Location) {
+  var authController = ['Auth', 'Account', 'Errors', 'State',
+    function (Auth, Account, Errors, State) {
 
       var self = this;
 
@@ -19,10 +19,6 @@
         self.error = null;
       };
 
-      self.cancel = function () {
-        Location.go('home');
-      };
-
       self.register = function () {
         attempt(Auth.register(self.user));
       };
@@ -34,7 +30,7 @@
       function attempt(action) {
         action
           .then(function () {
-            Location.go('timesheet');
+            State.go('nav.timesheet');
           })
           .catch(function (error) {
             console.log(error);

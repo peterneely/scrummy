@@ -13,7 +13,7 @@
       };
 
       self.clients = function () {
-        return initialData.clients.resolved;
+        return initialData.data.clients;
       };
 
       self.ok = function () {

@@ -11,36 +11,36 @@
       $stateProvider
         .state('home', {
           url: '/',
-          templateUrl: 'views/main.html',
+          templateUrl: '../views/main.html',
           controller: 'Main as main'
         })
 
         .state('login', {
           url: '/login',
-          templateUrl: 'views/login.html',
+          templateUrl: '../views/login.html',
           controller: 'Auth as auth'
         })
 
         .state('register', {
           url: '/register',
-          templateUrl: 'views/register.html',
+          templateUrl: '../views/register.html',
           controller: 'Auth as auth'
         })
 
         .state('nav', {
           abstract: true,
-          templateUrl: 'views/nav.html',
+          templateUrl: '../views/nav.html',
           controller: 'Nav as nav',
           resolve: {
             initialData: ['Init', function (Init) {
-              return Init.data();
+              return Init.getInitial();
             }]
           }
         })
 
         .state('nav.timesheet', {
           url: '^/timesheet',
-          templateUrl: 'views/timesheet.html',
+          templateUrl: '../views/timesheet.html',
           controller: 'Timesheet as timesheet'
         })
 
@@ -48,16 +48,13 @@
           url: '^/clients',
           views: {
             '': {
-              templateUrl: 'views/manage.html',
+              templateUrl: '../views/manage.html',
               controller: 'Manage as manage'
             },
             '@nav.clients': {
-              templateUrl: 'views/tabs.html',
+              templateUrl: '../views/tabs.html',
               controller: 'Tabs as tabs'
             }
-          },
-          data: {
-            placeholder: 'client'
           }
         })
 
@@ -65,16 +62,13 @@
           url: '^/projects',
           views: {
             '': {
-              templateUrl: 'views/manage.html',
+              templateUrl: '../views/manage.html',
               controller: 'Manage as manage'
             },
             '@nav.projects': {
-              templateUrl: 'views/tabs.html',
+              templateUrl: '../views/tabs.html',
               controller: 'Tabs as tabs'
             }
-          },
-          data: {
-            placeholder: 'project'
           }
         })
 
@@ -82,22 +76,19 @@
           url: '^/tasks',
           views: {
             '': {
-              templateUrl: 'views/manage.html',
+              templateUrl: '../views/manage.html',
               controller: 'Manage as manage'
             },
             '@nav.tasks': {
-              templateUrl: 'views/tabs.html',
+              templateUrl: '../views/tabs.html',
               controller: 'Tabs as tabs'
             }
-          },
-          data: {
-            placeholder: 'task'
           }
         })
 
         .state('nav.user', {
           url: '^/user',
-          templateUrl: 'views/user.html',
+          templateUrl: '../views/user.html',
           controller: 'User as user'
         });
     }];
