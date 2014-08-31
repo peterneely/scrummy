@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var timeController = ['$modalInstance', 'viewData',
-    function ($modalInstance, viewData) {
+  var timeController = ['$modalInstance', 'coreData',
+    function ($modalInstance, coreData) {
 
       var self = this;
 
@@ -13,7 +13,7 @@
       };
 
       self.clients = function () {
-        return viewData.clients;
+        return coreData.clients;
       };
 
       self.ok = function () {

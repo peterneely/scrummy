@@ -32,8 +32,8 @@
           templateUrl: '../views/nav.html',
           controller: 'Nav as nav',
           resolve: {
-            initialData: ['Init', function (Init) {
-              return Init.getViewData();
+            coreData: ['Init', function (Init) {
+              return Init.getCoreData();
             }]
           }
         })
@@ -41,12 +41,7 @@
         .state('nav.timesheet', {
           url: '^/timesheet',
           templateUrl: '../views/timesheet.html',
-          controller: 'Timesheet as timesheet',
-          resolve: {
-            viewData: ['initialData', function (initialData) {
-              return initialData;
-            }]
-          }
+          controller: 'Timesheet as timesheet'
         })
 
         .state('nav.clients', {
@@ -62,10 +57,10 @@
             }
           },
           resolve: {
-            viewData: ['initialData', function (initialData) {
+            viewData2: ['coreData', function (coreData) {
               return {
-                user: initialData.user,
-                items: initialData.clients,
+                user: coreData.user,
+                items: coreData.clients,
                 type: 'clients'
               };
             }]
@@ -85,10 +80,10 @@
             }
           },
           resolve: {
-            viewData: ['initialData', function (initialData) {
+            viewData2: ['coreData', function (coreData) {
               return {
-                user: initialData.user,
-                items: initialData.projects,
+                user: coreData.user,
+                items: coreData.projects,
                 type: 'projects'
               };
             }]
@@ -108,10 +103,10 @@
             }
           },
           resolve: {
-            viewData: ['initialData', function (initialData) {
+            viewData2: ['coreData', function (coreData) {
               return {
-                user: initialData.user,
-                items: initialData.tasks,
+                user: coreData.user,
+                items: coreData.tasks,
                 type: 'tasks'
               };
             }]
@@ -123,9 +118,9 @@
           templateUrl: '../views/user.html',
           controller: 'User as user',
           resolve: {
-            viewData: ['initialData', function (initialData) {
+            viewData2: ['coreData', function (coreData) {
               return {
-                user: initialData.user
+                user: coreData.user
               };
             }]
           }

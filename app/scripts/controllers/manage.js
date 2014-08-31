@@ -2,27 +2,27 @@
 
 (function () {
 
-  var manageController = ['Data', 'viewData', function (Data, viewData) {
+  var manageController = ['Data', 'viewData2', function (Data, viewData2) {
 
     var self = this;
 
     self.new = '';
     self.search = { name: '' };
 
-    self.items = viewData.items;
+    self.items = viewData2.items;
 
-    self.placeholder = viewData.type.slice(0, -1);
+    self.placeholder = viewData2.type.slice(0, -1);
 
     self.add = function () {
-      Data.add(self.new, viewData.user, viewData.type).then(self.new = '');
+      Data.add(self.new, viewData2.user, viewData2.type).then(self.new = '');
     };
 
     self.remove = function (object) {
-      Data.remove(object, viewData.items);
+      Data.remove(object, viewData2.items);
     };
 
     self.update = function (object) {
-      Data.update(object, viewData.items);
+      Data.update(object, viewData2.items);
     };
 
     self.searching = function () {

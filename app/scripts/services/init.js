@@ -5,7 +5,7 @@
   var initService = ['$q', 'Data', 'Auth', 'Account', 'State',
     function ($q, Data, Auth, Account, State) {
 
-      var getViewData = function () {
+      var getCoreData = function () {
         var deferred = $q.defer();
         getUser().then(function (user) {
           $q.all(getData(user)).then(function (data) {
@@ -49,7 +49,7 @@
       }
 
       return {
-        getViewData: getViewData
+        getCoreData: getCoreData
       };
     }];
 

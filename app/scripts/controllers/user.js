@@ -2,11 +2,11 @@
 
 (function () {
 
-  var userController = ['Auth', 'viewData', function (Auth, viewData) {
+  var userController = ['Auth', 'viewData2', function (Auth, viewData2) {
 
     var self = this;
 
-    console.log(viewData);
+    console.log(viewData2);
 
     self.logout = function () {
       Auth.logout();
