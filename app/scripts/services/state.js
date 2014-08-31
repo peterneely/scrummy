@@ -17,9 +17,9 @@
       return dataType().slice(0, -1);
     };
 
-    var dataType = function(){
-      var currentState = currentState();
-      return currentState.substr(currentState.indexOf('.') + 1);
+    var dataType = function () {
+      var state = currentState();
+      return state.substr(state.indexOf('.') + 1);
     };
 
     function currentState() {

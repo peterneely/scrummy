@@ -7,10 +7,9 @@
 
       var getCoreData = function () {
         var deferred = $q.defer();
-        getUser().then(function (user) {          
-          getData(user).then(function (data) {
-            console.log(data);
-            deferred.resolve(Data.coreData = data);
+        getUser().then(function (user) {
+          $q.all(getData(user)).then(function (data) {
+            deferred.resolve(cache(user, data));
           });
         });
         return deferred.promise;
@@ -31,15 +30,21 @@
       }
 
       function getData(user) {
-        var deferred = $q.defer();
+        var promises = [];
         var types = ['clients', 'projects', 'tasks'];
-        angular.forEach(types, function (type) {
-          var dataPromise = Data.dataResource(user, type).$asArray().$loaded();
-          dataPromise.then(function (data) {
-            deferred.resolve(data);
-          });
+        types.forEach(function (type) {
+          var promise = Data.dataResource(user, type).$asArray().$loaded();
+          promises.push(promise);
         });
-        return deferred.promise;
+        return promises;
+      }
+
+      function cache(user, data) {
+        Data.coreData.user = user;
+        Data.coreData.clients = data[0];
+        Data.coreData.projects = data[1];
+        Data.coreData.tasks = data[2];
+        return Data.coreData;
       }
 
       return {

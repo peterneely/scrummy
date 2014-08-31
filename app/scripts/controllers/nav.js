@@ -9,7 +9,7 @@
       return State.isActive();
     };
 
-    self.picUrl = initialData.data.user.pic;
+    self.picUrl = initialData.user.pic;
   }];
 
   angular

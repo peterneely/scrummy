@@ -2,31 +2,28 @@
 
 (function () {
 
-  var manageController = ['State', 'Data', 'initialData',
-    function (State, Data, initialData) {
+  var manageController = ['State', '$state', 'Data', 'initialData',
+    function (State, $state, Data, initialData) {
 
       var self = this;
+
       self.new = '';
       self.search = { name: '' };
-      var context = {
-        user: initialData.data.user,
-        dataType: State.dataType()
-      };
 
-      self.items = initialData.data[type];
+      self.items = initialData[State.dataType()];
 
       self.placeholder = State.placeholder();
 
       self.add = function () {
-        Data.add(self.new, context).then(self.new = '');
+        Data.add(self.new).then(self.new = '');
       };
 
       self.remove = function (object) {
-        Data.remove(object, context);
+        Data.remove(object);
       };
 
       self.update = function (object) {
-        Data.update(object, context);
+        Data.update(object);
       };
 
       self.searching = function () {

@@ -14,46 +14,39 @@
 
       var dataResource = function (user, type) {
         var url = Url.data(user.id, type);
-        return $firebase(new Firebase(url));
+        return resource(url);
       };
 
       var userResource = function (userName) {
         var url = Url.user(userName);
-        return $firebase(new Firebase(url));
-      };
-
-      function resource() {
-        var user = coreData.user;
-        var type = State.dataType();
-        var url = Url.resource(user, type);
-        return $firebase(new Firebase(url));
-      }
-
-      var get = function (type) {
-        return coreData[type];
+        return resource(url);
       };
 
       var add = function (object) {
-        return resource().$push(object);
+        var resource = dataResource(coreData.user, type());
+        return resource.$push(object);
       };
 
       var update = function (object) {
-        return data().$save(object);
+        return coreData[type()].$save(object);
       };
 
       var remove = function (object) {
-        data().$remove(object);
+        coreData[type()].$remove(object);
       };
 
-      function data() {
-        return coreData[State.dataType()];
+      function resource(url){
+        return $firebase(new Firebase(url));
+      }
+
+      function type(){
+        return State.dataType();
       }
 
       return {
         coreData: coreData,
         dataResource: dataResource,
         userResource: userResource,
-        get: get,
         add: add,
         update: update,
         remove: remove
