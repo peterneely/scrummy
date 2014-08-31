@@ -12,7 +12,13 @@
         tasks: []
       };
 
-      var connection = function(url){
+      var dataResource = function(user, type){
+        var url = Url.data(user.id, type);
+        return $firebase(new Firebase(url));
+      };
+
+      var userResource = function(userName){
+        var url = Url.user(userName);
         return $firebase(new Firebase(url));
       };
 
@@ -39,14 +45,14 @@
         data().$remove(object);
       };
 
-      function data(){
-        return _data[State.dataType()];
-      }
+//      function data(){
+//        return _data[State.dataType()];
+//      }
 
       return {
         coreData: coreData,
-        connection: connection,
-        getInitial: getInitial,
+        dataResource: dataResource,
+        userResource: userResource,
         get: get,
         add: add,
         update: update,

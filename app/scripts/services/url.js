@@ -8,12 +8,12 @@
 
     var rootAvatar = 'http://www.gravatar.com/avatar';
 
-    var data = function (user, type) {
-      return rootData + '/users/' + user.id + '/' + type;
+    var data = function (userName, type) {
+      return rootData + '/users/' + userName + '/' + type;
     };
 
     var user = function(userName){
-      return data + '/users/' + userName + '/account';
+      return rootData + '/users/' + userName + '/account';
     };
 
     return {

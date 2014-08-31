@@ -2,12 +2,9 @@
 
 (function () {
 
-  var accountService = ['$q', '$firebase', 'Auth', 'State', 'Url',
-    function ($q, $firebase, Auth, State, Url) {
+  var accountService = ['$q', 'Auth', 'State', 'Data',
+    function ($q, Auth, State, Data) {
       /*jshint camelcase: false */
-
-      var _users = $firebase(new Firebase(URL.firebase + 'users'));
-      var _location = 'account';
 
       var createUser = function (authUser) {
         var deferred = $q.defer();
@@ -15,18 +12,18 @@
           email: authUser.email,
           hash: authUser.md5_hash
         };
-        var resource = getUserName(authUser) + _location;
-        _users.$set(resource, user).then(function () {
+        var userName = getUserName(authUser);
+        var users = Data.userResource(userName);
+        users.$set('account', user).then(function () {
           deferred.resolve(authUser);
         });
         return deferred.promise;
       };
 
-      var getAccountUser = function (authUser) {
+      var getUser = function (authUser) {
         var deferred = $q.defer();
         var userName = getUserName(authUser);
-        var url = Url.user(userName);
-        var user = $firebase(new Firebase(url));
+        var user = Data.userResource(userName);
         user.$asObject().$loaded().then(function (user) {
           var currentUser = {
             id: userName,
@@ -54,7 +51,7 @@
 
       return {
         createUser: createUser,
-        getAccountUser: getAccountUser
+        getUser: getUser
       };
     }];
 
