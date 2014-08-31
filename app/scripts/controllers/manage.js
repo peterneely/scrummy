@@ -2,38 +2,37 @@
 
 (function () {
 
-  var manageController = ['State', '$state', 'Data', 'initialData',
-    function (State, $state, Data, initialData) {
+  var manageController = ['Data', 'viewData', function (Data, viewData) {
 
-      var self = this;
+    var self = this;
 
-      self.new = '';
-      self.search = { name: '' };
+    self.new = '';
+    self.search = { name: '' };
 
-      self.items = initialData[State.dataType()];
+    self.items = viewData.items;
 
-      self.placeholder = State.placeholder();
+    self.placeholder = viewData.type.slice(0, -1);
 
-      self.add = function () {
-        Data.add(self.new).then(self.new = '');
-      };
+    self.add = function () {
+      Data.add(self.new, viewData.user, viewData.type).then(self.new = '');
+    };
 
-      self.remove = function (object) {
-        Data.remove(object);
-      };
+    self.remove = function (object) {
+      Data.remove(object, viewData.items);
+    };
 
-      self.update = function (object) {
-        Data.update(object);
-      };
+    self.update = function (object) {
+      Data.update(object, viewData.items);
+    };
 
-      self.searching = function () {
-        return self.search.name.length > 0;
-      };
+    self.searching = function () {
+      return self.search.name.length > 0;
+    };
 
-      self.clearSearch = function () {
-        self.search.name = '';
-      };
-    }];
+    self.clearSearch = function () {
+      self.search.name = '';
+    };
+  }];
 
   angular
     .module('scrummyApp')

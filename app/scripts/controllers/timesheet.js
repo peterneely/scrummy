@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var timesheetController = ['$modal', 'initialData',
-    function ($modal, initialData) {
+  var timesheetController = ['$modal', 'viewData',
+    function ($modal, viewData) {
 
       var self = this;
 
@@ -12,8 +12,8 @@
           templateUrl: 'views/time.html',
           controller: 'Time as time',
           resolve: {
-            initialData: function () {
-              return initialData;
+            viewData: function () {
+              return viewData;
             }
           }
         };

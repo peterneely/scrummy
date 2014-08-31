@@ -5,11 +5,11 @@
   var initService = ['$q', 'Data', 'Auth', 'Account', 'State',
     function ($q, Data, Auth, Account, State) {
 
-      var getCoreData = function () {
+      var getViewData = function () {
         var deferred = $q.defer();
         getUser().then(function (user) {
           $q.all(getData(user)).then(function (data) {
-            deferred.resolve(cache(user, data));
+            deferred.resolve(viewData(user, data));
           });
         });
         return deferred.promise;
@@ -39,16 +39,17 @@
         return promises;
       }
 
-      function cache(user, data) {
-        Data.coreData.user = user;
-        Data.coreData.clients = data[0];
-        Data.coreData.projects = data[1];
-        Data.coreData.tasks = data[2];
-        return Data.coreData;
+      function viewData(user, data){
+        return {
+          user: user,
+          clients: data[0],
+          projects: data[1],
+          tasks: data[2]
+        };
       }
 
       return {
-        getCoreData: getCoreData
+        getViewData: getViewData
       };
     }];
 

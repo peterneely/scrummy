@@ -33,7 +33,7 @@
           controller: 'Nav as nav',
           resolve: {
             initialData: ['Init', function (Init) {
-              return Init.getCoreData();
+              return Init.getViewData();
             }]
           }
         })
@@ -41,7 +41,12 @@
         .state('nav.timesheet', {
           url: '^/timesheet',
           templateUrl: '../views/timesheet.html',
-          controller: 'Timesheet as timesheet'
+          controller: 'Timesheet as timesheet',
+          resolve: {
+            viewData: ['initialData', function (initialData) {
+              return initialData;
+            }]
+          }
         })
 
         .state('nav.clients', {
@@ -55,6 +60,15 @@
               templateUrl: '../views/tabs.html',
               controller: 'Tabs as tabs'
             }
+          },
+          resolve: {
+            viewData: ['initialData', function (initialData) {
+              return {
+                user: initialData.user,
+                items: initialData.clients,
+                type: 'clients'
+              };
+            }]
           }
         })
 
@@ -69,6 +83,15 @@
               templateUrl: '../views/tabs.html',
               controller: 'Tabs as tabs'
             }
+          },
+          resolve: {
+            viewData: ['initialData', function (initialData) {
+              return {
+                user: initialData.user,
+                items: initialData.projects,
+                type: 'projects'
+              };
+            }]
           }
         })
 
@@ -83,13 +106,29 @@
               templateUrl: '../views/tabs.html',
               controller: 'Tabs as tabs'
             }
+          },
+          resolve: {
+            viewData: ['initialData', function (initialData) {
+              return {
+                user: initialData.user,
+                items: initialData.tasks,
+                type: 'tasks'
+              };
+            }]
           }
         })
 
         .state('nav.user', {
           url: '^/user',
           templateUrl: '../views/user.html',
-          controller: 'User as user'
+          controller: 'User as user',
+          resolve: {
+            viewData: ['initialData', function (initialData) {
+              return {
+                user: initialData.user
+              };
+            }]
+          }
         });
     }];
 
