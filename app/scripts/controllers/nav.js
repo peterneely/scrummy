@@ -2,14 +2,14 @@
 
 (function () {
 
-  var navController = ['State', 'viewData2', function (State, viewData2) {
+  var navController = ['State', 'coreData', function (State, coreData) {
     var self = this;
 
     self.active = function () {
       return State.isActive();
     };
 
-    self.picUrl = viewData2.user.pic;
+    self.picUrl = coreData.user.pic;
   }];
 
   angular

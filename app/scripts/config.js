@@ -57,7 +57,7 @@
             }
           },
           resolve: {
-            viewData2: ['coreData', function (coreData) {
+            viewData: ['coreData', function (coreData) {
               return {
                 user: coreData.user,
                 items: coreData.clients,
@@ -80,7 +80,7 @@
             }
           },
           resolve: {
-            viewData2: ['coreData', function (coreData) {
+            viewData: ['coreData', function (coreData) {
               return {
                 user: coreData.user,
                 items: coreData.projects,
@@ -103,7 +103,7 @@
             }
           },
           resolve: {
-            viewData2: ['coreData', function (coreData) {
+            viewData: ['coreData', function (coreData) {
               return {
                 user: coreData.user,
                 items: coreData.tasks,
@@ -118,7 +118,7 @@
           templateUrl: '../views/user.html',
           controller: 'User as user',
           resolve: {
-            viewData2: ['coreData', function (coreData) {
+            viewData: ['coreData', function (coreData) {
               return {
                 user: coreData.user
               };
