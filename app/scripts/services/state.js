@@ -5,7 +5,7 @@
   var state = ['$location', '$state', function ($location, $state) {
 
     var go = function (state) {
-      $state.transitionTo(state);
+      $state.go(state);
     };
 
     var isActive = function () {

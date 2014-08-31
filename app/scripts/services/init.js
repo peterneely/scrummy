@@ -5,10 +5,11 @@
   var initService = ['$q', 'Data', 'Auth', 'Account', 'State',
     function ($q, Data, Auth, Account, State) {
 
-      var getInitial = function () {
+      var getCoreData = function () {
         var deferred = $q.defer();
-        getUser().then(function (user) {
+        getUser().then(function (user) {          
           getData(user).then(function (data) {
+            console.log(data);
             deferred.resolve(Data.coreData = data);
           });
         });
@@ -42,7 +43,7 @@
       }
 
       return {
-        getInitial: getInitial
+        getCoreData: getCoreData
       };
     }];
 

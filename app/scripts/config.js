@@ -33,7 +33,7 @@
           controller: 'Nav as nav',
           resolve: {
             initialData: ['Init', function (Init) {
-              return Init.getInitial();
+              return Init.getCoreData();
             }]
           }
         })

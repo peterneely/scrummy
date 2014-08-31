@@ -2,8 +2,8 @@
 
 (function () {
 
-  var dataService = ['$q', '$firebase', 'Auth', 'Account', 'State', 'Url',
-    function ($q, $firebase, Auth, Account, State, Url) {
+  var dataService = ['$q', '$firebase', 'State', 'Url',
+    function ($q, $firebase, State, Url) {
 
       var coreData = {
         user: {},
@@ -12,12 +12,12 @@
         tasks: []
       };
 
-      var dataResource = function(user, type){
+      var dataResource = function (user, type) {
         var url = Url.data(user.id, type);
         return $firebase(new Firebase(url));
       };
 
-      var userResource = function(userName){
+      var userResource = function (userName) {
         var url = Url.user(userName);
         return $firebase(new Firebase(url));
       };
@@ -30,7 +30,7 @@
       }
 
       var get = function (type) {
-        return _data[type];
+        return coreData[type];
       };
 
       var add = function (object) {
@@ -45,9 +45,9 @@
         data().$remove(object);
       };
 
-//      function data(){
-//        return _data[State.dataType()];
-//      }
+      function data() {
+        return coreData[State.dataType()];
+      }
 
       return {
         coreData: coreData,
