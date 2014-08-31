@@ -7,7 +7,6 @@
 
       var ref = new Firebase(URL.firebase);
       var fb = $firebaseSimpleLogin(ref);
-//      console.log(URL.store, ref, fb);
 
       var register = function (user) {
         return fb.$createUser(user.email, user.password);

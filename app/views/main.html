@@ -16,8 +16,12 @@
       </p></div>
 
     <p class="lead">
-      <button class="btn btn-lg btn-primary" ng-click="main.go('login')">Login</button>
-      <button class="btn btn-lg btn-default" ng-click="main.go('register')">Register</button>
+      <a ui-sref="login">
+        <button class="btn btn-lg btn-primary">Login</button>
+      </a>
+      <a ui-sref="register">
+        <button class="btn btn-lg btn-default">Register</button>
+      </a>
     </p>
   </div>
 </div>

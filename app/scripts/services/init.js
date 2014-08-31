@@ -2,15 +2,28 @@
 
 (function () {
 
-  var initService = ['$q', 'Cache', 'Data', 'Auth', 'Account', 'Location', 'TYPE',
-    function ($q, Cache, Data, Auth, Account, Location, TYPE) {
+  var initService = ['$q', 'Data', 'Auth', 'Account', 'Location', 'TYPE',
+    function ($q, Data, Auth, Account, Location, TYPE) {
 
-      var data = function (types) {
+      var _data = {
+        data: {
+          user: {},
+          clients: [],
+          projects: [],
+          tasks: []
+        },
+        resources: {
+          clients: {},
+          projects: {},
+          tasks: {}
+        }
+      };
+
+      var data = function () {
         var deferred = $q.defer();
-        types = types || [TYPE.clients, TYPE.projects, TYPE.tasks];
         getUser().then(function (user) {
-          getData(user, types).then(function (data) {
-            console.log(data, Cache);
+          getData(user).then(function (data) {
+            console.log(data, _data);
             deferred.resolve(data);
           });
         });
@@ -19,42 +32,31 @@
 
       function getUser() {
         var deferred = $q.defer();
-        if (Cache.data[TYPE.user] !== null) {
-          deferred.resolve(fromCache(TYPE.user));
-        } else {
-          Auth.getAuthenticatedUser().then(function (authUser) {
-            if (authUser) {
-              Account.getAccountUser(authUser).then(function (user) {
-                Cache.data.user = user;
-                Cache.cached.push(TYPE.user);
-                deferred.resolve(user);
-              });
-            } else {
-              Location.go('login');
-            }
-          });
-        }
-        return deferred.promise;
-      }
-
-      function getData(user, types) {
-        var deferred = $q.defer();
-        angular.forEach(types, function (type) {
-          if (Cache.data[type] === null) {
-            var resource = Data.getResource(user, type);
-            Data.load(resource).then(function (data) {
-              Cache.cached.push(type);
-              Cache.data[type] = data;
-              Cache.resources[type] = resource;
-              deferred.resolve(Cache);
+        Auth.getAuthenticatedUser().then(function (authUser) {
+          if (authUser) {
+            Account.getAccountUser(authUser).then(function (user) {
+              _data.data.user = user;
+              deferred.resolve(user);
             });
+          } else {
+            Location.go('login');
           }
         });
         return deferred.promise;
       }
 
-      function fromCache(type) {
-        return Cache.data[type];
+      function getData(user) {
+        var deferred = $q.defer();
+        var types = [TYPE.clients, TYPE.projects, TYPE.tasks];
+        angular.forEach(types, function (type) {
+          var resource = Data.getResource(user, type);
+          Data.load(resource).then(function (data) {
+            _data.data[type] = data;
+            _data.resources[type] = resource;
+            deferred.resolve(_data);
+          });
+        });
+        return deferred.promise;
       }
 
       return {

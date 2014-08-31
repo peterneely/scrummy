@@ -25,7 +25,7 @@
       var getAccountUser = function (authUser) {
         var deferred = $q.defer();
         var userName = getUserName(authUser);
-        var url = URL.firebase + 'users/' + userName + '/account';
+        var url = URL.firebase + '/users/' + userName + '/account';
         var user = $firebase(new Firebase(url));
         user.$asObject().$loaded().then(function (user) {
           var currentUser = {

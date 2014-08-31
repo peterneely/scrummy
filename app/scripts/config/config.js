@@ -41,12 +41,7 @@
         .state('nav.timesheet', {
           url: '^/timesheet',
           templateUrl: 'views/timesheet.html',
-          controller: 'Timesheet as timesheet',
-//          resolve: {
-//            initialData: ['initialData', function (initialData) {
-//              return initialData;
-//            }]
-//          }
+          controller: 'Timesheet as timesheet'
         })
 
         .state('nav.clients', {
@@ -61,10 +56,8 @@
               controller: 'Tabs as tabs'
             }
           },
-          resolve: {
-            initialData: ['Init', function (Init) {
-              return Init.data('clients');
-            }]
+          data: {
+            placeholder: 'client'
           }
         })
 
@@ -80,11 +73,9 @@
               controller: 'Tabs as tabs'
             }
           },
-//          resolve: {
-//            initialData: ['initialData', function (initialData) {
-//              return initialData;
-//            }]
-//          }
+          data: {
+            placeholder: 'project'
+          }
         })
 
         .state('nav.tasks', {
@@ -99,22 +90,15 @@
               controller: 'Tabs as tabs'
             }
           },
-//          resolve: {
-//            initialData: ['initialData', function (initialData) {
-//              return initialData;
-//            }]
-//          }
+          data: {
+            placeholder: 'task'
+          }
         })
 
         .state('nav.user', {
           url: '^/user',
           templateUrl: 'views/user.html',
-          controller: 'User as user',
-//          resolve: {
-//            initialData: ['initialData', function (initialData) {
-//              return initialData;
-//            }]
-//          }
+          controller: 'User as user'
         });
     }];
 

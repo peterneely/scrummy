@@ -2,7 +2,7 @@
 
 (function () {
 
-  var dataService = ['$firebase', 'Cache', 'URL', function ($firebase, Cache, URL) {
+  var dataService = ['$firebase', 'URL', function ($firebase, URL) {
 
     var getResource = function(user, type){
       var url = URL.firebase + 'users/' + user.id + '/' + type;
@@ -29,16 +29,7 @@
       data(type).$remove(object);
     };
 
-    function data(type) {
-      return Cache.getData(type);
-    }
-
-    function resource(type) {
-      return Cache.getResource(type);
-    }
-
     return {
-      getResource: getResource,
       load: load,
       get: get,
       add: add,

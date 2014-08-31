@@ -2,13 +2,8 @@
 
 (function () {
 
-  var mainController = ['Location', function (Location) {
+  var mainController = [function () {
 
-    var self = this;
-
-    self.go = function (page) {
-      Location.go(page);
-    };
   }];
 
   angular
