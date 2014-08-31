@@ -13,7 +13,7 @@
       };
       var userName = getUserName(authUser);
       var userResource = Data.userResource(userName);
-      userResource.$set('account', user).then(function () {
+      userResource.$set(user).then(function () {
         deferred.resolve(authUser);
       });
       return deferred.promise;
@@ -35,8 +35,7 @@
     };
 
     function getUserName(authUser) {
-      var userName = authUser.email.split('@')[0];
-      return userName.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
+      return authUser.email.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
     }
 
     function picUrl(user) {

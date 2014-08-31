@@ -20,22 +20,21 @@
       };
 
       self.register = function () {
-        attempt(Auth.register(self.user));
+        Auth.register(self.user).then(function (authUser) {
+          Account.createUser(authUser).then(function () {
+            self.login();
+          });
+        }).catch(showError);
       };
 
       self.login = function () {
-        attempt(Auth.login(self.user));
+        Auth.login(self.user).then(function () {
+          State.go('nav.timesheet');
+        }).catch(showError);
       };
 
-      function attempt(action) {
-        action
-          .then(function () {
-            State.go('nav.timesheet');
-          })
-          .catch(function (error) {
-            console.log(error);
-            self.error = Errors.getMessage(error);
-          });
+      function showError(error) {
+        self.error = Errors.getMessage(error);
       }
     }];
 
