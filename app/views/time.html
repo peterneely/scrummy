@@ -9,16 +9,18 @@
 
         <div class="panel-body">
           <form class="" role="form">
+
             <div class="form-group">
-              <pre>{{ time.selected.client | json }}</pre>
-              <input type="text" class="form-control" placeholder="Client" ng-model="time.selected.client"
-                     typeahead="client as client.name for client in time.clients() | orderBy:'name' | filter:{name:$viewValue}">
+              <input type="text" class="form-control" placeholder="Client" ng-model="time.selected['client']"
+                     typeahead="client as client.name for client in time.clients | orderBy:'name' | filter:{name:$viewValue}">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Project">
+              <input type="text" class="form-control" placeholder="Project" ng-model="time.selected['project']"
+                  typeahead="project as project.name for project in time.projects | orderBy:'name' | filter:{name:$viewValue}">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Task">
+              <input type="text" class="form-control" placeholder="Task" ng-model="time.selected['task']"
+                     typeahead="task as task.name for task in time.tasks | orderBy:'name' | filter: {name:$viewValue}">
             </div>
             <div class="form-group">
               <textarea class="form-control" rows="3" placeholder="Notes (optional)"></textarea>
@@ -48,6 +50,8 @@
                 </div>
               </div>
             </div>
+
+            <pre>{{ time.selected | json }}</pre>
 
           </form>
         </div>
