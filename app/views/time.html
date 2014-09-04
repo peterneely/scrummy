@@ -11,15 +11,11 @@
           <form class="" role="form">
 
             <div class="form-group">
-              <input ui-select2="time.clients" class="form-control" ng-model="time.selected['client']"/>
+              <input ui-select2="time.options('client')" class="form-control" ng-model="time.selected['client']"/>
             </div>
 
             <div class="form-group">
-              <select ui-select2="" class="form-control" ng-model="time.selected['project']"
-                      data-placeholder="Select a project">
-                <option value=""></option>
-                <option ng-repeat="project in time.projects" value="{id: {{ project.id }}, name: {{ project.name }}}">{{ project.name }}</option>
-              </select>
+              <input ui-select2="time.options('project')" class="form-control" ng-model="time.selected['project']"/>
             </div>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Task" ng-model="time.selected['task']"
