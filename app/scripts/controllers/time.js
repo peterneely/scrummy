@@ -6,52 +6,9 @@
 
       var self = this;
 
-      function list(items) {
-        var array = [];
-        angular.forEach(items, function (item) {
-          array.push({
-            id: item.$id,
-            text: item.name
-          });
-        });
-        return _.sortBy(array, 'text');
-      }
-
-      function newChoice(type, term) {
-        var choice = {
-          id: '',
-          text: term
-        };
-        $scope.$apply(function () {
-          self.selected[type] = choice;
-        });
-        return choice;
-      }
-
       self.selected = {};
 
-      self.options = function(type){
-        return {
-          data: list(coreData[type]),
-          placeholder: 'Select a ' + type,
-          allowClear: true,
-          createSearchChoice: function (term) {
-            return newChoice(type, term);
-          }
-        };
-      };
-
-//      self.projectOptions = {
-//        data: list(coreData.projects),
-//        placeholder: 'Select a project',
-//        allowClear: true,
-//        createSearchChoice: function (term) {
-//          return newChoice('project', term);
-//        }
-//      };
-
-      self.projects = list(coreData.projects);
-      self.tasks = list(coreData.tasks);
+      self.options = {};
 
       self.ok = function () {
         $modalInstance.close();
@@ -61,7 +18,46 @@
         $modalInstance.dismiss('cancel');
       };
 
+      (function initOptions() {
+        var types = ['clients', 'projects', 'tasks'];
+        angular.forEach(types, function (type) {
+          self.options[type] = {
+            data: getChoices(coreData[type]),
+            placeholder: placeholder(type),
+            allowClear: true,
+            createSearchChoice: function (term) {
+              return addChoice(type, term);
+            }
+          };
+        });
 
+        function getChoices(items) {
+          var array = [];
+          angular.forEach(items, function (item) {
+            array.push({
+              id: item.$id,
+              text: item.name
+            });
+          });
+          return _.sortBy(array, 'text');
+        }
+
+        function placeholder(type) {
+          var singular = type.slice(0, -1);
+          return singular.charAt(0).toUpperCase() + singular.slice(1);
+        }
+
+        function addChoice(type, term) {
+          var choice = {
+            id: '',
+            text: term
+          };
+          $scope.$apply(function () {
+            self.selected[type] = choice;
+          });
+          return choice;
+        }
+      })();
     }];
 
   angular

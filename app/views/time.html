@@ -11,16 +11,15 @@
           <form class="" role="form">
 
             <div class="form-group">
-              <input ui-select2="time.options('client')" class="form-control" ng-model="time.selected['client']"/>
+              <input type="hidden" ui-select2="time.options.clients" class="form-control" ng-model="time.selected.clients"/>
+            </div>
+            <div class="form-group">
+              <input type="hidden" ui-select2="time.options.projects" class="form-control" ng-model="time.selected.projects"/>
+            </div>
+            <div class="form-group">
+              <input type="hidden" ui-select2="time.options.tasks" class="form-control" ng-model="time.selected.tasks"/>
             </div>
 
-            <div class="form-group">
-              <input ui-select2="time.options('project')" class="form-control" ng-model="time.selected['project']"/>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Task" ng-model="time.selected['task']"
-                     typeahead="task as task.name for task in time.tasks | orderBy:'name' | filter: {name:$viewValue}">
-            </div>
             <div class="form-group">
               <textarea class="form-control" rows="3" placeholder="Notes (optional)"></textarea>
             </div>
