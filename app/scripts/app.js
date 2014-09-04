@@ -11,7 +11,8 @@
     'ngTouch',
     'ui.router',
     'firebase',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ui.select2'
   ];
 
   angular

@@ -11,17 +11,20 @@
         angular.forEach(items, function(item){
           array.push({
             id: item.$id,
-            name: item.name
+            text: item.name
           });
         });
-        return array;
+        return _.sortBy(array, 'text');
       }
 
       self.selected = {};
 
-      console.log(coreData.projects, list(coreData.projects));
+      self.clients = {
+        data: list(coreData.clients),
+        placeholder: 'Select a client',
+        tokenSeparators: [',', ' ']
+      };
 
-      self.clients = list(coreData.clients);
       self.projects = list(coreData.projects);
       self.tasks = list(coreData.tasks);
 
