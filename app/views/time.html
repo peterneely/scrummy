@@ -10,15 +10,7 @@
         <div class="panel-body">
           <form class="" role="form">
 
-            <div class="form-group">
-              <input type="hidden" ui-select2="time.options.clients" class="form-control" ng-model="time.selected.clients"/>
-            </div>
-            <div class="form-group">
-              <input type="hidden" ui-select2="time.options.projects" class="form-control" ng-model="time.selected.projects"/>
-            </div>
-            <div class="form-group">
-              <input type="hidden" ui-select2="time.options.tasks" class="form-control" ng-model="time.selected.tasks"/>
-            </div>
+            <div time-selects time-data="time.data" time-selected="time.selected"></div>
 
             <div class="form-group">
               <textarea class="form-control" rows="3" placeholder="Notes (optional)"></textarea>
