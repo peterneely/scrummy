@@ -2,11 +2,13 @@
 
 (function () {
 
-  var controller = ['$scope', 'String', function ($scope, String) {
+  var controller = ['$scope', '$filter', function ($scope, $filter) {
+
+    $scope.types = ['clients', 'projects', 'tasks'];
 
     $scope.options = {};
 
-    angular.forEach(['clients', 'projects', 'tasks'], function (type) {
+    angular.forEach($scope.types, function (type) {
       initOptions(type);
     });
 
@@ -14,25 +16,25 @@
       $scope.options[type] = {
         data: getData(type),
         placeholder: getPlaceholder(type),
-        allowClear: true,
         createSearchChoice: addSelectOption(type)
       };
     }
 
     function getData(type) {
       var array = [];
-      var items = $scope.data[type];
+      var items = $scope.scData[type];
       angular.forEach(items, function (item) {
         array.push({
           id: item.$id,
           text: item.name
         });
       });
-      return _.sortBy(array, 'text');
+      return $filter('orderBy')(array, 'text', false);
     }
 
     function getPlaceholder(type) {
-      return String.initialCaps(String.singular(type));
+      var singularType = $filter('rtrim')(type, 's');
+      return $filter('ucfirst')(singularType);
     }
 
     function addSelectOption(type) {
@@ -41,7 +43,7 @@
           id: '',
           text: term
         };
-        $scope.selected[type] = newOption;
+        $scope.scState[type] = newOption;
         $scope.$apply();
         return newOption;
       };
@@ -52,18 +54,12 @@
     return {
       templateUrl: '../../views/directives/selects.html',
       scope: {
-        data: '=',
-        selected: '='
+        scData: '=',
+        scState: '=',
+        scClass: '@'
       },
       controller: controller,
-      link: function (scope, element) {
-        $(function () {
-          element.on('change', function (e) {
-            console.log('change');
-
-          });
-        });
-      }
+      replace: true
     };
   };
 

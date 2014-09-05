@@ -8,24 +8,24 @@
         </div>
 
         <div class="panel-body">
-          <form class="" role="form">
+          <form role="form" ng-submit="time.ok()">
 
-            <div selects data="time.data" selected="time.selected"></div>
+            <div selects sc-data="time.data" sc-state="time.state" sc-class="form-control"></div>
 
             <div class="form-group">
-              <textarea class="form-control" rows="3" placeholder="Notes (optional)"></textarea>
+              <textarea class="form-control" rows="3" placeholder="Notes (optional)" ng-model="time.state.notes"></textarea>
             </div>
 
             <div class="form-group">
               <div class="row">
                 <div class="col-xs-3">
-                  <input type="text" class="form-control" placeholder="Start Time">
+                  <input type="text" class="form-control" placeholder="Start Time" ng-model="time.state.start" ng-blur="time.formatTime('start')">
                 </div>
                 <div class="col-xs-1">
                   <span>to</span>
                 </div>
                 <div class="col-xs-3">
-                  <input type="text" class="form-control col-xs-1" placeholder="End Time">
+                  <input type="text" class="form-control col-xs-1" placeholder="End Time" ng-model="time.state.end" ng-blur="time.formatTime('end')">
                 </div>
               </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-xs-3">
-                  <button class="btn btn-primary">Start Timer</button>
+                  <button class="btn btn-primary" type="submit">Start Timer</button>
                 </div>
                 <div class="col-xs-3">
                   <button class="btn btn-default" ng-click="time.cancel()">Cancel</button>
@@ -41,7 +41,7 @@
               </div>
             </div>
 
-            <pre>{{ time.selected | json }}</pre>
+            <pre>{{ time.state | json }}</pre>
 
           </form>
         </div>

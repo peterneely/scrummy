@@ -12,7 +12,8 @@
     'ui.router',
     'firebase',
     'ui.bootstrap',
-    'ui.select2'
+    'ui.select2',
+    'angular.filter'
   ];
 
   angular
