@@ -2,8 +2,8 @@
 
 (function () {
 
-  var initService = ['$q', 'Data', 'Auth', 'Account', 'State', 'TYPES',
-    function ($q, Data, Auth, Account, State, TYPES) {
+  var initService = ['$q', 'Data', 'Auth', 'Account', 'State',
+    function ($q, Data, Auth, Account, State) {
 
       var getCoreData = function () {
         var deferred = $q.defer();
@@ -31,7 +31,7 @@
 
       function getData(user) {
         var promises = [];
-        TYPES.forEach(function (type) {
+        ['clients', 'projects', 'tasks'].forEach(function (type) {
           var promise = Data.dataResource(user, type).$asArray().$loaded();
           promises.push(promise);
         });
