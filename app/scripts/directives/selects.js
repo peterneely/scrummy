@@ -43,7 +43,7 @@
           id: '',
           text: term
         };
-        $scope.scState[type] = newOption;
+        $scope.scModel[type] = newOption;
         $scope.$apply();
         return newOption;
       };
@@ -55,7 +55,7 @@
       templateUrl: '../../views/directives/selects.html',
       scope: {
         scData: '=',
-        scState: '=',
+        scModel: '=',
         scClass: '@'
       },
       controller: controller,
