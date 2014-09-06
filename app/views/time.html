@@ -1,12 +1,11 @@
 <div class="panel-default">
 
-  <div class="panel-heading">
+  <section class="panel-heading">
     <h1 class="panel-title">New Time Entry</h1>
-  </div>
+  </section>
 
-  <div class="panel-body">
-    <form role="form" ng-submit="time.ok()">
-
+  <form role="form" ng-submit="time.ok()">
+    <section class="panel-body">
       <div selects sc-data="time.data" sc-model="time.state" sc-class="form-control"></div>
 
       <div class="form-group">
@@ -19,18 +18,18 @@
              sc-placeholder="Start Time" sc-model="time.state.time.start"></div>
         <span class="sc-form-control">to</span>
 
-        <div time sc-class="form-control sc-form-control sc-small" ng-class="{'sc-bold': time.state.time.end}"
+        <div time sc-class="form-control sc-form-control sc-small sc-last" ng-class="{'sc-bold': time.state.time.end}"
              sc-placeholder="End Time" sc-model="time.state.time.end"></div>
       </div>
-    </form>
-  </div>
+    </section>
 
-  <div class="panel-footer">
-    <div class="form-group form-inline">
-      <button class="btn btn-primary sc-form-control sc-medium" type="submit">Start Timer</button>
-      <button class="btn btn-default sc-form-control sc-medium" ng-click="time.cancel()">Cancel</button>
-    </div>
-    <pre ng-if="debug">{{ time.state | json }}</pre>
-  </div>
-  
+    <section class="panel-footer">
+      <div class="form-group form-inline">
+        <button class="btn btn-primary sc-form-control sc-medium" type="submit">Start Timer</button>
+        <button class="btn btn-default sc-form-control sc-medium" ng-click="time.cancel()">Cancel</button>
+      </div>
+      <pre ng-if="debug">{{ time.state | json }}</pre>
+    </section>
+  </form>
+
 </div>

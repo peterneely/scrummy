@@ -1,3 +1,3 @@
 <div class="form-group" ng-repeat="type in types">
-  <input type="hidden" ui-select2="options[type]" class="{{ scClass }}" ng-model="scModel[type]"/>
+  <input ui-select2="options[type]" class="{{ scClass }}" ng-class="{'sc-bold': scModel[type]}" ng-model="scModel[type]" required/>
 </div>

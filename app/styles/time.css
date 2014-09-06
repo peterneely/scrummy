@@ -3,6 +3,10 @@
     margin-right: 10px;
 }
 
+.sc-form-control.sc-last {
+    margin-right: 0;
+}
+
 .sc-form-control.sc-small {
     width: 100px;
 }

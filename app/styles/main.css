@@ -7,7 +7,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-input[type='text'],
+input[type='text'], textarea,
 .btn:active, .btn.active {
     -webkit-box-shadow: none;
     -webkit-appearance: none;
