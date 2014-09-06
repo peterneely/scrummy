@@ -2,7 +2,7 @@
 
 (function () {
 
-  var accountService = ['$q', 'Data', 'Url', function ($q, Data, Url) {
+  var accountService = ['$q', 'Data', 'Filter', 'Url', function ($q, Data, Filter, Url) {
     /*jshint camelcase: false */
 
     var createUser = function (authUser) {
@@ -11,7 +11,7 @@
         email: authUser.email,
         hash: authUser.md5_hash
       };
-      var userName = getUserName(authUser);
+      var userName = Filter.userName(authUser.email);
       var userResource = Data.userResource(userName);
       userResource.$set(user).then(function () {
         deferred.resolve(authUser);
@@ -21,7 +21,7 @@
 
     var getUser = function (authUser) {
       var deferred = $q.defer();
-      var userName = getUserName(authUser);
+      var userName = Filter.userName(authUser.email);
       var userResource = Data.userResource(userName);
       userResource.$asObject().$loaded().then(function (user) {
         var currentUser = {
@@ -33,10 +33,6 @@
       });
       return deferred.promise;
     };
-
-    function getUserName(authUser) {
-      return authUser.email.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
-    }
 
     function picUrl(user) {
       // API at https://en.gravatar.com/site/implement/images/

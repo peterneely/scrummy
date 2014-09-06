@@ -57,8 +57,7 @@
         scModel: '=',
         scClass: '@'
       },
-      controller: controller,
-      replace: true
+      controller: controller
     };
   };
 

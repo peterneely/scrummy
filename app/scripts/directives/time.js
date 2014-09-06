@@ -12,38 +12,32 @@
       });
 
       function getTime(value) {
-        if (isEmpty(value)) {
+        if (noTime(value)) {
           return value;
         } else if (invalidTime(value)) {
           return defaultTime();
         } else {
-          return formatTime(value);
+          return formattedTime(value);
         }
       }
 
-      function isEmpty(value) {
-        return value === '';
+      function noTime(value) {
+        return value === null;
       }
 
       function invalidTime(value) {
-        console.log(isNumeric(value));
-        return !isNumeric(value) || !validTimeDelimeter(value);
-      }
-
-      function isNumeric(value) {
-        return Filter.isNumeric(value);
-      }
-
-      function validTimeDelimeter(value) {
-        return Filter.contains(['.', ',', ':'], value);
+        return !Filter.validTime(value)
       }
 
       function defaultTime() {
         return Filter.dateFormat(Date.now(), 'HH:mm');
       }
 
-      function formatTime(value) {
-        return 'hazzah';
+      function formattedTime(value) {
+        var formatted = Filter.formatTime(value);
+        scope.scModel = formatted;
+        scope.$apply();
+        return formatted;
       }
     };
 
