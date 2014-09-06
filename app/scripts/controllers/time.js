@@ -1,19 +1,14 @@
 'use strict';
 
 (function () {
-  var timeController = ['$filter', '$modalInstance', 'coreData',
-    function ($filter, $modalInstance, coreData) {
+  var timeController = ['$modalInstance', 'coreData',
+    function ($modalInstance, coreData) {
 
       var self = this;
 
       self.data = coreData;
 
       self.state = {};
-
-      self.formatTime = function(field){
-        self.state[field] = $filter('date')(self.state[field], 'HH:mm');
-        console.log(self.state[field]);
-      };
 
       self.ok = function () {
         $modalInstance.close();

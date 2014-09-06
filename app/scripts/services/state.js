@@ -2,8 +2,8 @@
 
 (function () {
 
-  var state = ['$location', '$state', '$filter',
-    function ($location, $state, $filter) {
+  var state = ['$location', '$state', 'Filter',
+    function ($location, $state, Filter) {
 
       var go = function (state) {
         $state.go(state);
@@ -11,7 +11,7 @@
 
       var isActive = function () {
         var states = ['nav.clients', 'nav.projects', 'nav.tasks'];
-        return $filter('contains')(states, $state.current.name) ? 'active' : '';
+        return Filter.contains(states, $state.current.name) ? 'active' : '';
       };
 
       return {

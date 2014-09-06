@@ -2,7 +2,7 @@
 
 (function () {
 
-  var controller = ['$scope', '$filter', function ($scope, $filter) {
+  var controller = ['$scope', 'Filter', function ($scope, Filter) {
 
     $scope.types = ['clients', 'projects', 'tasks'];
 
@@ -29,12 +29,11 @@
           text: item.name
         });
       });
-      return $filter('orderBy')(array, 'text', false);
+      return Filter.orderBy(array, 'text');
     }
 
     function getPlaceholder(type) {
-      var singularType = $filter('rtrim')(type, 's');
-      return $filter('ucfirst')(singularType);
+      return Filter.ucFirst(Filter.singular(type));
     }
 
     function addSelectOption(type) {

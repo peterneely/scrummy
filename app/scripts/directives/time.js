@@ -2,7 +2,7 @@
 
 (function () {
 
-  var timeDirective = ['$filter', function ($filter) {
+  var timeDirective = ['Filter', function (Filter) {
 
     var link = function (scope, element) {
 
@@ -10,8 +10,6 @@
         var value = element.val();
         element.val(getTime(value));
       });
-
-      var timeFormat = 'HH:mm';
 
       function getTime(value) {
         if (isEmpty(value)) {
@@ -28,20 +26,20 @@
       }
 
       function invalidTime(value) {
-        console.log(isNumber(value));
-        return !isNumber(value) || !validTimeDelimeter(value);
+        console.log(isNumeric(value));
+        return !isNumeric(value) || !validTimeDelimeter(value);
       }
 
-      function isNumber(value) {
-        return $filter('isNumber')(value);
+      function isNumeric(value) {
+        return Filter.isNumeric(value);
       }
 
       function validTimeDelimeter(value) {
-        return $filter('contains')(['.', ',', ':'], value) || isNumber(value);
+        return Filter.contains(['.', ',', ':'], value);
       }
 
       function defaultTime() {
-        return $filter('date')(Date.now(), timeFormat);
+        return Filter.dateFormat(Date.now(), 'HH:mm');
       }
 
       function formatTime(value) {

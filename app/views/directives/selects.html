@@ -1,5 +1,3 @@
-<div ng-repeat="type in types">
-  <div class="form-group">
-    <input type="hidden" ui-select2="options[type]" class="{{ scClass }}" ng-model="scModel[type]"/>
-  </div>
+<div class="form-group" ng-repeat="type in types">
+  <input type="hidden" ui-select2="options[type]" class="{{ scClass }}" ng-model="scModel[type]"/>
 </div>
