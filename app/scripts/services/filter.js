@@ -18,7 +18,7 @@
       var regex = /(?:[^:.,])+/g;
       var matched;
       var elements = [];
-      while(matched = regex.exec(value)){
+      while((matched = regex.exec(value))){
         elements.push(('0' + matched[0]).substr(-2));
       }
       if(elements.length === 1){

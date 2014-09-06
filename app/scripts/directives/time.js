@@ -22,11 +22,11 @@
       }
 
       function noTime(value) {
-        return value === null;
+        return value === '';
       }
 
       function invalidTime(value) {
-        return !Filter.validTime(value)
+        return !Filter.validTime(value);
       }
 
       function defaultTime() {

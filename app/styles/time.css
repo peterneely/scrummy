@@ -1,0 +1,12 @@
+.sc-form-control {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.sc-form-control.sc-small {
+    width: 100px;
+}
+
+.sc-form-control.sc-medium {
+    width: 150px;
+}
