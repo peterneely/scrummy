@@ -30,16 +30,16 @@
       vm.search.name = '';
     }
 
-    function remove(object) {
-      Data.remove(object, viewData.items);
+    function remove(item) {
+      Data.remove(item, viewData);
     }
 
     function searching() {
       return vm.search.name.length > 0;
     }
 
-    function update(object) {
-      Data.update(object, viewData.items);
+    function update(item) {
+      Data.update(item, viewData);
     }
   }
 })();

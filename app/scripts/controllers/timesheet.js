@@ -6,13 +6,14 @@
     .module('scrummyApp')
     .controller('Timesheet', TimesheetController);
 
-  TimesheetController.$inject = ['$modal', 'coreData'];
+  TimesheetController.$inject = ['$modal', 'viewData'];
 
 
-  function TimesheetController($modal, coreData) {
+  function TimesheetController($modal, viewData) {
 
     var vm = this;
 
+    console.log(viewData);
     vm.open = onOpen;
 
     function onOpen() {
@@ -20,8 +21,13 @@
         templateUrl: 'views/time.html',
         controller: 'Time as time',
         resolve: {
-          coreData: function () {
-            return coreData;
+          viewData: function () {
+            return {
+              user: viewData.user,
+              clients: viewData.clients,
+              projects: viewData.projects,
+              tasks: viewData.tasks
+            };
           }
         }
       };

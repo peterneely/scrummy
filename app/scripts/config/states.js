@@ -64,7 +64,19 @@
       return {
         url: '^/timesheet',
         templateUrl: 'views/timesheet.html',
-        controller: 'Timesheet as timesheet'
+        controller: 'Timesheet as timesheet',
+        resolve: {
+          viewData: ['coreData', function (coreData) {
+            return {
+              user: coreData.user,
+              clients: coreData.clients,
+              projects: coreData.projects,
+              tasks: coreData.tasks,
+              times: coreData.times,
+              type: 'times'
+            };
+          }]
+        }
       };
     }
 
@@ -85,6 +97,7 @@
             return {
               user: coreData.user,
               items: coreData.clients,
+              times: coreData.times,
               type: 'clients'
             };
           }]
@@ -109,6 +122,7 @@
             return {
               user: coreData.user,
               items: coreData.projects,
+              times: coreData.times,
               type: 'projects'
             };
           }]
@@ -133,6 +147,7 @@
             return {
               user: coreData.user,
               items: coreData.tasks,
+              times: coreData.times,
               type: 'tasks'
             };
           }]

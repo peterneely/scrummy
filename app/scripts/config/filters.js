@@ -8,6 +8,7 @@
     .filter('contains', contains)
     .filter('formatTime', formatTime)
     .filter('isNumeric', isNumeric)
+    .filter('plural', plural)
     .filter('singular', singular)
     .filter('ucFirst', ucFirst)
     .filter('urlData', urlData)
@@ -44,6 +45,12 @@
     };
   }
 
+  function plural() {
+    return function (value) {
+      return value + 's';
+    };
+  }
+
   function singular() {
     return function (value) {
       return value.replace(/[sS]+$/, '');
@@ -60,7 +67,7 @@
 
   urlData.$inject = ['Config'];
   function urlData(Config) {
-    return function(userName, dataType){
+    return function (userName, dataType) {
       return Config.urlData + userName + '/' + dataType;
     };
   }

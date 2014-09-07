@@ -39,7 +39,7 @@
 
       function getData(user) {
         var promises = [];
-        ['clients', 'projects', 'tasks'].forEach(function (type) {
+        ['clients', 'projects', 'tasks', 'times'].forEach(function (type) {
           var promise = Data.dataResource(user, type).$asArray().$loaded();
           promises.push(promise);
         });
@@ -51,7 +51,8 @@
           user: user,
           clients: data[0],
           projects: data[1],
-          tasks: data[2]
+          tasks: data[2],
+          times: data[3]
         };
       }
     }

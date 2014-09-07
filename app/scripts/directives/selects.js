@@ -22,7 +22,7 @@
 
   function SelectsController($scope, $filter) {
 
-    $scope.types = ['clients', 'projects', 'tasks'];
+    $scope.types = ['client', 'project', 'task'];
     $scope.options = selectsOptions();
 
     function selectsOptions() {
@@ -35,12 +35,13 @@
       function optionsFor(type) {
         return {
           data: getData(type),
-          placeholder: getPlaceholder(type),
+          placeholder: $filter('ucFirst')(type),
           createSearchChoice: addSelectOption(type)
         };
 
         function getData(type) {
           var array = [];
+          type = $filter('plural')(type);
           var items = $scope.scData[type];
           angular.forEach(items, function (item) {
             array.push({
@@ -49,11 +50,6 @@
             });
           });
           return $filter('orderBy')(array, 'text');
-        }
-
-        function getPlaceholder(type) {
-          var singularType = $filter('singular')(type);
-          return $filter('ucFirst')(singularType);
         }
 
         function addSelectOption(type) {

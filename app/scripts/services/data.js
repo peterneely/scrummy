@@ -28,25 +28,20 @@
       return resource(url);
     }
 
-    function remove(item, items) {
-      items.$remove(item);
+    function remove(item, viewData) {
+      viewData.items.$remove(item);
     }
 
     function resource(url) {
       return $firebase(new Firebase(url));
     }
 
-    function startTimer(user, state) {
-      return timeResource(user).$push(state);
+    function startTimer(user, timeEntry) {
+      return dataResource(user, 'times').$push(timeEntry);
     }
 
-    function timeResource(user){
-      var url = $filter('urlData')(user.id, 'times');
-      return resource(url);
-    }
-
-    function update(item, items) {
-      return items.$save(item);
+    function update(item, viewData) {
+      return viewData.items.$save(item);
     }
 
     function userResource(userName) {

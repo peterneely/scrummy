@@ -6,20 +6,20 @@
 
   <form role="form" ng-submit="time.start()">
     <section class="panel-body">
-      <div selects sc-data="time.data" sc-model="time.state" sc-class="form-control"></div>
+      <div selects sc-data="time.data" sc-model="time.timeEntry" sc-class="form-control"></div>
 
       <div class="form-group">
         <textarea class="form-control" rows="3" placeholder="Notes (optional)"
-                  ng-model="time.state.notes"></textarea>
+                  ng-model="time.timeEntry.notes"></textarea>
       </div>
 
       <div class="form-group form-inline">
-        <div time sc-class="form-control sc-form-control sc-small" ng-class="{'sc-bold': time.state.time.start}"
-             sc-placeholder="Start Time" sc-model="time.state.time.start"></div>
+        <div time sc-class="form-control sc-form-control sc-small" ng-class="{'sc-bold': time.timeEntry.time.start}"
+             sc-placeholder="Start Time" sc-model="time.timeEntry.time.start"></div>
         <span class="sc-form-control">to</span>
 
-        <div time sc-class="form-control sc-form-control sc-small sc-last" ng-class="{'sc-bold': time.state.time.end}"
-             sc-placeholder="End Time" sc-model="time.state.time.end"></div>
+        <div time sc-class="form-control sc-form-control sc-small sc-last" ng-class="{'sc-bold': time.timeEntry.time.end}"
+             sc-placeholder="End Time" sc-model="time.timeEntry.time.end"></div>
       </div>
     </section>
 
