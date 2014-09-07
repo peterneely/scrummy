@@ -11,8 +11,6 @@
     .filter('plural', plural)
     .filter('singular', singular)
     .filter('ucFirst', ucFirst)
-    .filter('urlData', urlData)
-    .filter('urlPic', urlPic)
     .filter('userName', userName)
     .filter('validTime', validTime);
 
@@ -62,23 +60,6 @@
       return value.replace(/(^|[\. ])\s*./g, function (text) {
         return text.charAt(0).toUpperCase() + text.substr(1);
       });
-    };
-  }
-
-  urlData.$inject = ['Config'];
-  function urlData(Config) {
-    return function (userName, dataType) {
-      return Config.urlData + userName + '/' + dataType;
-    };
-  }
-
-  urlPic.$inject = ['Config'];
-  function urlPic(Config) {
-    return function (userPicId) {
-      // API at https://en.gravatar.com/site/implement/images/
-      if (userPicId) {
-        return Config.urlPic + userPicId + '?d=mm';
-      }
     };
   }
 

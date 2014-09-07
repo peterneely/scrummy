@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Data', DataService);
 
-  DataService.$inject = ['$firebase', '$filter'];
+  DataService.$inject = ['$filter', 'Config', 'Resource'];
 
-  function DataService($firebase, $filter) {
+  function DataService($filter, Config, Resource) {
 
     return {
       add: add,
@@ -21,7 +21,7 @@
     };
 
     function add(item, user, type) {
-      return dataResource(user, type).$push(item);
+      return Resource.data(user, type).$push(item);
     }
 
     function createUser(authUser) {
@@ -32,37 +32,44 @@
       var user = {
         userName: userName,
         email: email,
-        pic: $filter('urlPic')(authUser.md5_hash)
+        pic: Config.urlPic + authUser.md5_hash + '?d=mm'
       };
-      return userResource(userName).$set(user);
-    }
-
-    function dataResource(user, type) {
-      var url = $filter('urlData')(user.userName, type);
-      return resource(url);
+      return Resource.user(userName).$set(user);
     }
 
     function getData(user, type) {
-      return dataResource(user, type).$asArray().$loaded();
+      return Resource.data(user, type).$asArray().$loaded();
     }
 
     function getUser(authUser) {
-      return userResource(getUserName(authUser.email)).$asObject().$loaded();
+      Resource.user(getUserName(authUser.email)).$asObject().$loaded().then(mapUser);
+
+      function mapUser(user) {
+        console.log(user);
+        return {
+          userName: user.userName,
+          email: user.email,
+          pic: user.pic
+        };
+      }
     }
 
     function remove(item, viewData) {
       viewData.items.$remove(item);
     }
 
-    function resource(url) {
-      return $firebase(new Firebase(url));
-    }
-
     function startTimer(viewData, timeEntry) {
-      return dataResource(viewData.user, 'times').$push(timeEntry).then(updateRelated);
+      var user = viewData.user;
+      return Resource.data(user, 'times').$push(timeEntry).then(updateRelated);
 
-      function updateRelated(newTimeEntry) {
-        console.log(newTimeEntry);
+      function updateRelated(ref) {
+        var itemId = ref.name();
+        ['client', 'project', 'task'].forEach(function (type) {
+          var relatedType = $filter('plural')(type);
+          var relatedItemId = timeEntry[type].id;
+          var resource = Resource.related(user, relatedType, relatedItemId, 'times');
+          resource.$push(itemId);
+        });
       }
     }
 
@@ -72,11 +79,6 @@
 
     function getUserName(email) {
       return $filter('userName')(email);
-    }
-
-    function userResource(userName) {
-      var url = $filter('urlData')(userName, 'user');
-      return resource(url);
     }
   }
 
