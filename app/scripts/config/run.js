@@ -4,9 +4,9 @@
 
   angular
     .module('scrummyApp')
-    .run(run());
+    .run(Run);
 
-  function run() {
+  function Run() {
 
   }
 

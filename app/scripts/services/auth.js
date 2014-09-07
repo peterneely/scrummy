@@ -2,10 +2,10 @@
 
 (function () {
 
-  var authService = ['$firebaseSimpleLogin', 'State', 'Url',
-    function ($firebaseSimpleLogin, State, Url) {
+  var authService = ['$firebaseSimpleLogin', 'State', 'Config',
+    function ($firebaseSimpleLogin, State, Config) {
 
-      var ref = new Firebase(Url.rootData);
+      var ref = new Firebase(Config.urlData);
       var fb = $firebaseSimpleLogin(ref);
 
       return {

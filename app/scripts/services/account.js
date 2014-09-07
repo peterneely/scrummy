@@ -2,53 +2,43 @@
 
 (function () {
 
-  var accountService = ['$q', 'Data', '$filter', 'Url',
-    function ($q, Data, $filter, Url) {
-      /*jshint camelcase: false */
+  var accountService = ['$q', 'Data', '$filter', function ($q, Data, $filter) {
+    /*jshint camelcase: false */
 
-      return {
-        createUser: createUser,
-        getUser: getUser
+    return {
+      createUser: createUser,
+      getUser: getUser
+    };
+
+    function createUser(authUser) {
+      var deferred = $q.defer();
+      var user = {
+        email: authUser.email,
+        hash: authUser.md5_hash
       };
+      var userName = $filter('userName')(authUser.email);
+      var userResource = Data.userResource(userName);
+      userResource.$set(user).then(function () {
+        deferred.resolve(authUser);
+      });
+      return deferred.promise;
+    }
 
-      function createUser(authUser) {
-        var deferred = $q.defer();
-        var user = {
-          email: authUser.email,
-          hash: authUser.md5_hash
+    function getUser(authUser) {
+      var deferred = $q.defer();
+      var userName = $filter('userName')(authUser.email);
+      var userResource = Data.userResource(userName);
+      userResource.$asObject().$loaded().then(function (user) {
+        var currentUser = {
+          id: userName,
+          email: user.email,
+          pic: $filter('urlPic')(user)
         };
-        var userName = $filter('userNameFromEmail')(authUser.email);
-        var userResource = Data.userResource(userName);
-        userResource.$set(user).then(function () {
-          deferred.resolve(authUser);
-        });
-        return deferred.promise;
-      }
-
-      function getUser(authUser) {
-        var deferred = $q.defer();
-        var userName = $filter('userNameFromEmail')(authUser.email);
-        var userResource = Data.userResource(userName);
-        userResource.$asObject().$loaded().then(function (user) {
-          var currentUser = {
-            id: userName,
-            email: user.email,
-            pic: picUrl(user)
-          };
-          deferred.resolve(currentUser);
-        });
-        return deferred.promise;
-
-        function picUrl(user) {
-          // API at https://en.gravatar.com/site/implement/images/
-          if (user) {
-            var userId = user.hash;
-            var defaultPic = '?d=mm';
-            return Url.rootAvatar + '/' + userId + defaultPic;
-          }
-        }
-      }
-    }];
+        deferred.resolve(currentUser);
+      });
+      return deferred.promise;
+    }
+  }];
 
   angular
     .module('scrummyApp')

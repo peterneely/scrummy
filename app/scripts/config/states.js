@@ -4,161 +4,160 @@
 
   angular
     .module('scrummyApp')
-    .config(statesConfig());
+    .config(States);
 
-  function statesConfig(){
-    return ['$stateProvider', '$urlRouterProvider',
-      function ($stateProvider, $urlRouterProvider) {
+  States.$inject = ['$stateProvider', '$urlRouterProvider'];
 
-        $stateProvider
-          .state('home', home())
-          .state('login', login())
-          .state('register', register())
-          .state('nav', nav())
-          .state('nav.timesheet', navTimesheet())
-          .state('nav.clients', navClients())
-          .state('nav.projects', navProjects())
-          .state('nav.tasks', navTasks())
-          .state('nav.user', navUser());
+  function States($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider
-          .otherwise('/');
+    $stateProvider
+      .state('home', home())
+      .state('login', login())
+      .state('register', register())
+      .state('nav', nav())
+      .state('nav.timesheet', navTimesheet())
+      .state('nav.clients', navClients())
+      .state('nav.projects', navProjects())
+      .state('nav.tasks', navTasks())
+      .state('nav.user', navUser());
 
-        function home() {
-          return {
-            url: '/',
-            templateUrl: 'views/main.html',
-            controller: 'Main as main'
-          };
+    $urlRouterProvider
+      .otherwise('/');
+
+    function home() {
+      return {
+        url: '/',
+        templateUrl: 'views/main.html',
+        controller: 'Main as main'
+      };
+    }
+
+    function login() {
+      return {
+        url: '/login',
+        templateUrl: 'views/login.html',
+        controller: 'Auth as auth'
+      };
+    }
+
+    function register() {
+      return {
+        url: '/register',
+        templateUrl: 'views/register.html',
+        controller: 'Auth as auth'
+      };
+    }
+
+    function nav() {
+      return {
+        abstract: true,
+        templateUrl: 'views/nav.html',
+        controller: 'Nav as nav',
+        resolve: {
+          coreData: ['Init', function (Init) {
+            return Init.getCoreData();
+          }]
         }
+      };
+    }
 
-        function login() {
-          return {
-            url: '/login',
-            templateUrl: 'views/login.html',
-            controller: 'Auth as auth'
-          };
-        }
+    function navTimesheet() {
+      return {
+        url: '^/timesheet',
+        templateUrl: 'views/timesheet.html',
+        controller: 'Timesheet as timesheet'
+      };
+    }
 
-        function register() {
-          return {
-            url: '/register',
-            templateUrl: 'views/register.html',
-            controller: 'Auth as auth'
-          };
+    function navClients() {
+      return {
+        url: '^/clients',
+        views: {
+          '': {
+            templateUrl: 'views/manage.html',
+            controller: 'Manage as manage'
+          },
+          '@nav.clients': {
+            templateUrl: 'views/tabs.html',
+            controller: 'Tabs as tabs'
+          }
+        },
+        resolve: {
+          viewData: ['coreData', function (coreData) {
+            return {
+              user: coreData.user,
+              items: coreData.clients,
+              type: 'clients'
+            };
+          }]
         }
+      };
+    }
 
-        function nav() {
-          return {
-            abstract: true,
-            templateUrl: 'views/nav.html',
-            controller: 'Nav as nav',
-            resolve: {
-              coreData: ['Init', function (Init) {
-                return Init.getCoreData();
-              }]
-            }
-          };
+    function navProjects() {
+      return {
+        url: '^/projects',
+        views: {
+          '': {
+            templateUrl: 'views/manage.html',
+            controller: 'Manage as manage'
+          },
+          '@nav.projects': {
+            templateUrl: 'views/tabs.html',
+            controller: 'Tabs as tabs'
+          }
+        },
+        resolve: {
+          viewData: ['coreData', function (coreData) {
+            return {
+              user: coreData.user,
+              items: coreData.projects,
+              type: 'projects'
+            };
+          }]
         }
+      };
+    }
 
-        function navTimesheet() {
-          return {
-            url: '^/timesheet',
-            templateUrl: 'views/timesheet.html',
-            controller: 'Timesheet as timesheet'
-          };
+    function navTasks() {
+      return {
+        url: '^/tasks',
+        views: {
+          '': {
+            templateUrl: 'views/manage.html',
+            controller: 'Manage as manage'
+          },
+          '@nav.tasks': {
+            templateUrl: 'views/tabs.html',
+            controller: 'Tabs as tabs'
+          }
+        },
+        resolve: {
+          viewData: ['coreData', function (coreData) {
+            return {
+              user: coreData.user,
+              items: coreData.tasks,
+              type: 'tasks'
+            };
+          }]
         }
+      };
+    }
 
-        function navClients() {
-          return {
-            url: '^/clients',
-            views: {
-              '': {
-                templateUrl: 'views/manage.html',
-                controller: 'Manage as manage'
-              },
-              '@nav.clients': {
-                templateUrl: 'views/tabs.html',
-                controller: 'Tabs as tabs'
-              }
-            },
-            resolve: {
-              viewData: ['coreData', function (coreData) {
-                return {
-                  user: coreData.user,
-                  items: coreData.clients,
-                  type: 'clients'
-                };
-              }]
-            }
-          };
+    function navUser() {
+      return {
+        url: '^/user',
+        templateUrl: 'views/user.html',
+        controller: 'User as user',
+        resolve: {
+          viewData: ['coreData', function (coreData) {
+            return {
+              user: coreData.user
+            };
+          }]
         }
-
-        function navProjects() {
-          return {
-            url: '^/projects',
-            views: {
-              '': {
-                templateUrl: 'views/manage.html',
-                controller: 'Manage as manage'
-              },
-              '@nav.projects': {
-                templateUrl: 'views/tabs.html',
-                controller: 'Tabs as tabs'
-              }
-            },
-            resolve: {
-              viewData: ['coreData', function (coreData) {
-                return {
-                  user: coreData.user,
-                  items: coreData.projects,
-                  type: 'projects'
-                };
-              }]
-            }
-          };
-        }
-
-        function navTasks(){
-          return {
-            url: '^/tasks',
-            views: {
-              '': {
-                templateUrl: 'views/manage.html',
-                controller: 'Manage as manage'
-              },
-              '@nav.tasks': {
-                templateUrl: 'views/tabs.html',
-                controller: 'Tabs as tabs'
-              }
-            },
-            resolve: {
-              viewData: ['coreData', function (coreData) {
-                return {
-                  user: coreData.user,
-                  items: coreData.tasks,
-                  type: 'tasks'
-                };
-              }]
-            }
-          };
-        }
-
-        function navUser(){
-          return {
-            url: '^/user',
-            templateUrl: 'views/user.html',
-            controller: 'User as user',
-            resolve: {
-              viewData: ['coreData', function (coreData) {
-                return {
-                  user: coreData.user
-                };
-              }]
-            }
-          };
-        }
-      }];
+      };
+    }
   }
 
 })();

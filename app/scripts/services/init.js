@@ -2,18 +2,26 @@
 
 (function () {
 
-  var initService = ['$q', 'Data', 'Auth', 'Account', 'State',
-    function ($q, Data, Auth, Account, State) {
+  angular
+    .module('scrummyApp')
+    .factory('Init', InitService);
 
-      var getCoreData = function () {
-        var deferred = $q.defer();
-        getUser().then(function (user) {
-          $q.all(getData(user)).then(function (data) {
-            deferred.resolve(viewData(user, data));
-          });
+  InitService.inject = ['$q', 'Data', 'Auth', 'Account', 'State'];
+
+  function InitService($q, Data, Auth, Account, State) {
+
+    return {
+      getCoreData: getCoreData
+    };
+
+    function getCoreData () {
+      var deferred = $q.defer();
+      getUser().then(function (user) {
+        $q.all(getData(user)).then(function (data) {
+          deferred.resolve(viewData(user, data));
         });
-        return deferred.promise;
-      };
+      });
+      return deferred.promise;
 
       function getUser() {
         var deferred = $q.defer();
@@ -38,7 +46,7 @@
         return promises;
       }
 
-      function viewData(user, data){
+      function viewData(user, data) {
         return {
           user: user,
           clients: data[0],
@@ -46,13 +54,7 @@
           tasks: data[2]
         };
       }
+    }
+  }
 
-      return {
-        getCoreData: getCoreData
-      };
-    }];
-
-  angular
-    .module('scrummyApp')
-    .factory('Init', initService);
 })();

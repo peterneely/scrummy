@@ -2,43 +2,43 @@
 
 (function () {
 
-  var authController = ['Auth', 'Account', 'Errors', 'State',
-    function (Auth, Account, Errors, State) {
-
-      var self = this;
-
-      self.error = null;
-
-      self.user = {
-        email: 'pgneely@gmail.com',
-        password: 'testing',
-        confirmPassword: 'testing'
-      };
-
-      self.focus = function () {
-        self.error = null;
-      };
-
-      self.register = function () {
-        Auth.register(self.user).then(function (authUser) {
-          Account.createUser(authUser).then(function () {
-            self.login();
-          });
-        }).catch(showError);
-      };
-
-      self.login = function () {
-        Auth.login(self.user).then(function () {
-          State.go('nav.timesheet');
-        }).catch(showError);
-      };
-
-      function showError(error) {
-        self.error = Errors.getMessage(error);
-      }
-    }];
-
   angular
     .module('scrummyApp')
-    .controller('Auth', authController);
+    .controller('Auth', AuthController);
+
+  AuthController.$inject = ['Auth', 'Account', 'Errors', 'State', 'TestData'];
+
+  function AuthController(Auth, Account, Errors, State, TestData) {
+
+    var vm = this;
+
+    vm.error = null;
+    vm.focus = onFocus;
+    vm.login = login;
+    vm.register = register;
+    vm.user = TestData.user;
+
+    function onFocus () {
+      vm.error = null;
+    }
+
+    function login() {
+      Auth.login(vm.user).then(function () {
+        State.go('nav.timesheet');
+      }).catch(showError);
+    }
+
+    function register () {
+      Auth.register(vm.user).then(function (authUser) {
+        Account.createUser(authUser).then(function () {
+          vm.login();
+        });
+      }).catch(showError);
+    }
+
+    function showError(error) {
+      vm.error = Errors.getMessage(error);
+    }
+  }
+
 })();

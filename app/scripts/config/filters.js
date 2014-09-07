@@ -4,13 +4,14 @@
 
   angular
     .module('scrummyApp')
-    .filter('contains', contains())
-    .filter('formatTime', formatTime())
-    .filter('isNumeric', isNumeric())
-    .filter('singular', singular())
-    .filter('ucFirst', ucFirst())
-    .filter('userNameFromEmail', userName())
-    .filter('validTime', validTime());
+    .filter('contains', contains)
+    .filter('formatTime', formatTime)
+    .filter('isNumeric', isNumeric)
+    .filter('singular', singular)
+    .filter('ucFirst', ucFirst)
+    .filter('urlPic', ['Config', urlPic])
+    .filter('userName', userName)
+    .filter('validTime', validTime);
 
   function contains() {
     return function (collection, value) {
@@ -52,6 +53,17 @@
       return value.replace(/(^|[\. ])\s*./g, function(text){
         return text.charAt(0).toUpperCase() + text.substr(1);
       });
+    };
+  }
+
+  function urlPic(Config){
+    return function(user){
+      // API at https://en.gravatar.com/site/implement/images/
+      if (user) {
+        var userId = user.hash;
+        var defaultPic = '?d=mm';
+        return Config.urlPic + '/' + userId + defaultPic;
+      }
     };
   }
 
