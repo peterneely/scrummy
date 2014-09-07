@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Data', DataService);
 
-  DataService.$inject = ['$filter', 'Config', 'Resource'];
+  DataService.$inject = ['$filter', 'Resource'];
 
-  function DataService($filter, Config, Resource) {
+  function DataService($filter, Resource) {
 
     return {
       add: add,
@@ -25,16 +25,8 @@
     }
 
     function createUser(authUser) {
-      /*jshint camelcase: false */
-
-      var email = authUser.email;
-      var userName = getUserName(email);
-      var user = {
-        userName: userName,
-        email: email,
-        pic: Config.urlPic + authUser.md5_hash + '?d=mm'
-      };
-      return Resource.user(userName).$set(user);
+      var user = $filter('userFromAuthUser')(authUser);
+      return Resource.user(user.userName).$set(user);
     }
 
     function getData(user, type) {
@@ -42,16 +34,8 @@
     }
 
     function getUser(authUser) {
-      Resource.user(getUserName(authUser.email)).$asObject().$loaded().then(mapUser);
-
-      function mapUser(user) {
-        console.log(user);
-        return {
-          userName: user.userName,
-          email: user.email,
-          pic: user.pic
-        };
-      }
+      var userName = $filter('userName')(authUser.email);
+      return Resource.user(userName).$asObject().$loaded();
     }
 
     function remove(item, viewData) {
@@ -75,10 +59,6 @@
 
     function update(item, viewData) {
       return viewData.items.$save(item);
-    }
-
-    function getUserName(email) {
-      return $filter('userName')(email);
     }
   }
 

@@ -11,6 +11,8 @@
     .filter('plural', plural)
     .filter('singular', singular)
     .filter('ucFirst', ucFirst)
+    .filter('userFromAuthUser', userFromAuthUser)
+    .filter('userFromUser', userFromUser)
     .filter('userName', userName)
     .filter('validTime', validTime);
 
@@ -60,6 +62,31 @@
       return value.replace(/(^|[\. ])\s*./g, function (text) {
         return text.charAt(0).toUpperCase() + text.substr(1);
       });
+    };
+  }
+
+  userFromAuthUser.$inject = ['Config'];
+  function userFromAuthUser(Config) {
+    /*jshint camelcase: false */
+
+    return function (authUser) {
+      var email = authUser.email;
+      var userName = userName()(email);
+      return {
+        userName: userName,
+        email: email,
+        pic: Config.urlPic + authUser.md5_hash + '?d=mm'
+      };
+    };
+  }
+
+  function userFromUser() {
+    return function (user) {
+      return {
+        userName: user.userName,
+        email: user.email,
+        pic: user.pic
+      };
     };
   }
 

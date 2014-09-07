@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Init', InitService);
 
-  InitService.inject = ['$q', 'Data', 'Auth', 'State'];
+  InitService.inject = ['$q', '$filter', 'Data', 'Auth', 'State'];
 
-  function InitService($q, Data, Auth, State) {
+  function InitService($q, $filter, Data, Auth, State) {
 
     return {
       getCoreData: getCoreData
@@ -28,7 +28,7 @@
         Auth.getAuthenticatedUser().then(function (authUser) {
           if (authUser) {
             Data.getUser(authUser).then(function (user) {
-              deferred.resolve(user);
+              deferred.resolve($filter('userFromUser')(user));
             });
           } else {
             State.go('login');
