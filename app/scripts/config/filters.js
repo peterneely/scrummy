@@ -74,12 +74,10 @@
 
   urlPic.$inject = ['Config'];
   function urlPic(Config) {
-    return function (user) {
+    return function (userPicId) {
       // API at https://en.gravatar.com/site/implement/images/
-      if (user) {
-        var userId = user.hash;
-        var defaultPic = '?d=mm';
-        return Config.urlPic + '/' + userId + defaultPic;
+      if (userPicId) {
+        return Config.urlPic + userPicId + '?d=mm';
       }
     };
   }

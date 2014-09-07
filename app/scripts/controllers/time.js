@@ -14,16 +14,16 @@
 
     vm.cancel = cancel;
     vm.data = viewData;
-    vm.start = start;
+    vm.start = startTimer;
     vm.timeEntry = {};
 
     function cancel() {
       $modalInstance.dismiss('cancel');
     }
 
-    function start () {
+    function startTimer() {
       $modalInstance.close();
-      Data.startTimer(viewData.user, vm.timeEntry);
+      Data.startTimer(viewData, vm.timeEntry);
     }
   }
 

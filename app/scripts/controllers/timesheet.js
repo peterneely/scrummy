@@ -13,8 +13,9 @@
 
     var vm = this;
 
-    console.log(viewData);
     vm.open = onOpen;
+
+    console.log(viewData);
 
     function onOpen() {
       var config = {
