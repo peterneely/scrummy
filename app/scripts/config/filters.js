@@ -10,7 +10,8 @@
     .filter('isNumeric', isNumeric)
     .filter('singular', singular)
     .filter('ucFirst', ucFirst)
-    .filter('urlPic', ['Config', urlPic])
+    .filter('urlData', urlData)
+    .filter('urlPic', urlPic)
     .filter('userName', userName)
     .filter('validTime', validTime);
 
@@ -51,14 +52,22 @@
 
   function ucFirst() {
     return function (value) {
-      return value.replace(/(^|[\. ])\s*./g, function(text){
+      return value.replace(/(^|[\. ])\s*./g, function (text) {
         return text.charAt(0).toUpperCase() + text.substr(1);
       });
     };
   }
 
-  function urlPic(Config){
-    return function(user){
+  urlData.$inject = ['Config'];
+  function urlData(Config) {
+    return function(userName, dataType){
+      return Config.urlData + userName + '/' + dataType;
+    };
+  }
+
+  urlPic.$inject = ['Config'];
+  function urlPic(Config) {
+    return function (user) {
       // API at https://en.gravatar.com/site/implement/images/
       if (user) {
         var userId = user.hash;

@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Data', DataService);
 
-  DataService.$inject = ['$firebase', 'Config', 'Log'];
+  DataService.$inject = ['$firebase', '$filter'];
 
-  function DataService($firebase, Config, Log) {
+  function DataService($firebase, $filter) {
 
     return {
       add: add,
@@ -24,7 +24,7 @@
     }
 
     function dataResource(user, type) {
-      var url = Config.urlData + '/users/' + user.id + '/' + type;
+      var url = $filter('urlData')(user.id, type);
       return resource(url);
     }
 
@@ -32,8 +32,17 @@
       items.$remove(item);
     }
 
-    function startTimer(state) {
-      Log.info(state);
+    function resource(url) {
+      return $firebase(new Firebase(url));
+    }
+
+    function startTimer(user, state) {
+      return timeResource(user).$push(state);
+    }
+
+    function timeResource(user){
+      var url = $filter('urlData')(user.id, 'times');
+      return resource(url);
     }
 
     function update(item, items) {
@@ -41,12 +50,8 @@
     }
 
     function userResource(userName) {
-      var url = Config.urlData + '/users/' + userName + '/account';
+      var url = $filter('urlData')(userName, 'account');
       return resource(url);
-    }
-
-    function resource(url) {
-      return $firebase(new Firebase(url));
     }
   }
 

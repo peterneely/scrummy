@@ -20,7 +20,7 @@
     };
 
     function getAuthProvider() {
-      var ref = new Firebase(Config.urlData);
+      var ref = new Firebase(Config.urlAuth);
       return $firebaseSimpleLogin(ref);
     }
 

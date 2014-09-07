@@ -23,7 +23,7 @@
 
     function start () {
       $modalInstance.close();
-      Data.startTimer(vm.state);
+      Data.startTimer(coreData.user, vm.state);
     }
   }
 

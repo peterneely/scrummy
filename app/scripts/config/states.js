@@ -101,8 +101,7 @@
             controller: 'Manage as manage'
           },
           '@nav.projects': {
-            templateUrl: 'views/tabs.html',
-            controller: 'Tabs as tabs'
+            templateUrl: 'views/tabs.html'
           }
         },
         resolve: {
@@ -126,8 +125,7 @@
             controller: 'Manage as manage'
           },
           '@nav.tasks': {
-            templateUrl: 'views/tabs.html',
-            controller: 'Tabs as tabs'
+            templateUrl: 'views/tabs.html'
           }
         },
         resolve: {
