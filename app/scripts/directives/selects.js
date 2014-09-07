@@ -2,7 +2,7 @@
 
 (function () {
 
-  var controller = ['$scope', 'Filter', function ($scope, Filter) {
+  var controller = ['$scope', '$filter', function ($scope, $filter) {
 
     $scope.types = ['clients', 'projects', 'tasks'];
 
@@ -29,11 +29,12 @@
           text: item.name
         });
       });
-      return Filter.orderBy(array, 'text');
+      return $filter('orderBy')(array, 'text');
     }
 
     function getPlaceholder(type) {
-      return Filter.ucFirst(Filter.singular(type));
+      var singularType = $filter('singular')(type);
+      return $filter('ucFirst')(singularType);
     }
 
     function addSelectOption(type) {
@@ -51,7 +52,7 @@
 
   var selectsDirective = function () {
     return {
-      templateUrl: '../../views/directives/selects.html',
+      templateUrl: 'views/directives/selects.html',
       scope: {
         scData: '=',
         scModel: '=',

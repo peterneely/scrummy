@@ -8,29 +8,29 @@
       var ref = new Firebase(Url.rootData);
       var fb = $firebaseSimpleLogin(ref);
 
-      var register = function (user) {
-        return fb.$createUser(user.email, user.password);
-      };
-
-      var login = function (user) {
-        return fb.$login('password', user);
-      };
-
-      var logout = function () {
-        fb.$logout();
-        State.go('home');
-      };
-
-      var getAuthenticatedUser = function () {
-        return fb.$getCurrentUser();
-      };
-
       return {
         register: register,
         login: login,
         logout: logout,
         getAuthenticatedUser: getAuthenticatedUser
       };
+
+      function register(user) {
+        return fb.$createUser(user.email, user.password);
+      }
+
+      function login(user) {
+        return fb.$login('password', user);
+      }
+
+      function logout() {
+        fb.$logout();
+        State.go('home');
+      }
+
+      function getAuthenticatedUser () {
+        return fb.$getCurrentUser();
+      }
     }];
 
   angular

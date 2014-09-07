@@ -2,8 +2,8 @@
 
 (function () {
 
-  var manageController = ['Data', 'Filter', 'viewData',
-    function (Data, Filter, viewData) {
+  var manageController = ['Data', '$filter', 'viewData',
+    function (Data, $filter, viewData) {
 
       var self = this;
 
@@ -12,7 +12,7 @@
 
       self.items = viewData.items;
 
-      self.placeholder = Filter.singular(viewData.type);
+      self.placeholder = $filter('singular')(viewData.type);
 
       self.add = function () {
         Data.add(self.new, viewData.user, viewData.type).then(self.new = '');

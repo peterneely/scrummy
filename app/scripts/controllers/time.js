@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var timeController = ['$modalInstance', 'coreData',
-    function ($modalInstance, coreData) {
+  var timeController = ['$modalInstance', 'Data', 'coreData',
+    function ($modalInstance, Data, coreData) {
 
       var self = this;
 
@@ -10,9 +10,9 @@
 
       self.state = {};
 
-      self.ok = function () {
+      self.start = function () {
         $modalInstance.close();
-        console.log(self.state);
+        Data.startTimer(self.state);
       };
 
       self.cancel = function () {

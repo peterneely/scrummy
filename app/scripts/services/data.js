@@ -2,7 +2,7 @@
 
 (function () {
 
-  var dataService = ['$q', '$firebase', 'Url', function ($q, $firebase, Url) {
+  var dataService = ['$q', '$firebase', 'Url', 'Log', function ($q, $firebase, Url, Log) {
 
     var dataResource = function (user, type) {
       var url = Url.data(user.id, type);
@@ -26,6 +26,10 @@
       items.$remove(item);
     };
 
+    var startTimer = function(state){
+      Log.info(state);
+    };
+
     function resource(url) {
       return $firebase(new Firebase(url));
     }
@@ -35,7 +39,8 @@
       userResource: userResource,
       add: add,
       update: update,
-      remove: remove
+      remove: remove,
+      startTimer: startTimer
     };
   }];
 

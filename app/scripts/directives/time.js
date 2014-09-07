@@ -2,7 +2,7 @@
 
 (function () {
 
-  var timeDirective = ['Filter', function (Filter) {
+  var timeDirective = ['$filter', function ($filter) {
 
     var link = function (scope, element) {
 
@@ -26,15 +26,15 @@
       }
 
       function invalidTime(value) {
-        return !Filter.validTime(value);
+        return !$filter('validTime')(value);
       }
 
       function defaultTime() {
-        return Filter.dateFormat(Date.now(), 'HH:mm');
+        return $filter('date')(Date.now(), 'HH:mm');
       }
 
       function formattedTime(value) {
-        var formatted = Filter.formatTime(value);
+        var formatted = $filter('formatTime')(value);
         scope.scModel = formatted;
         scope.$apply();
         return formatted;
@@ -42,7 +42,7 @@
     };
 
     return {
-      templateUrl: '../../views/directives/time.html',
+      templateUrl: 'views/directives/time.html',
       scope: {
         scModel: '=',
         scClass: '@',

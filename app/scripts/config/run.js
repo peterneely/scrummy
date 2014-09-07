@@ -1,12 +1,13 @@
 'use strict';
 
-(function(){
-
-  var run = ['$rootScope', function($rootScope){
-    $rootScope.debug = false;
-  }];
+(function () {
 
   angular
     .module('scrummyApp')
-    .run(run);
+    .run(run());
+
+  function run() {
+
+  }
+
 })();
