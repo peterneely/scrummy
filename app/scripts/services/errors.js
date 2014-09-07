@@ -1,9 +1,18 @@
 'use strict';
 
 (function () {
-  var errorService = function () {
 
-    var getMessage = function (error) {
+  angular
+    .module('scrummyApp')
+    .factory('Errors', ErrorService);
+
+  function ErrorService() {
+
+    return {
+      getMessage: getMessage
+    };
+
+    function getMessage(error) {
       switch (error.code.toUpperCase()) {
 
         case 'EMAIL_TAKEN':
@@ -16,14 +25,7 @@
         default:
           return 'Server error';
       }
-    };
+    }
+  }
 
-    return {
-      getMessage: getMessage
-    };
-  };
-
-  angular
-    .module('scrummyApp')
-    .factory('Errors', errorService);
 })();

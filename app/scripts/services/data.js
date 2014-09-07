@@ -2,49 +2,52 @@
 
 (function () {
 
-  var dataService = ['$q', '$firebase', 'Url', 'Log', function ($q, $firebase, Url, Log) {
+  angular
+    .module('scrummyApp')
+    .factory('Data', DataService);
 
-    var dataResource = function (user, type) {
-      var url = Url.data(user.id, type);
-      return resource(url);
+  DataService.$inject = ['$firebase', 'Config', 'Log'];
+
+  function DataService($firebase, Config, Log) {
+
+    return {
+      add: add,
+      dataResource: dataResource,
+      remove: remove,
+      startTimer: startTimer,
+      update: update,
+      userResource: userResource
     };
 
-    var userResource = function (userName) {
-      var url = Url.user(userName);
-      return resource(url);
-    };
-
-    var add = function (item, user, type) {
+    function add(item, user, type) {
       return dataResource(user, type).$push(item);
-    };
+    }
 
-    var update = function (item, items) {
-      return items.$save(item);
-    };
+    function dataResource(user, type) {
+      var url = Config.urlData + '/users/' + user.id + '/' + type;
+      return resource(url);
+    }
 
-    var remove = function (item, items) {
+    function remove(item, items) {
       items.$remove(item);
-    };
+    }
 
-    var startTimer = function(state){
+    function startTimer(state) {
       Log.info(state);
-    };
+    }
+
+    function update(item, items) {
+      return items.$save(item);
+    }
+
+    function userResource(userName) {
+      var url = Config.urlData + '/users/' + userName + '/account';
+      return resource(url);
+    }
 
     function resource(url) {
       return $firebase(new Firebase(url));
     }
+  }
 
-    return {
-      dataResource: dataResource,
-      userResource: userResource,
-      add: add,
-      update: update,
-      remove: remove,
-      startTimer: startTimer
-    };
-  }];
-
-  angular
-    .module('scrummyApp')
-    .factory('Data', dataService);
 })();

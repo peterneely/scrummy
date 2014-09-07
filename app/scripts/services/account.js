@@ -2,8 +2,13 @@
 
 (function () {
 
-  var accountService = ['$q', 'Data', '$filter', function ($q, Data, $filter) {
-    /*jshint camelcase: false */
+  angular
+    .module('scrummyApp')
+    .factory('Account', AccountService);
+
+  AccountService.$inject = ['$q', 'Data', '$filter'];
+
+  function AccountService($q, Data, $filter) {
 
     return {
       createUser: createUser,
@@ -11,6 +16,8 @@
     };
 
     function createUser(authUser) {
+      /*jshint camelcase: false */
+
       var deferred = $q.defer();
       var user = {
         email: authUser.email,
@@ -38,9 +45,6 @@
       });
       return deferred.promise;
     }
-  }];
+  }
 
-  angular
-    .module('scrummyApp')
-    .factory('Account', accountService);
 })();

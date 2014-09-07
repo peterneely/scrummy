@@ -2,38 +2,44 @@
 
 (function () {
 
-  var authService = ['$firebaseSimpleLogin', 'State', 'Config',
-    function ($firebaseSimpleLogin, State, Config) {
-
-      var ref = new Firebase(Config.urlData);
-      var fb = $firebaseSimpleLogin(ref);
-
-      return {
-        register: register,
-        login: login,
-        logout: logout,
-        getAuthenticatedUser: getAuthenticatedUser
-      };
-
-      function register(user) {
-        return fb.$createUser(user.email, user.password);
-      }
-
-      function login(user) {
-        return fb.$login('password', user);
-      }
-
-      function logout() {
-        fb.$logout();
-        State.go('home');
-      }
-
-      function getAuthenticatedUser () {
-        return fb.$getCurrentUser();
-      }
-    }];
-
   angular
     .module('scrummyApp')
-    .factory('Auth', authService);
+    .factory('Auth', AuthService);
+
+  AuthService.$inject = ['$firebaseSimpleLogin', 'State', 'Config'];
+
+  function AuthService($firebaseSimpleLogin, State, Config) {
+
+    var provider = getAuthProvider();
+
+    return {
+      getAuthenticatedUser: getAuthenticatedUser,
+      login: login,
+      logout: logout,
+      register: register
+    };
+
+    function getAuthProvider() {
+      var ref = new Firebase(Config.urlData);
+      return $firebaseSimpleLogin(ref);
+    }
+
+    function getAuthenticatedUser() {
+      return provider.$getCurrentUser();
+    }
+
+    function login(user) {
+      return provider.$login('password', user);
+    }
+
+    function logout() {
+      provider.$logout();
+      State.go('home');
+    }
+
+    function register(user) {
+      return provider.$createUser(user.email, user.password);
+    }
+  }
+
 })();

@@ -4,6 +4,7 @@
 
   angular
     .module('scrummyApp')
+
     .filter('contains', contains)
     .filter('formatTime', formatTime)
     .filter('isNumeric', isNumeric)
