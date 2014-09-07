@@ -6,7 +6,7 @@
     .module('scrummyApp')
     .controller('User', UserController);
 
-  UserController.$inject = ['Auth', 'viewData'];
+  UserController.$inject = ['Auth'];
 
   function UserController(Auth) {
 
