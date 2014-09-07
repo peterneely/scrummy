@@ -27,8 +27,7 @@
     function home() {
       return {
         url: '/',
-        templateUrl: 'views/main.html',
-        controller: 'Main as main'
+        templateUrl: 'views/main.html'
       };
     }
 
@@ -78,8 +77,7 @@
             controller: 'Manage as manage'
           },
           '@nav.clients': {
-            templateUrl: 'views/tabs.html',
-            controller: 'Tabs as tabs'
+            templateUrl: 'views/tabs.html'
           }
         },
         resolve: {

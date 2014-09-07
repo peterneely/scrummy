@@ -1,12 +1,21 @@
 'use strict';
 
 (function () {
-  var timesheetController = ['$modal', 'coreData', function ($modal, coreData) {
 
-    var self = this;
+  angular
+    .module('scrummyApp')
+    .controller('Timesheet', TimesheetController);
 
-    self.open = function () {
+  TimesheetController.$inject = ['$modal', 'coreData'];
 
+
+  function TimesheetController($modal, coreData) {
+
+    var vm = this;
+
+    vm.open = onOpen;
+
+    function onOpen() {
       var config = {
         templateUrl: 'views/time.html',
         controller: 'Time as time',
@@ -16,16 +25,8 @@
           }
         }
       };
+      $modal.open(config);
+    }
+  }
 
-      var modalInstance = $modal.open(config);
-
-      modalInstance.result.then(function () {
-
-      });
-    };
-  }];
-
-  angular
-    .module('scrummyApp')
-    .controller('Timesheet', timesheetController);
 })();

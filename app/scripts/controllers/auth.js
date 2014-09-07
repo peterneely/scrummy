@@ -18,7 +18,7 @@
     vm.register = register;
     vm.user = TestData.user;
 
-    function onFocus () {
+    function onFocus() {
       vm.error = null;
     }
 
@@ -28,7 +28,7 @@
       }).catch(showError);
     }
 
-    function register () {
+    function register() {
       Auth.register(vm.user).then(function (authUser) {
         Account.createUser(authUser).then(function () {
           vm.login();

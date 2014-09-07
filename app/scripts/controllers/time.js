@@ -1,26 +1,30 @@
 'use strict';
 
 (function () {
-  var timeController = ['$modalInstance', 'Data', 'coreData',
-    function ($modalInstance, Data, coreData) {
-
-      var self = this;
-
-      self.data = coreData;
-
-      self.state = {};
-
-      self.start = function () {
-        $modalInstance.close();
-        Data.startTimer(self.state);
-      };
-
-      self.cancel = function () {
-        $modalInstance.dismiss('cancel');
-      };
-    }];
 
   angular
     .module('scrummyApp')
-    .controller('Time', timeController);
+    .controller('Time', TimeController);
+
+  TimeController.$inject = ['$modalInstance', 'Data', 'coreData'];
+
+  function TimeController($modalInstance, Data, coreData) {
+
+    var vm = this;
+
+    vm.cancel = cancel;
+    vm.data = coreData;
+    vm.start = start;
+    vm.state = {};
+
+    function cancel() {
+      $modalInstance.dismiss('cancel');
+    }
+
+    function start () {
+      $modalInstance.close();
+      Data.startTimer(vm.state);
+    }
+  }
+
 })();

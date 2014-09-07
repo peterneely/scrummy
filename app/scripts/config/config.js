@@ -1,12 +1,12 @@
 'use strict';
 
-(function(){
+(function () {
 
   angular
     .module('scrummyApp')
     .constant('Config', config());
 
-  function config(){
+  function config() {
     return {
       loggingEnabled: true,
 
