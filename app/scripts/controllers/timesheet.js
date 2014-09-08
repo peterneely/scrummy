@@ -14,6 +14,7 @@
     var vm = this;
 
     vm.open = onOpen;
+    vm.times = viewData.times;
 
     console.log(viewData);
 
