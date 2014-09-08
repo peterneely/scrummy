@@ -44,9 +44,9 @@
 
     function startTimer(viewData, timeEntry) {
       var user = viewData.user;
-      return Resource.data(user, 'times').$push(timeEntry).then(updateRelated);
+      return Resource.data(user, 'times').$push(timeEntry).then(updateRelatedTypes);
 
-      function updateRelated(ref) {
+      function updateRelatedTypes(ref) {
         var itemId = ref.name();
         ['client', 'project', 'task'].forEach(function (type) {
           var relatedType = $filter('plural')(type);
@@ -58,7 +58,16 @@
     }
 
     function update(item, viewData) {
-      return viewData.items.$save(item);
+      return viewData.items.$save(item).then(updateRelatedTimes);
+
+      function updateRelatedTimes() {
+        var type = $filter('singular')(viewData.type);
+        angular.forEach(item.times, function (time) {
+          var relatedTime = viewData.times.$getRecord(time);
+          relatedTime[type].text = item.name;
+          viewData.times.$save(relatedTime);
+        });
+      }
     }
   }
 

@@ -24,9 +24,9 @@
     <div class="panel-heading">Day</div>
     <ul class="list-group">
       <li class="list-group-item" ng-repeat="time in timesheet.times">
-        <span class="pull-right">{{ time.project.text }} ({{ time.client.text }})</span>
+        <span class="pull-right text-primary">{{ time.client.text }} {{ time.project.text }}</span>
         <p class="sc-bold">{{ time.task.text }}</p>
-        <p>{{ time.notes }}</p>
+        <p class="text-muted">{{ time.notes }}</p>
       </li>
     </ul>
   </div>

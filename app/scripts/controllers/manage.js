@@ -12,6 +12,8 @@
 
     var vm = this;
 
+    console.log(viewData);
+
     vm.add = add;
     vm.clearSearch = clearSearch;
     vm.hasTimes = hasTimes;
@@ -33,7 +35,7 @@
     }
 
     function hasTimes(item) {
-      return timesCount(item) > 0;
+      return item.times !== undefined;
     }
 
     function remove(item) {
@@ -45,11 +47,7 @@
     }
 
     function timesCount(item) {
-      if (item.times) {
-        return Object.keys(item.times).length;
-      } else {
-        return 0;
-      }
+      return Object.keys(item.times).length;
     }
 
     function update(item) {
