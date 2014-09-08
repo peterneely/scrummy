@@ -19,11 +19,11 @@
       <div class="input-group col-xs-5">
         <input type="text" class="form-control" placeholder="Search" ng-model="manage.search.name">
         <span class="input-group-addon" ng-hide="manage.searching()">
-          <span class="glyphicon glyphicon-search text-muted"></span>
+          <i class="glyphicon glyphicon-search text-muted"></i>
         </span>
         <span class="input-group-btn" ng-if="manage.searching()">
           <button class="btn btn-default" type="button" ng-click="manage.clearSearch()">
-            <span class="glyphicon glyphicon-remove"></span>
+            <i class="glyphicon glyphicon-remove"></i>
           </button>
         </span>
       </div>
@@ -34,9 +34,14 @@
   <div class="input-group" ng-repeat="item in manage.items | orderBy:'name' | filter:manage.search.name">
     <span class="remove input-group-btn">
       <button class="btn btn-default" type="button" ng-click="manage.remove(item)">
-        <span class="glyphicon glyphicon-minus-sign"></span>
+        <i class="glyphicon glyphicon-minus-sign"></i>
       </button>
     </span>
     <input type="text" class="form-control" ng-model="item.name" ng-change="manage.update(item)">
+    <span class="input-group-btn" ng-if="manage.hasTimes(item)">
+      <button class="btn btn-default" type="button">
+        <span class="badge">{{ manage.timesCount(item) }}</span>
+      </button>
+    </span>
   </div>
 </section>

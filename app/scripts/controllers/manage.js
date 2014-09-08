@@ -14,12 +14,14 @@
 
     vm.add = add;
     vm.clearSearch = clearSearch;
+    vm.hasTimes = hasTimes;
     vm.items = viewData.items;
     vm.new = '';
     vm.placeholder = $filter('singular')(viewData.type);
     vm.remove = remove;
     vm.search = { name: '' };
     vm.searching = searching;
+    vm.timesCount = timesCount;
     vm.update = update;
 
     function add() {
@@ -30,12 +32,24 @@
       vm.search.name = '';
     }
 
+    function hasTimes(item) {
+      return timesCount(item) > 0;
+    }
+
     function remove(item) {
       Data.remove(item, viewData);
     }
 
     function searching() {
       return vm.search.name.length > 0;
+    }
+
+    function timesCount(item) {
+      if (item.times) {
+        return Object.keys(item.times).length;
+      } else {
+        return 0;
+      }
     }
 
     function update(item) {

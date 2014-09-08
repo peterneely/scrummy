@@ -97,7 +97,6 @@
             return {
               user: coreData.user,
               items: coreData.clients,
-              times: coreData.times,
               type: 'clients'
             };
           }]
@@ -122,7 +121,6 @@
             return {
               user: coreData.user,
               items: coreData.projects,
-              times: coreData.times,
               type: 'projects'
             };
           }]
@@ -147,7 +145,6 @@
             return {
               user: coreData.user,
               items: coreData.tasks,
-              times: coreData.times,
               type: 'tasks'
             };
           }]
