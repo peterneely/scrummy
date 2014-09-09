@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Resource', ResourceService);
 
-  ResourceService.$inject = ['$firebase', 'Config'];
+  ResourceService.$inject = ['$firebase', '$filter', '$moment', 'Config'];
 
-  function ResourceService($firebase, Config) {
+  function ResourceService($firebase, $filter, $moment, Config) {
 
     return {
       data: data,

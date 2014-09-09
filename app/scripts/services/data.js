@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Data', DataService);
 
-  DataService.$inject = ['$filter', 'Resource'];
+  DataService.$inject = ['$filter', '$moment', 'Resource'];
 
-  function DataService($filter, Resource) {
+  function DataService($filter, $moment, Resource) {
 
     return {
       add: add,
@@ -44,7 +44,9 @@
 
     function startTimer(viewData, timeEntry) {
       var user = viewData.user;
-      return Resource.data(user, 'times').$push(timeEntry).then(updateRelatedTypes);
+      var date = $moment(timeEntry.time.date);
+      var key = date.year() + '_' + $filter('doubleDigits')(date.isoWeek());
+      return Resource.data(user, 'times/' + key).$push(timeEntry).then(updateRelatedTypes);
 
       function updateRelatedTypes(ref) {
         var itemId = ref.name();
@@ -52,7 +54,7 @@
           var relatedType = $filter('plural')(type);
           var relatedItemId = timeEntry[type].id;
           var resource = Resource.related(user, relatedType, relatedItemId, 'times');
-          resource.$push(itemId);
+          resource.$push({id: itemId, parent: key});
         });
       }
     }
@@ -63,9 +65,9 @@
       function updateRelatedTimes() {
         var type = $filter('singular')(viewData.type);
         angular.forEach(item.times, function (time) {
-          var relatedTime = viewData.times.$getRecord(time);
-          relatedTime[type].text = item.name;
-          viewData.times.$save(relatedTime);
+          var parent = viewData.times.$getRecord(time.parent);
+          parent[time.id][type].text = item.name;
+          viewData.times.$save(parent);
         });
       }
     }

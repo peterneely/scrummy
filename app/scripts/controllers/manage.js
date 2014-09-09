@@ -12,8 +12,6 @@
 
     var vm = this;
 
-    console.log(viewData);
-
     vm.add = add;
     vm.clearSearch = clearSearch;
     vm.hasTimes = hasTimes;

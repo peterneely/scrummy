@@ -6,6 +6,7 @@
     .module('scrummyApp')
 
     .filter('contains', contains)
+    .filter('doubleDigits', doubleDigits)
     .filter('formatTime', formatTime)
     .filter('isNumeric', isNumeric)
     .filter('plural', plural)
@@ -24,13 +25,19 @@
     };
   }
 
+  function doubleDigits() {
+    return function(value){
+      return ('0' + value).substr(-2);
+    };
+  }
+
   function formatTime() {
     return function (value) {
       var regex = /(?:[^:.,])+/g;
       var matched;
       var elements = [];
       while ((matched = regex.exec(value))) {
-        elements.push(('0' + matched[0]).substr(-2));
+        elements.push(doubleDigits()(matched[0]));
       }
       if (elements.length === 1) {
         elements.push('00');
