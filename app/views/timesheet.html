@@ -21,14 +21,30 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">Day</div>
-    <ul class="list-group">
-      <li class="list-group-item" ng-repeat="time in timesheet.times">
-        <span class="pull-right text-primary">{{ time.client.text }} {{ time.project.text }}</span>
-        <p class="sc-bold">{{ time.task.text }}</p>
-        <p class="text-muted">{{ time.notes }}</p>
-      </li>
-    </ul>
+    <table class="table">
+      <thead class="bg-default text-muted">
+      <tr>
+        <td class="sc-bold">Day</td>
+        <td class="sc-bold">Total</td>
+        <td class="sc-bold"></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="time in timesheet.times | orderBy:'time.time.date'">
+        <td>
+          <p class="sc-bold">{{ time.task.text }}</p>
+
+          <p class="text-muted">{{ time.notes }}</p>
+        </td>
+        <td class="sc-bold">{{ time.time.start }}</td>
+        <td>
+          <p class="text-primary sc-bold">{{ time.project.text }}</p>
+
+          <p class="text-muted">{{ time.client.text }}</p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
 </div>
