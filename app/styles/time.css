@@ -15,6 +15,24 @@
     width: 150px;
 }
 
+.sc-color {
+    min-height: 26px;
+    /*width: 25px;*/
+    /*-webkit-border-radius: 100px;*/
+    /*-moz-border-radius: 100px;*/
+    /*border-radius: 100px;*/
+    border-top: 1px solid #D5D5D5;
+}
+
+.sc-color.sc-color-last{
+    border-bottom: 1px solid #D5D5D5;
+}
+
+.sc-color.bg-success:hover {
+    /*background-color: green;*/
+    opacity: 50;
+}
+
 /*.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child){*/
-    /*display: none;*/
+/*display: none;*/
 /*}*/
