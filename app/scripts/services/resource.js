@@ -6,36 +6,35 @@
     .module('scrummyApp')
     .factory('Resource', ResourceService);
 
-  ResourceService.$inject = ['$firebase', '$filter', '$moment', 'Config'];
+  ResourceService.$inject = ['$firebase', 'Config'];
 
-  function ResourceService($firebase, $filter, $moment, Config) {
+  function ResourceService($firebase, Config) {
 
     return {
-      data: data,
-      related: related,
-      user: user
+      data: data
     };
 
-    function data(user, type) {
-      return resource(url(user.userName, type));
+    function data(userName, type) {
+      var url = Config.urlData + userName + locationFor(type);
+      return resource(url);
     }
 
-    function related(user, relatedType, relatedItemId, type){
-      var rootUrl = url(user.userName, relatedType);
-      var relatedUrl = rootUrl + '/' + relatedItemId + '/' + type;
-      return resource(relatedUrl);
+    function locationFor(type) {
+      var map = {
+        clients: '/clients',
+        clientTimes: '/clienttimes',
+        projects: '/projects',
+        projectTimes: '/projecttimes',
+        tasks: '/tasks',
+        taskTimes: '/tasktimes',
+        times: '/times',
+        user: '/user'
+      };
+      return map[type];
     }
 
     function resource(url) {
       return $firebase(new Firebase(url));
-    }
-
-    function url(userName, dataType){
-      return Config.urlData + userName + '/' + dataType;
-    }
-
-    function user(userName) {
-      return resource(url(userName, 'user'));
     }
   }
 

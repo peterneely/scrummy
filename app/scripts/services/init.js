@@ -40,8 +40,7 @@
       function getData(user) {
         var promises = [];
         ['clients', 'projects', 'tasks', 'times'].forEach(function (type) {
-          var promise = Data.getData(user, type);
-          promises.push(promise);
+          promises.push(Data.getData(user, type));
         });
         return promises;
       }

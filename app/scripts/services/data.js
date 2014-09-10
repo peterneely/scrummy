@@ -20,22 +20,22 @@
       update: update
     };
 
-    function add(item, user, type) {
-      return Resource.data(user, type).$push(item);
+    function add(item, user, location) {
+      return Resource.data(user.userName, location).$push(item);
     }
 
     function createUser(authUser) {
       var user = $filter('userFromAuthUser')(authUser);
-      return Resource.user(user.userName).$set(user);
+      return Resource.data(user.userName, 'user').$set(user);
     }
 
     function getData(user, type) {
-      return Resource.data(user, type).$asArray().$loaded();
+      return Resource.data(user.userName, type).$asArray().$loaded();
     }
 
     function getUser(authUser) {
       var userName = $filter('userName')(authUser.email);
-      return Resource.user(userName).$asObject().$loaded();
+      return Resource.data(userName, 'user').$asObject().$loaded();
     }
 
     function remove(item, viewData) {
@@ -43,10 +43,11 @@
     }
 
     function startTimer(viewData, timeEntry) {
-      var user = viewData.user;
       var date = $moment(timeEntry.time.date);
-      var key = date.year() + '_' + $filter('doubleDigits')(date.isoWeek());
-      return Resource.data(user, 'times/' + key).$push(timeEntry).then(updateRelatedTypes);
+      timeEntry['.priority'] = date.year() + '_' + $filter('doubleDigits')(date.isoWeek());
+      var user = viewData.user;
+      var times = Resource.data(user.userName, 'times');
+      return times.$push(timeEntry).then(updateRelatedTypes);
 
       function updateRelatedTypes(ref) {
         var itemId = ref.name();
