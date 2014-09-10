@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Data', DataService);
 
-  DataService.$inject = ['$filter', '$moment', 'Resource'];
+  DataService.$inject = ['$filter', 'Resource'];
 
-  function DataService($filter, $moment, Resource) {
+  function DataService($filter, Resource) {
 
     return {
       add: add,
@@ -43,12 +43,19 @@
     }
 
     function startTimer(viewData, timeEntry) {
-      var date = $moment(timeEntry.time.date);
-      var week = date.year() + '_' + $filter('doubleDigits')(date.isoWeek());
-      timeEntry['.priority'] = week;
+
       var userName = viewData.user.userName;
-      var times = Resource.data(userName, 'times');
-      return times.$push(timeEntry).then(updateTypeTimes);
+
+      tagTimeEntryForSorting();
+      saveTimeEntry().then(updateTypeTimes);
+
+      function saveTimeEntry() {
+        return Resource.data(userName, 'times').$push(timeEntry);
+      }
+
+      function tagTimeEntryForSorting() {
+        timeEntry['.priority'] = $filter('isoWeek')(timeEntry.time.date);
+      }
 
       function updateTypeTimes(ref) {
         var timeId = ref.name();
@@ -64,14 +71,26 @@
     }
 
     function update(item, viewData) {
-      return viewData.items.$save(item).then(updateRelatedTimes);
+      return viewData.items.$save(item).then(updateTypeTimes);
 
-      function updateRelatedTimes() {
+      function updateTypeTimes() {
         var type = $filter('singular')(viewData.type);
-        angular.forEach(item.times, function (time) {
-          var parent = viewData.times.$getRecord(time.parent);
-          parent[time.id][type].text = item.name;
-          viewData.times.$save(parent);
+        var userName = viewData.user.userName;
+        var urlParts = {
+          userName: userName,
+          type: type,
+          typeId: item.$id
+        };
+        Resource.typeTimes(urlParts).$asArray().$loaded().then(function(typeTimes){
+          Resource.data(userName, 'times').$asArray().$loaded().then(function(times){
+            angular.forEach(typeTimes, function (typeTime) {
+              var time = times.$getRecord(typeTime.$value);
+              if (time) {
+                time[type].text = item.name;
+                times.$save(time);
+              }
+            });
+          });
         });
       }
     }

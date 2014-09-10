@@ -70,7 +70,6 @@
             return {
               user: coreData.user,
               clients: coreData.clients,
-              clientTimes: coreData.clientTimes,
               projects: coreData.projects,
               tasks: coreData.tasks,
               times: coreData.times,

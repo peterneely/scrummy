@@ -12,31 +12,23 @@
 
     return {
       data: data,
+      time: time,
       typeTimes: typeTimes
     };
 
     function data(userName, type) {
-      return resource(url(userName, locationFor(type)));
+      return resource(url(userName, type));
+    }
+
+    function time(urlParts) {
+      var location = 'times/' + urlParts.timeId + '/' + urlParts.type;
+      return resource(url(urlParts.userName, location));
     }
 
     function typeTimes(urlParts){
-      var location = '/' + urlParts.type + 'times/' + urlParts.typeId;
+      var location = urlParts.type + 'times/' + urlParts.typeId;
       var locationUrl = url(urlParts.userName, location);
-      return resource(locationUrl.replace('undefined', ''));
-    }
-
-    function locationFor(type) {
-      var map = {
-        clients: '/clients',
-        clienttimes: '/clienttimes',
-        projects: '/projects',
-        projecttimes: '/projecttimes',
-        tasks: '/tasks',
-        tasktimes: '/tasktimes',
-        times: '/times',
-        user: '/user'
-      };
-      return map[type];
+      return resource(locationUrl);
     }
 
     function resource(url) {
@@ -44,7 +36,8 @@
     }
 
     function url(userName, location){
-      return Config.urlData + userName + location;
+      var locationUrl = Config.urlData + userName + '/' + location;
+      return locationUrl.replace('undefined', '');
     }
   }
 
