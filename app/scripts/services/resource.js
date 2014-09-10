@@ -11,22 +11,27 @@
   function ResourceService($firebase, Config) {
 
     return {
-      data: data
+      data: data,
+      dataForLocation: dataForLocation
     };
 
     function data(userName, type) {
-      var url = Config.urlData + userName + locationFor(type);
-      return resource(url);
+      return resource(url(userName, locationFor(type)));
+    }
+
+    function dataForLocation(userName, location){
+      console.log(url(userName + location));
+      return resource(url(userName + location));
     }
 
     function locationFor(type) {
       var map = {
         clients: '/clients',
-        clientTimes: '/clienttimes',
+        clienttimes: '/clienttimes',
         projects: '/projects',
-        projectTimes: '/projecttimes',
+        projecttimes: '/projecttimes',
         tasks: '/tasks',
-        taskTimes: '/tasktimes',
+        tasktimes: '/tasktimes',
         times: '/times',
         user: '/user'
       };
@@ -35,6 +40,10 @@
 
     function resource(url) {
       return $firebase(new Firebase(url));
+    }
+
+    function url(userName, location){
+      return Config.urlData + userName + location;
     }
   }
 

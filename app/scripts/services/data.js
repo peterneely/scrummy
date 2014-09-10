@@ -44,18 +44,22 @@
 
     function startTimer(viewData, timeEntry) {
       var date = $moment(timeEntry.time.date);
-      timeEntry['.priority'] = date.year() + '_' + $filter('doubleDigits')(date.isoWeek());
-      var user = viewData.user;
-      var times = Resource.data(user.userName, 'times');
+      var week = date.year() + '_' + $filter('doubleDigits')(date.isoWeek());
+      timeEntry['.priority'] = week;
+      var userName = viewData.user.userName;
+      var times = Resource.data(userName, 'times');
       return times.$push(timeEntry).then(updateRelatedTypes);
 
       function updateRelatedTypes(ref) {
-        var itemId = ref.name();
+        var timeId = ref.name();
         ['client', 'project', 'task'].forEach(function (type) {
-          var relatedType = $filter('plural')(type);
-          var relatedItemId = timeEntry[type].id;
-          var resource = Resource.related(user, relatedType, relatedItemId, 'times');
-          resource.$push({id: itemId, parent: key});
+          var location = '/' + type + 'times/' + (timeEntry[type].id);
+          console.log(location);
+          var resource = Resource.dataForLocation(userName, location).$asArray();
+//          var related = {};
+          var related = timeId;
+          related['.priority'] = week;
+          resource.$add(related);
         });
       }
     }

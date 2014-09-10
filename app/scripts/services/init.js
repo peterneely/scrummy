@@ -39,7 +39,7 @@
 
       function getData(user) {
         var promises = [];
-        ['clients', 'projects', 'tasks', 'times'].forEach(function (type) {
+        ['clients', 'projects', 'tasks', 'times', 'clienttimes'].forEach(function (type) {
           promises.push(Data.getData(user, type));
         });
         return promises;
@@ -49,6 +49,7 @@
         return {
           user: user,
           clients: data[0],
+          clientTimes: data[4],
           projects: data[1],
           tasks: data[2],
           times: data[3]
