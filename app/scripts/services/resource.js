@@ -12,16 +12,17 @@
 
     return {
       data: data,
-      dataForLocation: dataForLocation
+      typeTimes: typeTimes
     };
 
     function data(userName, type) {
       return resource(url(userName, locationFor(type)));
     }
 
-    function dataForLocation(userName, location){
-      console.log(url(userName + location));
-      return resource(url(userName + location));
+    function typeTimes(urlParts){
+      var location = '/' + urlParts.type + 'times/' + urlParts.typeId;
+      var locationUrl = url(urlParts.userName, location);
+      return resource(locationUrl.replace('undefined', ''));
     }
 
     function locationFor(type) {

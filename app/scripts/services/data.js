@@ -48,18 +48,17 @@
       timeEntry['.priority'] = week;
       var userName = viewData.user.userName;
       var times = Resource.data(userName, 'times');
-      return times.$push(timeEntry).then(updateRelatedTypes);
+      return times.$push(timeEntry).then(updateTypeTimes);
 
-      function updateRelatedTypes(ref) {
+      function updateTypeTimes(ref) {
         var timeId = ref.name();
         ['client', 'project', 'task'].forEach(function (type) {
-          var location = '/' + type + 'times/' + (timeEntry[type].id);
-          console.log(location);
-          var resource = Resource.dataForLocation(userName, location).$asArray();
-//          var related = {};
-          var related = timeId;
-          related['.priority'] = week;
-          resource.$add(related);
+          var urlParts = {
+            userName: userName,
+            type: type,
+            typeId: timeEntry[type].id
+          };
+          Resource.typeTimes(urlParts).$push(timeId);
         });
       }
     }
