@@ -43,30 +43,34 @@
     }
 
     function startTimer(viewData, timeEntry) {
-
       var userName = viewData.user.userName;
-
-      tagTimeEntryForSorting();
+      var sortOrderTag = $filter('isoWeek')(timeEntry.time.date);
       saveTimeEntry().then(updateTypeTimes);
 
       function saveTimeEntry() {
+        timeEntry['.priority'] = sortOrderTag;
         return Resource.data(userName, 'times').$push(timeEntry);
-      }
-
-      function tagTimeEntryForSorting() {
-        timeEntry['.priority'] = $filter('isoWeek')(timeEntry.time.date);
       }
 
       function updateTypeTimes(ref) {
         var timeId = ref.name();
         ['client', 'project', 'task'].forEach(function (type) {
-          var urlParts = {
+          Resource.typeTimes(urlParts(type)).$push(taggedTypeTime());
+        });
+
+        function taggedTypeTime() {
+          var item = {timeId: timeId};
+          item['.priority'] = sortOrderTag;
+          return item;
+        }
+
+        function urlParts(type) {
+          return {
             userName: userName,
             type: type,
             typeId: timeEntry[type].id
           };
-          Resource.typeTimes(urlParts).$push(timeId);
-        });
+        }
       }
     }
 
@@ -74,24 +78,24 @@
       return viewData.items.$save(item).then(updateTypeTimes);
 
       function updateTypeTimes() {
-        var type = $filter('singular')(viewData.type);
-        var userName = viewData.user.userName;
-        var urlParts = {
-          userName: userName,
-          type: type,
-          typeId: item.$id
-        };
-        Resource.typeTimes(urlParts).$asArray().$loaded().then(function(typeTimes){
-          Resource.data(userName, 'times').$asArray().$loaded().then(function(times){
-            angular.forEach(typeTimes, function (typeTime) {
-              var time = times.$getRecord(typeTime.$value);
-              if (time) {
-                time[type].text = item.name;
-                times.$save(time);
-              }
-            });
+        var urlParts = getUrlParts();
+        Resource.typeTimes(urlParts).$asArray().$loaded().then(function (typeTimes) {
+          angular.forEach(typeTimes, function (typeTime) {
+            urlParts.timeId = typeTime.timeId;
+            var time = Resource.time(urlParts);
+            if (time) {
+              time.$update({text: item.name});
+            }
           });
         });
+
+        function getUrlParts() {
+          return {
+            userName: viewData.user.userName,
+            type: $filter('singular')(viewData.type),
+            typeId: item.$id
+          };
+        }
       }
     }
   }
