@@ -6,22 +6,27 @@
     .module('scrummyApp')
     .factory('State', StateService);
 
-  StateService.$inject = ['$state', '$filter'];
+  StateService.$inject = ['$rootScope', '$state', '$filter'];
 
-  function StateService($state, $filter) {
+  function StateService($rootScope, $state, $filter) {
+
+    $rootScope.$on('$stateChangeSuccess', notifyCurrentState);
 
     return {
-      go: go,
-      isActive: isActive
+      go: go
     };
 
     function go(state) {
       $state.go(state);
     }
 
-    function isActive() {
-      var states = ['nav.clients', 'nav.projects', 'nav.tasks'];
-      return $filter('contains')(states, $state.current.name) ? 'active' : '';
+    function isManage(stateName) {
+      var stateNames = ['nav.clients', 'nav.projects', 'nav.tasks'];
+      return $filter('contains')(stateNames, stateName) ? 'active' : '';
+    }
+
+    function notifyCurrentState(event, toState) {
+      $rootScope.$emit('isManage', isManage(toState.name));
     }
   }
 

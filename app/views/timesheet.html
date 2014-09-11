@@ -30,7 +30,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="time in timesheet.times[0] | orderBy:'time.date':'true'">
+      <tr ng-repeat="time in timesheet.times | orderBy:'time.date'">
         <td>
           <p class="sc-bold">{{ time.task.text }}</p>
 

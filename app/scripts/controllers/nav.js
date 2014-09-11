@@ -6,13 +6,17 @@
     .module('scrummyApp')
     .controller('Nav', NavController);
 
-  NavController.$inject = ['State', 'coreData'];
+  NavController.$inject = ['$rootScope', 'State', 'coreData'];
 
-  function NavController(State, coreData) {
+  function NavController($rootScope, State, coreData) {
 
     var vm = this;
 
-    vm.active = State.isActive();
+    $rootScope.$on('isManage', function (event, data) {
+      vm.active = data;
+    });
+
+    vm.active = '';
     vm.picUrl = coreData.user.pic;
   }
 
