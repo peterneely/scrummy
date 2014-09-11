@@ -10,23 +10,35 @@
 
   function StateService($rootScope, $state, $filter) {
 
-    $rootScope.$on('$stateChangeSuccess', notifyCurrentState);
+    var stateName = '';
+
+    $rootScope.$on('$stateChangeSuccess', function (event, newState) {
+      stateName = newState.name;
+    });
 
     return {
-      go: go
+      go: go,
+      tabActive: tabActive,
+      whenChanged: whenChanged
     };
 
     function go(state) {
       $state.go(state);
     }
 
-    function isManage(stateName) {
+    function tabActive(stateName) {
       var stateNames = ['nav.clients', 'nav.projects', 'nav.tasks'];
-      return $filter('contains')(stateNames, stateName) ? 'active' : '';
+      return $filter('contains')(stateNames, stateName);
     }
 
-    function notifyCurrentState(event, toState) {
-      $rootScope.$emit('isManage', isManage(toState.name));
+    function whenChanged(callback) {
+      $rootScope.$watch(stateChanged, function () {
+        callback(stateName);
+      });
+    }
+
+    function stateChanged() {
+      return stateName;
     }
   }
 
