@@ -25,7 +25,7 @@
     vm.update = update;
 
     function add() {
-      Data.add(vm.new, viewData.user, 'groups/' + viewData.type).then(vm.new = '');
+      Data.add(vm.new, viewData.user, viewData.type).then(vm.new = '');
     }
 
     function clearSearch() {

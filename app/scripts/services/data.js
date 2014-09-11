@@ -20,8 +20,10 @@
       update: update
     };
 
-    function add(item, user, location) {
-      return Resource.data(user.userName, location).$push(item);
+    function add(item, user, type) {
+      var sortedItem = sorted(item, item.name);
+      console.log(sortedItem);
+      return Resource.data(user.userName, type).$push(sortedItem);
     }
 
     function createUser(authUser) {
@@ -42,27 +44,32 @@
       viewData.items.$remove(item);
     }
 
+    function sorted(item, value, isNewItem) {
+      isNewItem = isNewItem === undefined ? true : isNewItem;
+      if (isNewItem) {
+        item['.priority'] = value;
+      } else {
+        item.$priority = value;
+      }
+      return item;
+    }
+
     function startTimer(viewData, timeEntry) {
       var userName = viewData.user.userName;
-      var sortOrderTag = $filter('isoWeek')(timeEntry.time.date);
+      var sortOrder = $filter('isoWeek')(timeEntry.time.date);
       saveTimeEntry().then(updateTypeTimes);
 
       function saveTimeEntry() {
-        timeEntry['.priority'] = sortOrderTag;
-        return Resource.data(userName, 'times').$push(timeEntry);
+        var sortedTimeEntry = sorted(timeEntry, sortOrder);
+        return Resource.data(userName, 'times').$push(sortedTimeEntry);
       }
 
       function updateTypeTimes(ref) {
         var timeId = ref.name();
         ['client', 'project', 'task'].forEach(function (type) {
-          Resource.typeTimes(urlParts(type)).$push(taggedTypeTime());
+          var sortedTypeTime = sorted({timeId: timeId}, sortOrder);
+          Resource.typeTimes(urlParts(type)).$push(sortedTypeTime);
         });
-
-        function taggedTypeTime() {
-          var item = {timeId: timeId};
-          item['.priority'] = sortOrderTag;
-          return item;
-        }
 
         function urlParts(type) {
           return {
@@ -75,7 +82,9 @@
     }
 
     function update(item, viewData) {
-      return viewData.items.$save(item).then(updateTypeTimes);
+      var isNewItem = false;
+      var sortedItem = sorted(item, item.name, isNewItem);
+      return viewData.items.$save(sortedItem).then(updateTypeTimes);
 
       function updateTypeTimes() {
         var urlParts = getUrlParts();
