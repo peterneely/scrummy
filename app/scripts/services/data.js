@@ -22,7 +22,6 @@
 
     function add(item, user, type) {
       var sortedItem = sorted(item, item.name);
-      console.log(sortedItem);
       return Resource.data(user.userName, type).$push(sortedItem);
     }
 
