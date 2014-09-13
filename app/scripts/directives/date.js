@@ -28,7 +28,6 @@
       $event.preventDefault();
       $event.stopPropagation();
       $scope.opened = true;
-      console.log($scope.opened);
     }
 
     function options(){

@@ -12,7 +12,7 @@
 
     return {
       data: data,
-      time: time,
+      timeRead: timeRead,
       typeTimes: typeTimes
     };
 
@@ -28,7 +28,7 @@
       return new Firebase(url);
     }
 
-    function time(urlParts) {
+    function timeRead(urlParts) {
       var location = 'times/' + urlParts.timeId + '/' + urlParts.type;
       return resource(url(urlParts.userName, location));
     }

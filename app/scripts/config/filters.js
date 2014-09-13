@@ -9,6 +9,7 @@
     .filter('doubleDigits', doubleDigits)
     .filter('formatTime', formatTime)
     .filter('isNumeric', isNumeric)
+    .filter('isoDay', isoDay)
     .filter('isoWeek', isoWeek)
     .filter('plural', plural)
     .filter('singular', singular)
@@ -50,6 +51,14 @@
   function isNumeric() {
     return function (value) {
       return !isNaN(parseFloat(value)) && isFinite(value);
+    };
+  }
+
+  isoDay.$inject = ['$moment'];
+  function isoDay($moment){
+    return function (jsDate){
+      var mDate = $moment(jsDate);
+      return doubleDigits()(mDate.isoWeekday());
     };
   }
 

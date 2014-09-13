@@ -31,6 +31,20 @@
     }
 
     function getData(user, type) {
+
+      if (type === 'times') {
+        var _ = window._;
+        Resource.data(user.userName, type).$asArray().$loaded().then(function (times) {
+          var weeks = _.groupBy(times, function (time) {
+            return $filter('isoWeek')(time.time.date);
+          });
+          var days = _.groupBy(times, function(time){
+            return $filter('isoDay')(time.time.date);
+          });
+          console.log(weeks, days);
+        });
+      }
+
       return Resource.data(user.userName, type).$asArray().$loaded();
     }
 
@@ -90,7 +104,7 @@
         Resource.typeTimes(urlParts).$asArray().$loaded().then(function (typeTimes) {
           angular.forEach(typeTimes, function (typeTime) {
             urlParts.timeId = typeTime.timeId;
-            var time = Resource.time(urlParts);
+            var time = Resource.timeRead(urlParts);
             if (time) {
               time.$update({text: item.name});
             }
