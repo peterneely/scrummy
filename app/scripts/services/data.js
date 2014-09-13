@@ -21,8 +21,7 @@
     };
 
     function add(item, user, type) {
-      var sortedItem = sorted(item, item.name);
-      return Resource.data(user.userName, type).$push(sortedItem);
+      return Resource.data(user.userName, type).$push(item);
     }
 
     function createUser(authUser) {
@@ -31,20 +30,6 @@
     }
 
     function getData(user, type) {
-
-      if (type === 'times') {
-        var _ = window._;
-        Resource.data(user.userName, type).$asArray().$loaded().then(function (times) {
-          var weeks = _.groupBy(times, function (time) {
-            return $filter('isoWeek')(time.time.date);
-          });
-          var days = _.groupBy(times, function(time){
-            return $filter('isoDay')(time.time.date);
-          });
-          console.log(weeks, days);
-        });
-      }
-
       return Resource.data(user.userName, type).$asArray().$loaded();
     }
 
@@ -57,67 +42,29 @@
       viewData.items.$remove(item);
     }
 
-    function sorted(item, value, isNewItem) {
-      isNewItem = isNewItem === undefined ? true : isNewItem;
-      if (isNewItem) {
-        item['.priority'] = value;
-      } else {
-        item.$priority = value;
-      }
-      return item;
-    }
-
     function startTimer(viewData, timeEntry) {
       var userName = viewData.user.userName;
-      var sortOrder = $filter('isoWeek')(timeEntry.time.date);
-      saveTimeEntry().then(updateTypeTimes);
-
-      function saveTimeEntry() {
-        var sortedTimeEntry = sorted(timeEntry, sortOrder);
-        return Resource.data(userName, 'times').$push(sortedTimeEntry);
-      }
-
-      function updateTypeTimes(ref) {
-        var timeId = ref.name();
-        ['client', 'project', 'task'].forEach(function (type) {
-          var sortedTypeTime = sorted({timeId: timeId}, sortOrder);
-          Resource.typeTimes(urlParts(type)).$push(sortedTypeTime);
-        });
-
-        function urlParts(type) {
-          return {
-            userName: userName,
-            type: type,
-            typeId: timeEntry[type].id
-          };
-        }
-      }
+      return Resource.data(userName, 'times').$push(timeEntry);
     }
 
     function update(item, viewData) {
-      var isNewItem = false;
-      var sortedItem = sorted(item, item.name, isNewItem);
-      return viewData.items.$save(sortedItem).then(updateTypeTimes);
+      return viewData.items.$save(item).then(updateTypeTimes);
 
       function updateTypeTimes() {
-        var urlParts = getUrlParts();
-        Resource.typeTimes(urlParts).$asArray().$loaded().then(function (typeTimes) {
-          angular.forEach(typeTimes, function (typeTime) {
-            urlParts.timeId = typeTime.timeId;
-            var time = Resource.timeRead(urlParts);
-            if (time) {
-              time.$update({text: item.name});
-            }
+        getData(viewData.user, 'times').then(function (times) {
+          var type = $filter('singular')(viewData.type);
+          var typeTimes = _.where(times, function(time){
+            return time[type].id === item.$id;
+          });
+          typeTimes.forEach(function (typeTime) {
+            var urlParts = {
+              userName: viewData.user.userName,
+              type: type,
+              timeId: typeTime.$id
+            };
+            Resource.time(urlParts).$update({text: item.name});
           });
         });
-
-        function getUrlParts() {
-          return {
-            userName: viewData.user.userName,
-            type: $filter('singular')(viewData.type),
-            typeId: item.$id
-          };
-        }
       }
     }
   }

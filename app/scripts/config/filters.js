@@ -9,8 +9,6 @@
     .filter('doubleDigits', doubleDigits)
     .filter('formatTime', formatTime)
     .filter('isNumeric', isNumeric)
-    .filter('isoDay', isoDay)
-    .filter('isoWeek', isoWeek)
     .filter('plural', plural)
     .filter('singular', singular)
     .filter('ucFirst', ucFirst)
@@ -54,22 +52,6 @@
     };
   }
 
-  isoDay.$inject = ['$moment'];
-  function isoDay($moment){
-    return function (jsDate){
-      var mDate = $moment(jsDate);
-      return doubleDigits()(mDate.isoWeekday());
-    };
-  }
-
-  isoWeek.$inject = ['$moment'];
-  function isoWeek($moment){
-    return function (jsDate){
-      var mDate = $moment(jsDate);
-      return mDate.year() + '_' + doubleDigits()(mDate.isoWeek());
-    };
-  }
-
   function plural() {
     return function (value) {
       return value + 's';
@@ -93,7 +75,6 @@
   userFromAuthUser.$inject = ['Config'];
   function userFromAuthUser(Config) {
     /*jshint camelcase: false */
-
     return function (authUser) {
       var email = authUser.email;
       var userName = userName()(email);

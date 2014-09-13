@@ -20,8 +20,8 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <table class="table">
+  <div class="panel panel-default" ng-repeat="week in timesheet.times">
+    <table class="table" ng-repeat="day in week">
       <thead class="bg-default text-muted">
       <tr>
         <td class="sc-bold">Day</td>
@@ -30,7 +30,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="time in timesheet.times | orderBy:'time.date'">
+      <tr ng-repeat="time in day">
         <td>
           <p class="sc-bold">{{ time.task.text }}</p>
 
