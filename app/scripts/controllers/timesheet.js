@@ -6,22 +6,22 @@
     .module('scrummyApp')
     .controller('Timesheet', TimesheetController);
 
-  TimesheetController.$inject = ['$scope', '$modal', 'Time', 'viewData'];
+  TimesheetController.$inject = ['$modal', 'Time', 'viewData'];
 
 
-  function TimesheetController($scope, $modal, Time, viewData) {
+  function TimesheetController($modal, Time, viewData) {
 
     var vm = this;
+    vm.times = groupTimes();
+    vm.open = onOpen;
 
-    $scope.$watch(viewData.times, function(){
-      console.log(viewData.times);
-      vm.times = Time.group(viewData.times);
+    Time.onUpdated(function () {
+      vm.times = groupTimes();
     });
 
-    vm.open = onOpen;
-    //vm.times = Time.group(viewData.times);
-
-
+    function groupTimes() {
+      return Time.group(viewData.times);
+    }
 
     function onOpen() {
       var config = {
