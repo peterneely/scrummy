@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Time', TimeController);
 
-  TimeController.$inject = ['$modalInstance', 'Data', 'Time', 'viewData'];
+  TimeController.$inject = ['$modalInstance', 'Data', 'viewData'];
 
-  function TimeController($modalInstance, Data, Time, viewData) {
+  function TimeController($modalInstance, Data, viewData) {
 
     var vm = this;
 
@@ -23,9 +23,7 @@
 
     function startTimer() {
       $modalInstance.close();
-      Data.startTimer(viewData, vm.timeEntry).then(function(){
-        Time.updated();
-      });
+      Data.startTimer(viewData, vm.timeEntry);
     }
   }
 

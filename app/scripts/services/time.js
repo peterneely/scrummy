@@ -5,23 +5,33 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$rootScope', '$moment', '$filter'];
+  TimeService.$inject = ['$moment', '$filter'];
 
-  function TimeService($rootScope, $moment, $filter) {
-
-    var _timeUpdated = 'timeUpdated';
+  function TimeService($moment, $filter) {
 
     return {
-      updated: updated,
-      group: group,
-      onUpdated: onUpdated
+      modalConfig: modalConfig,
+      sort: sort
     };
 
-    function updated() {
-      $rootScope.$emit(_timeUpdated);
+    function modalConfig(viewData) {
+      return {
+        templateUrl: 'views/time.html',
+        controller: 'Time as time',
+        resolve: {
+          viewData: function () {
+            return {
+              user: viewData.user,
+              clients: viewData.clients,
+              projects: viewData.projects,
+              tasks: viewData.tasks
+            };
+          }
+        }
+      };
     }
 
-    function group(times) {
+    function sort(times) {
       return nest(times, [byWeek, byDay]);
 
       function byDay(time) {
@@ -51,13 +61,6 @@
           return nest(value, rest);
         });
       }
-    }
-
-    function onUpdated(callback){
-      return $rootScope.$on(_timeUpdated, function(event){
-        event.stopPropagation();
-        callback();
-      });
     }
   }
 

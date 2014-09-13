@@ -17,7 +17,8 @@
       getUser: getUser,
       remove: remove,
       startTimer: startTimer,
-      update: update
+      update: update,
+      watch: watch
     };
 
     function add(item, user, type) {
@@ -53,7 +54,7 @@
       function updateTypeTimes() {
         getData(viewData.user, 'times').then(function (times) {
           var type = $filter('singular')(viewData.type);
-          var typeTimes = _.where(times, function(time){
+          var typeTimes = _.where(times, function (time) {
             return time[type].id === item.$id;
           });
           typeTimes.forEach(function (typeTime) {
@@ -66,6 +67,12 @@
           });
         });
       }
+    }
+
+    function watch(user, type, callback) {
+      Resource.data(user.userName, type).$asArray().$watch(function () {
+        callback();
+      });
     }
   }
 

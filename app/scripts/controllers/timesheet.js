@@ -6,39 +6,32 @@
     .module('scrummyApp')
     .controller('Timesheet', TimesheetController);
 
-  TimesheetController.$inject = ['$modal', 'Time', 'viewData'];
+  TimesheetController.$inject = ['$modal', 'Data', 'Time', 'viewData'];
 
 
-  function TimesheetController($modal, Time, viewData) {
+  function TimesheetController($modal, Data, Time, viewData) {
 
     var vm = this;
-    vm.times = groupTimes();
     vm.open = onOpen;
+    vm.times = sortTimes();
 
-    Time.onUpdated(function () {
-      vm.times = groupTimes();
-    });
-
-    function groupTimes() {
-      return Time.group(viewData.times);
-    }
+    watchTimes();
 
     function onOpen() {
-      var config = {
-        templateUrl: 'views/time.html',
-        controller: 'Time as time',
-        resolve: {
-          viewData: function () {
-            return {
-              user: viewData.user,
-              clients: viewData.clients,
-              projects: viewData.projects,
-              tasks: viewData.tasks
-            };
-          }
-        }
-      };
+      var config = Time.modalConfig(viewData);
       $modal.open(config);
+    }
+
+    function sortTimes() {
+      return Time.sort(viewData.times);
+    }
+
+    function watchTimes() {
+      Data.watch(viewData.user, 'times', whenChanged);
+
+      function whenChanged() {
+        vm.times = sortTimes();
+      }
     }
   }
 
