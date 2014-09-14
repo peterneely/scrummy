@@ -69,8 +69,8 @@
       }
     }
 
-    function watch(user, type, callback) {
-      Resource.data(user.userName, type).$asArray().$watch(function () {
+    function watch(data, callback) {
+      data.$watch(function () {
         callback();
       });
     }
