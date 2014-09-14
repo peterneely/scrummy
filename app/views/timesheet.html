@@ -20,17 +20,17 @@
     </div>
   </div>
 
-  <div class="panel panel-default" ng-repeat="week in timesheet.times">
-    <table class="table" ng-repeat="day in week">
+  <div class="panel panel-default" ng-repeat="week in timesheet.getKeys(timesheet.times)">
+    <table class="table" ng-repeat="day in timesheet.getKeys(timesheet.times[week])">
       <thead class="bg-default text-muted">
       <tr>
-        <td class="sc-bold">Day</td>
+        <td class="sc-bold">Day {{ day }}</td>
         <td class="sc-bold">Total</td>
         <td class="sc-bold"></td>
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="time in day">
+      <tr ng-repeat="time in timesheet.times[week][day]">
         <td>
           <p class="sc-bold">{{ time.task.text }}</p>
 

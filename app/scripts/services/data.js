@@ -45,6 +45,7 @@
 
     function startTimer(viewData, timeEntry) {
       var userName = viewData.user.userName;
+      console.log(timeEntry);
       return Resource.data(userName, 'times').$push(timeEntry);
     }
 

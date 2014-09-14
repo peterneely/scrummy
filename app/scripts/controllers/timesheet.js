@@ -14,9 +14,13 @@
     vm.open = onOpen;
     vm.times = sortTimes();
 
-    watchTimes();
-
     console.log(vm.times);
+
+    vm.getKeys = function(obj){
+      return obj ? _.sortBy(Object.keys(obj)).reverse() : [];
+    };
+
+    watchTimes();
 
     function onOpen() {
       var config = Time.modalConfig(viewData);
@@ -24,9 +28,6 @@
     }
 
     function sortTimes() {
-//      var deep = true;
-//      var clonedTimes = _.clone(viewData.times, deep);
-//      return Time.sort(clonedTimes);
       return Time.sort(viewData.times);
     }
 

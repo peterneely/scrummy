@@ -32,8 +32,11 @@
     }
 
     function sort(times) {
-      var sortedTimes = sortDescending(times);
-      return nest(sortedTimes, [byWeek, byDay]);
+      var nestedTimes = nest(times, [byWeek, byDay]);
+      var groupedTimes = {};
+      groupedTimes.weeks = Object.keys(nestedTimes);
+      console.log(groupedTimes);
+      return nestedTimes;
 
       function byDay(time) {
         return isoDay(time.time.date);
@@ -61,10 +64,6 @@
         return _.mapValues(_.groupBy(seq, first), function (value) {
           return nest(value, rest);
         });
-      }
-
-      function sortDescending(times) {
-        return _.sortBy(times, 'time.date').reverse();
       }
     }
   }
