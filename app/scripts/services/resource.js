@@ -16,7 +16,6 @@
     };
 
     function data(userName, type) {
-      console.log(url(userName, type));
       return resource(url(userName, type));
     }
 

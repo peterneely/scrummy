@@ -2,7 +2,7 @@
   <div class="row">
 
     <div class="col-xs-2 no-padding-left">
-      <button class="btn btn-primary btn-lg" ng-click="timesheet.open()">
+      <button class="btn btn-primary btn-lg" ng-click="ts.open()">
         <span class="glyphicon glyphicon-plus"></span>
       </button>
     </div>
@@ -20,8 +20,8 @@
     </div>
   </div>
 
-  <div class="panel panel-default" ng-repeat="week in timesheet.getKeys(timesheet.times)">
-    <table class="table" ng-repeat="day in timesheet.getKeys(timesheet.times[week])">
+  <div class="panel panel-default" ng-repeat="week in ts.weeks()">
+    <table class="table" ng-repeat="day in ts.days(week)">
       <thead class="bg-default text-muted">
       <tr>
         <td class="sc-bold">Day {{ day }}</td>
@@ -30,7 +30,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="time in timesheet.times[week][day]">
+      <tr ng-repeat="time in ts.times(day, week)">
         <td>
           <p class="sc-bold">{{ time.task.text }}</p>
 

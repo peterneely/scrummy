@@ -32,11 +32,7 @@
     }
 
     function sort(times) {
-      var nestedTimes = nest(times, [byWeek, byDay]);
-      var groupedTimes = {};
-      groupedTimes.weeks = Object.keys(nestedTimes);
-      console.log(groupedTimes);
-      return nestedTimes;
+      return nest(times, [byWeek, byDay]);
 
       function byDay(time) {
         return isoDay(time.time.date);

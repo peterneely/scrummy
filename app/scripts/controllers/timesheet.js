@@ -10,17 +10,27 @@
 
   function TimesheetController($modal, Data, Time, viewData) {
 
-    var vm = this;
-    vm.open = onOpen;
-    vm.times = sortTimes();
-
-    console.log(vm.times);
-
-    vm.getKeys = function(obj){
-      return obj ? _.sortBy(Object.keys(obj)).reverse() : [];
-    };
+    var _times = sortTimes();
 
     watchTimes();
+
+    var vm = this;
+    vm.open = onOpen;
+    vm.weeks = weeks;
+    vm.days = days;
+    vm.times = times;
+
+    function days(week){
+      return keys(_times[week]);
+    }
+
+    function keys(obj) {
+      return obj ? mostRecentFirst(Object.keys(obj)) : [];
+    }
+
+    function mostRecentFirst(collection){
+      return _.sortBy(collection).reverse();
+    }
 
     function onOpen() {
       var config = Time.modalConfig(viewData);
@@ -31,10 +41,18 @@
       return Time.sort(viewData.times);
     }
 
+    function times(day, week){
+      return mostRecentFirst(_times[week][day]);
+    }
+
     function watchTimes() {
       Data.watch(viewData.times, function () {
-        vm.times = sortTimes();
+        _times = sortTimes();
       });
+    }
+
+    function weeks(){
+      return keys(_times);
     }
   }
 

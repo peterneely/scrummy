@@ -64,7 +64,7 @@
       return {
         url: '^/timesheet',
         templateUrl: 'views/timesheet.html',
-        controller: 'Timesheet as timesheet',
+        controller: 'Timesheet as ts',
         resolve: {
           viewData: ['coreData', function (coreData) {
             return {
