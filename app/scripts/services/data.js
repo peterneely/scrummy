@@ -56,12 +56,11 @@
       viewData.items.$remove(item);
     }
 
-    function savePreferences(prefs, user, type){
-      Resource.preferences(user.userName, type).$set(prefs);
+    function savePreferences(prefs, userName, type){
+      Resource.preferences(userName, type).$set(prefs);
     }
 
-    function startTimer(viewData, timeEntry) {
-      var userName = viewData.user.userName;
+    function startTimer(userName, timeEntry) {
       return Resource.data(userName, 'times').$push(timeEntry);
     }
 

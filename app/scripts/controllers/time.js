@@ -19,35 +19,56 @@
     vm.timeEntry = {};
 
     function cancel() {
-      $modalInstance.dismiss('cancel');
+      $modalInstance.dismiss();
     }
 
     function prefsRoot() {
       try {
         return viewData.user.preferences.timeEntry;
-      } catch(err) {
+      } catch (err) {
         return {};
       }
     }
 
     function startTimer() {
-      $modalInstance.close();
-      Data.startTimer(viewData, validTimeEntry()).then(function () {
-        Data.savePreferences(prefs(), viewData.user, 'timeEntry');
-      });
-
-      function prefs() {
-        return {
-          client: vm.timeEntry.client,
-          project: vm.timeEntry.project,
-          task: vm.timeEntry.task
-        };
+      try {
+        $modalInstance.close();
+        start();
+      } catch (error) {
       }
 
-      function validTimeEntry() {
-        var startTime = vm.timeEntry.time.start;
-        vm.timeEntry.time.start = startTime || Time.defaultTime();
-        return vm.timeEntry;
+      function start() {
+        var userName = viewData.user.userName;
+        Data.saveNewTypes(userName, vm.timeEntry).then(function (types) {
+          Data.startTimer(userName, updateModel(types)).then(function () {
+            Data.savePreferences(prefs(), userName, 'timeEntry');
+          });
+        });
+
+        function prefs() {
+          return {
+            client: vm.timeEntry.client,
+            project: vm.timeEntry.project,
+            task: vm.timeEntry.task
+          };
+        }
+
+        function updateModel(types) {
+          updateTypes();
+          validateStartTime();
+          return vm.timeEntry;
+
+          function updateTypes() {
+            vm.timeEntry.client = types.client;
+            vm.timeEntry.project = types.project;
+            vm.timeEntry.task = types.task;
+          }
+
+          function validateStartTime() {
+            var startTime = vm.timeEntry.time.start;
+            vm.timeEntry.time.start = startTime || Time.defaultTime();
+          }
+        }
       }
     }
   }

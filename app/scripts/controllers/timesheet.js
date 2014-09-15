@@ -21,7 +21,7 @@
     vm.times = times;
     vm.weeks = weeks;
 
-    function days(week){
+    function days(week) {
       return keys(_times[week]);
     }
 
@@ -29,7 +29,7 @@
       return mostRecentFirst(Object.keys(obj));
     }
 
-    function mostRecentFirst(collection){
+    function mostRecentFirst(collection) {
       return _.sortBy(collection).reverse();
     }
 
@@ -62,7 +62,7 @@
       }
     }
 
-    function times(week, day){
+    function times(week, day) {
       return mostRecentFirst(_times[week][day]);
     }
 
@@ -72,7 +72,7 @@
       });
     }
 
-    function weeks(){
+    function weeks() {
       return keys(_times);
     }
   }
