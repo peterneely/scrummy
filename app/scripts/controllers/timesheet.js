@@ -41,7 +41,7 @@
       return Time.sort(viewData.times);
     }
 
-    function times(day, week){
+    function times(week, day){
       return mostRecentFirst(_times[week][day]);
     }
 

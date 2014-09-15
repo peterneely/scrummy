@@ -35,7 +35,10 @@
       return nest(times, [byWeek, byDay]);
 
       function byDay(time) {
-        return isoDay(time.time.date);
+        var jsDate = time.time.date;
+        var dayNumber = isoDay(jsDate);
+        var dayTitle = $moment(jsDate).format('ddd, DD MMM YYYY');
+        return dayNumber + ':' + dayTitle;
       }
 
       function byWeek(time) {

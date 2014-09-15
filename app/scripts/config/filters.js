@@ -26,13 +26,9 @@
     };
   }
 
-  dayTitle.$inject = ['$moment'];
-  function dayTitle($moment) {
-    return function (dayNumber, week) {
-//      console.log(week.slice(5));
-//      return $moment(date).weekday();
-      return week + '_' + dayNumber;
-//      return $moment().day('Monday').week(1);
+  function dayTitle() {
+    return function (dayHeader) {
+      return dayHeader.substr(dayHeader.indexOf(':') + 1);
     };
   }
 

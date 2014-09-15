@@ -33,6 +33,14 @@
     opacity: 50;
 }
 
+.sc-time-table {
+    border-top: 1px solid #DDDDDD;
+}
+
+.sc-time-table:first-child {
+    border-top: none;
+}
+
 /*.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child){*/
 /*display: none;*/
 /*}*/
