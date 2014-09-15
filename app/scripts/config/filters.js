@@ -31,8 +31,8 @@
     return function (dayNumber, week) {
 //      console.log(week.slice(5));
 //      return $moment(date).weekday();
-//      return week + '_' + dayNumber;
-      return $moment().day('Monday').week(1);
+      return week + '_' + dayNumber;
+//      return $moment().day('Monday').week(1);
     };
   }
 
