@@ -15,6 +15,7 @@
       createUser: createUser,
       getData: getData,
       getUser: getUser,
+      nest: nest,
       remove: remove,
       startTimer: startTimer,
       update: update,
@@ -39,13 +40,23 @@
       return Resource.data(userName, 'user').$asObject().$loaded();
     }
 
+    function nest(seq, keys) {
+      if (!keys.length) {
+        return seq;
+      }
+      var first = keys[0];
+      var rest = keys.slice(1);
+      return _.mapValues(_.groupBy(seq, first), function (value) {
+        return nest(value, rest);
+      });
+    }
+
     function remove(item, viewData) {
       viewData.items.$remove(item);
     }
 
     function startTimer(viewData, timeEntry) {
       var userName = viewData.user.userName;
-      console.log(timeEntry);
       return Resource.data(userName, 'times').$push(timeEntry);
     }
 

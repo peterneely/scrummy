@@ -33,12 +33,32 @@
     }
 
     function onOpen() {
-      var config = Time.modalConfig(viewData);
-      $modal.open(config);
+      $modal.open({
+        templateUrl: 'views/time.html',
+        controller: 'Time as time',
+        resolve: {
+          viewData: function () {
+            return {
+              user: viewData.user,
+              clients: viewData.clients,
+              projects: viewData.projects,
+              tasks: viewData.tasks
+            };
+          }
+        }
+      });
     }
 
     function sortTimes() {
-      return Time.sort(viewData.times);
+      return Data.nest(viewData.times, [byWeek, byDay]);
+
+      function byDay(time) {
+        return Time.daySortOrder(time.time.date);
+      }
+
+      function byWeek(time) {
+        return Time.weekSortOrder(time.time.date);
+      }
     }
 
     function times(week, day){

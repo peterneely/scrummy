@@ -25,6 +25,14 @@
     $scope.types = ['client', 'project', 'task'];
     $scope.options = selectsOptions();
 
+    loadDefaults();
+
+    function loadDefaults(){
+      angular.forEach($scope.types, function(type){
+        $scope.scModel[type] = $scope.options[type].data[0];
+      });
+    }
+
     function selectsOptions() {
       var options = {};
       angular.forEach($scope.types, function (type) {
