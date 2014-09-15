@@ -15,17 +15,17 @@
     watchTimes();
 
     var vm = this;
-    vm.open = onOpen;
-    vm.weeks = weeks;
     vm.days = days;
+    vm.open = onOpen;
     vm.times = times;
+    vm.weeks = weeks;
 
     function days(week){
       return keys(_times[week]);
     }
 
     function keys(obj) {
-      return obj ? mostRecentFirst(Object.keys(obj)) : [];
+      return mostRecentFirst(Object.keys(obj));
     }
 
     function mostRecentFirst(collection){

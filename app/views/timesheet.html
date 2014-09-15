@@ -24,7 +24,7 @@
     <table class="table" ng-repeat="day in ts.days(week)">
       <thead class="bg-default text-muted">
       <tr>
-        <td class="sc-bold">Day {{ day }}</td>
+        <td class="sc-bold">{{ day | dayTitle:week }}</td>
         <td class="sc-bold">Total</td>
         <td class="sc-bold"></td>
       </tr>

@@ -6,6 +6,7 @@
     .module('scrummyApp')
 
     .filter('contains', contains)
+    .filter('dayTitle', dayTitle)
     .filter('doubleDigits', doubleDigits)
     .filter('formatTime', formatTime)
     .filter('isNumeric', isNumeric)
@@ -25,8 +26,18 @@
     };
   }
 
+  dayTitle.$inject = ['$moment'];
+  function dayTitle($moment) {
+    return function (dayNumber, week) {
+//      console.log(week.slice(5));
+//      return $moment(date).weekday();
+//      return week + '_' + dayNumber;
+      return $moment().day('Monday').week(1);
+    };
+  }
+
   function doubleDigits() {
-    return function(value){
+    return function (value) {
       return ('0' + value).substr(-2);
     };
   }
