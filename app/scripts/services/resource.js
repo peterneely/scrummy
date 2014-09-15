@@ -12,11 +12,16 @@
 
     return {
       data: data,
+      preferences: preferences,
       time: time
     };
 
     function data(userName, type) {
       return resource(url(userName, type));
+    }
+
+    function preferences(userName, type){
+      return resource(url(userName, 'user/preferences/' + type));
     }
 
     function resource(url) {

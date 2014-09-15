@@ -11,7 +11,6 @@
   function NavController(State, coreData) {
 
     var vm = this;
-
     vm.picUrl = coreData.user.pic;
 
     State.whenChanged(function (stateName) {

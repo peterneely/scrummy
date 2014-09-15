@@ -17,6 +17,7 @@
       getUser: getUser,
       nest: nest,
       remove: remove,
+      savePreferences: savePreferences,
       startTimer: startTimer,
       update: update,
       watch: watch
@@ -53,6 +54,10 @@
 
     function remove(item, viewData) {
       viewData.items.$remove(item);
+    }
+
+    function savePreferences(prefs, user, type){
+      Resource.preferences(user.userName, type).$set(prefs);
     }
 
     function startTimer(viewData, timeEntry) {

@@ -11,6 +11,7 @@
       templateUrl: 'views/directives/selects.html',
       scope: {
         scData: '=',
+        scPrefs: '=',
         scModel: '=',
         scClass: '@'
       },
@@ -27,9 +28,11 @@
 
     loadDefaults();
 
-    function loadDefaults(){
-      angular.forEach($scope.types, function(type){
-        $scope.scModel[type] = $scope.options[type].data[0];
+    function loadDefaults() {
+      angular.forEach($scope.types, function (type) {
+        var hasPref = _.has($scope.scPrefs, type);
+        var first = $scope.options[type].data[0];
+        $scope.scModel[type] = hasPref ? $scope.scPrefs[type] : first;
       });
     }
 

@@ -9,6 +9,7 @@
   TimesheetController.$inject = ['$modal', 'Data', 'Time', 'viewData'];
 
   function TimesheetController($modal, Data, Time, viewData) {
+    console.log(viewData);
 
     var _times = sortTimes();
 

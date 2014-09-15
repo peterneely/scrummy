@@ -28,7 +28,8 @@
         Auth.getAuthenticatedUser().then(function (authUser) {
           if (authUser) {
             Data.getUser(authUser).then(function (user) {
-              deferred.resolve($filter('userFromUser')(user));
+//              deferred.resolve($filter('userFromUser')(user));
+              deferred.resolve(user);
             });
           } else {
             State.go('login');

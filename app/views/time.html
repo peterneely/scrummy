@@ -6,7 +6,7 @@
 
   <form role="form" ng-submit="time.start()">
     <section class="panel-body">
-      <div selects sc-data="time.data" sc-model="time.timeEntry" sc-class="form-control"></div>
+      <div selects sc-data="time.data" sc-prefs="time.prefs" sc-model="time.timeEntry" sc-class="form-control"></div>
 
       <div class="form-group">
         <textarea class="form-control" rows="3" placeholder="Notes (optional)"
@@ -20,6 +20,7 @@
 
         <div time sc-class="form-control sc-form-control sc-small" ng-class="{'sc-bold': time.time.time.end}"
              sc-placeholder="End Time" sc-model="time.timeEntry.time.end"></div>
+        <span class="sc-form-control">on</span>
 
         <div date sc-model="time.timeEntry.time.date"></div>
       </div>

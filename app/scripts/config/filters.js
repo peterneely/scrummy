@@ -14,7 +14,6 @@
     .filter('singular', singular)
     .filter('ucFirst', ucFirst)
     .filter('userFromAuthUser', userFromAuthUser)
-    .filter('userFromUser', userFromUser)
     .filter('userName', userName)
     .filter('validTime', validTime);
 
@@ -88,17 +87,7 @@
       return {
         userName: userName,
         email: email,
-        pic: Config.urlPic + authUser.md5_hash + '?d=mm'
-      };
-    };
-  }
-
-  function userFromUser() {
-    return function (user) {
-      return {
-        userName: user.userName,
-        email: user.email,
-        pic: user.pic
+        pic: Config.urlPic + authUser.md5_hash + '?d=mm',
       };
     };
   }
