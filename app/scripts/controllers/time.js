@@ -40,18 +40,10 @@
       function start() {
         var userName = viewData.user.userName;
         Data.saveNewTypes(userName, vm.timeEntry).then(function (types) {
-          Data.startTimer(userName, updateModel(types)).then(function () {
-            Data.savePreferences(prefs(), userName, 'timeEntry');
+          Data.saveTime(userName, updateModel(types)).then(function () {
+            Data.savePreferences(types, userName, 'timeEntry');
           });
         });
-
-        function prefs() {
-          return {
-            client: vm.timeEntry.client,
-            project: vm.timeEntry.project,
-            task: vm.timeEntry.task
-          };
-        }
 
         function updateModel(types) {
           updateTypes();

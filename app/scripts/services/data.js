@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Data', DataService);
 
-  DataService.$inject = ['$filter', 'Resource'];
+  DataService.$inject = ['$q', '$filter', 'Resource'];
 
-  function DataService($filter, Resource) {
+  function DataService($q, $filter, Resource) {
 
     return {
       add: add,
@@ -17,8 +17,9 @@
       getUser: getUser,
       nest: nest,
       remove: remove,
+      saveNewTypes: saveNewTypes,
       savePreferences: savePreferences,
-      startTimer: startTimer,
+      saveTime: saveTime,
       update: update,
       watch: watch
     };
@@ -56,11 +57,47 @@
       viewData.items.$remove(item);
     }
 
-    function savePreferences(prefs, userName, type){
+    function saveNewTypes(userName, timeEntry) {
+      var deferred = $q.defer();
+      var promises = [];
+      ['client', 'project', 'task'].forEach(function (type) {
+        var promise = saveNewType(type);
+        promises.push(promise);
+      });
+      $q.all(promises).then(function (results) {
+        deferred.resolve({
+          client: results[0],
+          project: results[1],
+          task: results [2]
+        });
+      });
+      return deferred.promise;
+
+      function saveNewType(type) {
+        var deferred = $q.defer();
+        var newType = {
+          id: timeEntry[type].id,
+          text: timeEntry[type].text
+        };
+        if (newType.id === '') {
+          var location = $filter('plural')(type);
+          var typeName = {name: newType.text};
+          Resource.data(userName, location).$push(typeName).then(function (ref) {
+            newType.id = ref.name();
+            deferred.resolve(newType);
+          });
+        } else {
+          deferred.resolve(newType);
+        }
+        return deferred.promise;
+      }
+    }
+
+    function savePreferences(prefs, userName, type) {
       Resource.preferences(userName, type).$set(prefs);
     }
 
-    function startTimer(userName, timeEntry) {
+    function saveTime(userName, timeEntry) {
       return Resource.data(userName, 'times').$push(timeEntry);
     }
 
