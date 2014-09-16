@@ -8,6 +8,7 @@
     .filter('contains', contains)
     .filter('dayTitle', dayTitle)
     .filter('doubleDigits', doubleDigits)
+    .filter('formatDateAsTime', formatDateAsTime)
     .filter('formatTime', formatTime)
     .filter('isNumeric', isNumeric)
     .filter('plural', plural)
@@ -35,6 +36,13 @@
     return function (value) {
       return ('0' + value).substr(-2);
     };
+  }
+
+  formatDateAsTime.$inject = ['$moment'];
+  function formatDateAsTime($moment){
+    return function(jsDate){
+      return $moment(jsDate).format('HH:mm');
+    }
   }
 
   function formatTime() {

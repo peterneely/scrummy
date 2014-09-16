@@ -22,8 +22,8 @@
     vm.times = times;
     vm.weeks = weeks;
 
-    function active(timeEntry){
-      return !_.isEmpty(timeEntry.time.start) && _.isEmpty(timeEntry.time.end);
+    function active(time){
+      return time.$id === viewData.user.state.activeTime.id;
     }
 
     function days(week) {

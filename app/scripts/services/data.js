@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Data', DataService);
 
-  DataService.$inject = ['$q', '$filter', 'Resource'];
+  DataService.$inject = ['$q', '$filter', 'Resource', 'Time'];
 
-  function DataService($q, $filter, Resource) {
+  function DataService($q, $filter, Resource, Time) {
 
     return {
       add: add,
@@ -118,8 +118,9 @@
 
     function saveTime(userName, timeEntry) {
       var deferred = $q.defer();
-      $q.all([stopActiveTimer, startNewTimer]).then(function (results) {
-        deferred.resolve(results[1]);
+      $q.all([stopActiveTimer(), startNewTimer()]).then(function (results) {
+        var newTimerId = results[1];
+        deferred.resolve(newTimerId);
       });
       return deferred.promise;
 
@@ -134,14 +135,13 @@
       function stopActiveTimer() {
         var deferred = $q.defer();
         Resource.state(userName, 'activeTime').$asObject().$loaded().then(function (activeTime) {
-          console.log(activeTime);
           if (activeTime) {
             var urlParts = {
               userName: userName,
               type: '',
               timeId: activeTime.id
             };
-            Resource.time(urlParts).$set('time', {end: Date.now()}).then(function () {
+            Resource.time(urlParts).$update('time', {end: Time.defaultTime()}).then(function () {
               deferred.resolve(true);
             });
           } else {
@@ -158,12 +158,12 @@
       function updateRelated() {
         var userName = viewData.user.userName;
         var type = $filter('singular')(viewData.type);
-        updatePreferences();
+        updateState();
         updateTimes();
 
-        function updatePreferences() {
+        function updateState() {
           var location = 'timeEntry/' + type;
-          Resource.preferences(userName, location).$update({text: item.name});
+          Resource.state(userName, location).$update({text: item.name});
         }
 
         function updateTimes() {
