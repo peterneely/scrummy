@@ -59,37 +59,54 @@
 
     function saveNewTypes(userName, timeEntry) {
       var deferred = $q.defer();
-      var promises = [];
-      ['client', 'project', 'task'].forEach(function (type) {
-        var promise = saveNewType(type);
-        promises.push(promise);
-      });
-      $q.all(promises).then(function (results) {
-        deferred.resolve({
-          client: results[0],
-          project: results[1],
-          task: results [2]
-        });
+      $q.all(promisesToSave()).then(function (results) {
+        deferred.resolve(map(results));
       });
       return deferred.promise;
 
-      function saveNewType(type) {
-        var deferred = $q.defer();
-        var newType = {
-          id: timeEntry[type].id,
-          text: timeEntry[type].text
+      function map(results) {
+        return {
+          client: results[0],
+          project: results[1],
+          task: results [2]
         };
-        if (newType.id === '') {
-          var location = $filter('plural')(type);
-          var typeName = {name: newType.text};
-          Resource.data(userName, location).$push(typeName).then(function (ref) {
-            newType.id = ref.name();
-            deferred.resolve(newType);
-          });
-        } else {
-          deferred.resolve(newType);
+      }
+
+      function promisesToSave() {
+        var promises = [];
+        ['client', 'project', 'task'].forEach(function (type) {
+          promises.push(promiseToSave(type));
+        });
+        return promises;
+
+        function promiseToSave(type) {
+          var deferred = $q.defer();
+          if (isNewType()) {
+            resolveNewType();
+          } else {
+            resolveExistingType();
+          }
+          return deferred.promise;
+
+          function isNewType() {
+            return timeEntry[type].id === '';
+          }
+
+          function resolveExistingType() {
+            deferred.resolve(timeEntry[type]);
+          }
+
+          function resolveNewType() {
+            var location = $filter('plural')(type);
+            var text = timeEntry[type].text;
+            Resource.data(userName, location).$push({name: text}).then(function (ref) {
+              deferred.resolve({
+                id: ref.name(),
+                text: text
+              });
+            });
+          }
         }
-        return deferred.promise;
       }
     }
 
@@ -102,23 +119,41 @@
     }
 
     function update(item, viewData) {
-      return viewData.items.$save(item).then(updateTypeTimes);
+      return viewData.items.$save(item).then(updateRelated);
 
-      function updateTypeTimes() {
-        getData(viewData.user, 'times').then(function (times) {
-          var type = $filter('singular')(viewData.type);
-          var typeTimes = _.where(times, function (time) {
-            return time[type].id === item.$id;
+      function updateRelated() {
+        var userName = viewData.user.userName;
+        var type = $filter('singular')(viewData.type);
+        updatePreferences();
+        updateTimes();
+
+        function updatePreferences() {
+          var location = 'timeEntry/' + type;
+          Resource.preferences(userName, location).$update({text: item.name});
+        }
+
+        function updateTimes() {
+          getData(viewData.user, 'times').then(function (times) {
+            var relatedTimes = filter(times);
+            relatedTimes.forEach(function (relatedTime) {
+              Resource.time(urlParts(relatedTime)).$update({text: item.name});
+            });
           });
-          typeTimes.forEach(function (typeTime) {
-            var urlParts = {
-              userName: viewData.user.userName,
+
+          function filter(times) {
+            return _.where(times, function (time) {
+              return time[type].id === item.$id;
+            });
+          }
+
+          function urlParts(relatedTime) {
+            return {
+              userName: userName,
               type: type,
-              timeId: typeTime.$id
+              timeId: relatedTime.$id
             };
-            Resource.time(urlParts).$update({text: item.name});
-          });
-        });
+          }
+        }
       }
     }
 

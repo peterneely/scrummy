@@ -22,23 +22,23 @@
 
   <div class="panel panel-default" ng-repeat="week in ts.weeks()">
     <table class="table sc-time-table" ng-repeat="day in ts.days(week)">
-      <thead class="bg-default text-muted">
+      <thead class="bg-default text-danger">
       <tr>
-        <td class="sc-bold">{{ day | dayTitle }}</td>
-        <td class="sc-bold">Total</td>
-        <td class="sc-bold"></td>
+        <td class="">{{ day | dayTitle }}</td>
+        <td class="">Total</td>
+        <td class=""></td>
       </tr>
       </thead>
       <tbody>
       <tr ng-repeat="time in ts.times(week, day)">
         <td>
-          <p class="sc-bold">{{ time.task.text }}</p>
+          <p class="">{{ time.task.text }}</p>
 
           <p class="text-muted">{{ time.notes }}</p>
         </td>
-        <td class="sc-bold">{{ time.time.start }}</td>
+        <td class="">{{ time.time.start }}</td>
         <td>
-          <p class="text-primary sc-bold">{{ time.project.text }}</p>
+          <p class="text-primary">{{ time.project.text }}</p>
 
           <p class="text-muted">{{ time.client.text }}</p>
         </td>
