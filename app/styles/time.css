@@ -24,7 +24,7 @@
     border-top: 1px solid #D5D5D5;
 }
 
-.sc-color.sc-color-last{
+.sc-color.sc-color-last {
     border-bottom: 1px solid #D5D5D5;
 }
 
@@ -41,6 +41,23 @@
     border-top: none;
 }
 
-/*.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child){*/
-/*display: none;*/
+.sc-active {
+    width: 28px;
+}
+
+/*.sc-blink {*/
+    /*animation: blink 1s steps(5, start) infinite;*/
+    /*-webkit-animation: blink 1s steps(5, start) infinite;*/
+/*}*/
+
+/*@keyframes blink {*/
+    /*to {*/
+        /*visibility: hidden;*/
+    /*}*/
+/*}*/
+
+/*@-webkit-keyframes blink {*/
+    /*to {*/
+        /*visibility: hidden;*/
+    /*}*/
 /*}*/

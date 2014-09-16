@@ -16,10 +16,15 @@
     watchTimes();
 
     var vm = this;
+    vm.active = active;
     vm.days = days;
     vm.open = onOpen;
     vm.times = times;
     vm.weeks = weeks;
+
+    function active(timeEntry){
+      return !_.isEmpty(timeEntry.time.start) && _.isEmpty(timeEntry.time.end);
+    }
 
     function days(week) {
       return keys(_times[week]);
