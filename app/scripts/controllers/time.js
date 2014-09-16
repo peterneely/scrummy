@@ -14,7 +14,7 @@
 
     vm.cancel = cancel;
     vm.data = viewData;
-    vm.prefs = prefsRoot();
+    vm.timeEntryState = stateRoot();
     vm.start = startTimer;
     vm.timeEntry = {};
 
@@ -22,9 +22,9 @@
       $modalInstance.dismiss();
     }
 
-    function prefsRoot() {
+    function stateRoot() {
       try {
-        return viewData.user.preferences.timeEntry;
+        return viewData.user.state.timeEntry;
       } catch (err) {
         return {};
       }
@@ -40,8 +40,8 @@
       function start() {
         var userName = viewData.user.userName;
         Data.saveNewTypes(userName, vm.timeEntry).then(function (types) {
-          Data.saveTime(userName, updateModel(types)).then(function () {
-            Data.savePreferences(types, userName, 'timeEntry');
+          Data.saveTime(userName, updateModel(types)).then(function (timeId) {
+            Data.saveState(userName, types, timeId);
           });
         });
 

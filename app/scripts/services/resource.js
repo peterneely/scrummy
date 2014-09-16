@@ -12,7 +12,7 @@
 
     return {
       data: data,
-      preferences: preferences,
+      state: state,
       time: time
     };
 
@@ -20,8 +20,8 @@
       return resource(url(userName, type));
     }
 
-    function preferences(userName, type){
-      return resource(url(userName, 'user/preferences/' + type));
+    function state(userName, type){
+      return resource(url(userName, 'user/state/' + type));
     }
 
     function resource(url) {

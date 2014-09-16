@@ -18,7 +18,7 @@
       nest: nest,
       remove: remove,
       saveNewTypes: saveNewTypes,
-      savePreferences: savePreferences,
+      saveState: saveState,
       saveTime: saveTime,
       update: update,
       watch: watch
@@ -110,12 +110,46 @@
       }
     }
 
-    function savePreferences(prefs, userName, type) {
-      Resource.preferences(userName, type).$set(prefs);
+    function saveState(userName, timeEntryTypes, activeTimeId) {
+      Resource.state(userName, 'timeEntry').$set(timeEntryTypes).then(function () {
+        Resource.state(userName, 'activeTime').$set({id: activeTimeId});
+      });
     }
 
     function saveTime(userName, timeEntry) {
-      return Resource.data(userName, 'times').$push(timeEntry);
+      var deferred = $q.defer();
+      $q.all([stopActiveTimer, startNewTimer]).then(function (results) {
+        deferred.resolve(results[1]);
+      });
+      return deferred.promise;
+
+      function startNewTimer() {
+        var deferred = $q.defer();
+        Resource.data(userName, 'times').$push(timeEntry).then(function (ref) {
+          deferred.resolve(ref.name());
+        });
+        return deferred.promise;
+      }
+
+      function stopActiveTimer() {
+        var deferred = $q.defer();
+        Resource.state(userName, 'activeTime').$asObject().$loaded().then(function (activeTime) {
+          console.log(activeTime);
+          if (activeTime) {
+            var urlParts = {
+              userName: userName,
+              type: '',
+              timeId: activeTime.id
+            };
+            Resource.time(urlParts).$set('time', {end: Date.now()}).then(function () {
+              deferred.resolve(true);
+            });
+          } else {
+            deferred.resolve(false);
+          }
+        });
+        return deferred.promise;
+      }
     }
 
     function update(item, viewData) {
