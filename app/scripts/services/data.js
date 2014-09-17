@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Data', DataService);
 
-  DataService.$inject = ['$q', '$filter', 'Resource', 'Time'];
+  DataService.$inject = ['$q', '$filter', 'Resource', 'Config'];
 
-  function DataService($q, $filter, Resource, Time) {
+  function DataService($q, $filter, Resource, Config) {
 
     return {
       add: add,
@@ -141,7 +141,8 @@
               type: '',
               timeId: activeTime.id
             };
-            Resource.time(urlParts).$update('time', {end: Time.defaultTime()}).then(function () {
+            var end = $filter('date')(Date.now(), Config.isoDateTime);
+            Resource.time(urlParts).$update('time', {end: end}).then(function () {
               deferred.resolve(true);
             });
           } else {

@@ -9,7 +9,7 @@
   TimesheetController.$inject = ['$modal', 'Data', 'Time', 'viewData'];
 
   function TimesheetController($modal, Data, Time, viewData) {
-    console.log(viewData);
+    console.log(sortTimes());
 
     var _times = sortTimes();
 
@@ -18,6 +18,7 @@
     var vm = this;
     vm.active = active;
     vm.days = days;
+    vm.duration = duration;
     vm.open = onOpen;
     vm.times = times;
     vm.weeks = weeks;
@@ -28,6 +29,10 @@
 
     function days(week) {
       return keys(_times[week]);
+    }
+
+    function duration(time) {
+      return Time.duration(time);
     }
 
     function keys(obj) {
@@ -59,11 +64,11 @@
       return Data.nest(viewData.times, [byWeek, byDay]);
 
       function byDay(time) {
-        return Time.daySortOrder(time.time.date);
+        return Time.daySortOrder(time.time.start);
       }
 
       function byWeek(time) {
-        return Time.weekSortOrder(time.time.date);
+        return Time.weekSortOrder(time.time.start);
       }
     }
 

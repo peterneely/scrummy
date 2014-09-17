@@ -5,18 +5,28 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$moment', '$filter'];
+  TimeService.$inject = ['$moment', '$filter', 'Config'];
 
-  function TimeService($moment, $filter) {
+  function TimeService($moment, $filter, Config) {
 
     return {
       daySortOrder: daySortOrder,
       defaultTime: defaultTime,
+      duration: duration,
+      end: end,
       fromInput: fromInput,
+      start: start,
       weekSortOrder: weekSortOrder
     };
 
-    function daySortOrder(jsDate){
+    function dateTime(time, date) {
+      if (time === undefined) {
+        return '';
+      }
+      return $filter('date')(date, 'yyyy-MM-dd') + ' ' + time;
+    }
+
+    function daySortOrder(jsDate) {
       var dayNumber = $filter('doubleDigits')($moment(jsDate).isoWeekday());
       var dayTitle = $moment(jsDate).format('ddd, DD MMM YYYY');
       return dayNumber + ':' + dayTitle;
@@ -26,7 +36,27 @@
       return $filter('date')(Date.now(), 'HH:mm');
     }
 
-    function fromInput(value){
+    function duration(time) {
+      var end;
+      if (time.time.end === '') {
+        end = $moment($filter('date')(new Date(time.time.start), Config.isoDateTime));
+      } else {
+        end = $moment(time.time.end);
+      }
+      var start = $moment(time.time.start);
+      var span = '';
+      try {
+        span = end.diff(start, 'hours') + ':' + $filter('doubleDigits')(end.diff(start, 'minutes'));
+      } catch (error) {
+      }
+      return span.replace('NaN:aN', '0:00');
+    }
+
+    function end(time) {
+      return dateTime(time.end, time.date);
+    }
+
+    function fromInput(value) {
       if (noTime(value)) {
         return value;
       } else if (invalidTime(value)) {
@@ -48,7 +78,11 @@
       }
     }
 
-    function weekSortOrder(jsDate){
+    function start(time) {
+      return dateTime(time.start || defaultTime(), time.date);
+    }
+
+    function weekSortOrder(jsDate) {
       var mDate = $moment(jsDate);
       return mDate.year() + '_' + $filter('doubleDigits')(mDate.isoWeek());
     }

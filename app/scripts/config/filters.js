@@ -39,10 +39,10 @@
   }
 
   formatDateAsTime.$inject = ['$moment'];
-  function formatDateAsTime($moment){
-    return function(jsDate){
+  function formatDateAsTime($moment) {
+    return function (jsDate) {
       return $moment(jsDate).format('HH:mm');
-    }
+    };
   }
 
   function formatTime() {

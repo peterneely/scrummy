@@ -40,26 +40,21 @@
       function start() {
         var userName = viewData.user.userName;
         Data.saveNewTypes(userName, vm.timeEntry).then(function (types) {
-          Data.saveTime(userName, updateModel(types)).then(function (timeId) {
+          Data.saveTime(userName, timeEntry(types)).then(function (timeId) {
             Data.saveState(userName, types, timeId);
           });
         });
 
-        function updateModel(types) {
-          updateTypes();
-          validateStartTime();
-          return vm.timeEntry;
-
-          function updateTypes() {
-            vm.timeEntry.client = types.client;
-            vm.timeEntry.project = types.project;
-            vm.timeEntry.task = types.task;
-          }
-
-          function validateStartTime() {
-            var startTime = vm.timeEntry.time.start;
-            vm.timeEntry.time.start = startTime || Time.defaultTime();
-          }
+        function timeEntry(types) {
+          return {
+            client: types.client,
+            project: types.project,
+            task: types.task,
+            time: {
+              start: Time.start(vm.timeEntry.time),
+              end: Time.end(vm.timeEntry.time)
+            }
+          };
         }
       }
     }

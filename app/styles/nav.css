@@ -25,6 +25,10 @@
     border: 1px solid #B2B2B2;
 }
 
+.sc-header {
+    margin-bottom: 20px;
+}
+
 @media screen and (max-width: 768px) {
     .app .scrummy.btn-group {
         float: right;

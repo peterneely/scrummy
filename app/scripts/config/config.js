@@ -12,7 +12,9 @@
 
       urlAuth: 'https://scrummy.firebaseio.com/',
       urlData: 'https://scrummy.firebaseio.com/users/',
-      urlPic: 'http://www.gravatar.com/avatar/'
+      urlPic: 'http://www.gravatar.com/avatar/',
+
+      isoDateTime: 'yyyy-MM-dd HH:mm'
     };
   }
 
