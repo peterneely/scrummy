@@ -39,7 +39,11 @@
     function duration(time) {
       var end;
       if (time.time.end === '') {
-        end = $moment($filter('date')(new Date(time.time.start), Config.isoDateTime));
+        var startDate = $filter('date')(new Date(time.time.start), Config.dateFormat);
+        var currentTime = $filter('date')(Date.now(), Config.timeFormat);
+        var endDateTime = startDate + ' ' + currentTime;
+        console.log(endDateTime);
+        end = $moment(endDateTime);
       } else {
         end = $moment(time.time.end);
       }
