@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Timesheet', TimesheetController);
 
-  TimesheetController.$inject = ['$modal', 'Data', 'Time', 'viewData'];
+  TimesheetController.$inject = ['$modal', '$interval', 'Data', 'Time', 'viewData'];
 
-  function TimesheetController($modal, Data, Time, viewData) {
+  function TimesheetController($modal, $interval, Data, Time, viewData) {
     console.log(sortTimes());
 
     var _times = sortTimes();
@@ -22,6 +22,14 @@
     vm.open = onOpen;
     vm.times = times;
     vm.weeks = weeks;
+
+    vm.count = 1;
+
+    $interval(function(){
+      vm.count++;
+    }, 1000);
+
+//    $scope.$on('$destroy', function () { $interval.cancel(refreshDuration); });
 
     function active(time){
       return time.$id === viewData.user.state.activeTime.id;

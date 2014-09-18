@@ -1,9 +1,11 @@
 <div class="input-group">
-  <input type="text" class="form-control" ng-model="scModel" datepicker-popup="EEE, d MMM y" is-open="opened"
-  datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
-  <span class="input-group-btn">
+  <div class="input-group-btn">
     <button type="button" class="btn btn-default" ng-click="open($event)">
       <i class="glyphicon glyphicon-calendar"></i>
     </button>
-  </span>
+  </div>
+  <input type="text" class="form-control sc-rounded-right" ng-model="scModel" datepicker-popup="EEE, d MMM y" is-open="opened"
+         datepicker-options="dateOptions" ng-required="true" close-text="Close"
+         value="scModel | date:'EEE, dd MMM yyyy'" disabled/>
+
 </div>

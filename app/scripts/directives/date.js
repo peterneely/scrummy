@@ -17,12 +17,14 @@
     };
   }
 
+  DateController.$inject = ['$scope'];
+
   function DateController($scope) {
 
     $scope.dateOptions = options();
-    $scope.scModel = Date.now();
     $scope.open = onOpen;
     $scope.opened = false;
+    $scope.scModel = Date.now();
 
     function onOpen($event){
       $event.preventDefault();

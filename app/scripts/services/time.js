@@ -15,6 +15,7 @@
       duration: duration,
       end: end,
       fromInput: fromInput,
+      isToday: isToday,
       start: start,
       weekSortOrder: weekSortOrder
     };
@@ -23,7 +24,7 @@
       if (time === undefined) {
         return '';
       }
-      return $filter('date')(date, 'yyyy-MM-dd') + ' ' + time;
+      return $filter('date')(date, Config.dateFormat) + ' ' + time;
     }
 
     function daySortOrder(jsDate) {
@@ -42,7 +43,6 @@
         var startDate = $filter('date')(new Date(time.time.start), Config.dateFormat);
         var currentTime = $filter('date')(Date.now(), Config.timeFormat);
         var endDateTime = startDate + ' ' + currentTime;
-        console.log(endDateTime);
         end = $moment(endDateTime);
       } else {
         end = $moment(time.time.end);
@@ -80,6 +80,10 @@
       function noTime(value) {
         return value === '';
       }
+    }
+
+    function isToday(date) {
+      return $moment(date).isSame($moment(Date.now()), 'day');
     }
 
     function start(time) {

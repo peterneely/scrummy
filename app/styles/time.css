@@ -45,6 +45,11 @@
     width: 28px;
 }
 
+.sc-rounded-right {
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
 /*.sc-blink {*/
     /*animation: blink 1s steps(5, start) infinite;*/
     /*-webkit-animation: blink 1s steps(5, start) infinite;*/

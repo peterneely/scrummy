@@ -8,6 +8,8 @@
     </div>
   </div>
 
+  {{ ts.count }}
+
   <div class="panel panel-default" ng-repeat="week in ts.weeks()">
     <table class="table sc-time-table" ng-repeat="day in ts.days(week)">
       <thead class="bg-default">

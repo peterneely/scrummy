@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Time', TimeController);
 
-  TimeController.$inject = ['$modalInstance', 'Time' , 'Data', 'viewData'];
+  TimeController.$inject = ['$scope', '$modalInstance', 'Time' , 'Data', 'viewData'];
 
-  function TimeController($modalInstance, Time, Data, viewData) {
+  function TimeController($scope, $modalInstance, Time, Data, viewData) {
 
     var vm = this;
 
@@ -16,7 +16,19 @@
     vm.data = viewData;
     vm.timeEntryState = stateRoot();
     vm.start = startTimer;
-    vm.timeEntry = {};
+    vm.timeEntry = {
+      time: {
+        start: Date.now()
+      }
+    };
+
+    $scope.$watch(watchTimeStart, function () {
+      vm.isToday = Time.isToday(vm.timeEntry.time.start);
+    });
+
+    function watchTimeStart(){
+      return vm.timeEntry.time.start;
+    }
 
     function cancel() {
       $modalInstance.dismiss();
