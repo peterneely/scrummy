@@ -4,11 +4,11 @@
 
   angular
     .module('scrummyApp')
-    .controller('Timesheet', TimesheetController);
+    .controller('Times', TimesController);
 
-  TimesheetController.$inject = ['$modal', '$interval', 'Data', 'Time', 'viewData'];
+  TimesController.$inject = ['$modal', '$interval', 'Data', 'Time', 'viewData'];
 
-  function TimesheetController($modal, $interval, Data, Time, viewData) {
+  function TimesController($modal, $interval, Data, Time, viewData) {
     console.log(sortTimes());
 
     var _times = sortTimes();
@@ -53,7 +53,7 @@
 
     function onOpen() {
       $modal.open({
-        templateUrl: '../../views/time.html',
+        templateUrl: '/app/times/time.html',
         controller: 'Time as time',
         resolve: {
           viewData: function () {

@@ -11,7 +11,7 @@
   function TimeDirective(Time) {
 
     return {
-      templateUrl: 'time.directive.html',
+      templateUrl: '/app/times/time.directive.html',
       scope: {
         scModel: '=',
         scClass: '@',

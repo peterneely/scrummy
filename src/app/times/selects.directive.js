@@ -8,7 +8,7 @@
 
   function SelectsDirective() {
     return {
-      templateUrl: 'selects.directive.html',
+      templateUrl: '/app/times/selects.directive.html',
       scope: {
         scData: '=',
         scState: '=',

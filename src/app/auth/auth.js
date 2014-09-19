@@ -24,7 +24,7 @@
 
     function login() {
       Auth.login(vm.user).then(function () {
-        State.go('nav.timesheet');
+        State.go('nav.times');
       }).catch(showError);
     }
 

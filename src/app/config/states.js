@@ -15,7 +15,7 @@
       .state('login', login())
       .state('register', register())
       .state('nav', nav())
-      .state('nav.timesheet', navTimesheet())
+      .state('nav.times', navTimes())
       .state('nav.clients', navClients())
       .state('nav.projects', navProjects())
       .state('nav.tasks', navTasks())
@@ -42,7 +42,7 @@
     function register() {
       return {
         url: '/register',
-        templateUrl: '../../views/register.html',
+        templateUrl: '/app/auth/register.html',
         controller: 'Auth as auth'
       };
     }
@@ -50,7 +50,7 @@
     function nav() {
       return {
         abstract: true,
-        templateUrl: '../../views/nav.html',
+        templateUrl: '/app/layout/nav.html',
         controller: 'Nav as nav',
         resolve: {
           coreData: ['Init', function (Init) {
@@ -60,11 +60,11 @@
       };
     }
 
-    function navTimesheet() {
+    function navTimes() {
       return {
-        url: '^/timesheet',
-        templateUrl: '../../views/timesheet.html',
-        controller: 'Timesheet as ts',
+        url: '^/times',
+        templateUrl: '/app/times/times.html',
+        controller: 'Times as ts',
         resolve: {
           viewData: ['coreData', function (coreData) {
             return {
@@ -85,11 +85,11 @@
         url: '^/clients',
         views: {
           '': {
-            templateUrl: '../../views/manage.html',
-            controller: 'Manage as manage'
+            templateUrl: 'app/admin/admin.html',
+            controller: 'Admin as admin'
           },
           '@nav.clients': {
-            templateUrl: '../../views/tabs.html'
+            templateUrl: '/app/admin/tabs.html'
           }
         },
         resolve: {
@@ -110,11 +110,11 @@
         url: '^/projects',
         views: {
           '': {
-            templateUrl: '../../views/manage.html',
-            controller: 'Manage as manage'
+            templateUrl: 'app/admin/admin.html',
+            controller: 'Admin as admin'
           },
           '@nav.projects': {
-            templateUrl: '../../views/tabs.html'
+            templateUrl: '/app/admin/tabs.html'
           }
         },
         resolve: {
@@ -135,11 +135,11 @@
         url: '^/tasks',
         views: {
           '': {
-            templateUrl: '../../views/manage.html',
-            controller: 'Manage as manage'
+            templateUrl: 'app/admin/admin.html',
+            controller: 'Admin as admin'
           },
           '@nav.tasks': {
-            templateUrl: '../../views/tabs.html'
+            templateUrl: '/app/admin/tabs.html'
           }
         },
         resolve: {
@@ -158,7 +158,7 @@
     function navUser() {
       return {
         url: '^/user',
-        templateUrl: '../../views/user.html',
+        templateUrl: '/app/user/user.html',
         controller: 'User as user',
         resolve: {
           viewData: ['coreData', function (coreData) {

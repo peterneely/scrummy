@@ -4,11 +4,11 @@
 
   angular
     .module('scrummyApp')
-    .controller('Manage', ManageController);
+    .controller('Admin', AdminController);
 
-  ManageController.$inject = ['Data', '$filter', 'viewData'];
+  AdminController.$inject = ['Data', '$filter', 'viewData'];
 
-  function ManageController(Data, $filter, viewData) {
+  function AdminController(Data, $filter, viewData) {
 
     var vm = this;
 
