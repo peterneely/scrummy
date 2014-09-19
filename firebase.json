@@ -1,6 +1,6 @@
 {
   "firebase": "scrummy",
-  "public": "app",
+  "public": "src",
   "ignore": [
     "firebase.json",
     "**/.*",
