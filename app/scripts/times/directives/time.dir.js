@@ -11,7 +11,7 @@
   function TimeDirective(Time) {
 
     return {
-      templateUrl: 'views/directives/time.html',
+      templateUrl: '../../../views/directives/time.html',
       scope: {
         scModel: '=',
         scClass: '@',

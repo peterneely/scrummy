@@ -53,7 +53,7 @@
 
     function onOpen() {
       $modal.open({
-        templateUrl: 'views/time.html',
+        templateUrl: '../../views/time.html',
         controller: 'Time as time',
         resolve: {
           viewData: function () {
