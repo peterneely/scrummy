@@ -8,7 +8,7 @@
 
   function DateDirective() {
     return {
-      templateUrl: '../../../views/directives/date.html',
+      templateUrl: 'date.directive.html',
       scope: {
         scModel: '='
       },
