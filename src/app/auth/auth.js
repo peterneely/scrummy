@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Auth', AuthController);
 
-  AuthController.$inject = ['Auth', 'Data', 'Errors', 'State', 'TestData'];
+  AuthController.$inject = ['Auth', 'User', 'Errors', 'State', 'TestData'];
 
-  function AuthController(Auth, Data, Errors, State, TestData) {
+  function AuthController(Auth, User, Errors, State, TestData) {
 
     var vm = this;
 
@@ -30,7 +30,7 @@
 
     function register() {
       Auth.register(vm.user).then(function (authUser) {
-        Data.createUser(authUser).then(login);
+        User.create(authUser).then(login);
       }).catch(showError);
     }
 

@@ -12,9 +12,7 @@
 
     return {
       add: add,
-      createUser: createUser,
       getData: getData,
-      getUser: getUser,
       nest: nest,
       remove: remove,
       saveNewTypes: saveNewTypes,
@@ -28,18 +26,8 @@
       return Resource.data(user.userName, type).$push(item);
     }
 
-    function createUser(authUser) {
-      var user = $filter('userFromAuthUser')(authUser);
-      return Resource.data(user.userName, 'user').$set(user);
-    }
-
     function getData(user, type) {
       return Resource.data(user.userName, type).$asArray().$loaded();
-    }
-
-    function getUser(authUser) {
-      var userName = $filter('userName')(authUser.email);
-      return Resource.data(userName, 'user').$asObject().$loaded();
     }
 
     function nest(seq, keys) {
