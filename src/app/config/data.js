@@ -9,6 +9,7 @@
   function testData() {
     return {
       user: {
+//        email: 'neely.peter@gmail.com',
         email: 'pgneely@gmail.com',
         password: 'testing',
         confirmPassword: 'testing'

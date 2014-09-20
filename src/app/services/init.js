@@ -6,37 +6,35 @@
     .module('scrummyApp')
     .factory('Init', InitService);
 
-  InitService.inject = ['$q', 'Data', 'Auth', 'User', 'State'];
+  InitService.inject = ['$q', 'Data', 'Auth', 'User', 'State', 'Async'];
 
-  function InitService($q, Data, Auth, User, State) {
+  function InitService($q, Data, Auth, User, State, Async) {
 
     return {
       getCoreData: getCoreData
     };
 
     function getCoreData() {
-      var deferred = $q.defer();
-      getUser().then(function (user) {
-        $q.all(getData(user)).then(function (data) {
-          deferred.resolve(viewData(user, data));
-        });
-      });
-      return deferred.promise;
+      return Async.promise(coreData);
 
-      function getUser() {
-        var deferred = $q.defer();
+      function coreData(deferred){
+        Async.promise(getUser).then(function (user) {
+          $q.all(getData(user)).then(function (data) {
+            deferred.resolve(viewData(user, data));
+          });
+        });
+      }
+
+      function getUser(deferred) {
         Auth.getAuthUser().then(function (authUser) {
           if (authUser) {
-            console.log(authUser);
             User.get(authUser).then(function (user) {
-              console.log(user);
               deferred.resolve(user);
             });
           } else {
             State.go('login');
           }
         });
-        return deferred.promise;
       }
 
       function getData(user) {

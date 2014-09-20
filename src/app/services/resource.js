@@ -11,7 +11,8 @@
   function ResourceService($firebase, Config, Url) {
 
     return {
-      getUser: getUser,
+      array: array,
+      object: object,
       put: put,
 
       data: data,
@@ -19,12 +20,20 @@
       time: time
     };
 
-    function getUser(){
-      return resource(Url.user()).$asObject().$loaded();
+    function array(urlFragments){
+      return ref(urlFragments).$asArray().$loaded();
     }
 
-    function put(url, data){
-      return resource(url).$set(data);
+    function ref(urlFragments){
+      return resource(Url.path(urlFragments))
+    }
+
+    function object(urlFragments){
+      return ref(urlFragments).$asObject().$loaded();
+    }
+
+    function put(urlFragments, data){
+      return ref(urlFragments).$set(data);
     }
 
     function resource(url) {

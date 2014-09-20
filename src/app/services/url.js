@@ -13,19 +13,19 @@
 
     return {
       cacheUserName: cacheUserName,
-      user: user
+      path: path
     };
 
     function cacheUserName(userName) {
       _userName = userName;
     }
 
-    function root(url){
-      return Config.urlData + _userName + url;
+    function path(fragments){
+      return root('/' + fragments.join('/'));
     }
 
-    function user(){
-      return root('/user');
+    function root(url){
+      return Config.urlData + _userName + url;
     }
   }
 })();

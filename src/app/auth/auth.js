@@ -23,15 +23,24 @@
     }
 
     function login() {
-      Auth.login(vm.user).then(function () {
-        State.go('nav.times');
-      }).catch(showError);
+      Auth.login(vm.user)
+        .then(showTimes)
+        .catch(showError);
+
+      function showTimes() {
+        return State.go('nav.times');
+      }
     }
 
     function register() {
-      Auth.register(vm.user).then(function (authUser) {
-        User.create(authUser).then(login);
-      }).catch(showError);
+      Auth.register(vm.user)
+        .then(createUser)
+        .then(login)
+        .catch(showError);
+
+      function createUser(authUser) {
+        return User.create(authUser);
+      }
     }
 
     function showError(error) {
