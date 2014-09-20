@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Init', InitService);
 
-  InitService.inject = ['$q', 'Resource', 'Auth', 'User', 'State'];
+  InitService.inject = ['$q', 'Resource', 'Auth', 'User', 'State', 'Async'];
 
-  function InitService($q, Resource, Auth, User, State) {
+  function InitService($q, Resource, Auth, User, State, Async) {
 
     return {
       getCoreData: getCoreData
@@ -25,7 +25,12 @@
         if (authUser) {
           return User.get(authUser);
         } else {
+          Async.promise(login);
+        }
+
+        function login(deferred){
           State.go('login');
+          deferred.reject();
         }
       }
 
