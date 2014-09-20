@@ -6,48 +6,41 @@
     .module('scrummyApp')
     .factory('Init', InitService);
 
-  InitService.inject = ['$q', 'Data', 'Auth', 'User', 'State', 'Async'];
+  InitService.inject = ['$q', 'Resource', 'Auth', 'User', 'State'];
 
-  function InitService($q, Data, Auth, User, State, Async) {
+  function InitService($q, Resource, Auth, User, State) {
 
     return {
       getCoreData: getCoreData
     };
 
     function getCoreData() {
-      return Async.promise(coreData);
+      var _user = {};
+      return Auth.getAuthUser()
+        .then(getUser)
+        .then(getData)
+        .then(mapData);
 
-      function coreData(deferred){
-        Async.promise(getUser).then(function (user) {
-          $q.all(getData(user)).then(function (data) {
-            deferred.resolve(viewData(user, data));
-          });
-        });
-      }
-
-      function getUser(deferred) {
-        Auth.getAuthUser().then(function (authUser) {
-          if (authUser) {
-            User.get(authUser).then(function (user) {
-              deferred.resolve(user);
-            });
-          } else {
-            State.go('login');
-          }
-        });
+      function getUser(authUser) {
+        if (authUser) {
+          return User.get(authUser);
+        } else {
+          State.go('login');
+        }
       }
 
       function getData(user) {
+        _user = user;
         var promises = [];
         ['clients', 'projects', 'tasks', 'times'].forEach(function (type) {
-          promises.push(Data.getData(user, type));
+          promises.push(Resource.getAll([type]));
         });
-        return promises;
+        return $q.all(promises);
       }
 
-      function viewData(user, data) {
+      function mapData(data) {
         return {
-          user: user,
+          user: _user,
           clients: data[0],
           projects: data[1],
           tasks: data[2],

@@ -38,7 +38,7 @@
       function user(deferred) {
         var userName = parseUserName(authUser.email);
         Url.cacheUserName(userName);
-        Resource.object(['user']).then(function (user) {
+        Resource.get(['user']).then(function (user) {
           deferred.resolve(user);
         });
       }
