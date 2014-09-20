@@ -17,7 +17,9 @@
     };
 
     function create(authUser) {
-      Async.task(function (deferred) {
+      return Async.promise(newUser);
+
+      function newUser(deferred) {
         var user = createUser();
         persistUser(user);
 
@@ -34,41 +36,29 @@
 
         function persistUser(user) {
           Url.root(user.userName);
-          Resource.put(Url.user, user).then(function () {
+          Resource.put(Url.user(), user).then(function () {
             _user = user;
             deferred.resolve(user);
           });
         }
-      });
+      }
     }
 
     function get(authUser) {
-      console.log('ok');
-      Async.task(function (deferred) {
+      return Async.promise(user);
 
-        if (isCached()) {
-          getFromCache();
-        } else {
-          getFromStore();
-        }
-
-        function getFromCache() {
+      function user(deferred) {
+        if (!_.isEmpty(_user)) {
           deferred.resolve(_user);
-        }
-
-        function getFromStore() {
+        } else {
           var userName = parseUserName(authUser.email);
-          Url.root(userName);
+          Url.cacheUserName(userName);
           Resource.getUser().then(function (user) {
             _user = user;
             deferred.resolve(user);
           });
         }
-
-        function isCached() {
-          return !_.isEmpty(_user);
-        }
-      });
+      }
     }
 
     function parseUserName(email) {

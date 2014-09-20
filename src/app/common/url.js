@@ -5,17 +5,27 @@
     .module('scrummyApp')
     .factory('Url', UrlService);
 
-  function UrlService() {
+  UrlService.$inject = ['Config'];
+
+  function UrlService(Config) {
 
     var _userName = null;
 
     return {
-      root: root,
-      user: 'users/' + _userName + '/user'
+      cacheUserName: cacheUserName,
+      user: user
     };
 
-    function root(userName) {
+    function cacheUserName(userName) {
       _userName = userName;
+    }
+
+    function root(url){
+      return Config.urlData + _userName + url;
+    }
+
+    function user(){
+      return root('/user');
     }
   }
 })();

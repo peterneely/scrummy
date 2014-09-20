@@ -20,7 +20,7 @@
     };
 
     function getUser(){
-      return resource(Url.user).$asObject().$loaded();
+      return resource(Url.user()).$asObject().$loaded();
     }
 
     function put(url, data){

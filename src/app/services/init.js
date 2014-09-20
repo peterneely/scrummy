@@ -26,8 +26,8 @@
       function getUser() {
         var deferred = $q.defer();
         Auth.getAuthUser().then(function (authUser) {
-          console.log(authUser);
           if (authUser) {
+            console.log(authUser);
             User.get(authUser).then(function (user) {
               console.log(user);
               deferred.resolve(user);

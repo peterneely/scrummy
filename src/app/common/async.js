@@ -5,13 +5,14 @@
     .module('scrummyApp')
     .factory('Async', AsyncService);
 
-  function AsyncService() {
+  AsyncService.$inject = ['$q'];
 
+  function AsyncService($q) {
     return {
-      task: task
+      promise: promise
     };
 
-    function task(callback) {
+    function promise(callback) {
       var deferred = $q.defer();
       callback(deferred);
       return deferred.promise;

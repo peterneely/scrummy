@@ -10,7 +10,7 @@
 
   function AuthService($q, $firebaseSimpleLogin, Config) {
 
-    var _authUser = null;
+    var _authUser = {};
     var _provider = getAuthProvider();
 
     return {
@@ -25,8 +25,16 @@
     }
 
     function getAuthUser() {
-      var result = _authUser || resolve(_provider.$getCurrentUser());
-      return result;
+      var deferred = $q.defer();
+      if(!_.isEmpty(_authUser)){
+        deferred.resolve(_authUser);
+      } else {
+        _provider.$getCurrentUser().then(function(authUser){
+          _authUser = authUser;
+          deferred.resolve(_authUser);
+        });
+      }
+      return deferred.promise;
     }
 
     function login(user) {
