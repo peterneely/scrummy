@@ -18,22 +18,19 @@
     vm.register = register;
     vm.user = TestData.user;
 
-    function onFocus() {
-      vm.error = null;
-    }
-
     function login() {
       Auth.login(vm.user)
         .then(showTimes)
         .catch(showError);
+    }
 
-      function showTimes() {
-        return State.go('nav.times');
-      }
+    function onFocus() {
+      vm.error = null;
     }
 
     function register() {
-      Auth.register(vm.user)
+      User.cacheUserName(vm.user)
+        .then(register)
         .then(createUser)
         .then(login)
         .catch(showError);
@@ -41,10 +38,18 @@
       function createUser(authUser) {
         return User.create(authUser);
       }
+
+      function register() {
+        return Auth.register(vm.user);
+      }
     }
 
     function showError(error) {
       vm.error = Errors.getMessage(error);
+    }
+
+    function showTimes() {
+      return State.go('nav.times');
     }
   }
 

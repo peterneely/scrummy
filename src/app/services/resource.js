@@ -27,24 +27,20 @@
       time: time
     };
 
-    function getAll(urlFragments) {
-      return ref(urlFragments).$asArray().$loaded();
+    function getAll(url) {
+      return resource(url).$asArray().$loaded();
     }
 
-    function get(urlFragments) {
-      return ref(urlFragments).$asObject().$loaded();
+    function get(url) {
+      return resource(url).$asObject().$loaded();
     }
 
-    function post(urlFragments, data){
-      return ref(urlFragments).$push(data);
+    function post(url, data){
+      return resource(url).$push(data);
     }
 
-    function put(urlFragments, data) {
-      return ref(urlFragments).$set(data);
-    }
-
-    function ref(urlFragments) {
-      return resource(Url.path(urlFragments))
+    function put(url, data) {
+      return resource(url).$set(data);
     }
 
     function remove(items, item){

@@ -9,8 +9,10 @@
   function testData() {
     return {
       user: {
+//        email: 'pgneely@gmail.com',
 //        email: 'neely.peter@gmail.com',
-        email: 'pgneely@gmail.com',
+//        email: 'peterneelywork@icloud.com',
+        email: 'p.neely@icloud.com',
         password: 'testing',
         confirmPassword: 'testing'
       }

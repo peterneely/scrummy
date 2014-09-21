@@ -14,8 +14,10 @@
     return {
       cacheUserName: cacheUserName,
       clients: clients,
+      isUserNameCached: isUserNameCached,
       projects: projects,
       tasks: tasks,
+      times: times,
       timeType: timeType,
       user: user,
       userPic: userPic,
@@ -30,12 +32,20 @@
       return url(['clients']);
     }
 
+    function isUserNameCached(){
+      return _userName !== null;
+    }
+
     function projects() {
       return url(['projects']);
     }
 
     function tasks() {
       return url(['tasks']);
+    }
+
+    function times(){
+      return url(['times']);
     }
 
     function timeType(timeId, type) {

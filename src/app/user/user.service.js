@@ -9,20 +9,31 @@
 
   function UserService(Config, Async, Data, Url, Resource) {
 
-    var _email = null;
     var _userName = null;
 
     return {
       cacheUserName: cacheUserName,
+      clearUserName: clearUserName,
       create: create,
       get: get,
       updateState: updateState
     };
 
-    function cacheUserName(email) {
-      _email = email;
-      _userName = _email.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
-      return Async.when(Url.cacheUserName(_userName));
+    function cacheUserName(userWithEmail) {
+      return Async.promise(cache);
+
+      function cache(deferred) {
+        if (!Url.isUserNameCached()) {
+          _userName = userWithEmail.email.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
+          Url.cacheUserName(_userName);
+        }
+        deferred.resolve(userWithEmail);
+      }
+    }
+
+    function clearUserName(){
+      _userName = null;
+      Url.cacheUserName(null);
     }
 
     function create(authUser) {
@@ -32,10 +43,10 @@
         /*jshint camelcase: false */
         var user = {
           userName: _userName,
-          email: _email,
+          email: authUser.email,
           pic: Url.userPic(authUser.md5_hash)
         };
-        Resource.put(Url.user, user).then(function () {
+        Resource.put(Url.user(), user).then(function () {
           deferred.resolve(user);
         });
       }
@@ -45,7 +56,8 @@
       return Async.promise(user);
 
       function user(deferred) {
-        Resource.get(Url.user).then(function (user) {
+
+        Resource.get(Url.user()).then(function (user) {
           deferred.resolve(user);
         });
       }

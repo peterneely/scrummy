@@ -25,9 +25,9 @@
 
     vm.count = 1;
 
-    $interval(function(){
-      vm.count++;
-    }, 1000);
+//    $interval(function(){
+//      vm.count++;
+//    }, 1000);
 
 //    $scope.$on('$destroy', function () { $interval.cancel(refreshDuration); });
 

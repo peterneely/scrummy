@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Init', InitService);
 
-  InitService.inject = ['Resource', 'Auth', 'User', 'State', 'Async'];
+  InitService.inject = ['$q', 'Resource', 'Auth', 'User', 'State', 'Async', 'Url'];
 
-  function InitService(Resource, Auth, User, State, Async) {
+  function InitService($q, Resource, Auth, User, State, Async, Url) {
 
     return {
       getCoreData: getCoreData
@@ -17,9 +17,14 @@
     function getCoreData() {
       var _user = {};
       return Auth.getAuthUser()
+        .then(cacheUserName)
         .then(getUser)
         .then(getData)
         .then(mapData);
+
+      function cacheUserName(authUser){
+        return User.cacheUserName(authUser)
+      }
 
       function getUser(authUser) {
         if (authUser) {
@@ -38,7 +43,7 @@
         _user = user;
         var promises = [];
         ['clients', 'projects', 'tasks', 'times'].forEach(function (type) {
-          promises.push(Resource.getAll([type]));
+          promises.push(Resource.getAll(Url[type]()));
         });
         return Async.all(promises);
       }

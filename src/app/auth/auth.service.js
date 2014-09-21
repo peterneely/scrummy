@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Auth', AuthService);
 
-  AuthService.$inject = ['$firebaseSimpleLogin', 'Config'];
+  AuthService.$inject = ['$firebaseSimpleLogin', 'Config', 'User'];
 
-  function AuthService($firebaseSimpleLogin, Config) {
+  function AuthService($firebaseSimpleLogin, Config, User) {
 
     var _provider = getAuthProvider();
 
@@ -33,10 +33,11 @@
 
     function logout() {
       _provider.$logout();
+      User.clearUserName();
     }
 
-    function register(user){
-      return _provider.$createUser(user.email, user.password);
+    function register(formUser){
+      return _provider.$createUser(formUser.email, formUser.password);
     }
   }
 
