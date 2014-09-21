@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Init', InitService);
 
-  InitService.inject = ['$q', 'Resource', 'Auth', 'User', 'State', 'Async'];
+  InitService.inject = ['Resource', 'Auth', 'User', 'State', 'Async'];
 
-  function InitService($q, Resource, Auth, User, State, Async) {
+  function InitService(Resource, Auth, User, State, Async) {
 
     return {
       getCoreData: getCoreData
@@ -40,7 +40,7 @@
         ['clients', 'projects', 'tasks', 'times'].forEach(function (type) {
           promises.push(Resource.getAll([type]));
         });
-        return $q.all(promises);
+        return Async.all(promises);
       }
 
       function mapData(data) {

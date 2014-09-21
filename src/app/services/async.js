@@ -9,13 +9,23 @@
 
   function AsyncService($q) {
     return {
-      promise: promise
+      all: all,
+      promise: promise,
+      when: when
     };
+
+    function all(promises){
+      return $q.all(promises);
+    }
 
     function promise(callback) {
       var deferred = $q.defer();
       callback(deferred);
       return deferred.promise;
+    }
+
+    function when(value){
+      return $q.when(value);
     }
   }
 })();

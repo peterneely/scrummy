@@ -6,7 +6,7 @@
     .module('scrummyApp')
     .controller('Time', TimeController);
 
-  TimeController.$inject = ['$scope', '$modalInstance', 'Time' , 'Data', 'viewData'];
+  TimeController.$inject = ['$scope', '$modalInstance', 'Time' , 'DataOld', 'viewData'];
 
   function TimeController($scope, $modalInstance, Time, Data, viewData) {
 

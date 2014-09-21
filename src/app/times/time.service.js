@@ -15,6 +15,7 @@
       duration: duration,
       end: end,
       fromInput: fromInput,
+      group: group,
       isToday: isToday,
       start: start,
       weekSortOrder: weekSortOrder
@@ -80,6 +81,17 @@
       function noTime(value) {
         return value === '';
       }
+    }
+
+    function group(seq, keys) {
+      if (!keys.length) {
+        return seq;
+      }
+      var first = keys[0];
+      var rest = keys.slice(1);
+      return _.mapValues(_.groupBy(seq, first), function (value) {
+        return group(value, rest);
+      });
     }
 
     function isToday(date) {

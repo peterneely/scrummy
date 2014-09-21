@@ -5,47 +5,54 @@
     .module('scrummyApp')
     .factory('User', UserService);
 
-  UserService.$inject = ['Config', 'Async', 'Url', 'Resource'];
+  UserService.$inject = ['Config', 'Async', 'Data', 'Url', 'Resource'];
 
-  function UserService(Config, Async, Url, Resource) {
+  function UserService(Config, Async, Data, Url, Resource) {
+
+    var _email = null;
+    var _userName = null;
 
     return {
+      cacheUserName: cacheUserName,
       create: create,
-      get: get
+      get: get,
+      updateState: updateState
     };
+
+    function cacheUserName(email) {
+      _email = email;
+      _userName = _email.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
+      return Async.when(Url.cacheUserName(_userName));
+    }
 
     function create(authUser) {
       return Async.promise(newUser);
 
       function newUser(deferred) {
         /*jshint camelcase: false */
-        var email = authUser.email;
         var user = {
-          userName: parseUserName(email),
-          email: email,
-          pic: Config.urlPic + authUser.md5_hash + '?d=mm'
+          userName: _userName,
+          email: _email,
+          pic: Url.userPic(authUser.md5_hash)
         };
-        Url.cacheUserName(user.userName);
-        Resource.put(['user'], user).then(function () {
+        Resource.put(Url.user, user).then(function () {
           deferred.resolve(user);
         });
       }
     }
 
-    function get(authUser) {
+    function get() {
       return Async.promise(user);
 
       function user(deferred) {
-        var userName = parseUserName(authUser.email);
-        Url.cacheUserName(userName);
-        Resource.get(['user']).then(function (user) {
+        Resource.get(Url.user).then(function (user) {
           deferred.resolve(user);
         });
       }
     }
 
-    function parseUserName(email) {
-      return email.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
+    function updateState(type, text) {
+      return Resource.put(Url.userStateTimeType(type), text);
     }
   }
 })();

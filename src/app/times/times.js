@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['$modal', '$interval', 'Data', 'Time', 'viewData'];
+  TimesController.$inject = ['$modal', '$interval', 'Resource', 'Time', 'viewData'];
 
-  function TimesController($modal, $interval, Data, Time, viewData) {
+  function TimesController($modal, $interval, Resource, Time, viewData) {
     console.log(sortTimes());
 
     var _times = sortTimes();
@@ -69,7 +69,7 @@
     }
 
     function sortTimes() {
-      return Data.nest(viewData.times, [byWeek, byDay]);
+      return Time.group(viewData.times, [byWeek, byDay]);
 
       function byDay(time) {
         return Time.daySortOrder(time.time.start);
@@ -85,7 +85,7 @@
     }
 
     function watchTimes() {
-      Data.watch(viewData.times, function () {
+      Resource.watch(viewData.times, function () {
         _times = sortTimes();
       });
     }
