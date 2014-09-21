@@ -6,19 +6,19 @@
     .module('scrummyApp')
     .factory('Resource', ResourceService);
 
-  ResourceService.$inject = ['$firebase', 'Config', 'Url'];
+  ResourceService.$inject = ['$firebase', 'Config', 'Async'];
 
-  function ResourceService($firebase, Config, Url) {
-
-    // All public methods must be promises
+  function ResourceService($firebase, Config, Async) {
 
     return {
+      exists: exists,
       getAll: getAll,
       get: get,
       post: post,
       put: put,
       remove: remove,
-      update: update,
+      updateArray: updateArray,
+      updateObject: updateObject,
       watch: watch,
 
 
@@ -26,6 +26,10 @@
       state: state,
       time: time
     };
+
+    function exists(item){
+      return item.$value !== null;
+    }
 
     function getAll(url) {
       return resource(url).$asArray().$loaded();
@@ -40,7 +44,7 @@
     }
 
     function put(url, data) {
-      return resource(url).$set(data);
+      return resource(url).$update(data);
     }
 
     function remove(items, item){
@@ -55,8 +59,12 @@
       return new Firebase(url);
     }
 
-    function update(items, item){
+    function updateArray(items, item){
       return items.$save(item);
+    }
+
+    function updateObject(item){
+      return item.$save();
     }
 
     function watch(data, callback) {

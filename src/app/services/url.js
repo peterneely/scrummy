@@ -49,7 +49,7 @@
     }
 
     function timeType(timeId, type) {
-      return url(['times', timeId, type, 'text']);
+      return url(['times', timeId, type]);
     }
 
     function user() {
@@ -65,7 +65,7 @@
     }
 
     function userStateTimeType(type) {
-      return url(['user', 'state', 'time', type, 'text']);
+      return url(['user', 'state', 'time', type]);
     }
   }
 })();

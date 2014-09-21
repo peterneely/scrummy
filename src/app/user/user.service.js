@@ -5,9 +5,9 @@
     .module('scrummyApp')
     .factory('User', UserService);
 
-  UserService.$inject = ['Config', 'Async', 'Data', 'Url', 'Resource'];
+  UserService.$inject = ['$filter', 'Async', 'Url', 'Resource'];
 
-  function UserService(Config, Async, Data, Url, Resource) {
+  function UserService($filter, Async, Url, Resource) {
 
     var _userName = null;
 
@@ -31,7 +31,7 @@
       }
     }
 
-    function clearUserName(){
+    function clearUserName() {
       _userName = null;
       Url.cacheUserName(null);
     }
@@ -56,7 +56,6 @@
       return Async.promise(user);
 
       function user(deferred) {
-
         Resource.get(Url.user()).then(function (user) {
           deferred.resolve(user);
         });
@@ -64,7 +63,15 @@
     }
 
     function updateState(type, text) {
-      return Resource.put(Url.userStateTimeType(type), text);
+      var singleType = $filter('singular')(type);
+      return Resource.get(Url.userStateTimeType(singleType)).then(update);
+
+      function update(time) {
+        if (Resource.exists(time)) {
+          time.text = text;
+          Resource.updateObject(time);
+        }
+      }
     }
   }
 })();
