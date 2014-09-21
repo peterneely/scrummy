@@ -24,7 +24,7 @@
     $scope.dateOptions = options();
     $scope.open = onOpen;
     $scope.opened = false;
-    $scope.scModel = Date.now();
+//    $scope.scModel = Date.now();
 
     function onOpen($event){
       $event.preventDefault();

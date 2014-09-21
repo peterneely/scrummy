@@ -9,14 +9,14 @@
   TimesController.$inject = ['$modal', '$interval', 'Resource', 'Time', 'viewData'];
 
   function TimesController($modal, $interval, Resource, Time, viewData) {
-    console.log(sortTimes());
+    console.log(viewData);
 
     var _times = sortTimes();
 
     watchTimes();
 
     var vm = this;
-    vm.active = active;
+//    vm.active = active;
     vm.days = days;
     vm.duration = duration;
     vm.open = onOpen;
@@ -31,9 +31,9 @@
 
 //    $scope.$on('$destroy', function () { $interval.cancel(refreshDuration); });
 
-    function active(time){
-      return time.$id === viewData.user.state.activeTime.id;
-    }
+//    function active(time){
+//      return time.$id === viewData.user.state.activeTime.id;
+//    }
 
     function days(week) {
       return keys(_times[week]);
@@ -54,14 +54,15 @@
     function onOpen() {
       $modal.open({
         templateUrl: '/app/times/time.html',
-        controller: 'Time as time',
+        controller: 'Time as t',
         resolve: {
           viewData: function () {
             return {
               user: viewData.user,
               clients: viewData.clients,
               projects: viewData.projects,
-              tasks: viewData.tasks
+              tasks: viewData.tasks,
+              times: viewData.times
             };
           }
         }

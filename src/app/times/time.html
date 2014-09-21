@@ -4,34 +4,34 @@
     <h1 class="panel-title">New Time Entry</h1>
   </section>
 
-  <form role="form" name="timeEntry" ng-submit="timeEntry.$valid && time.start()" novalidate="">
+  <form role="form" name="timeEntry" ng-submit="t.start()" novalidate="">
     <section class="panel-body">
-      <div selects sc-data="time.data" sc-state="time.timeEntryState" sc-model="time.timeEntry" sc-class="form-control"></div>
+      <div selects sc-data="t.data" sc-state="t.timeState" sc-model="t.timeModel" sc-class="form-control"></div>
 
       <div class="form-group">
         <textarea class="form-control" rows="3" placeholder="Notes (optional)"
-                  ng-model="time.timeEntry.notes"></textarea>
+                  ng-model="t.timeModel.notes"></textarea>
       </div>
 
       <div class="form-group form-inline">
-        <div time sc-class="form-control sc-form-control sc-small" ng-class="{'sc-bold': time.time.time.start}"
-             sc-placeholder="Start Time" sc-model="time.timeEntry.time.start"></div>
+        <div time sc-class="form-control sc-form-control sc-small"
+             sc-placeholder="Start Time" sc-model="t.timeModel.time.start"></div>
         <span class="sc-form-control">to</span>
 
-        <div time sc-class="form-control sc-form-control sc-small" ng-class="{'sc-bold': time.time.time.end}"
-             sc-placeholder="End Time" sc-model="time.timeEntry.time.end" ng-required="!time.isToday"></div>
+        <div time sc-class="form-control sc-form-control sc-small"
+             sc-placeholder="End Time" sc-model="t.timeModel.time.end"></div>
         <span class="sc-form-control">on</span>
 
-        <div date sc-model="time.timeEntry.time.start"></div>
+        <div date sc-model="t.timeModel.time.date"></div>
       </div>
     </section>
 
     <section class="panel-footer">
       <div class="form-group form-inline">
         <button class="btn btn-primary sc-form-control sc-medium" type="submit">Start Timer</button>
-        <button class="btn btn-default sc-form-control sc-medium" ng-click="time.cancel()">Cancel</button>
+        <button class="btn btn-default sc-form-control sc-medium" ng-click="t.cancel()">Cancel</button>
       </div>
-      <pre ng-if="debug">{{ time.state | json }}</pre>
+      <pre ng-if="debug">{{ t.state | json }}</pre>
     </section>
   </form>
 

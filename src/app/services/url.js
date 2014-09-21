@@ -17,10 +17,12 @@
       isUserNameCached: isUserNameCached,
       projects: projects,
       tasks: tasks,
+      time: time,
       times: times,
       timeType: timeType,
       user: user,
       userPic: userPic,
+      userStateTime: userStateTime,
       userStateTimeType: userStateTimeType
     };
 
@@ -44,6 +46,10 @@
       return url(['tasks']);
     }
 
+    function time(id){
+      return url(['times', id, 'time']);
+    }
+
     function times(){
       return url(['times']);
     }
@@ -62,6 +68,10 @@
 
     function url(fragments){
       return Config.urlData + _userName + '/' + fragments.join('/');
+    }
+
+    function userStateTime() {
+      return url(['user', 'state', 'time']);
     }
 
     function userStateTimeType(type) {

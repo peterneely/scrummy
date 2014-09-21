@@ -5,28 +5,22 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$moment', '$filter', 'Config'];
+  TimeService.$inject = ['$moment', '$filter', 'Config', 'Resource', 'Url', 'Async'];
 
-  function TimeService($moment, $filter, Config) {
+  function TimeService($moment, $filter, Config, Resource, Url, Async) {
 
     return {
       daySortOrder: daySortOrder,
       defaultTime: defaultTime,
       duration: duration,
-      end: end,
       fromInput: fromInput,
       group: group,
       isToday: isToday,
-      start: start,
+      saveNewTypes: saveNewTypes,
+      startNewTimer: startNewTimer,
+      stopActiveTimers: stopActiveTimers,
       weekSortOrder: weekSortOrder
     };
-
-    function dateTime(time, date) {
-      if (time === undefined) {
-        return '';
-      }
-      return $filter('date')(date, Config.dateFormat) + ' ' + time;
-    }
 
     function daySortOrder(jsDate) {
       var dayNumber = $filter('doubleDigits')($moment(jsDate).isoWeekday());
@@ -55,10 +49,6 @@
       } catch (error) {
       }
       return span.replace('NaN:aN', '0:00');
-    }
-
-    function end(time) {
-      return dateTime(time.end, time.date);
     }
 
     function fromInput(value) {
@@ -98,8 +88,75 @@
       return $moment(date).isSame($moment(Date.now()), 'day');
     }
 
-    function start(time) {
-      return dateTime(time.start || defaultTime(), time.date);
+    function saveNewTypes(timeModel) {
+      return Async.promise(save);
+
+      function save(deferred) {
+        ['client', 'project', 'task'].forEach(function (type) {
+          var time = timeModel[type];
+          if (time.id === '') {
+            var url = Url[$filter('plural')(type)]();
+            Resource.post(url, {name: time.text}).then(function (ref) {
+              timeModel[type].id = ref.name();
+            });
+          }
+        });
+        deferred.resolve(timeModel);
+      }
+    }
+
+    function startNewTimer(timeModel) {
+      return Async.promise(startTimer);
+
+      function startTimer(deferred) {
+        timeModel.time = {
+          date: timeModel.time.date,
+          start: start(timeModel.time),
+          end: end(timeModel.time)
+        };
+        Resource.post(Url.times(), timeModel).then(function () {
+          deferred.resolve({
+            client: timeModel.client,
+            project: timeModel.project,
+            task: timeModel.task
+          })
+        });
+
+        function dateTime(time, date) {
+          return time === '' ?
+            '' :
+            $filter('date')(date, Config.dateFormat) + ' ' + time;
+        }
+
+        function end(model) {
+          return dateTime(model.end, model.date);
+        }
+
+        function start(model) {
+          return dateTime(model.start || defaultTime(), model.date);
+        }
+      }
+    }
+
+    function stopActiveTimers(timeModel, times) {
+      return Async.promise(stopActive);
+
+      function stopActive(deferred) {
+        var activeTimers = getActiveTimers();
+        if(activeTimers.length > 0) {
+          var endTime = $filter('date')(Date.now(), Config.dateTimeFormat);
+          activeTimers.forEach(function(activeTimer){
+            Resource.put(Url.time(activeTimer.$id), {end: endTime});
+          });
+        }
+        deferred.resolve(timeModel);
+
+        function getActiveTimers() {
+          return _.where(times, function (time) {
+            return time.time.end === '';
+          });
+        }
+      }
     }
 
     function weekSortOrder(jsDate) {
