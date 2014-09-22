@@ -27,13 +27,19 @@
 
     function tick() {
       if ($scope.isActive) {
-        var elapsed = _item.time.elapsed || 0;
+        $scope.elapsed = _item.time.elapsed || 0;
 //        $interval(increment(elapsed), 5000);
+        $interval(function(){
+          $scope.elapsed++;
+//          Resource.put(Url.time(_item.$id), {elapsed: $scope.elapsed});
+        }, 5000);
       }
 
       function increment(elapsed) {
+        console.log('tick');
         elapsed++;
         Resource.put(Url.time(_item.$id), {elapsed: elapsed});
+        $scope.elapsed = elapsed;
 //        console.log(elapsed);
       }
     }
