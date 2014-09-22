@@ -8,7 +8,7 @@
 
   function DateDirective() {
     return {
-      templateUrl: '/app/times/date.directive.html',
+      templateUrl: '/app/time-form/date.directive.html',
       scope: {
         ngChange: '=',
         ngModel: '='

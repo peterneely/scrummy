@@ -4,11 +4,11 @@
 
   angular
     .module('scrummyApp')
-    .controller('Time', TimeController);
+    .controller('TimeForm', TimeFormController);
 
-  TimeController.$inject = ['$modalInstance', 'Time', 'Resource', 'Url', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Time', 'Resource', 'Url', 'viewData'];
 
-  function TimeController($modalInstance, Time, Resource, Url, viewData) {
+  function TimeFormController($modalInstance, Time, Resource, Url, viewData) {
 
     var vm = this;
 

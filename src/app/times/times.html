@@ -8,8 +8,6 @@
     </div>
   </div>
 
-  {{ ts.count }}
-
   <div class="panel panel-default" ng-repeat="week in ts.weeks()">
     <table class="table sc-time-table" ng-repeat="day in ts.days(week)">
       <thead class="bg-default">
@@ -20,25 +18,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="time in ts.times(week, day)">
-        <td class="col-xs-7">
-          <p class="sc-bold">{{ time.task.text }}</p>
-
-          <p class="text-muted">{{ time.notes }}</p>
-        </td>
-        <td class="col-xs-3">
-          <p class="sc-bold text-primary">{{ time.project.text }}</p>
-
-          <p class="text-muted">{{ time.client.text }}</p>
-        </td>
-        <td class="col-xs-2">
-          <p class="sc-bold">{{ ts.duration(time) }}</p>
-
-          <p>
-            <img class="sc-active" ng-show="ts.active(time)" src="/assets/img/clock.gif">
-          </p>
-        </td>
-      </tr>
+      <tr time-item ng-repeat="time in ts.times(week, day)" ng-model="time"></tr>
       </tbody>
     </table>
   </div>

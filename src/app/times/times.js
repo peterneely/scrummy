@@ -16,9 +16,8 @@
     watchTimes();
 
     var vm = this;
-    vm.active = active;
     vm.days = days;
-    vm.duration = duration;
+//    vm.duration = duration;
     vm.open = onOpen;
     vm.times = times;
     vm.weeks = weeks;
@@ -31,17 +30,13 @@
 
 //    $scope.$on('$destroy', function () { $interval.cancel(refreshDuration); });
 
-    function active(time){
-      return time.time.end === '';
-    }
-
     function days(week) {
       return keys(_times[week]);
     }
 
-    function duration(time) {
-      return Time.duration(time);
-    }
+//    function duration(time) {
+//      return Time.duration(time);
+//    }
 
     function keys(obj) {
       return mostRecentFirst(Object.keys(obj));
@@ -53,8 +48,8 @@
 
     function onOpen() {
       $modal.open({
-        templateUrl: '/app/times/time.html',
-        controller: 'Time as t',
+        templateUrl: '/app/time-form/time-form.html',
+        controller: 'TimeForm as tf',
         resolve: {
           viewData: function () {
             return {

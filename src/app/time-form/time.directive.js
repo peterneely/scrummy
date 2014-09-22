@@ -11,17 +11,17 @@
   function TimeDirective(Time) {
 
     return {
-      templateUrl: '/app/times/time.directive.html',
+      templateUrl: '/app/time-form/time.directive.html',
       scope: {
         scModel: '=',
         scClass: '@',
         scPlaceholder: '@'
       },
-      link: TimeLink,
+      link: timeLink,
       replace: true
     };
 
-    function TimeLink(scope, element) {
+    function timeLink(scope, element) {
       element.on('blur', function () {
         scope.scModel = Time.fromInput(element.val());
         scope.$digest();
