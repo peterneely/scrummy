@@ -10,7 +10,8 @@
     return {
       templateUrl: '/app/times/date.directive.html',
       scope: {
-        scModel: '='
+        ngChange: '=',
+        ngModel: '='
       },
       controller: DateController,
       replace: true
@@ -24,7 +25,6 @@
     $scope.dateOptions = options();
     $scope.open = onOpen;
     $scope.opened = false;
-//    $scope.scModel = Date.now();
 
     function onOpen($event){
       $event.preventDefault();

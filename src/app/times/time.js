@@ -13,15 +13,17 @@
     var vm = this;
 
     vm.cancel = cancel;
+    vm.checkToday = checkToday;
     vm.data = viewData;
-//    vm.timeState = stateRoot();
+    vm.isToday = true;
+    vm.state = state();
     vm.start = startTimer;
     vm.timeModel = {
       client: {},
       project: {},
       task: {},
       time: {
-        date: Date.now(),
+        date: new Date(),
         start: '',
         end: ''
       }
@@ -39,13 +41,9 @@
       $modalInstance.dismiss();
     }
 
-//    function stateRoot() {
-//      try {
-//        return viewData.user.state.timeEntry;
-//      } catch (err) {
-//        return {};
-//      }
-//    }
+    function checkToday(){
+      vm.isToday = Time.isToday(vm.timeModel.time.date);
+    }
 
     function startTimer() {
       try {
@@ -71,6 +69,14 @@
         function saveState(stateModel) {
           return Resource.put(Url.userStateTime(), stateModel);
         }
+      }
+    }
+
+    function state() {
+      try {
+        return viewData.user.state.time;
+      } catch (err) {
+        return {};
       }
     }
   }

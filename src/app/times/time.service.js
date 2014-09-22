@@ -29,14 +29,14 @@
     }
 
     function defaultTime() {
-      return $filter('date')(Date.now(), 'HH:mm');
+      return $filter('date')(new Date(), 'HH:mm');
     }
 
     function duration(time) {
       var end;
       if (time.time.end === '') {
         var startDate = $filter('date')(new Date(time.time.start), Config.dateFormat);
-        var currentTime = $filter('date')(Date.now(), Config.timeFormat);
+        var currentTime = $filter('date')(new Date(), Config.timeFormat);
         var endDateTime = startDate + ' ' + currentTime;
         end = $moment(endDateTime);
       } else {
@@ -85,7 +85,7 @@
     }
 
     function isToday(date) {
-      return $moment(date).isSame($moment(Date.now()), 'day');
+      return $moment(date).isSame($moment(new Date()), 'day');
     }
 
     function saveNewTypes(timeModel) {
@@ -144,7 +144,7 @@
       function stopActive(deferred) {
         var activeTimers = getActiveTimers();
         if(activeTimers.length > 0) {
-          var endTime = $filter('date')(Date.now(), Config.dateTimeFormat);
+          var endTime = $filter('date')(new Date(), Config.dateTimeFormat);
           activeTimers.forEach(function(activeTimer){
             Resource.put(Url.time(activeTimer.$id), {end: endTime});
           });

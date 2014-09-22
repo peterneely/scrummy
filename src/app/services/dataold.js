@@ -118,7 +118,7 @@
               type: '',
               timeId: activeTime.id
             };
-            var end = $filter('date')(Date.now(), Config.dateTime);
+            var end = $filter('date')(new Date(), Config.dateTime);
             Resource.time(urlParts).$update('time', {end: end}).then(function () {
               deferred.resolve(true);
             });
