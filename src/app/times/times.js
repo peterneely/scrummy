@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['$modal', '$interval', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['$scope', '$modal', '$interval', 'Resource', 'Time', 'viewData'];
 
-  function TimesController($modal, $interval, Resource, Time, viewData) {
+  function TimesController($scope, $modal, $interval, Resource, Time, viewData) {
     console.log(viewData);
 
     var _times = sortTimes();
@@ -18,6 +18,7 @@
     var vm = this;
     vm.days = days;
 //    vm.duration = duration;
+    vm.isActive = isActive;
     vm.open = onOpen;
     vm.times = times;
     vm.weeks = weeks;
@@ -37,6 +38,10 @@
 //    function duration(time) {
 //      return Time.duration(time);
 //    }
+
+    function isActive(time) {
+      return time.time.end === '';
+    }
 
     function keys(obj) {
       return mostRecentFirst(Object.keys(obj));
