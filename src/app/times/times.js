@@ -16,7 +16,7 @@
     watchTimes();
 
     var vm = this;
-//    vm.active = active;
+    vm.active = active;
     vm.days = days;
     vm.duration = duration;
     vm.open = onOpen;
@@ -31,9 +31,9 @@
 
 //    $scope.$on('$destroy', function () { $interval.cancel(refreshDuration); });
 
-//    function active(time){
-//      return time.$id === viewData.user.state.activeTime.id;
-//    }
+    function active(time){
+      return time.time.end === '';
+    }
 
     function days(week) {
       return keys(_times[week]);
