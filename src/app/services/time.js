@@ -12,7 +12,6 @@
     return {
       daySortOrder: daySortOrder,
       defaultTime: defaultTime,
-      duration: duration,
       fromInput: fromInput,
       group: group,
       isToday: isToday,
@@ -30,25 +29,6 @@
 
     function defaultTime() {
       return $filter('date')(new Date(), 'HH:mm');
-    }
-
-    function duration(time) {
-      var end;
-      if (time.time.end === '') {
-        var startDate = $filter('date')(new Date(time.time.start), Config.dateFormat);
-        var currentTime = $filter('date')(new Date(), Config.timeFormat);
-        var endDateTime = startDate + ' ' + currentTime;
-        end = $moment(endDateTime);
-      } else {
-        end = $moment(time.time.end);
-      }
-      var start = $moment(time.time.start);
-      var span = '';
-      try {
-        span = end.diff(start, 'hours') + ':' + $filter('doubleDigits')(end.diff(start, 'minutes'));
-      } catch (error) {
-      }
-      return span.replace('NaN:aN', '0:00');
     }
 
     function fromInput(value) {

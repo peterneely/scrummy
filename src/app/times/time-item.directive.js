@@ -18,29 +18,28 @@
     };
   }
 
-  TimeItemController.$inject = ['$scope', '$interval', 'Resource', 'Url'];
+  TimeItemController.$inject = ['$scope', '$interval', '$moment'];
 
-  function TimeItemController($scope, $interval, Resource, Url) {
+  function TimeItemController($scope, $interval, $moment) {
     var _item = $scope.item;
+
+    $scope.elapsed = '';
 
     tick();
 
     function tick() {
       if ($scope.isActive) {
-        $scope.elapsed = _item.time.elapsed || 0;
-//        $interval(increment(elapsed), 5000);
-        $interval(function(){
-          $scope.elapsed++;
-//          Resource.put(Url.time(_item.$id), {elapsed: $scope.elapsed});
-        }, 5000);
+        var start = $moment(_item.time.start);
+        getDuration();
+        $interval(function () {
+          getDuration();
+        }, 1000);
       }
 
-      function increment(elapsed) {
-        console.log('tick');
-        elapsed++;
-        Resource.put(Url.time(_item.$id), {elapsed: elapsed});
-        $scope.elapsed = elapsed;
-//        console.log(elapsed);
+      function getDuration() {
+        var ms = $moment(new Date()).diff(start);
+        var d = $moment.duration(ms);
+        $scope.elapsed = Math.floor(d.hours()) + $moment(ms).format(':mm');
       }
     }
   }
