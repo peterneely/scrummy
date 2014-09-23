@@ -6,41 +6,26 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['$scope', '$modal', '$interval', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['$scope', '$modal', 'Timer', 'Resource', 'Time', 'viewData'];
 
-  function TimesController($scope, $modal, $interval, Resource, Time, viewData) {
+  function TimesController($scope, $modal, Timer, Resource, Time, viewData) {
     console.log(viewData);
 
     var _times = sortTimes();
 
     watchTimes();
+    startTimer();
 
     var vm = this;
     vm.days = days;
-//    vm.duration = duration;
-    vm.isActive = isActive;
     vm.open = onOpen;
     vm.times = times;
     vm.weeks = weeks;
-
-    vm.count = 1;
-
-//    $interval(function(){
-//      vm.count++;
-//    }, 1000);
 
 //    $scope.$on('$destroy', function () { $interval.cancel(refreshDuration); });
 
     function days(week) {
       return keys(_times[week]);
-    }
-
-//    function duration(time) {
-//      return Time.duration(time);
-//    }
-
-    function isActive(time) {
-      return time.time.end === '';
     }
 
     function keys(obj) {
@@ -78,6 +63,12 @@
 
       function byWeek(time) {
         return Time.weekSortOrder(time.time.start);
+      }
+    }
+
+    function startTimer(){
+      if(!Timer.hasStarted()){
+        Timer.start();
       }
     }
 

@@ -10,38 +10,48 @@
     return {
       templateUrl: '/app/times/time-item.directive.html',
       scope: {
-        item: '=ngModel',
-        isActive: '='
+        item: '=ngModel'
       },
       controller: TimeItemController,
       replace: true
     };
   }
 
-  TimeItemController.$inject = ['$scope', '$interval', '$moment'];
+  TimeItemController.$inject = ['$scope', '$moment'];
 
-  function TimeItemController($scope, $interval, $moment) {
+  function TimeItemController($scope, $moment) {
     var _item = $scope.item;
+    var _start = $moment(_item.time.start);
 
-    $scope.elapsed = '';
+    $scope.isActive = isActive;
+    $scope.elapsed = duration(end());
 
-    tick();
-
-    function tick() {
-      if ($scope.isActive) {
-        var start = $moment(_item.time.start);
-        getDuration();
-        $interval(function () {
-          getDuration();
-        }, 1000);
+    function end() {
+      if (isActive()) {
+        return now();
       }
+      return $moment(_item.time.end);
+    }
 
-      function getDuration() {
-        var ms = $moment(new Date()).diff(start);
-        var d = $moment.duration(ms);
-        $scope.elapsed = Math.floor(d.hours()) + $moment(ms).format(':mm');
+    function now() {
+      return $moment(new Date().setSeconds(0));
+    }
+
+    $scope.$on('tick', function () {
+      if (isActive()) {
+        $scope.elapsed = duration(now());
       }
+    });
+
+    function duration(end) {
+      var ms = end.diff(_start);
+      var d = $moment.duration(ms);
+      return Math.floor(d.hours()) + $moment(ms).format(':mm');
+    }
+
+    function isActive() {
+      return _item.time.end === '' || false;
     }
   }
-
-})();
+})
+();

@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', 'Time', 'Resource', 'Url', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Time', 'Resource', 'Url', 'Timer', 'viewData'];
 
-  function TimeFormController($modalInstance, Time, Resource, Url, viewData) {
+  function TimeFormController($modalInstance, Time, Resource, Url, Timer, viewData) {
 
     var vm = this;
 
@@ -40,6 +40,7 @@
     function startTimer() {
       try {
         $modalInstance.close();
+        Timer.reset();
         start();
       } catch (error) {
       }
