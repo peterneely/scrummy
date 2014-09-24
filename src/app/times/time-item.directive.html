@@ -1,20 +1,27 @@
 <tr>
   <td class="col-xs-7">
-    <h4 class="sc-bold">{{ item.task.text }}</h4>
+    <p class="sc-bold">{{ item.task.text }}</p>
 
     <p class="text-muted">{{ item.notes }}</p>
   </td>
   <td class="col-xs-3">
-    <h4 class="sc-bold text-primary">{{ item.project.text }}</h4>
+    <p class="sc-bold text-primary">{{ item.project.text }}</p>
 
     <p class="text-muted">{{ item.client.text }}</p>
   </td>
   <td class="col-xs-2">
-    <h4 class="sc-bold">{{ elapsed }}</h4>
-    <p class="text-muted">{{ times() }}</p>
+    <p class="sc-bold" ng-hide="isActive()">{{ elapsed }}</p>
+    <button class="btn btn-primary" ng-show="isActive()" ng-click="editTime()">
+      <span class="sc-bold">{{ elapsed }}</span>
+    </button>
+    <button class="btn btn-default" ng-click="editTime()">
+      <span class="glyphicon glyphicon-pencil"></span>
+    </button>
 
-    <p>
-      <img class="sc-active" ng-show="isActive()" src="/assets/img/clock.gif">
-    </p>
+    <!--<p class="text-muted">{{ times() }}</p>-->
+
+    <!--<p>-->
+      <!--<img class="sc-active" ng-show="isActive()" src="/assets/img/clock.gif">-->
+    <!--</p>-->
   </td>
 </tr>

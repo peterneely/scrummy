@@ -5,9 +5,9 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$moment', '$filter', 'Config', 'Resource', 'Url', 'Async'];
+  TimeService.$inject = ['$moment', '$filter', '$modal', 'Config', 'Resource', 'Url', 'Async'];
 
-  function TimeService($moment, $filter, Config, Resource, Url, Async) {
+  function TimeService($moment, $filter, $modal, Config, Resource, Url, Async) {
 
     return {
       daySortOrder: daySortOrder,
@@ -15,6 +15,7 @@
       fromInput: fromInput,
       group: group,
       isToday: isToday,
+      openTimeForm: openTimeForm,
       saveNewTypes: saveNewTypes,
       startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
@@ -68,6 +69,25 @@
       return $moment(date).isSame($moment(new Date()), 'day');
     }
 
+    function openTimeForm(mode, data) {
+      $modal.open({
+        templateUrl: '/app/time-form/time-form.html',
+        controller: 'TimeForm as tf',
+        resolve: {
+          viewData: function () {
+            return {
+              isNew: mode === 'new',
+              user: data.user,
+              clients: data.clients,
+              projects: data.projects,
+              tasks: data.tasks,
+              times: data.times
+            };
+          }
+        }
+      });
+    }
+
     function saveNewTypes(timeModel) {
       return Async.promise(save);
 
@@ -99,7 +119,7 @@
             client: timeModel.client,
             project: timeModel.project,
             task: timeModel.task
-          })
+          });
         });
 
         function dateTime(time, date) {

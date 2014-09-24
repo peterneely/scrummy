@@ -17,10 +17,14 @@
     startTimer();
 
     var vm = this;
+    vm.addTime = addTime;
     vm.days = days;
-    vm.open = open;
     vm.times = times;
     vm.weeks = weeks;
+
+    function addTime() {
+      return Time.openTimeForm('new', viewData);
+    }
 
     function days(week) {
       return keys(_times[week]);
@@ -32,25 +36,6 @@
 
     function mostRecentFirst(collection) {
       return _.sortBy(collection).reverse();
-    }
-
-    function open(mode) {
-      $modal.open({
-        templateUrl: '/app/time-form/time-form.html',
-        controller: 'TimeForm as tf',
-        resolve: {
-          viewData: function () {
-            return {
-              isNew: mode === 'new',
-              user: viewData.user,
-              clients: viewData.clients,
-              projects: viewData.projects,
-              tasks: viewData.tasks,
-              times: viewData.times
-            };
-          }
-        }
-      });
     }
 
     function sortTimes() {

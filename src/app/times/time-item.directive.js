@@ -17,20 +17,33 @@
     };
   }
 
-  TimeItemController.$inject = ['$scope', '$moment'];
+  TimeItemController.$inject = ['$scope', '$moment', 'Time'];
 
-  function TimeItemController($scope, $moment) {
+  function TimeItemController($scope, $moment, Time) {
 
     var _item = $scope.item;
     var _start = $moment(_item.time.start);
 
+//    $scope.cssClass = cssClass;
+    $scope.editTime = editTime;
+    $scope.elapsed = elapsed(end());
     $scope.isActive = isActive;
-    $scope.elapsed = duration(end());
     $scope.times = times;
 
     $scope.$on('tick', updateElapsed);
 
-    function duration(end) {
+//    function cssClass(){
+//      if(isActive()){
+//        return 'btn-danger';
+//      }
+//      return 'btn-default';
+//    }
+
+    function editTime(){
+      return Time.openTimeForm('edit', _item);
+    }
+
+    function elapsed(end) {
       var ms = end.diff(_start);
       return $moment(ms).format('H') + $moment(ms).format(':mm');
     }
@@ -44,7 +57,6 @@
 
     function isActive() {
       return _item.time.end === '' || false;
-      ;
     }
 
     function now() {
@@ -59,7 +71,7 @@
 
     function updateElapsed() {
       if (isActive()) {
-        $scope.elapsed = duration(now());
+        $scope.elapsed = elapsed(now());
       }
     }
   }
