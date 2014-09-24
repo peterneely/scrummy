@@ -11,8 +11,7 @@
       templateUrl: '/app/time-form/selects.directive.html',
       scope: {
         scData: '=',
-        scState: '=',
-        scModel: '=',
+        ngModel: '=',
         scClass: '@'
       },
       controller: SelectsController
@@ -23,17 +22,12 @@
 
   function SelectsController($scope, $filter) {
 
+    $scope.isBold = isBold;
     $scope.types = ['client', 'project', 'task'];
     $scope.options = selectsOptions();
 
-    loadDefaults();
-
-    function loadDefaults() {
-      angular.forEach($scope.types, function (type) {
-        var hasPref = _.has($scope.scState, type);
-        var first = $scope.options[type].data[0];
-        $scope.scModel[type] = hasPref ? $scope.scState[type] : first;
-      });
+    function isBold(type){
+      return !_.isEmpty($scope.ngModel[type]);
     }
 
     function selectsOptions() {
@@ -69,7 +63,7 @@
               id: '',
               text: term
             };
-            $scope.scModel[type] = newOption;
+            $scope.ngModel[type] = newOption;
             $scope.$apply();
             return newOption;
           };

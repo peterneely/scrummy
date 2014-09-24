@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['$scope', '$modal', 'Timer', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['$modal', 'Timer', 'Resource', 'Time', 'viewData'];
 
-  function TimesController($scope, $modal, Timer, Resource, Time, viewData) {
+  function TimesController($modal, Timer, Resource, Time, viewData) {
     console.log(viewData);
 
     var _times = sortTimes();
@@ -22,8 +22,6 @@
     vm.times = times;
     vm.weeks = weeks;
 
-//    $scope.$on('$destroy', function () { $interval.cancel(refreshDuration); });
-
     function days(week) {
       return keys(_times[week]);
     }
@@ -36,13 +34,14 @@
       return _.sortBy(collection).reverse();
     }
 
-    function open() {
+    function open(mode) {
       $modal.open({
         templateUrl: '/app/time-form/time-form.html',
         controller: 'TimeForm as tf',
         resolve: {
           viewData: function () {
             return {
+              isNew: mode === 'new',
               user: viewData.user,
               clients: viewData.clients,
               projects: viewData.projects,
