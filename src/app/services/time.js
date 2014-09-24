@@ -123,17 +123,21 @@
 
       function stopActive(deferred) {
         var activeTimers = getActiveTimers();
-        if(activeTimers.length > 0) {
-          var endTime = $filter('date')(new Date(), Config.dateTimeFormat);
-          activeTimers.forEach(function(activeTimer){
-            Resource.put(Url.time(activeTimer.$id), {end: endTime});
-          });
+        if (activeTimers.length > 0) {
+          stop(activeTimers);
         }
         deferred.resolve(timeModel);
 
         function getActiveTimers() {
           return _.where(times, function (time) {
             return time.time.end === '';
+          });
+        }
+
+        function stop(activeTimers) {
+          var endTime = $filter('date')(new Date(), Config.dateTimeFormat);
+          activeTimers.forEach(function (activeTimer) {
+            Resource.put(Url.time(activeTimer.$id), {end: endTime});
           });
         }
       }

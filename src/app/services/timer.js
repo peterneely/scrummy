@@ -30,15 +30,8 @@
       _started = true;
       $interval(function () {
         _count++;
-        if (tick()) {
-//          console.log(_count);
           $rootScope.$broadcast('tick', _count);
-        }
       }, 1000);
-
-      function tick() {
-        return _count % 60 === 0;
-      }
     }
   }
 })();

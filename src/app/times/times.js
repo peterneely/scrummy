@@ -18,7 +18,7 @@
 
     var vm = this;
     vm.days = days;
-    vm.open = onOpen;
+    vm.open = open;
     vm.times = times;
     vm.weeks = weeks;
 
@@ -36,7 +36,7 @@
       return _.sortBy(collection).reverse();
     }
 
-    function onOpen() {
+    function open() {
       $modal.open({
         templateUrl: '/app/time-form/time-form.html',
         controller: 'TimeForm as tf',
