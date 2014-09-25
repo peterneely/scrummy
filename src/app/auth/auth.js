@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Auth', AuthController);
 
-  AuthController.$inject = ['App', 'Auth', 'State', 'TestData', 'User'];
+  AuthController.$inject = ['Auth', 'Error', 'State', 'TestData', 'User'];
 
-  function AuthController(App, Auth, State, TestData, User) {
+  function AuthController(Auth, Error, State, TestData, User) {
 
     var vm = this;
 
@@ -45,7 +45,7 @@
     }
 
     function showError(error) {
-      vm.error = App.getErrorMessage(error);
+      vm.error = Error.getMessage(error);
     }
 
     function showTimes() {
