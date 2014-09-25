@@ -18,9 +18,9 @@
     };
   }
 
-  TimeItemController.$inject = ['$scope', '$moment', 'Config', 'Time'];
+  TimeItemController.$inject = ['$scope', '$moment', 'Clock', 'Config', 'TimeForm'];
 
-  function TimeItemController($scope, $moment, Config, Time) {
+  function TimeItemController($scope, $moment, Clock, Config, TimeForm) {
 
     var _item = $scope.item;
     var _start = $moment(_item.time.start);
@@ -30,10 +30,10 @@
     $scope.isActive = isActive;
     $scope.times = times;
 
-    Time.whenTick(updateElapsed);
+    Clock.whenTick(updateElapsed);
 
     function editTime(){
-      return Time.openTimeForm($scope.data, _item);
+      return TimeForm.open($scope.data, _item);
     }
 
     function elapsed(end) {

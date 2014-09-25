@@ -10,10 +10,12 @@
 
   function ClockService($interval, $rootScope) {
     var _started = false;
+    var _tickEvent = 'tick';
 
     return {
       hasStarted: hasStarted,
-      start: start
+      start: start,
+      whenTick: whenTick
     };
 
     function hasStarted() {
@@ -31,12 +33,19 @@
 
       function tick() {
         if (count % 60 === 0) {
-          $rootScope.$emit('tick');
+          $rootScope.$emit(_tickEvent);
           count = getSeconds();
         } else {
           count++;
         }
       }
+    }
+
+    function whenTick(callback){
+      $rootScope.$on(_tickEvent, function(event){
+        event.stopPropagation();
+        callback();
+      });
     }
   }
 

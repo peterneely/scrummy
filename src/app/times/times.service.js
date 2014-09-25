@@ -6,51 +6,45 @@
     .module('scrummyApp')
     .factory('Times', TimesService);
 
-  TimesService.$inject = ['$moment', 'Async', 'Config', 'Resource', 'Url', 'Util'];
+  TimesService.$inject = ['$filter', '$moment', 'Async', 'Config', 'Resource', 'Url', 'Util'];
 
-  function TimesService($moment, Async, Config, Resource, Url, Util) {
+  function TimesService($filter, $moment, Async, Config, Resource, Url, Util) {
 
     return {
-      daySortOrder: daySortOrder,
       dayTitle: dayTitle,
-      updateTimes: updateTimes,
-      weekSortOrder: weekSortOrder
+      group: group,
+      sort: sort
     };
-
-    function daySortOrder(jsDate) {
-      var dayNumber = Util.doubleDigits($moment(jsDate).isoWeekday());
-      var dayString = $moment(jsDate).format(Config.dayTitleFormat);
-      return dayNumber + ':' + dayString;
-    }
 
     function dayTitle(dayHeader) {
       return dayHeader.substr(dayHeader.indexOf(':') + 1);
     }
 
-    function updateTimes(type, id, text) {
-      var singleType = Util.singular(type);
-      return Resource.getAll(Url.times())
-        .then(filter)
-        .then(update);
-
-      function filter(times) {
-        var filtered = _.where(times, function (time) {
-          return time[singleType].id === id;
-        });
-        return Async.when(filtered);
+    function group(seq, keys) {
+      if (!keys.length) {
+        return seq;
       }
-
-      function update(filteredTimes) {
-        filteredTimes.forEach(function (filteredTime) {
-          var url = Url.timeType(filteredTime.$id, singleType);
-          Resource.put(url, {text: text});
-        });
-      }
+      var first = keys[0];
+      var rest = keys.slice(1);
+      return _.mapValues(_.groupBy(seq, first), function (value) {
+        return group(value, rest);
+      });
     }
 
-    function weekSortOrder(jsDate) {
-      var mDate = $moment(jsDate);
-      return mDate.year() + '_' + Util.doubleDigits(mDate.isoWeek());
+    function sort(times) {
+      return group(times, [byWeek, byDay]);
+
+      function byDay(time) {
+        var jsDate = time.time.start;
+        var dayNumber = Util.doubleDigits($moment(jsDate).isoWeekday());
+        var dayString = $moment(jsDate).format(Config.dayTitleFormat);
+        return dayNumber + ':' + dayString;
+      }
+
+      function byWeek(time) {
+        var mDate = $moment(time.time.start);
+        return mDate.year() + '_' + Util.doubleDigits(mDate.isoWeek());
+      }
     }
   }
 

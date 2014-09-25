@@ -66,12 +66,12 @@
         templateUrl: '/app/times/times.html',
         controller: 'Times as ts',
         resolve: {
-          viewData: ['coreData', 'Time', function (coreData, Time) {
+          viewData: ['coreData', 'TimeForm', function (coreData, TimeForm) {
             return {
               user: coreData.user,
-              clients: Time.selectify(coreData.clients),
-              projects: Time.selectify(coreData.projects),
-              tasks: Time.selectify(coreData.tasks),
+              clients: TimeForm.map(coreData.clients),
+              projects: TimeForm.map(coreData.projects),
+              tasks: TimeForm.map(coreData.tasks),
               times: coreData.times,
               type: 'times'
             };

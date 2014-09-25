@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', 'Resource', 'Time', 'TimeForm', 'Url', 'Util', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Resource', 'Time', 'TimeForm', 'Times', 'Url', 'Util', 'viewData'];
 
-  function TimeFormController($modalInstance, Resource, Time, TimeForm, Url, Util, viewData) {
+  function TimeFormController($modalInstance, Resource, Time, TimeForm, Times, Url, Util, viewData) {
 
     var _add = viewData.add;
     var _edit = !_add;
@@ -38,7 +38,7 @@
     }
 
     function checkToday() {
-      vm.isToday = Time.isToday(vm.timeModel.time.date);
+      vm.isToday = TimeForm.isToday(vm.timeModel.time.date);
     }
 
     function fillForm() {
@@ -49,9 +49,9 @@
 
       function fillOtherFields() {
         vm.timeModel.notes = viewData.notes;
-        vm.timeModel.time.date = Time.parseDate(viewData.time.start);
-        vm.timeModel.time.start = Time.parseTime(viewData.time.start);
-        vm.timeModel.time.end = Time.parseTime(viewData.time.end);
+        vm.timeModel.time.date = TimeForm.parseDate(viewData.time.start);
+        vm.timeModel.time.start = TimeForm.parseTime(viewData.time.start);
+        vm.timeModel.time.end = TimeForm.parseTime(viewData.time.end);
       }
 
       function fillSelects() {
@@ -88,11 +88,11 @@
           .then(saveState);
 
         function stopActiveTimers(timeModel) {
-          return Time.stopActiveTimers(timeModel, viewData.times);
+          return Times.stopActiveTimers(timeModel, viewData.times);
         }
 
         function startNewTimer(timeModel) {
-          return TimeForm.startNewTimer(timeModel);
+          return Time.startNewTimer(timeModel);
         }
 
         function saveState(stateModel) {

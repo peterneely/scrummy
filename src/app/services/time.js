@@ -1,69 +1,25 @@
 'use strict';
 
 (function () {
+
   angular
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$filter', '$modal', '$moment', '$rootScope', 'Async', 'Config', 'Resource', 'Url', 'Util'];
+  TimeService.$inject = ['$filter', 'Async', 'Config', 'Resource', 'Url', 'Util'];
 
-  function TimeService($filter, $modal, $moment, $rootScope, Async, Config, Resource, Url, Util) {
+  function TimeService($filter, Async, Config, Resource, Url, Util) {
 
     return {
-      group: group,
-      isToday: isToday,
-      openTimeForm: openTimeForm,
-      parseDate: parseDate,
-      parseTime: parseTime,
+      defaultTime: defaultTime,
       saveNewTypes: saveNewTypes,
-      selectify: selectify,
+      startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
-
-      whenTick: whenTick
+      updateTimes: updateTimes
     };
 
-
-
-    function group(seq, keys) {
-      if (!keys.length) {
-        return seq;
-      }
-      var first = keys[0];
-      var rest = keys.slice(1);
-      return _.mapValues(_.groupBy(seq, first), function (value) {
-        return group(value, rest);
-      });
-    }
-
-    function isToday(date) {
-      return $moment(date).isSame($moment(new Date()), 'day');
-    }
-
-    function openTimeForm(data, editData) {
-      $modal.open({
-        templateUrl: '/app/time-form/time-form.html',
-        controller: 'TimeForm as tf',
-        resolve: {
-          viewData: function () {
-            return viewData();
-          }
-        }
-      });
-
-      function viewData() {
-        var addNewTime = editData === undefined;
-        var model = addNewTime ? data : _.merge(data, editData);
-        model.add = addNewTime;
-        return model;
-      }
-    }
-
-    function parseDate(dateTimeString) {
-      return dateTimeString.slice(0, 10);
-    }
-
-    function parseTime(dateTimeString) {
-      return dateTimeString.slice(-5);
+    function defaultTime() {
+      return $filter('date')(new Date(), Config.timeFormat);
     }
 
     function saveNewTypes(timeModel) {
@@ -83,15 +39,37 @@
       }
     }
 
-    function selectify(items) {
-      var array = [];
-      items.forEach(function (item) {
-        array.push({
-          id: item.$id,
-          text: item.name
+    function startNewTimer(timeModel) {
+      return Async.promise(startTimer);
+
+      function startTimer(deferred) {
+        timeModel.time = {
+          date: timeModel.time.date,
+          start: start(timeModel.time),
+          end: end(timeModel.time)
+        };
+        Resource.post(Url.times(), timeModel).then(function () {
+          deferred.resolve({
+            client: timeModel.client,
+            project: timeModel.project,
+            task: timeModel.task
+          });
         });
-      });
-      return $filter('orderBy')(array, 'text');
+
+        function dateTime(time, date) {
+          return time === '' ?
+            '' :
+            $filter('date')(date, Config.dateFormat) + ' ' + time;
+        }
+
+        function end(model) {
+          return dateTime(model.end, model.date);
+        }
+
+        function start(model) {
+          return dateTime(model.start || defaultTime(), model.date);
+        }
+      }
     }
 
     function stopActiveTimers(timeModel, times) {
@@ -119,13 +97,25 @@
       }
     }
 
+    function updateTimes(type, id, text) {
+      var singleType = Util.singular(type);
+      return Resource.getAll(Url.times())
+        .then(filter)
+        .then(update);
 
+      function filter(times) {
+        var filtered = _.where(times, function (time) {
+          return time[singleType].id === id;
+        });
+        return Async.when(filtered);
+      }
 
-    function whenTick(callback){
-      $rootScope.$on('tick', function(event){
-        event.stopPropagation();
-        callback();
-      });
+      function update(filteredTimes) {
+        filteredTimes.forEach(function (filteredTime) {
+          var url = Url.timeType(filteredTime.$id, singleType);
+          Resource.put(url, {text: text});
+        });
+      }
     }
   }
 
