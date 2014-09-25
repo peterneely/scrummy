@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Clock', ClockService);
 
-  ClockService.$inject = ['$rootScope', '$interval'];
+  ClockService.$inject = ['$interval', '$rootScope'];
 
-  function ClockService($rootScope, $interval) {
+  function ClockService($interval, $rootScope) {
     var _started = false;
 
     return {

@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['Clock', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['Clock', 'Resource', 'Time', 'Times', 'viewData'];
 
-  function TimesController(Clock, Resource, Time, viewData) {
+  function TimesController(Clock, Resource, Time, Times, viewData) {
     console.log(viewData);
 
     var _times = sortTimes();
@@ -19,6 +19,7 @@
     var vm = this;
     vm.addTime = addTime;
     vm.days = days;
+    vm.dayTitle = dayTitle;
     vm.times = times;
     vm.viewData = viewData;
     vm.weeks = weeks;
@@ -29,6 +30,10 @@
 
     function days(week) {
       return keys(_times[week]);
+    }
+
+    function dayTitle(dayHeader) {
+      return Times.dayTitle(dayHeader);
     }
 
     function keys(obj) {
@@ -43,16 +48,16 @@
       return Time.group(viewData.times, [byWeek, byDay]);
 
       function byDay(time) {
-        return Time.daySortOrder(time.time.start);
+        return Times.daySortOrder(time.time.start);
       }
 
       function byWeek(time) {
-        return Time.weekSortOrder(time.time.start);
+        return Times.weekSortOrder(time.time.start);
       }
     }
 
-    function startClock(){
-      if(!Clock.hasStarted()){
+    function startClock() {
+      if (!Clock.hasStarted()) {
         Clock.start();
       }
     }

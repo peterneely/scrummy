@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('State', StateService);
 
-  StateService.$inject = ['$rootScope', '$state', '$filter'];
+  StateService.$inject = ['$rootScope', '$state', 'Util'];
 
-  function StateService($rootScope, $state, $filter) {
+  function StateService($rootScope, $state, Util) {
 
     var _stateName = '';
 
@@ -28,7 +28,7 @@
 
     function isAdmin(stateName) {
       var stateNames = ['nav.clients', 'nav.projects', 'nav.tasks'];
-      return $filter('contains')(stateNames, stateName);
+      return Util.contains(stateNames, stateName);
     }
 
     function whenChanged(callback) {

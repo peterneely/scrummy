@@ -18,9 +18,9 @@
     };
   }
 
-  TimeItemController.$inject = ['$scope', '$moment', 'Time'];
+  TimeItemController.$inject = ['$scope', '$moment', 'Config', 'Time'];
 
-  function TimeItemController($scope, $moment, Time) {
+  function TimeItemController($scope, $moment, Config, Time) {
 
     var _item = $scope.item;
     var _start = $moment(_item.time.start);
@@ -57,9 +57,13 @@
     }
 
     function times() {
-      var start = $moment(_item.time.start).format('HH:mm');
-      var end = isActive() ? '' : $moment(_item.time.end).format('HH:mm');
+      var start = format($moment(_item.time.start));
+      var end = isActive() ? '' : format($moment(_item.time.end));
       return start + ' - ' + end;
+
+      function format(time){
+        return time.format(Config.timeFormat);
+      }
     }
 
     function updateElapsed() {

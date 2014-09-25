@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Admin', AdminController);
 
-  AdminController.$inject = ['$filter', 'Resource', 'User', 'Times', 'Url', 'viewData'];
+  AdminController.$inject = ['Resource', 'Times', 'Url', 'User', 'Util', 'viewData'];
 
-  function AdminController($filter, Resource, User, Times, Url, viewData) {
+  function AdminController(Resource, Times, Url, User, Util, viewData) {
 
     var vm = this;
 
@@ -17,7 +17,7 @@
     vm.hasTimes = hasTimes;
     vm.items = viewData.items;
     vm.new = '';
-    vm.placeholder = $filter('singular')(viewData.type);
+    vm.placeholder = Util.singular(viewData.type);
     vm.remove = remove;
     vm.search = { name: '' };
     vm.searching = searching;

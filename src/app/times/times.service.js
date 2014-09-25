@@ -6,16 +6,29 @@
     .module('scrummyApp')
     .factory('Times', TimesService);
 
-  TimesService.$inject = ['$filter', 'Url', 'Resource', 'Async'];
+  TimesService.$inject = ['$moment', 'Async', 'Config', 'Resource', 'Url', 'Util'];
 
-  function TimesService($filter, Url, Resource, Async) {
+  function TimesService($moment, Async, Config, Resource, Url, Util) {
 
     return {
-      updateTimes: updateTimes
+      daySortOrder: daySortOrder,
+      dayTitle: dayTitle,
+      updateTimes: updateTimes,
+      weekSortOrder: weekSortOrder
     };
 
+    function daySortOrder(jsDate) {
+      var dayNumber = Util.doubleDigits($moment(jsDate).isoWeekday());
+      var dayString = $moment(jsDate).format(Config.dayTitleFormat);
+      return dayNumber + ':' + dayString;
+    }
+
+    function dayTitle(dayHeader) {
+      return dayHeader.substr(dayHeader.indexOf(':') + 1);
+    }
+
     function updateTimes(type, id, text) {
-      var singleType = $filter('singular')(type);
+      var singleType = Util.singular(type);
       return Resource.getAll(Url.times())
         .then(filter)
         .then(update);
@@ -33,6 +46,11 @@
           Resource.put(url, {text: text});
         });
       }
+    }
+
+    function weekSortOrder(jsDate) {
+      var mDate = $moment(jsDate);
+      return mDate.year() + '_' + Util.doubleDigits(mDate.isoWeek());
     }
   }
 

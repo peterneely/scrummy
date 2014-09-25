@@ -14,6 +14,7 @@
 
       dateTimeFormat: 'yyyy-MM-dd HH:mm',
       dateFormat: 'yyyy-MM-dd',
+      dayTitleFormat: 'ddd, DD MMM YYYY',
       timeFormat: 'HH:mm'
     };
   }

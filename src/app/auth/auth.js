@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Auth', AuthController);
 
-  AuthController.$inject = ['Auth', 'User', 'Error', 'State', 'TestData'];
+  AuthController.$inject = ['Auth', 'Error', 'State', 'TestData', 'User'];
 
-  function AuthController(Auth, User, Error, State, TestData) {
+  function AuthController(Auth, Error, State, TestData, User) {
 
     var vm = this;
 

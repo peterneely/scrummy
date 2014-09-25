@@ -12,7 +12,7 @@
     <table class="table sc-time-table" ng-repeat="day in ts.days(week)">
       <thead class="bg-default">
       <tr>
-        <td class="text-primary">{{ day | dayTitle }}</td>
+        <td class="text-primary">{{ ts.dayTitle(day) }}</td>
         <td class="text-subdued"></td>
         <td class="text-subdued">Total</td>
       </tr>

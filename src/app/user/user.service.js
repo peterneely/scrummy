@@ -5,9 +5,9 @@
     .module('scrummyApp')
     .factory('User', UserService);
 
-  UserService.$inject = ['$filter', 'Async', 'Url', 'Resource'];
+  UserService.$inject = ['Async', 'Resource', 'Url', 'Util'];
 
-  function UserService($filter, Async, Url, Resource) {
+  function UserService(Async, Resource, Url, Util) {
 
     var _userName = null;
 
@@ -63,7 +63,7 @@
     }
 
     function updateState(type, text) {
-      var url = Url.userStateTimeType($filter('singular')(type));
+      var url = Url.userStateTimeType(Util.singular(type));
       return Resource.get(url).then(update);
 
       function update(time) {

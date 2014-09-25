@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', '$filter', 'Time', 'Resource', 'Url', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Resource', 'Time', 'TimeForm', 'Url', 'Util', 'viewData'];
 
-  function TimeFormController($modalInstance, $filter, Time, Resource, Url, viewData) {
+  function TimeFormController($modalInstance, Resource, Time, TimeForm, Url, Util, viewData) {
 
     var _add = viewData.add;
     var _edit = !_add;
@@ -68,7 +68,7 @@
           return _.has(savedState, type) ? savedState[type] : first();
 
           function first() {
-            return viewData[$filter('plural')(type)][0];
+            return viewData[Util.plural(type)][0];
           }
         }
       }
@@ -92,7 +92,7 @@
         }
 
         function startNewTimer(timeModel) {
-          return Time.startNewTimer(timeModel);
+          return TimeForm.startNewTimer(timeModel);
         }
 
         function saveState(stateModel) {
