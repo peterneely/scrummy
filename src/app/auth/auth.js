@@ -30,7 +30,7 @@
 
     function register() {
       User.cacheUserName(vm.user)
-        .then(register)
+        .then(registerUser)
         .then(createUser)
         .then(login)
         .catch(showError);
@@ -39,7 +39,7 @@
         return User.create(authUser);
       }
 
-      function register() {
+      function registerUser() {
         return Auth.register(vm.user);
       }
     }

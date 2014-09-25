@@ -66,12 +66,12 @@
         templateUrl: '/app/times/times.html',
         controller: 'Times as ts',
         resolve: {
-          viewData: ['coreData', function (coreData) {
+          viewData: ['coreData', 'Time', function (coreData, Time) {
             return {
               user: coreData.user,
-              clients: coreData.clients,
-              projects: coreData.projects,
-              tasks: coreData.tasks,
+              clients: Time.selectify(coreData.clients),
+              projects: Time.selectify(coreData.projects),
+              tasks: Time.selectify(coreData.tasks),
               times: coreData.times,
               type: 'times'
             };

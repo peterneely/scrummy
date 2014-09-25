@@ -16,7 +16,10 @@
       group: group,
       isToday: isToday,
       openTimeForm: openTimeForm,
+      parseDate: parseDate,
+      parseTime: parseTime,
       saveNewTypes: saveNewTypes,
+      selectify: selectify,
       startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
       weekSortOrder: weekSortOrder
@@ -69,23 +72,31 @@
       return $moment(date).isSame($moment(new Date()), 'day');
     }
 
-    function openTimeForm(mode, data) {
+    function openTimeForm(data, editData) {
       $modal.open({
         templateUrl: '/app/time-form/time-form.html',
         controller: 'TimeForm as tf',
         resolve: {
           viewData: function () {
-            return {
-              isNew: mode === 'new',
-              user: data.user,
-              clients: data.clients,
-              projects: data.projects,
-              tasks: data.tasks,
-              times: data.times
-            };
+            return viewData();
           }
         }
       });
+
+      function viewData() {
+        var addNewTime = editData === undefined;
+        var model = addNewTime ? data : _.merge(data, editData);
+        model.add = addNewTime;
+        return model;
+      }
+    }
+
+    function parseDate(dateTimeString) {
+      return dateTimeString.slice(0, 10);
+    }
+
+    function parseTime(dateTimeString) {
+      return dateTimeString.slice(-5);
     }
 
     function saveNewTypes(timeModel) {
@@ -103,6 +114,17 @@
         });
         deferred.resolve(timeModel);
       }
+    }
+
+    function selectify(items) {
+      var array = [];
+      items.forEach(function (item) {
+        array.push({
+          id: item.$id,
+          text: item.name
+        });
+      });
+      return $filter('orderBy')(array, 'text');
     }
 
     function startNewTimer(timeModel) {

@@ -23,7 +23,7 @@
         .then(mapData);
 
       function cacheUserName(authUser){
-        return User.cacheUserName(authUser)
+        return User.cacheUserName(authUser);
       }
 
       function getUser(authUser) {

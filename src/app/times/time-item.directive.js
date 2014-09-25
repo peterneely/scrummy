@@ -10,6 +10,7 @@
     return {
       templateUrl: '/app/times/time-item.directive.html',
       scope: {
+        data: '=scData',
         item: '=ngModel'
       },
       controller: TimeItemController,
@@ -40,7 +41,7 @@
 //    }
 
     function editTime(){
-      return Time.openTimeForm('edit', _item);
+      return Time.openTimeForm($scope.data, _item);
     }
 
     function elapsed(end) {

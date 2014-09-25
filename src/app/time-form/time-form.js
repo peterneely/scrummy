@@ -10,15 +10,15 @@
 
   function TimeFormController($modalInstance, $filter, Time, Resource, Url, Timer, viewData) {
 
-    var _isNew = viewData.isNew;
-    var _state = state();
+    var _add = viewData.add;
+    var _edit = !_add;
+    var _state = viewData.user.state.time || {};
 
     var vm = this;
     vm.cancel = cancel;
     vm.checkToday = checkToday;
     vm.data = viewData;
     vm.isToday = true;
-    vm.state = state();
     vm.start = startTimer;
     vm.timeModel = {
       client: {},
@@ -38,23 +38,39 @@
       $modalInstance.dismiss();
     }
 
-    function checkToday(){
+    function checkToday() {
       vm.isToday = Time.isToday(vm.timeModel.time.date);
     }
 
     function fillForm() {
-      ['client', 'project', 'task'].forEach(function (type) {
-        if(_isNew){
-          previousSelections(type);
-        } else {
+      fillSelects();
+      if (_edit) {
+        fillOtherFields();
+      }
 
+      function fillOtherFields() {
+        vm.timeModel.notes = viewData.notes;
+        vm.timeModel.time.date = Time.parseDate(viewData.time.start);
+        vm.timeModel.time.start = Time.parseTime(viewData.time.start);
+        vm.timeModel.time.end = Time.parseTime(viewData.time.end);
+      }
+
+      function fillSelects() {
+        ['client', 'project', 'task'].forEach(function (type) {
+          vm.timeModel[type] = _add ? defaultValue(type) : actualValue(type);
+        });
+
+        function actualValue(type) {
+          return viewData[type];
         }
-      });
 
-      function previousSelections(type){
-        var hasPref = _.has(_state, type);
-        var first = viewData[$filter('plural')(type)][0];
-        vm.timeModel[type] = hasPref ? _state[type] : first;
+        function defaultValue(type) {
+          return _.has(_state, type) ? _state[type] : first();
+
+          function first() {
+            return viewData[$filter('plural')(type)][0];
+          }
+        }
       }
     }
 
@@ -83,14 +99,6 @@
         function saveState(stateModel) {
           return Resource.put(Url.userStateTime(), stateModel);
         }
-      }
-    }
-
-    function state() {
-      try {
-        return viewData.user.state.time;
-      } catch (err) {
-        return {};
       }
     }
   }

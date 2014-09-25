@@ -10,9 +10,9 @@
     return {
       templateUrl: '/app/time-form/selects.directive.html',
       scope: {
-        scData: '=',
-        ngModel: '=',
-        scClass: '@'
+        data: '=scData',
+        model: '=ngModel',
+        class: '@scClass'
       },
       controller: SelectsController
     };
@@ -27,7 +27,7 @@
     $scope.options = selectsOptions();
 
     function isBold(type){
-      return !_.isEmpty($scope.ngModel[type]);
+      return !_.isEmpty($scope.model[type]);
     }
 
     function selectsOptions() {
@@ -45,16 +45,8 @@
         };
 
         function getData(type) {
-          var array = [];
           type = $filter('plural')(type);
-          var items = $scope.scData[type];
-          angular.forEach(items, function (item) {
-            array.push({
-              id: item.$id,
-              text: item.name
-            });
-          });
-          return $filter('orderBy')(array, 'text');
+          return $scope.data[type];
         }
 
         function addSelectOption(type) {
@@ -63,7 +55,7 @@
               id: '',
               text: term
             };
-            $scope.ngModel[type] = newOption;
+            $scope.model[type] = newOption;
             $scope.$apply();
             return newOption;
           };
