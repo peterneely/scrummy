@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Init', InitService);
 
-  InitService.inject = ['$q', 'Resource', 'Auth', 'User', 'State', 'Async', 'Url'];
+  InitService.inject = ['Resource', 'Auth', 'User', 'State', 'Async', 'Url'];
 
-  function InitService($q, Resource, Auth, User, State, Async, Url) {
+  function InitService(Resource, Auth, User, State, Async, Url) {
 
     return {
       getCoreData: getCoreData

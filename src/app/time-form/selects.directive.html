@@ -1,3 +1,6 @@
 <div class="form-group" ng-repeat="type in types">
-  <input ui-select2="options[type]" class="{{ class }}" ng-class="{'sc-bold': isBold(type)}" ng-model="model[type]"/>
+  <input class="{{ class }}"
+         ng-class="{'sc-bold': isBold(type)}"
+         ng-model="model[type]"
+         ui-select2="options[type]"/>
 </div>

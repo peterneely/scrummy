@@ -49,7 +49,7 @@
     }
 
     function update(item) {
-      Resource.updateArray(viewData.items, item)
+      Resource.saveItem(viewData.items, item)
         .then(updateUserState)
         .then(updateTimes);
 

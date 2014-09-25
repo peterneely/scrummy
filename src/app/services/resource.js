@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Resource', ResourceService);
 
-  ResourceService.$inject = ['$firebase', 'Config'];
+  ResourceService.$inject = ['$firebase'];
 
-  function ResourceService($firebase, Config) {
+  function ResourceService($firebase) {
 
     return {
       exists: exists,
@@ -17,14 +17,9 @@
       post: post,
       put: put,
       remove: remove,
-      updateArray: updateArray,
-      updateObject: updateObject,
-      watch: watch,
-
-
-      data: data,
-      state: state,
-      time: time
+      saveItem: saveItem,
+      saveObject: saveObject,
+      watch: watch
     };
 
     function exists(item){
@@ -59,11 +54,11 @@
       return new Firebase(url);
     }
 
-    function updateArray(items, item){
+    function saveItem(items, item){
       return items.$save(item);
     }
 
-    function updateObject(item){
+    function saveObject(item){
       return item.$save();
     }
 
@@ -71,28 +66,6 @@
       data.$watch(function () {
         callback();
       });
-    }
-
-
-
-
-    function data(userName, type) {
-      return resource(url(userName, type));
-    }
-
-    function state(userName, type) {
-      return resource(url(userName, 'user/state/' + type));
-    }
-
-
-    function time(urlParts) {
-      var location = 'times/' + urlParts.timeId + '/' + urlParts.type;
-      return resource(url(urlParts.userName, location));
-    }
-
-    function url(userName, location) {
-      var locationUrl = Config.urlData + userName + '/' + location;
-      return locationUrl.replace('undefined', '');
     }
   }
 

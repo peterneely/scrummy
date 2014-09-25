@@ -10,8 +10,8 @@
     return {
       templateUrl: '/app/time-form/date.directive.html',
       scope: {
-        ngChange: '=',
-        ngModel: '='
+        change: '=ngChange',
+        model: '=ngModel'
       },
       controller: DateController,
       replace: true

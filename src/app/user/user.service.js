@@ -69,7 +69,7 @@
       function update(time) {
         if (Resource.exists(time)) {
           time.text = text;
-          Resource.updateObject(time);
+          Resource.saveObject(time);
         }
       }
     }

@@ -9,12 +9,10 @@
   TimerService.$inject = ['$rootScope', '$interval'];
 
   function TimerService($rootScope, $interval) {
-    var _count = 0;
     var _started = false;
 
     return {
       hasStarted: hasStarted,
-      reset: reset,
       start: start
     };
 
@@ -22,16 +20,23 @@
       return _started;
     }
 
-    function reset() {
-      _count = 0;
-    }
-
     function start() {
       _started = true;
-      $interval(function () {
-        _count++;
-          $rootScope.$broadcast('tick', _count);
-      }, 1000);
+      var count = getSeconds();
+      $interval(tick, 1000);
+
+      function getSeconds(){
+        return (new Date()).getSeconds();
+      }
+
+      function tick() {
+        if (count % 60 === 0) {
+          $rootScope.$emit('tick');
+          count = getSeconds();
+        } else {
+          count++;
+        }
+      }
     }
   }
 })();

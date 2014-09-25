@@ -25,20 +25,12 @@
     var _item = $scope.item;
     var _start = $moment(_item.time.start);
 
-//    $scope.cssClass = cssClass;
     $scope.editTime = editTime;
     $scope.elapsed = elapsed(end());
     $scope.isActive = isActive;
     $scope.times = times;
 
-    $scope.$on('tick', updateElapsed);
-
-//    function cssClass(){
-//      if(isActive()){
-//        return 'btn-danger';
-//      }
-//      return 'btn-default';
-//    }
+    Time.whenTick(updateElapsed);
 
     function editTime(){
       return Time.openTimeForm($scope.data, _item);

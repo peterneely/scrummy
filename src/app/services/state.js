@@ -10,15 +10,15 @@
 
   function StateService($rootScope, $state, $filter) {
 
-    var stateName = '';
+    var _stateName = '';
 
     $rootScope.$on('$stateChangeSuccess', function (event, newState) {
-      stateName = newState.name;
+      _stateName = newState.name;
     });
 
     return {
       go: go,
-      tabActive: tabActive,
+      isAdmin: isAdmin,
       whenChanged: whenChanged
     };
 
@@ -26,19 +26,19 @@
       $state.go(state);
     }
 
-    function tabActive(stateName) {
+    function isAdmin(stateName) {
       var stateNames = ['nav.clients', 'nav.projects', 'nav.tasks'];
       return $filter('contains')(stateNames, stateName);
     }
 
     function whenChanged(callback) {
       $rootScope.$watch(stateChanged, function () {
-        callback(stateName);
+        callback(_stateName);
       });
     }
 
     function stateChanged() {
-      return stateName;
+      return _stateName;
     }
   }
 

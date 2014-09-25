@@ -6,12 +6,12 @@
   </div>
   <input type="text"
          class="form-control sc-rounded-right"
-         ng-model="ngModel"
-         datepicker-popup="EEE, d MMM y"
-         is-open="opened"
-         datepicker-options="dateOptions"
-         ng-required="true"
          close-text="Close"
-         disabled/>
-
+         datepicker-options="dateOptions"
+         datepicker-popup="EEE, d MMM y"
+         disabled
+         is-open="opened"
+         ng-change="change"
+         ng-model="model"
+         ng-required="true"/>
 </div>

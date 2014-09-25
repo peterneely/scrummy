@@ -5,14 +5,14 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$moment', '$filter', '$modal', 'Config', 'Resource', 'Url', 'Async'];
+  TimeService.$inject = ['$rootScope', '$moment', '$filter', '$modal', 'Config', 'Resource', 'Url', 'Async'];
 
-  function TimeService($moment, $filter, $modal, Config, Resource, Url, Async) {
+  function TimeService($rootScope, $moment, $filter, $modal, Config, Resource, Url, Async) {
 
     return {
       daySortOrder: daySortOrder,
       defaultTime: defaultTime,
-      fromInput: fromInput,
+      parseInput: parseInput,
       group: group,
       isToday: isToday,
       openTimeForm: openTimeForm,
@@ -22,7 +22,8 @@
       selectify: selectify,
       startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
-      weekSortOrder: weekSortOrder
+      weekSortOrder: weekSortOrder,
+      whenTick: whenTick
     };
 
     function daySortOrder(jsDate) {
@@ -33,28 +34,6 @@
 
     function defaultTime() {
       return $filter('date')(new Date(), 'HH:mm');
-    }
-
-    function fromInput(value) {
-      if (noTime(value)) {
-        return value;
-      } else if (invalidTime(value)) {
-        return defaultTime();
-      } else {
-        return formattedTime(value);
-      }
-
-      function formattedTime(value) {
-        return $filter('formatTime')(value);
-      }
-
-      function invalidTime(value) {
-        return !$filter('validTime')(value);
-      }
-
-      function noTime(value) {
-        return value === '';
-      }
     }
 
     function group(seq, keys) {
@@ -93,6 +72,28 @@
 
     function parseDate(dateTimeString) {
       return dateTimeString.slice(0, 10);
+    }
+
+    function parseInput(value) {
+      if (noTime(value)) {
+        return value;
+      } else if (invalidTime(value)) {
+        return defaultTime();
+      } else {
+        return formattedTime(value);
+      }
+
+      function formattedTime(value) {
+        return $filter('formatTime')(value);
+      }
+
+      function invalidTime(value) {
+        return !$filter('validTime')(value);
+      }
+
+      function noTime(value) {
+        return value === '';
+      }
     }
 
     function parseTime(dateTimeString) {
@@ -188,6 +189,13 @@
     function weekSortOrder(jsDate) {
       var mDate = $moment(jsDate);
       return mDate.year() + '_' + $filter('doubleDigits')(mDate.isoWeek());
+    }
+
+    function whenTick(callback){
+      $rootScope.$on('tick', function(event){
+        event.stopPropagation();
+        callback();
+      });
     }
   }
 

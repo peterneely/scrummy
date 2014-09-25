@@ -58,16 +58,16 @@
       return url(['times', timeId, type]);
     }
 
+    function url(fragments){
+      return Config.urlData + _userName + '/' + fragments.join('/');
+    }
+
     function user() {
       return url(['user']);
     }
 
     function userPic(hash){
       return Config.urlPic + hash + '?d=mm';
-    }
-
-    function url(fragments){
-      return Config.urlData + _userName + '/' + fragments.join('/');
     }
 
     function userStateTime() {
@@ -78,4 +78,5 @@
       return url(['user', 'state', 'time', type]);
     }
   }
+
 })();

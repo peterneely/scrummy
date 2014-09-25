@@ -6,18 +6,16 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', '$filter', 'Time', 'Resource', 'Url', 'Timer', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', '$filter', 'Time', 'Resource', 'Url', 'viewData'];
 
-  function TimeFormController($modalInstance, $filter, Time, Resource, Url, Timer, viewData) {
+  function TimeFormController($modalInstance, $filter, Time, Resource, Url, viewData) {
 
     var _add = viewData.add;
     var _edit = !_add;
-    var _state = viewData.user.state.time || {};
 
     var vm = this;
     vm.cancel = cancel;
     vm.checkToday = checkToday;
-    vm.data = viewData;
     vm.isToday = true;
     vm.start = startTimer;
     vm.timeModel = {
@@ -31,6 +29,7 @@
         end: ''
       }
     };
+    vm.viewData = viewData;
 
     fillForm();
 
@@ -56,6 +55,7 @@
       }
 
       function fillSelects() {
+        var savedState = viewData.user.state.time || {};
         ['client', 'project', 'task'].forEach(function (type) {
           vm.timeModel[type] = _add ? defaultValue(type) : actualValue(type);
         });
@@ -65,7 +65,7 @@
         }
 
         function defaultValue(type) {
-          return _.has(_state, type) ? _state[type] : first();
+          return _.has(savedState, type) ? savedState[type] : first();
 
           function first() {
             return viewData[$filter('plural')(type)][0];
@@ -77,7 +77,6 @@
     function startTimer() {
       try {
         $modalInstance.close();
-        Timer.reset();
         start();
       } catch (error) {
       }
@@ -103,4 +102,5 @@
     }
   }
 
-})();
+})
+();

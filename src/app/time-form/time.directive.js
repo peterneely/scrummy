@@ -13,9 +13,9 @@
     return {
       templateUrl: '/app/time-form/time.directive.html',
       scope: {
-        scModel: '=',
-        scClass: '@',
-        scPlaceholder: '@'
+        model: '=scModel',
+        class: '@scClass',
+        placeholder: '@scPlaceholder'
       },
       link: timeLink,
       replace: true
@@ -23,7 +23,7 @@
 
     function timeLink(scope, element) {
       element.on('blur', function () {
-        scope.scModel = Time.fromInput(element.val());
+        scope.model = Time.parseInput(element.val());
         scope.$digest();
       });
     }
