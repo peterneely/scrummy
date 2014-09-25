@@ -42,7 +42,7 @@
     }
 
     function isActive() {
-      return _end === '' || false;
+      return _item.time.end === '' || false;
     }
 
     function now() {
