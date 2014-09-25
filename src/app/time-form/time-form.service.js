@@ -6,22 +6,17 @@
     .module('scrummyApp')
     .factory('TimeForm', TimeFormService);
 
-  TimeFormService.$inject = ['$filter', '$modal', '$moment', 'Time', 'Util'];
+  TimeFormService.$inject = ['$filter', '$modal', 'Time', 'String'];
 
-  function TimeFormService($filter, $modal, $moment, Time, Util) {
+  function TimeFormService($filter, $modal, Time, String) {
 
     return {
-      isToday: isToday,
       map: map,
       open: openForm,
       parseDate: parseDate,
       parseInput: parseInput,
       parseTime: parseTime
     };
-
-    function isToday(date) {
-      return $moment(date).isSame($moment(new Date()), 'day');
-    }
 
     function map(items) {
       var array = [];
@@ -71,7 +66,7 @@
         var matched;
         var elements = [];
         while ((matched = regex.exec(value))) {
-          elements.push(Util.doubleDigits(matched[0]));
+          elements.push(String.doubleDigits(matched[0]));
         }
         if (elements.length === 1) {
           elements.push('00');

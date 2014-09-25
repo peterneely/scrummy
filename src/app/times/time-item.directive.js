@@ -18,57 +18,50 @@
     };
   }
 
-  TimeItemController.$inject = ['$scope', '$moment', 'Clock', 'Config', 'TimeForm'];
+  TimeItemController.$inject = ['$filter', '$scope', 'Clock', 'Config', 'Date', 'TimeForm'];
 
-  function TimeItemController($scope, $moment, Clock, Config, TimeForm) {
+  function TimeItemController($filter, $scope, Clock, Config, Date, TimeForm) {
 
     var _item = $scope.item;
-    var _start = $moment(_item.time.start);
+    var _start = _item.time.start;
+    var _end = _item.time.end;
 
     $scope.editTime = editTime;
-    $scope.elapsed = elapsed(end());
+    $scope.elapsed = Date.elapsed(_start, end());
     $scope.isActive = isActive;
     $scope.times = times;
 
     Clock.whenTick(updateElapsed);
 
-    function editTime(){
+    function editTime() {
       return TimeForm.open($scope.data, _item);
     }
 
-    function elapsed(end) {
-      var ms = end.diff(_start);
-      return $moment(ms).format('H') + $moment(ms).format(':mm');
-    }
-
     function end() {
-      if (isActive()) {
-        return now();
-      }
-      return $moment(_item.time.end);
+      return isActive() ? now() : _end;
     }
 
     function isActive() {
-      return _item.time.end === '' || false;
+      return _end === '' || false;
     }
 
     function now() {
-      return $moment(new Date().setSeconds(0));
+      return Date.nowNoSeconds();
     }
 
     function times() {
-      var start = format($moment(_item.time.start));
-      var end = isActive() ? '' : format($moment(_item.time.end));
+      var start = format(_start);
+      var end = isActive() ? '' : format(_end);
       return start + ' - ' + end;
 
-      function format(time){
-        return time.format(Config.timeFormat);
+      function format(time) {
+        return $filter('date')(time, Config.timeFormat);
       }
     }
 
     function updateElapsed() {
       if (isActive()) {
-        $scope.elapsed = elapsed(now());
+        $scope.elapsed = Date.elapsed(_start, now());
       }
     }
   }

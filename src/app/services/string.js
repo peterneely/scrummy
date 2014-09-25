@@ -4,25 +4,16 @@
 
   angular
     .module('scrummyApp')
-    .factory('Util', UtilService);
+    .factory('String', StringService);
 
-  UtilService.$inject = ['$moment'];
-
-  function UtilService($moment) {
+  function StringService() {
 
     return {
-      contains: contains,
       doubleDigits: doubleDigits,
       plural: plural,
       singular: singular,
       ucFirst: ucFirst
     };
-
-    function contains(collection, value) {
-      return collection.some(function (item) {
-        return value.indexOf(item) > -1;
-      });
-    }
 
     function doubleDigits(value) {
       return ('0' + value).substr(-2);

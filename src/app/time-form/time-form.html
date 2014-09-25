@@ -4,7 +4,7 @@
     <h1 class="panel-title">New Time Entry</h1>
   </section>
 
-  <form role="form" name="timeEntry" ng-submit="timeEntry.$valid && tf.start()" novalidate="">
+  <form role="form" name="timeEntry" novalidate="">
     <section class="panel-body">
       <div selects sc-data="tf.viewData" ng-model="tf.timeModel" sc-class="form-control"></div>
 
@@ -28,7 +28,7 @@
 
     <section class="panel-footer">
       <div class="form-group form-inline">
-        <button class="btn btn-primary sc-form-control sc-medium" type="submit">Start Timer</button>
+        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeEntry.$valid && tf.start()">Start Timer</button>
         <button class="btn btn-default sc-form-control sc-medium" ng-click="tf.cancel()">Cancel</button>
       </div>
     </section>

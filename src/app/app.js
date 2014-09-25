@@ -14,8 +14,7 @@
       'firebase',
       'ui.bootstrap',
       'ui.select2',
-      'angular-momentjs',
-      'ngOrderObjectBy'
+      'angular-momentjs'
     ]);
 
 })();

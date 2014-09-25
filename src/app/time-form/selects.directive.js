@@ -18,9 +18,9 @@
     };
   }
 
-  SelectsController.$inject = ['$scope', 'Util'];
+  SelectsController.$inject = ['$scope', 'String'];
 
-  function SelectsController($scope, Util) {
+  function SelectsController($scope, String) {
 
     $scope.isBold = isBold;
     $scope.types = ['client', 'project', 'task'];
@@ -40,12 +40,12 @@
       function optionsFor(type) {
         return {
           data: getData(type),
-          placeholder: Util.ucFirst(type),
+          placeholder: String.ucFirst(type),
           createSearchChoice: addSelectOption(type)
         };
 
         function getData(type) {
-          return $scope.data[Util.plural(type)];
+          return $scope.data[String.plural(type)];
         }
 
         function addSelectOption(type) {

@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$filter', 'Async', 'Config', 'Resource', 'Url', 'Util'];
+  TimeService.$inject = ['$filter', 'Async', 'Config', 'Resource', 'Url', 'String'];
 
-  function TimeService($filter, Async, Config, Resource, Url, Util) {
+  function TimeService($filter, Async, Config, Resource, Url, String) {
 
     return {
       defaultTime: defaultTime,
@@ -29,7 +29,7 @@
         ['client', 'project', 'task'].forEach(function (type) {
           var time = timeModel[type];
           if (time.id === '') {
-            var url = Url[Util.plural(type)]();
+            var url = Url[String.plural(type)]();
             Resource.post(url, {name: time.text}).then(function (ref) {
               timeModel[type].id = ref.name();
             });
@@ -98,7 +98,7 @@
     }
 
     function updateTimes(type, id, text) {
-      var singleType = Util.singular(type);
+      var singleType = String.singular(type);
       return Resource.getAll(Url.times())
         .then(filter)
         .then(update);

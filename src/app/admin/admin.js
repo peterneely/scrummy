@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Admin', AdminController);
 
-  AdminController.$inject = ['Resource', 'Times', 'Url', 'User', 'Util', 'viewData'];
+  AdminController.$inject = ['Resource', 'Time', 'Url', 'User', 'String', 'viewData'];
 
-  function AdminController(Resource, Times, Url, User, Util, viewData) {
+  function AdminController(Resource, Time, Url, User, String, viewData) {
 
     var vm = this;
 
@@ -17,7 +17,7 @@
     vm.hasTimes = hasTimes;
     vm.items = viewData.items;
     vm.new = '';
-    vm.placeholder = Util.singular(viewData.type);
+    vm.placeholder = String.singular(viewData.type);
     vm.remove = remove;
     vm.search = { name: '' };
     vm.searching = searching;
@@ -58,7 +58,7 @@
       }
 
       function updateTimes(){
-        return Times.updateTimes(viewData.type, item.$id, item.name);
+        return Time.updateTimes(viewData.type, item.$id, item.name);
       }
     }
   }
