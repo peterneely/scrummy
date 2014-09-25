@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Times', TimesService);
 
-  TimesService.$inject = ['Config', 'Date', 'String', 'Util'];
+  TimesService.$inject = ['Config', 'Util'];
 
-  function TimesService(Config, Date, String, Util) {
+  function TimesService(Config, Util) {
 
     return {
       dayTitle: dayTitle,
@@ -20,19 +20,19 @@
     }
 
     function sort(times) {
-      return Util.group(times, [byWeek, byDay]);
+      return Util.array.group(times, [byWeek, byDay]);
 
       function byDay(time) {
         var date = time.time.start;
-        var dayNumber = String.doubleDigits(Date.isoWeekDay(date));
-        var dayString = Date.format(date, Config.dayTitleFormat);
+        var dayNumber = Util.string.doubleDigits(Util.date.isoWeekDay(date));
+        var dayString = Util.date.format(date, Config.dayTitleFormat);
         return dayNumber + ':' + dayString;
       }
 
       function byWeek(time) {
         var date = time.time.start;
-        var year = Date.format(date, 'YYYY');
-        var isoWeek = String.doubleDigits(Date.isoWeek(date));
+        var year = Util.date.format(date, 'YYYY');
+        var isoWeek = Util.string.doubleDigits(Util.date.isoWeek(date));
         return year + '_' + isoWeek;
       }
     }

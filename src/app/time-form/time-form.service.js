@@ -42,7 +42,7 @@
 
       function viewData() {
         var addNewTime = editData === undefined;
-        var model = addNewTime ? data : Util.merge(data, editData);
+        var model = addNewTime ? data : Util.object.merge(data, editData);
         model.add = addNewTime;
         return model;
       }
@@ -66,7 +66,7 @@
         var matched;
         var elements = [];
         while ((matched = regex.exec(value))) {
-          elements.push(Util.doubleDigits(matched[0]));
+          elements.push(Util.string.doubleDigits(matched[0]));
         }
         if (elements.length === 1) {
           elements.push('00');

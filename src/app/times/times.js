@@ -37,7 +37,7 @@
     }
 
     function keys(obj) {
-      return Util.sortDesc(Object.keys(obj));
+      return Util.array.sortDesc(Object.keys(obj));
     }
 
     function sortTimes(){
@@ -51,7 +51,7 @@
     }
 
     function times(week, day) {
-      return Util.sortDesc(_times[week][day]);
+      return Util.array.sortDesc(_times[week][day]);
     }
 
     function watchTimes() {

@@ -27,7 +27,7 @@
     $scope.options = selectsOptions();
 
     function isBold(type){
-      return !Util.isEmpty($scope.model[type]);
+      return !Util.object.isEmpty($scope.model[type]);
     }
 
     function selectsOptions() {
@@ -40,12 +40,12 @@
       function optionsFor(type) {
         return {
           data: getData(type),
-          placeholder: Util.ucFirst(type),
+          placeholder: Util.string.ucFirst(type),
           createSearchChoice: addSelectOption(type)
         };
 
         function getData(type) {
-          return $scope.data[Util.plural(type)];
+          return $scope.data[Util.string.plural(type)];
         }
 
         function addSelectOption(type) {

@@ -28,7 +28,7 @@
 
     function isAdmin(stateName) {
       var stateNames = ['nav.clients', 'nav.projects', 'nav.tasks'];
-      return Util.contains(stateNames, stateName);
+      return Util.array.contains(stateNames, stateName);
     }
 
     function whenChanged(callback) {
