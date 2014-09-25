@@ -20,19 +20,19 @@
     }
 
     function sort(times) {
-      return Util.array.group(times, [byWeek, byDay]);
+      return Util.group(times, [byWeek, byDay]);
 
       function byDay(time) {
         var date = time.time.start;
-        var dayNumber = Util.string.doubleDigits(Util.date.isoWeekDay(date));
-        var dayString = Util.date.format(date, Config.dayTitleFormat);
+        var dayNumber = Util.doubleDigits(Util.isoWeekDay(date));
+        var dayString = Util.format(date, Config.dayTitleFormat);
         return dayNumber + ':' + dayString;
       }
 
       function byWeek(time) {
         var date = time.time.start;
-        var year = Util.date.format(date, 'YYYY');
-        var isoWeek = Util.string.doubleDigits(Util.date.isoWeek(date));
+        var year = Util.format(date, 'YYYY');
+        var isoWeek = Util.doubleDigits(Util.isoWeek(date));
         return year + '_' + isoWeek;
       }
     }

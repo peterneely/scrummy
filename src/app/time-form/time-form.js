@@ -24,7 +24,7 @@
       task: {},
       notes: '',
       time: {
-        date: Util.date.now(),
+        date: Util.now(),
         start: '',
         end: ''
       }
@@ -38,7 +38,7 @@
     }
 
     function checkToday() {
-      vm.isToday = Util.date.isToday(vm.timeModel.time.date);
+      vm.isToday = Util.isToday(vm.timeModel.time.date);
     }
 
     function fillForm() {
@@ -65,10 +65,10 @@
         }
 
         function defaultValue(type) {
-          return Util.object.has(savedState, type) ? savedState[type] : first();
+          return Util.has(savedState, type) ? savedState[type] : first();
 
           function first() {
-            return viewData[Util.string.plural(type)][0];
+            return viewData[Util.plural(type)][0];
           }
         }
       }

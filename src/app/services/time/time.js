@@ -19,7 +19,7 @@
     };
 
     function defaultTime() {
-      return Util.date.format(Date.now(), Config.timeFormat);
+      return Util.format(Date.now(), Config.timeFormat);
     }
 
     function saveNewTypes(timeModel) {
@@ -29,7 +29,7 @@
         ['client', 'project', 'task'].forEach(function (type) {
           var time = timeModel[type];
           if (time.id === '') {
-            var url = Url[Util.string.plural(type)]();
+            var url = Url[Util.plural(type)]();
             Resource.post(url, {name: time.text}).then(function (ref) {
               timeModel[type].id = ref.name();
             });
@@ -59,7 +59,7 @@
         function dateTime(time, date) {
           return time === '' ?
             '' :
-            Util.date.format(date, Config.dateFormat) + ' ' + time;
+            Util.format(date, Config.dateFormat) + ' ' + time;
         }
 
         function end(model) {
@@ -83,13 +83,13 @@
         deferred.resolve(timeModel);
 
         function getActiveTimers() {
-          return Util.array.where(times, function (time) {
+          return Util.where(times, function (time) {
             return time.time.end === '';
           });
         }
 
         function stop(activeTimers) {
-          var endTime = Util.date.format(Util.date.now(), Config.dateTimeFormat);
+          var endTime = Util.format(Util.now(), Config.dateTimeFormat);
           activeTimers.forEach(function (activeTimer) {
             Resource.put(Url.time(activeTimer.$id), {end: endTime});
           });
@@ -98,13 +98,13 @@
     }
 
     function updateTimes(type, id, text) {
-      var singleType = Util.string.singular(type);
+      var singleType = Util.singular(type);
       return Resource.getAll(Url.times())
         .then(filter)
         .then(update);
 
       function filter(times) {
-        var filtered = Util.array.where(times, function (time) {
+        var filtered = Util.where(times, function (time) {
           return time[singleType].id === id;
         });
         return Async.when(filtered);

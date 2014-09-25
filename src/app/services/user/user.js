@@ -63,7 +63,7 @@
     }
 
     function updateState(type, text) {
-      var url = Url.userStateTimeType(Util.string.singular(type));
+      var url = Url.userStateTimeType(Util.singular(type));
       return Resource.get(url).then(update);
 
       function update(time) {

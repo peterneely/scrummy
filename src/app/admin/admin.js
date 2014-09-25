@@ -17,7 +17,7 @@
     vm.hasTimes = hasTimes;
     vm.items = viewData.items;
     vm.new = '';
-    vm.placeholder = Util.string.singular(viewData.type);
+    vm.placeholder = Util.singular(viewData.type);
     vm.remove = remove;
     vm.search = { name: '' };
     vm.searching = searching;
