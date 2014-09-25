@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('TimeForm', TimeFormService);
 
-  TimeFormService.$inject = ['$filter', '$modal', 'Time', 'String'];
+  TimeFormService.$inject = ['$filter', '$modal', 'Obj', 'Time', 'String'];
 
-  function TimeFormService($filter, $modal, Time, String) {
+  function TimeFormService($filter, $modal, Obj, Time, String) {
 
     return {
       map: map,
@@ -42,7 +42,7 @@
 
       function viewData() {
         var addNewTime = editData === undefined;
-        var model = addNewTime ? data : _.merge(data, editData);
+        var model = addNewTime ? data : Obj.merge(data, editData);
         model.add = addNewTime;
         return model;
       }

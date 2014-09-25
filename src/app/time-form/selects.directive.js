@@ -18,16 +18,16 @@
     };
   }
 
-  SelectsController.$inject = ['$scope', 'String'];
+  SelectsController.$inject = ['$scope', 'Obj', 'String'];
 
-  function SelectsController($scope, String) {
+  function SelectsController($scope, Obj, String) {
 
     $scope.isBold = isBold;
     $scope.types = ['client', 'project', 'task'];
     $scope.options = selectsOptions();
 
     function isBold(type){
-      return !_.isEmpty($scope.model[type]);
+      return !Obj.isEmpty($scope.model[type]);
     }
 
     function selectsOptions() {

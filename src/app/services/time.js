@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$filter', 'Async', 'Config', 'Resource', 'Url', 'String'];
+  TimeService.$inject = ['Async', 'Config', 'Resource', 'Url', 'Util'];
 
-  function TimeService($filter, Async, Config, Resource, Url, String) {
+  function TimeService(Async, Config, Resource, Url, Util) {
 
     return {
       defaultTime: defaultTime,
@@ -19,7 +19,7 @@
     };
 
     function defaultTime() {
-      return $filter('date')(new Date(), Config.timeFormat);
+      return Util.format(Date.now(), Config.timeFormat);
     }
 
     function saveNewTypes(timeModel) {
@@ -59,7 +59,7 @@
         function dateTime(time, date) {
           return time === '' ?
             '' :
-            $filter('date')(date, Config.dateFormat) + ' ' + time;
+            Util.format(date, Config.dateFormat) + ' ' + time;
         }
 
         function end(model) {
@@ -83,13 +83,13 @@
         deferred.resolve(timeModel);
 
         function getActiveTimers() {
-          return _.where(times, function (time) {
+          return Util.where(times, function (time) {
             return time.time.end === '';
           });
         }
 
         function stop(activeTimers) {
-          var endTime = $filter('date')(new Date(), Config.dateTimeFormat);
+          var endTime = Util.format(Util.now(), Config.dateTimeFormat);
           activeTimers.forEach(function (activeTimer) {
             Resource.put(Url.time(activeTimer.$id), {end: endTime});
           });
@@ -104,7 +104,7 @@
         .then(update);
 
       function filter(times) {
-        var filtered = _.where(times, function (time) {
+        var filtered = Util.where(times, function (time) {
           return time[singleType].id === id;
         });
         return Async.when(filtered);

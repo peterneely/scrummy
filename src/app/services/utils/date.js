@@ -12,7 +12,7 @@
 
     return {
       elapsed: elapsed,
-      format: format,
+      format: formatDate,
       isToday: isToday,
       isoWeek: isoWeek,
       isoWeekDay: isoWeekDay,
@@ -25,7 +25,7 @@
       return $moment(ms).format('H') + $moment(ms).format(':mm');
     }
 
-    function format(date, format){
+    function formatDate(date, format){
       return $moment(date).format(format);
     }
 

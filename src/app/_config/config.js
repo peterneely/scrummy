@@ -12,8 +12,8 @@
       urlData: 'https://scrummy.firebaseio.com/users/',
       urlPic: 'http://www.gravatar.com/avatar/',
 
-      dateTimeFormat: 'yyyy-MM-dd HH:mm',
-      dateFormat: 'yyyy-MM-dd',
+      dateTimeFormat: 'YYYY-MM-DD HH:mm',
+      dateFormat: 'YYYY-MM-DD',
       dayTitleFormat: 'ddd, DD MMM YYYY',
       timeFormat: 'HH:mm'
     };

@@ -6,13 +6,12 @@
     .module('scrummyApp')
     .factory('Times', TimesService);
 
-  TimesService.$inject = ['Config', 'Date', 'String'];
+  TimesService.$inject = ['Util', 'Config', 'Date', 'String'];
 
-  function TimesService(Config, Date, String) {
+  function TimesService(Util, Config, Date, String) {
 
     return {
       dayTitle: dayTitle,
-      group: group,
       sort: sort
     };
 
@@ -20,19 +19,8 @@
       return dayHeader.substr(dayHeader.indexOf(':') + 1);
     }
 
-    function group(seq, keys) {
-      if (!keys.length) {
-        return seq;
-      }
-      var first = keys[0];
-      var rest = keys.slice(1);
-      return _.mapValues(_.groupBy(seq, first), function (value) {
-        return group(value, rest);
-      });
-    }
-
     function sort(times) {
-      return group(times, [byWeek, byDay]);
+      return Util.group(times, [byWeek, byDay]);
 
       function byDay(time) {
         var date = time.time.start;
