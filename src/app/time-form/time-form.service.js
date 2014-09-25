@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('TimeForm', TimeFormService);
 
-  TimeFormService.$inject = ['$filter', '$modal', 'Obj', 'Time', 'String'];
+  TimeFormService.$inject = ['$filter', '$modal', 'Time', 'Util'];
 
-  function TimeFormService($filter, $modal, Obj, Time, String) {
+  function TimeFormService($filter, $modal, Time, Util) {
 
     return {
       map: map,
@@ -42,7 +42,7 @@
 
       function viewData() {
         var addNewTime = editData === undefined;
-        var model = addNewTime ? data : Obj.merge(data, editData);
+        var model = addNewTime ? data : Util.merge(data, editData);
         model.add = addNewTime;
         return model;
       }
@@ -66,7 +66,7 @@
         var matched;
         var elements = [];
         while ((matched = regex.exec(value))) {
-          elements.push(String.doubleDigits(matched[0]));
+          elements.push(Util.doubleDigits(matched[0]));
         }
         if (elements.length === 1) {
           elements.push('00');

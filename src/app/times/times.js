@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['Util', 'Clock', 'Resource', 'TimeForm', 'Times', 'viewData'];
+  TimesController.$inject = ['Clock', 'Resource', 'TimeForm', 'Times', 'Util', 'viewData'];
 
-  function TimesController(Util, Clock, Resource, TimeForm, Times, viewData) {
+  function TimesController(Clock, Resource, TimeForm, Times, Util, viewData) {
     console.log(viewData);
 
     var _times = sortTimes();

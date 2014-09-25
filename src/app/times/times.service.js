@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Times', TimesService);
 
-  TimesService.$inject = ['Util', 'Config', 'Date', 'String'];
+  TimesService.$inject = ['Config', 'Date', 'String', 'Util'];
 
-  function TimesService(Util, Config, Date, String) {
+  function TimesService(Config, Date, String, Util) {
 
     return {
       dayTitle: dayTitle,

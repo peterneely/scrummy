@@ -18,16 +18,16 @@
     };
   }
 
-  SelectsController.$inject = ['$scope', 'Obj', 'String'];
+  SelectsController.$inject = ['$scope', 'Util'];
 
-  function SelectsController($scope, Obj, String) {
+  function SelectsController($scope, Util) {
 
     $scope.isBold = isBold;
     $scope.types = ['client', 'project', 'task'];
     $scope.options = selectsOptions();
 
     function isBold(type){
-      return !Obj.isEmpty($scope.model[type]);
+      return !Util.isEmpty($scope.model[type]);
     }
 
     function selectsOptions() {
@@ -40,12 +40,12 @@
       function optionsFor(type) {
         return {
           data: getData(type),
-          placeholder: String.ucFirst(type),
+          placeholder: Util.ucFirst(type),
           createSearchChoice: addSelectOption(type)
         };
 
         function getData(type) {
-          return $scope.data[String.plural(type)];
+          return $scope.data[Util.plural(type)];
         }
 
         function addSelectOption(type) {

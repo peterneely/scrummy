@@ -18,16 +18,16 @@
     };
   }
 
-  TimeItemController.$inject = ['$filter', '$scope', 'Clock', 'Config', 'Date', 'TimeForm'];
+  TimeItemController.$inject = ['$scope', 'Clock', 'Config', 'TimeForm', 'Util'];
 
-  function TimeItemController($filter, $scope, Clock, Config, Date, TimeForm) {
+  function TimeItemController($scope, Clock, Config, TimeForm, Util) {
 
     var _item = $scope.item;
     var _start = _item.time.start;
     var _end = _item.time.end;
 
     $scope.editTime = editTime;
-    $scope.elapsed = Date.elapsed(_start, end());
+    $scope.elapsed = Util.elapsed(_start, end());
     $scope.isActive = isActive;
     $scope.times = times;
 
@@ -46,7 +46,7 @@
     }
 
     function now() {
-      return Date.nowNoSeconds();
+      return Util.nowNoSeconds();
     }
 
     function times() {
@@ -55,13 +55,13 @@
       return start + ' - ' + end;
 
       function format(time) {
-        return $filter('date')(time, Config.timeFormat);
+        return Util.format(time, Config.timeFormat);
       }
     }
 
     function updateElapsed() {
       if (isActive()) {
-        $scope.elapsed = Date.elapsed(_start, now());
+        $scope.elapsed = Util.elapsed(_start, now());
       }
     }
   }
