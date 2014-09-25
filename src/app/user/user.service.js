@@ -63,8 +63,8 @@
     }
 
     function updateState(type, text) {
-      var singleType = $filter('singular')(type);
-      return Resource.get(Url.userStateTimeType(singleType)).then(update);
+      var url = Url.userStateTimeType($filter('singular')(type));
+      return Resource.get(url).then(update);
 
       function update(time) {
         if (Resource.exists(time)) {
@@ -74,4 +74,5 @@
       }
     }
   }
+
 })();

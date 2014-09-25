@@ -4,11 +4,11 @@
 
   angular
     .module('scrummyApp')
-    .factory('Timer', TimerService);
+    .factory('Clock', ClockService);
 
-  TimerService.$inject = ['$rootScope', '$interval'];
+  ClockService.$inject = ['$rootScope', '$interval'];
 
-  function TimerService($rootScope, $interval) {
+  function ClockService($rootScope, $interval) {
     var _started = false;
 
     return {
@@ -39,4 +39,5 @@
       }
     }
   }
+
 })();

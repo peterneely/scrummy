@@ -28,4 +28,5 @@
       return $q.when(value);
     }
   }
+
 })();

@@ -6,15 +6,15 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['Timer', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['Clock', 'Resource', 'Time', 'viewData'];
 
-  function TimesController(Timer, Resource, Time, viewData) {
+  function TimesController(Clock, Resource, Time, viewData) {
     console.log(viewData);
 
     var _times = sortTimes();
 
+    startClock();
     watchTimes();
-    startTimer();
 
     var vm = this;
     vm.addTime = addTime;
@@ -51,9 +51,9 @@
       }
     }
 
-    function startTimer(){
-      if(!Timer.hasStarted()){
-        Timer.start();
+    function startClock(){
+      if(!Clock.hasStarted()){
+        Clock.start();
       }
     }
 

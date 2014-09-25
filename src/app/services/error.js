@@ -4,7 +4,7 @@
 
   angular
     .module('scrummyApp')
-    .factory('Errors', ErrorService);
+    .factory('Error', ErrorService);
 
   function ErrorService() {
 
