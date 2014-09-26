@@ -76,6 +76,7 @@
     }
 
     function where(items, callback){
+      console.log(_.where(items, callback));
       return _.where(items, callback);
     }
   }

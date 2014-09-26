@@ -12,6 +12,7 @@
 
     return {
       saveNewTypes: saveNewTypes,
+      saveState: saveState,
       startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
       updateTimes: updateTimes
@@ -32,6 +33,10 @@
         });
         deferred.resolve(timeModel);
       }
+    }
+
+    function saveState(model){
+      return Resource.put(Url.userStateTime(), model);
     }
 
     function startNewTimer(timeModel) {
@@ -100,12 +105,14 @@
 
       function filter(times) {
         var filtered = Fn.where(times, function (time) {
+          console.log(singleType, time, id);
           return time[singleType].id === id;
         });
         return Async.when(filtered);
       }
 
       function update(filteredTimes) {
+        console.log(filteredTimes);
         filteredTimes.forEach(function (filteredTime) {
           var url = Url.timeType(filteredTime.$id, singleType);
           Resource.put(url, {text: text});

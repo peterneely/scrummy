@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', 'Fn', 'Resource', 'Time', 'Url', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Fn', 'Time', 'viewData'];
 
-  function TimeFormController($modalInstance, Fn, Resource, Time, Url, viewData) {
+  function TimeFormController($modalInstance, Fn, Time, viewData) {
 
     var _add = viewData.add;
     var _edit = !_add;
@@ -55,7 +55,8 @@
       }
 
       function fillSelects() {
-        var savedState = viewData.user.state.time || {};
+        var state = viewData.user.state;
+        var timeState = angular.isDefined(state) ? state.time : {};
         ['client', 'project', 'task'].forEach(function (type) {
           vm.timeModel[type] = _add ? defaultValue(type) : actualValue(type);
         });
@@ -65,7 +66,7 @@
         }
 
         function defaultValue(type) {
-          return Fn.has(savedState, type) ? savedState[type] : first();
+          return Fn.has(timeState, type) ? timeState[type] : first();
 
           function first() {
             return viewData[Fn.plural(type)][0];
@@ -91,7 +92,7 @@
       }
 
       function saveState(stateModel) {
-        return Resource.put(Url.userStateTime(), stateModel);
+        return Time.saveState(stateModel);
       }
     }
   }

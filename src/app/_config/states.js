@@ -27,7 +27,7 @@
     function home() {
       return {
         url: '/',
-        templateUrl: '/app/layout/main.html'
+        templateUrl: '/app/app/main.html'
       };
     }
 
@@ -50,7 +50,7 @@
     function nav() {
       return {
         abstract: true,
-        templateUrl: '/app/container/nav.html',
+        templateUrl: '/app/app/nav.html',
         controller: 'Nav as nav',
         resolve: {
           coreData: ['Init', function (Init) {
@@ -85,7 +85,7 @@
         url: '^/clients',
         views: {
           '': {
-            templateUrl: '../container/admin/admin.html',
+            templateUrl: '../app/admin/admin.html',
             controller: 'Admin as admin'
           },
           '@nav.clients': {
@@ -110,7 +110,7 @@
         url: '^/projects',
         views: {
           '': {
-            templateUrl: '../container/admin/admin.html',
+            templateUrl: '../app/admin/admin.html',
             controller: 'Admin as admin'
           },
           '@nav.projects': {
@@ -135,7 +135,7 @@
         url: '^/tasks',
         views: {
           '': {
-            templateUrl: '../container/admin/admin.html',
+            templateUrl: '../app/admin/admin.html',
             controller: 'Admin as admin'
           },
           '@nav.tasks': {

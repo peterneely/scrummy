@@ -9,7 +9,7 @@
   TimesController.$inject = ['Fn', 'Resource', 'Time', 'viewData'];
 
   function TimesController(Fn, Resource, Time, viewData) {
-    console.log(viewData);
+//    console.log(viewData);
 
     var _times = sortTimes();
 
