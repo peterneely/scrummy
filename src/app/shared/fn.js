@@ -6,7 +6,9 @@
     .module('scrummyApp')
     .factory('Fn', FnService);
 
-  function FnService() {
+  FnService.$inject = ['_'];
+
+  function FnService(_) {
 
     return {
       contains: contains,

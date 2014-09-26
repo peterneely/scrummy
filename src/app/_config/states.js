@@ -50,7 +50,7 @@
     function nav() {
       return {
         abstract: true,
-        templateUrl: '/app/app/nav.html',
+        templateUrl: '/app/container/nav.html',
         controller: 'Nav as nav',
         resolve: {
           coreData: ['Init', function (Init) {
@@ -85,7 +85,7 @@
         url: '^/clients',
         views: {
           '': {
-            templateUrl: 'app/admin/admin.html',
+            templateUrl: '../container/admin/admin.html',
             controller: 'Admin as admin'
           },
           '@nav.clients': {
@@ -110,7 +110,7 @@
         url: '^/projects',
         views: {
           '': {
-            templateUrl: 'app/admin/admin.html',
+            templateUrl: '../container/admin/admin.html',
             controller: 'Admin as admin'
           },
           '@nav.projects': {
@@ -135,7 +135,7 @@
         url: '^/tasks',
         views: {
           '': {
-            templateUrl: 'app/admin/admin.html',
+            templateUrl: '../container/admin/admin.html',
             controller: 'Admin as admin'
           },
           '@nav.tasks': {

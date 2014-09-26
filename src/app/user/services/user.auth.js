@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('UserAuth', UserAuthService);
 
-  UserAuthService.$inject = ['$firebaseSimpleLogin', 'Config', 'UserUtil'];
+  UserAuthService.$inject = ['$firebaseSimpleLogin', 'Config', 'Firebase', 'UserUtil'];
 
-  function UserAuthService($firebaseSimpleLogin, Config, UserUtil) {
+  function UserAuthService($firebaseSimpleLogin, Config, Firebase, UserUtil) {
 
     var _provider = getAuthProvider();
 
