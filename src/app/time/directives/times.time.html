@@ -10,11 +10,16 @@
     <p class="text-muted">{{ item.client.text }}</p>
   </td>
   <td class="col-xs-2">
-    <button class="btn btn-primary sc-stop" ng-show="isActive()" ng-click="stopTimer()">
-      <span class="glyphicon glyphicon-off sc-animate"></span>
-      <label>Stop</label>
-    </button>
-    <p class="sc-bold" >{{ elapsed }}</p>
-    <p class="text-muted">{{ times() }}</p>
+    <a ng-href="" ng-click="editTime()">
+      <button class="btn btn-primary sc-stop" ng-show="isActive()" ng-click="stopTimer()">
+        <span class="glyphicon glyphicon-off sc-animate"></span>
+        <label>Stop</label>
+      </button>
+      <p class="sc-bold">{{ elapsed }}</p>
+
+      <p class="text-muted">{{ startTime() }}</p>
+
+      <p class="text-muted">{{ endTime() }}</p>
+    </a>
   </td>
 </tr>
