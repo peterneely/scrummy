@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Admin', AdminController);
 
-  AdminController.$inject = ['Resource', 'Time', 'Url', 'User', 'Fn', 'viewData'];
+  AdminController.$inject = ['Fn', 'Resource', 'Time', 'Url', 'User', 'viewData'];
 
-  function AdminController(Resource, Time, Url, User, Fn, viewData) {
+  function AdminController(Fn, Resource, Time, Url, User, viewData) {
 
     var vm = this;
 

@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', 'Resource', 'Time', 'Url', 'Fn', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Fn', 'Resource', 'Time', 'Url', 'viewData'];
 
-  function TimeFormController($modalInstance, Resource, Time, Url, Fn, viewData) {
+  function TimeFormController($modalInstance, Fn, Resource, Time, Url, viewData) {
 
     var _add = viewData.add;
     var _edit = !_add;

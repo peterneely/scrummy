@@ -18,9 +18,9 @@
     };
   }
 
-  TimeItemController.$inject = ['$scope', 'Clock', 'Config', 'Time', 'Fn'];
+  TimeItemController.$inject = ['$scope', 'Clock', 'Config', 'Fn', 'Time'];
 
-  function TimeItemController($scope, Clock, Config, Time, Fn) {
+  function TimeItemController($scope, Clock, Config, Fn, Time) {
 
     var _item = $scope.item;
     var _start = _item.time.start;

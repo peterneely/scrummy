@@ -11,18 +11,23 @@
   function TimeService($filter, $modal, Async, Config, Resource, Url, Fn) {
 
     return {
+      dayTitle: dayTitle,
       defaultTime: defaultTime,
-      saveNewTypes: saveNewTypes,
-      startNewTimer: startNewTimer,
-      stopActiveTimers: stopActiveTimers,
-      updateTimes: updateTimes,
-
       map: map,
       openForm: openForm,
       parseDate: parseDate,
       parseInput: parseInput,
-      parseTime: parseTime
+      parseTime: parseTime,
+      saveNewTypes: saveNewTypes,
+      sort: sort,
+      startNewTimer: startNewTimer,
+      stopActiveTimers: stopActiveTimers,
+      updateTimes: updateTimes
     };
+
+    function dayTitle(dayHeader) {
+      return dayHeader.substr(dayHeader.indexOf(':') + 1);
+    }
 
     function defaultTime() {
       return Fn.format(Date.now(), Config.timeFormat);
@@ -111,6 +116,24 @@
           }
         });
         deferred.resolve(timeModel);
+      }
+    }
+
+    function sort(times) {
+      return Fn.group(times, [byWeek, byDay]);
+
+      function byDay(time) {
+        var date = time.time.start;
+        var dayNumber = Fn.doubleDigits(Fn.isoWeekDay(date));
+        var dayString = Fn.format(date, Config.dayTitleFormat);
+        return dayNumber + ':' + dayString;
+      }
+
+      function byWeek(time) {
+        var date = time.time.start;
+        var year = Fn.format(date, 'YYYY');
+        var isoWeek = Fn.doubleDigits(Fn.isoWeek(date));
+        return year + '_' + isoWeek;
       }
     }
 
