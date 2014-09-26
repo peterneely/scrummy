@@ -6,24 +6,15 @@
     .module('scrummyApp')
     .factory('Fn', FnService);
 
-  FnService.$inject = ['$moment'];
-
-  function FnService($moment) {
+  function FnService() {
 
     return {
       contains: contains,
       doubleDigits: doubleDigits,
-      elapsed: elapsed,
-      format: formatDate,
       group: group,
       has: has,
       isEmpty: isEmpty,
-      isoWeek: isoWeek,
-      isoWeekDay: isoWeekDay,
-      isToday: isToday,
       merge: merge,
-      now: now,
-      nowNoSeconds: nowNoSeconds,
       plural: plural,
       singular: singular,
       sortDesc: sortDesc,
@@ -39,15 +30,6 @@
 
     function doubleDigits(value) {
       return ('0' + value).substr(-2);
-    }
-
-    function elapsed(start, end) {
-      var ms = $moment(end).diff($moment(start));
-      return $moment(ms).format('H') + $moment(ms).format(':mm');
-    }
-
-    function formatDate(date, format){
-      return $moment(date).format(format);
     }
 
     function group(seq, keys) {
@@ -69,28 +51,8 @@
       return _.isEmpty(item);
     }
 
-    function isoWeek(date){
-      return $moment(date).isoWeek();
-    }
-
-    function isoWeekDay(date){
-      return $moment(date).isoWeekday();
-    }
-
-    function isToday(date) {
-      return $moment(date).isSame($moment(new Date()), 'day');
-    }
-
     function merge(obj1, obj2){
       return _.merge(obj1, obj2);
-    }
-
-    function now(){
-      return new Date();
-    }
-
-    function nowNoSeconds(){
-      return new Date().setSeconds(0);
     }
 
     function plural(value) {

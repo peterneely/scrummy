@@ -24,7 +24,7 @@
       task: {},
       notes: '',
       time: {
-        date: Fn.now(),
+        date: Time.now(),
         start: '',
         end: ''
       }
@@ -38,7 +38,7 @@
     }
 
     function checkToday() {
-      vm.isToday = Fn.isToday(vm.timeModel.time.date);
+      vm.isToday = Time.isToday(vm.timeModel.time.date);
     }
 
     function fillForm() {

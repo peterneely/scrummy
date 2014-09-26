@@ -27,7 +27,7 @@
     var _end = _item.time.end;
 
     $scope.editTime = editTime;
-    $scope.elapsed = Fn.elapsed(_start, end());
+    $scope.elapsed = Time.elapsed(_start, end());
     $scope.isActive = isActive;
     $scope.times = times;
 
@@ -46,7 +46,7 @@
     }
 
     function now() {
-      return Fn.nowNoSeconds();
+      return Time.nowNoSeconds();
     }
 
     function times() {
@@ -55,13 +55,13 @@
       return start + ' - ' + end;
 
       function format(time) {
-        return Fn.format(time, Config.timeFormat);
+        return Time.format(time, Config.timeFormat);
       }
     }
 
     function updateElapsed() {
       if (isActive()) {
-        $scope.elapsed = Fn.elapsed(_start, now());
+        $scope.elapsed = Time.elapsed(_start, now());
       }
     }
   }

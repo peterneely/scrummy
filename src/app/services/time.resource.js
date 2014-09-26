@@ -54,7 +54,7 @@
         function dateTime(time, date) {
           return time === '' ?
             '' :
-            Fn.format(date, Config.dateFormat) + ' ' + time;
+            TimeUtil.format(date, Config.dateFormat) + ' ' + time;
         }
 
         function end(model) {
@@ -84,7 +84,7 @@
         }
 
         function stop(activeTimers) {
-          var endTime = Fn.format(Fn.now(), Config.dateTimeFormat);
+          var endTime = TimeUtil.format(TimeUtil.now(), Config.dateTimeFormat);
           activeTimers.forEach(function (activeTimer) {
             Resource.put(Url.time(activeTimer.$id), {end: endTime});
           });

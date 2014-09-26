@@ -13,7 +13,12 @@
     return {
       dayTitle: TimeUtil.dayTitle,
       defaultTime: TimeUtil.defaultTime,
+      elapsed: TimeUtil.elapsed,
+      format: TimeUtil.formatDate,
+      isToday: TimeUtil.isToday,
       map: map,
+      now: TimeUtil.now,
+      nowNoSeconds: TimeUtil.nowNoSeconds,
       openForm: openForm,
       parseDate: TimeUtil.parseDate,
       parseInput: TimeUtil.parseInput,

@@ -6,13 +6,18 @@
     .module('scrummyApp')
     .factory('TimeUtil', TimeUtilService);
 
-  TimeUtilService.$inject = ['Config', 'Fn'];
+  TimeUtilService.$inject = ['$moment', 'Config', 'Fn'];
 
-  function TimeUtilService(Config, Fn) {
+  function TimeUtilService($moment, Config, Fn) {
 
     return {
       dayTitle: dayTitle,
       defaultTime: defaultTime,
+      elapsed: elapsed,
+      format: formatDate,
+      isToday: isToday,
+      now: now,
+      nowNoSeconds: nowNoSeconds,
       parseDate: parseDate,
       parseInput: parseInput,
       parseTime: parseTime,
@@ -24,9 +29,29 @@
     }
 
     function defaultTime() {
-      return Fn.format(Date.now(), Config.timeFormat);
+      return formatDate(Date.now(), Config.timeFormat);
     }
 
+    function elapsed(start, end) {
+      var ms = $moment(end).diff($moment(start));
+      return $moment(ms).format('H') + $moment(ms).format(':mm');
+    }
+
+    function formatDate(date, format) {
+      return $moment(date).format(format);
+    }
+
+    function isToday(date) {
+      return $moment(date).isSame($moment(new Date()), 'day');
+    }
+
+    function now() {
+      return new Date();
+    }
+
+    function nowNoSeconds(){
+      return new Date().setSeconds(0);
+    }
     function parseDate(dateTimeString) {
       return dateTimeString.slice(0, 10);
     }
@@ -71,16 +96,24 @@
 
       function byDay(time) {
         var date = time.time.start;
-        var dayNumber = Fn.doubleDigits(Fn.isoWeekDay(date));
-        var dayString = Fn.format(date, Config.dayTitleFormat);
+        var dayNumber = Fn.doubleDigits(isoWeekDay(date));
+        var dayString = formatDate(date, Config.dayTitleFormat);
         return dayNumber + ':' + dayString;
+
+        function isoWeekDay(date) {
+          return $moment(date).isoWeekday();
+        }
       }
 
       function byWeek(time) {
         var date = time.time.start;
-        var year = Fn.format(date, 'YYYY');
-        var isoWeek = Fn.doubleDigits(Fn.isoWeek(date));
-        return year + '_' + isoWeek;
+        var year = formatDate(date, 'YYYY');
+        var week = Fn.doubleDigits(isoWeek(date));
+        return year + '_' + week;
+
+        function isoWeek(date) {
+          return $moment(date).isoWeek();
+        }
       }
     }
   }
