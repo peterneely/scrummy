@@ -50,7 +50,7 @@
     function nav() {
       return {
         abstract: true,
-        templateUrl: '/app/layout/nav.html',
+        templateUrl: '/app/app/nav.html',
         controller: 'Nav as nav',
         resolve: {
           coreData: ['Init', function (Init) {

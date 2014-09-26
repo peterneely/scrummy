@@ -6,15 +6,16 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$filter', '$modal', 'Fn', 'TimeResource', 'TimeUtil'];
+  TimeService.$inject = ['$filter', '$modal', 'Fn', 'TimeClock', 'TimeResource', 'TimeUtil'];
 
-  function TimeService($filter, $modal, Fn, TimeResource, TimeUtil) {
+  function TimeService($filter, $modal, Fn, TimeClock, TimeResource, TimeUtil) {
 
     return {
       dayTitle: TimeUtil.dayTitle,
       defaultTime: TimeUtil.defaultTime,
       elapsed: TimeUtil.elapsed,
       format: TimeUtil.formatDate,
+      hasClockStarted: TimeClock.hasClockStarted,
       isToday: TimeUtil.isToday,
       map: map,
       now: TimeUtil.now,
@@ -25,9 +26,11 @@
       parseTime: TimeUtil.parseTime,
       saveNewTypes: TimeResource.saveNewTypes,
       sort: TimeUtil.sort,
+      startClock: TimeClock.startClock,
       startNewTimer: TimeResource.startNewTimer,
       stopActiveTimers: TimeResource.stopActiveTimers,
-      updateTimes: TimeResource.updateTimes
+      updateTimes: TimeResource.updateTimes,
+      whenClockTick: TimeClock.whenClockTick
     };
 
     function map(items) {

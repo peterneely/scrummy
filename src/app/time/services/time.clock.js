@@ -4,25 +4,25 @@
 
   angular
     .module('scrummyApp')
-    .factory('Clock', ClockService);
+    .factory('TimeClock', TimeClockService);
 
-  ClockService.$inject = ['$interval', '$rootScope'];
+  TimeClockService.$inject = ['$interval', '$rootScope'];
 
-  function ClockService($interval, $rootScope) {
+  function TimeClockService($interval, $rootScope) {
     var _started = false;
     var _tickEvent = 'tick';
 
     return {
-      hasStarted: hasStarted,
-      start: start,
-      whenTick: whenTick
+      hasClockStarted: hasClockStarted,
+      startClock: startClock,
+      whenClockTick: whenClockTick
     };
 
-    function hasStarted() {
+    function hasClockStarted() {
       return _started;
     }
 
-    function start() {
+    function startClock() {
       _started = true;
       var count = getSeconds();
       $interval(tick, 1000);
@@ -41,7 +41,7 @@
       }
     }
 
-    function whenTick(callback){
+    function whenClockTick(callback){
       $rootScope.$on(_tickEvent, function(event){
         event.stopPropagation();
         callback();

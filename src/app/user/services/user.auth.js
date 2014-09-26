@@ -4,16 +4,16 @@
 
   angular
     .module('scrummyApp')
-    .factory('Auth', AuthService);
+    .factory('UserAuth', UserAuthService);
 
-  AuthService.$inject = ['$firebaseSimpleLogin', 'Config', 'User'];
+  UserAuthService.$inject = ['$firebaseSimpleLogin', 'Config', 'UserUtil'];
 
-  function AuthService($firebaseSimpleLogin, Config, User) {
+  function UserAuthService($firebaseSimpleLogin, Config, UserUtil) {
 
     var _provider = getAuthProvider();
 
     return {
-      getAuthUser: getAuthUser,
+      get: get,
       login: login,
       logout: logout,
       register: register
@@ -23,7 +23,7 @@
       return $firebaseSimpleLogin(new Firebase(Config.urlAuth));
     }
 
-    function getAuthUser() {
+    function get() {
       return _provider.$getCurrentUser();
     }
 
@@ -33,7 +33,7 @@
 
     function logout() {
       _provider.$logout();
-      User.clearUserName();
+      UserUtil.clearUserName();
     }
 
     function register(formUser){

@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Init', InitService);
 
-  InitService.inject = ['Async', 'Auth', 'Resource', 'State', 'Url', 'User'];
+  InitService.inject = ['Async', 'Resource', 'State', 'Url', 'User'];
 
-  function InitService(Async, Auth, Resource, State, Url, User) {
+  function InitService(Async, Resource, State, Url, User) {
 
     return {
       getCoreData: getCoreData
@@ -16,7 +16,7 @@
 
     function getCoreData() {
       var _user = {};
-      return Auth.getAuthUser()
+      return User.getAuthUser()
         .then(cacheUserName)
         .then(getUser)
         .then(getData)

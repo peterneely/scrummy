@@ -6,16 +6,16 @@
     .module('scrummyApp')
     .controller('User', UserController);
 
-  UserController.$inject = ['Auth', 'State'];
+  UserController.$inject = ['State', 'User'];
 
-  function UserController(Auth, State) {
+  function UserController(State, User) {
 
     var vm = this;
 
     vm.logout = onLogout;
 
     function onLogout() {
-      Auth.logout();
+      User.logout();
       State.go('home');
     }
   }

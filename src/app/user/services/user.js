@@ -5,36 +5,23 @@
     .module('scrummyApp')
     .factory('User', UserService);
 
-  UserService.$inject = ['Async', 'Resource', 'Url', 'Fn'];
+  UserService.$inject = ['Async', 'Fn', 'Resource', 'Url', 'UserAuth', 'UserUtil'];
 
-  function UserService(Async, Resource, Url, Fn) {
+  function UserService(Async, Fn, Resource, Url, UserAuth, UserUtil) {
 
     var _userName = null;
 
     return {
-      cacheUserName: cacheUserName,
-      clearUserName: clearUserName,
+      cacheUserName: UserUtil.cacheUserName,
+      clearUserName: UserUtil.clearUserName,
       create: create,
       get: get,
+      getAuthUser: UserAuth.get,
+      login: UserAuth.login,
+      logout: UserAuth.logout,
+      register: UserAuth.register,
       updateState: updateState
     };
-
-    function cacheUserName(userWithEmail) {
-      return Async.promise(cache);
-
-      function cache(deferred) {
-        if (!Url.isUserNameCached()) {
-          _userName = userWithEmail.email.replace(/[|&;$%@"<>()+,#.\[\]]/g, '');
-          Url.cacheUserName(_userName);
-        }
-        deferred.resolve(userWithEmail);
-      }
-    }
-
-    function clearUserName() {
-      _userName = null;
-      Url.cacheUserName(null);
-    }
 
     function create(authUser) {
       return Async.promise(newUser);

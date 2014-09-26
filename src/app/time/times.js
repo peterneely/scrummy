@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['Clock', 'Fn', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['Fn', 'Resource', 'Time', 'viewData'];
 
-  function TimesController(Clock, Fn, Resource, Time, viewData) {
+  function TimesController(Fn, Resource, Time, viewData) {
     console.log(viewData);
 
     var _times = sortTimes();
@@ -45,8 +45,8 @@
     }
 
     function startClock() {
-      if (!Clock.hasStarted()) {
-        Clock.start();
+      if (!Time.hasClockStarted()) {
+        Time.startClock();
       }
     }
 
