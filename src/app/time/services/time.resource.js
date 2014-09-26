@@ -15,8 +15,14 @@
       saveState: saveState,
       startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
+      stopTimer: endNow,
       updateTimes: updateTimes
     };
+
+    function endNow(time) {
+      var now = TimeUtil.format(TimeUtil.now(), Config.dateTimeFormat);
+      Resource.put(Url.time(time.$id), {end: now});
+    }
 
     function saveNewTypes(timeModel) {
       return Async.promise(save);
@@ -35,7 +41,7 @@
       }
     }
 
-    function saveState(model){
+    function saveState(model) {
       return Resource.put(Url.userStateTime(), model);
     }
 
@@ -89,9 +95,8 @@
         }
 
         function stop(activeTimers) {
-          var endTime = TimeUtil.format(TimeUtil.now(), Config.dateTimeFormat);
           activeTimers.forEach(function (activeTimer) {
-            Resource.put(Url.time(activeTimer.$id), {end: endTime});
+            endNow(activeTimer);
           });
         }
       }

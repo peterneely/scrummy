@@ -30,6 +30,7 @@
       startClock: TimeClock.startClock,
       startNewTimer: TimeResource.startNewTimer,
       stopActiveTimers: TimeResource.stopActiveTimers,
+      stopTimer: TimeResource.stopTimer,
       updateTimes: TimeResource.updateTimes,
       whenClockTick: TimeClock.whenClockTick
     };

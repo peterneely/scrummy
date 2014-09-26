@@ -29,6 +29,7 @@
     $scope.editTime = editTime;
     $scope.elapsed = Time.elapsed(_start, end());
     $scope.isActive = isActive;
+    $scope.stopTimer = stopTimer;
     $scope.times = times;
 
     Time.whenClockTick(updateElapsed);
@@ -49,10 +50,14 @@
       return Time.nowNoSeconds();
     }
 
+    function stopTimer() {
+      Time.stopTimer(_item);
+    }
+
     function times() {
       var start = format(_start);
-      var end = isActive() ? '' : format(_end);
-      return start + ' - ' + end;
+      var end = isActive() ? '' : ' - ' + format(_item.time.end);
+      return start + end;
 
       function format(time) {
         return Time.format(time, Config.timeFormat);
