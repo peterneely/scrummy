@@ -10,18 +10,15 @@
     <p class="text-muted">{{ item.client.text }}</p>
   </td>
   <td class="col-xs-2">
+    <button class="btn btn-primary sc-stop" ng-show="isActive()" ng-click="editTime()">
+      <span class="glyphicon glyphicon-off sc-animate"></span>
+      <label>Stop</label>
+    </button>
     <p class="sc-bold" >{{ elapsed }}</p>
-    <!--<button class="btn btn-primary" ng-show="isActive()" ng-click="editTime()">-->
-      <!--<span class="sc-bold">{{ elapsed }}</span>-->
-    <!--</button>-->
     <!--<button class="btn btn-default" ng-click="editTime()">-->
-      <!--<span class="glyphicon glyphicon-pencil"></span>-->
+
     <!--</button>-->
 
     <p class="text-muted">{{ times() }}</p>
-
-    <!--<p>-->
-      <!--<img class="sc-active" ng-show="isActive()" src="/assets/img/clock.gif">-->
-    <!--</p>-->
   </td>
 </tr>

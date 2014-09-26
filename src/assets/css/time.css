@@ -50,9 +50,33 @@
     border-bottom-right-radius: 4px !important;
 }
 
-/*.sc-blink {*/
-    /*animation: blink 1s steps(5, start) infinite;*/
+.sc-stop {
+    margin-bottom: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    width: 100%;
+}
+
+.sc-animate {
+    -webkit-animation: rotateThis 3.5s infinite linear;
+    animation: rotateThis 3.5s infinite linear;
+    font-size: 18px;
+    margin: 5px 5px 0 0;
+}
+
+@-webkit-keyframes rotateThis {
+    from { transform: scale( 1 ) rotate( 0deg );   }
+    to   { transform: scale( 1 ) rotate( 360deg ); }
+}
+
+@keyframes rotateThis {
+    from { transform: scale( 1 ) rotate( 0deg );   }
+    to   { transform: scale( 1 ) rotate( 360deg ); }
+}
+
+/*.sc-animate {*/
     /*-webkit-animation: blink 1s steps(5, start) infinite;*/
+    /*animation: blink 1s steps(5, start) infinite;*/
 /*}*/
 
 /*@keyframes blink {*/
