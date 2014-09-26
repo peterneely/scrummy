@@ -6,12 +6,12 @@
     .module('scrummyApp')
     .directive('time', TimeDirective);
 
-  TimeDirective.$inject = ['TimeForm'];
+  TimeDirective.$inject = ['Time'];
 
-  function TimeDirective(TimeForm) {
+  function TimeDirective(Time) {
 
     return {
-      templateUrl: '/app/time-form/time.directive.html',
+      templateUrl: '/app/time/directives/form.time.html',
       scope: {
         model: '=scModel',
         class: '@scClass',
@@ -23,7 +23,7 @@
 
     function timeLink(scope, element) {
       element.on('blur', function () {
-        scope.model = TimeForm.parseInput(element.val());
+        scope.model = Time.parseInput(element.val());
         scope.$digest();
       });
     }

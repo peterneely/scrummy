@@ -8,7 +8,7 @@
 
   function TimeItemDirective() {
     return {
-      templateUrl: '/app/times/time-item.directive.html',
+      templateUrl: '/app/time/directives/times.time.html',
       scope: {
         data: '=scData',
         item: '=ngModel'
@@ -18,23 +18,23 @@
     };
   }
 
-  TimeItemController.$inject = ['$scope', 'Clock', 'Config', 'TimeForm', 'Util'];
+  TimeItemController.$inject = ['$scope', 'Clock', 'Config', 'Time', 'Fn'];
 
-  function TimeItemController($scope, Clock, Config, TimeForm, Util) {
+  function TimeItemController($scope, Clock, Config, Time, Fn) {
 
     var _item = $scope.item;
     var _start = _item.time.start;
     var _end = _item.time.end;
 
     $scope.editTime = editTime;
-    $scope.elapsed = Util.elapsed(_start, end());
+    $scope.elapsed = Fn.elapsed(_start, end());
     $scope.isActive = isActive;
     $scope.times = times;
 
     Clock.whenTick(updateElapsed);
 
     function editTime() {
-      return TimeForm.open($scope.data, _item);
+      return Time.openForm($scope.data, _item);
     }
 
     function end() {
@@ -46,7 +46,7 @@
     }
 
     function now() {
-      return Util.nowNoSeconds();
+      return Fn.nowNoSeconds();
     }
 
     function times() {
@@ -55,13 +55,13 @@
       return start + ' - ' + end;
 
       function format(time) {
-        return Util.format(time, Config.timeFormat);
+        return Fn.format(time, Config.timeFormat);
       }
     }
 
     function updateElapsed() {
       if (isActive()) {
-        $scope.elapsed = Util.elapsed(_start, now());
+        $scope.elapsed = Fn.elapsed(_start, now());
       }
     }
   }

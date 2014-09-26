@@ -6,20 +6,95 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['Async', 'Config', 'Resource', 'Url', 'Util'];
+  TimeService.$inject = ['$filter', '$modal', 'Async', 'Config', 'Resource', 'Url', 'Fn'];
 
-  function TimeService(Async, Config, Resource, Url, Util) {
+  function TimeService($filter, $modal, Async, Config, Resource, Url, Fn) {
 
     return {
       defaultTime: defaultTime,
       saveNewTypes: saveNewTypes,
       startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
-      updateTimes: updateTimes
+      updateTimes: updateTimes,
+
+      map: map,
+      openForm: openForm,
+      parseDate: parseDate,
+      parseInput: parseInput,
+      parseTime: parseTime
     };
 
     function defaultTime() {
-      return Util.format(Date.now(), Config.timeFormat);
+      return Fn.format(Date.now(), Config.timeFormat);
+    }
+
+    function map(items) {
+      var array = [];
+      items.forEach(function (item) {
+        array.push({
+          id: item.$id,
+          text: item.name
+        });
+      });
+      return $filter('orderBy')(array, 'text');
+    }
+
+    function openForm(data, editData) {
+      $modal.open({
+        templateUrl: '/app/time/form.html',
+        controller: 'TimeForm as tf',
+        resolve: {
+          viewData: function () {
+            return viewData();
+          }
+        }
+      });
+
+      function viewData() {
+        var add = angular.isUndefined(editData);
+        var model = add ? data : Fn.merge(data, editData);
+        model.add = add;
+        return model;
+      }
+    }
+
+    function parseDate(dateTimeString) {
+      return dateTimeString.slice(0, 10);
+    }
+
+    function parseInput(value) {
+      if (noTime(value)) {
+        return value;
+      } else if (invalidTime(value)) {
+        return Time.defaultTime();
+      } else {
+        return formattedTime(value);
+      }
+
+      function formattedTime(value) {
+        var regex = /(?:[^:.,])+/g;
+        var matched;
+        var elements = [];
+        while ((matched = regex.exec(value))) {
+          elements.push(Fn.doubleDigits(matched[0]));
+        }
+        if (elements.length === 1) {
+          elements.push('00');
+        }
+        return elements.join(':');
+      }
+
+      function invalidTime(timeString) {
+        return !timeString.match(/^(?:0?[0-9]|1[0-9]|2[0-3])([:.,][0-5][0-9])?$/);
+      }
+
+      function noTime(value) {
+        return value === '';
+      }
+    }
+
+    function parseTime(dateTimeString) {
+      return dateTimeString.slice(-5);
     }
 
     function saveNewTypes(timeModel) {
@@ -29,7 +104,7 @@
         ['client', 'project', 'task'].forEach(function (type) {
           var time = timeModel[type];
           if (time.id === '') {
-            var url = Url[Util.plural(type)]();
+            var url = Url[Fn.plural(type)]();
             Resource.post(url, {name: time.text}).then(function (ref) {
               timeModel[type].id = ref.name();
             });
@@ -59,7 +134,7 @@
         function dateTime(time, date) {
           return time === '' ?
             '' :
-            Util.format(date, Config.dateFormat) + ' ' + time;
+            Fn.format(date, Config.dateFormat) + ' ' + time;
         }
 
         function end(model) {
@@ -83,13 +158,13 @@
         deferred.resolve(timeModel);
 
         function getActiveTimers() {
-          return Util.where(times, function (time) {
+          return Fn.where(times, function (time) {
             return time.time.end === '';
           });
         }
 
         function stop(activeTimers) {
-          var endTime = Util.format(Util.now(), Config.dateTimeFormat);
+          var endTime = Fn.format(Fn.now(), Config.dateTimeFormat);
           activeTimers.forEach(function (activeTimer) {
             Resource.put(Url.time(activeTimer.$id), {end: endTime});
           });
@@ -98,13 +173,13 @@
     }
 
     function updateTimes(type, id, text) {
-      var singleType = Util.singular(type);
+      var singleType = Fn.singular(type);
       return Resource.getAll(Url.times())
         .then(filter)
         .then(update);
 
       function filter(times) {
-        var filtered = Util.where(times, function (time) {
+        var filtered = Fn.where(times, function (time) {
           return time[singleType].id === id;
         });
         return Async.when(filtered);

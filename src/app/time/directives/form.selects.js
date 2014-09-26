@@ -8,7 +8,7 @@
 
   function SelectsDirective() {
     return {
-      templateUrl: '/app/time-form/selects.directive.html',
+      templateUrl: '/app/time/directives/form.selects.html',
       scope: {
         data: '=scData',
         model: '=ngModel',
@@ -18,16 +18,16 @@
     };
   }
 
-  SelectsController.$inject = ['$scope', 'Util'];
+  SelectsController.$inject = ['$scope', 'Fn'];
 
-  function SelectsController($scope, Util) {
+  function SelectsController($scope, Fn) {
 
     $scope.isBold = isBold;
     $scope.types = ['client', 'project', 'task'];
     $scope.options = selectsOptions();
 
     function isBold(type){
-      return !Util.isEmpty($scope.model[type]);
+      return !Fn.isEmpty($scope.model[type]);
     }
 
     function selectsOptions() {
@@ -40,12 +40,12 @@
       function optionsFor(type) {
         return {
           data: getData(type),
-          placeholder: Util.ucFirst(type),
+          placeholder: Fn.ucFirst(type),
           createSearchChoice: addSelectOption(type)
         };
 
         function getData(type) {
-          return $scope.data[Util.plural(type)];
+          return $scope.data[Fn.plural(type)];
         }
 
         function addSelectOption(type) {

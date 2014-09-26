@@ -34,7 +34,7 @@
     function login() {
       return {
         url: '/login',
-        templateUrl: '/app/auth/login.html',
+        templateUrl: '/app/user/login.html',
         controller: 'Auth as auth'
       };
     }
@@ -42,7 +42,7 @@
     function register() {
       return {
         url: '/register',
-        templateUrl: '/app/auth/register.html',
+        templateUrl: '/app/user/register.html',
         controller: 'Auth as auth'
       };
     }
@@ -63,15 +63,15 @@
     function navTimes() {
       return {
         url: '^/times',
-        templateUrl: '/app/times/times.html',
+        templateUrl: '/app/time/times.html',
         controller: 'Times as ts',
         resolve: {
-          viewData: ['coreData', 'TimeForm', function (coreData, TimeForm) {
+          viewData: ['coreData', 'Time', function (coreData, Time) {
             return {
               user: coreData.user,
-              clients: TimeForm.map(coreData.clients),
-              projects: TimeForm.map(coreData.projects),
-              tasks: TimeForm.map(coreData.tasks),
+              clients: Time.map(coreData.clients),
+              projects: Time.map(coreData.projects),
+              tasks: Time.map(coreData.tasks),
               times: coreData.times,
               type: 'times'
             };

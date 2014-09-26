@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', 'Resource', 'Time', 'TimeForm', 'Url', 'Util', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Resource', 'Time', 'Url', 'Fn', 'viewData'];
 
-  function TimeFormController($modalInstance, Resource, Time, TimeForm, Url, Util, viewData) {
+  function TimeFormController($modalInstance, Resource, Time, Url, Fn, viewData) {
 
     var _add = viewData.add;
     var _edit = !_add;
@@ -24,7 +24,7 @@
       task: {},
       notes: '',
       time: {
-        date: Util.now(),
+        date: Fn.now(),
         start: '',
         end: ''
       }
@@ -38,7 +38,7 @@
     }
 
     function checkToday() {
-      vm.isToday = Util.isToday(vm.timeModel.time.date);
+      vm.isToday = Fn.isToday(vm.timeModel.time.date);
     }
 
     function fillForm() {
@@ -49,9 +49,9 @@
 
       function fillOtherFields() {
         vm.timeModel.notes = viewData.notes;
-        vm.timeModel.time.date = TimeForm.parseDate(viewData.time.start);
-        vm.timeModel.time.start = TimeForm.parseTime(viewData.time.start);
-        vm.timeModel.time.end = TimeForm.parseTime(viewData.time.end);
+        vm.timeModel.time.date = Time.parseDate(viewData.time.start);
+        vm.timeModel.time.start = Time.parseTime(viewData.time.start);
+        vm.timeModel.time.end = Time.parseTime(viewData.time.end);
       }
 
       function fillSelects() {
@@ -65,10 +65,10 @@
         }
 
         function defaultValue(type) {
-          return Util.has(savedState, type) ? savedState[type] : first();
+          return Fn.has(savedState, type) ? savedState[type] : first();
 
           function first() {
-            return viewData[Util.plural(type)][0];
+            return viewData[Fn.plural(type)][0];
           }
         }
       }
