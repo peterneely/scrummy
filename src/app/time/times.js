@@ -51,7 +51,11 @@
     }
 
     function times(week, day) {
-      return Fn.sortDesc(_times[week][day]);
+      return Fn.sortDescBy(_times[week][day], by);
+
+      function by(item){
+        return item.time.start;
+      }
     }
 
     function watchTimes() {

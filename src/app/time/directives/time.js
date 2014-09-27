@@ -8,7 +8,7 @@
 
   function TimeItemDirective() {
     return {
-      templateUrl: '/app/time/directives/times.time.html',
+      templateUrl: '/app/time/directives/time.html',
       scope: {
         data: '=scData',
         item: '=ngModel'

@@ -33,6 +33,10 @@
     opacity: 50;
 }
 
+.sc-clickable {
+    cursor: pointer;
+}
+
 .sc-time-table {
     border-top: 1px solid #DDDDDD;
 }

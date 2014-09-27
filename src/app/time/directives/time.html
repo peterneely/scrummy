@@ -1,6 +1,6 @@
 <tr>
   <td class="col-xs-8 col-sm-10">
-    <h4 class="sc-bold">{{ item.task.text }}</h4>
+    <h4 class="sc-clickable sc-bold" ng-click="editTime()">{{ item.task.text }}</h4>
     <p class="">{{ item.project.text }} ({{ item.client.text }})</p>
     <p class="text-muted">{{ item.notes }}</p>
   </td>
@@ -9,8 +9,8 @@
       <span class="glyphicon glyphicon-off sc-animate"></span>
       <label>Stop</label>
     </button>
-    <h4 class="sc-bold">{{ elapsed }}</h4>
+    <h4 class="sc-clickable sc-bold" ng-click="editTime()">{{ elapsed }}</h4>
 
-    <p class="">{{ startTime() }} - {{ endTime() }}</p>
+    <p class="sc-clickable" ng-click="editTime()">{{ startTime() }} - {{ endTime() }}</p>
   </td>
 </tr>

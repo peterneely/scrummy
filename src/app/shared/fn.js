@@ -20,6 +20,7 @@
       plural: plural,
       singular: singular,
       sortDesc: sortDesc,
+      sortDescBy: sortDescBy,
       ucFirst: ucFirst,
       where: where
     };
@@ -67,6 +68,10 @@
 
     function sortDesc(array){
       return _.sortBy(array).reverse();
+    }
+
+    function sortDescBy(array, by){
+      return _.sortBy(array, by).reverse();
     }
 
     function ucFirst(value) {
