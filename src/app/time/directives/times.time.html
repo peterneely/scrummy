@@ -1,25 +1,16 @@
 <tr>
-  <td class="col-xs-7">
-    <p class="sc-bold">{{ item.task.text }}</p>
-
+  <td class="col-xs-8 col-sm-10">
+    <h4 class="sc-bold">{{ item.task.text }}</h4>
+    <p class="">{{ item.project.text }} ({{ item.client.text }})</p>
     <p class="text-muted">{{ item.notes }}</p>
   </td>
-  <td class="col-xs-3">
-    <p class="sc-bold text-primary">{{ item.project.text }}</p>
+  <td class="col-xs-4 col-sm-2">
+    <button class="btn btn-primary sc-stop" ng-show="isActive()" ng-click="stopTimer()">
+      <span class="glyphicon glyphicon-off sc-animate"></span>
+      <label>Stop</label>
+    </button>
+    <h4 class="sc-bold">{{ elapsed }}</h4>
 
-    <p class="text-muted">{{ item.client.text }}</p>
-  </td>
-  <td class="col-xs-2">
-    <a ng-href="" ng-click="editTime()">
-      <button class="btn btn-primary sc-stop" ng-show="isActive()" ng-click="stopTimer()">
-        <span class="glyphicon glyphicon-off sc-animate"></span>
-        <label>Stop</label>
-      </button>
-      <p class="sc-bold">{{ elapsed }}</p>
-
-      <p class="text-muted">{{ startTime() }}</p>
-
-      <p class="text-muted">{{ endTime() }}</p>
-    </a>
+    <p class="">{{ startTime() }} - {{ endTime() }}</p>
   </td>
 </tr>

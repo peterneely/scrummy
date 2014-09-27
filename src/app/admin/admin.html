@@ -37,7 +37,7 @@
         <i class="glyphicon glyphicon-minus-sign"></i>
       </button>
     </span>
-    <input type="text" class="form-control" ng-model="item.name" ng-change="admin.update(item)">
+    <input type="text" class="form-control sc-bold" ng-model="item.name" ng-change="admin.update(item)">
     <span class="input-group-btn" ng-if="admin.hasTimes(item)">
       <button class="btn btn-default" type="button">
         <span class="badge">{{ admin.timesCount(item) }}</span>

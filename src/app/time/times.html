@@ -1,26 +1,26 @@
-<div class="col-xs-12">
-  <div class="row">
+<section class="row">
+  <div class="col-xs-12">
+    <div class="row">
 
-    <div class="sc-header col-xs-2 no-padding-left">
-      <button class="btn btn-primary btn-lg" ng-click="ts.addTime()">
-        <span class="glyphicon glyphicon-plus"></span>
-      </button>
+      <div class="sc-header col-xs-2 no-padding-left">
+        <button class="btn btn-primary btn-lg" ng-click="ts.addTime()">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="panel panel-default" ng-repeat="week in ts.weeks()">
+      <table class="table sc-time-table" ng-repeat="day in ts.days(week)">
+        <thead class="bg-default">
+        <tr>
+          <td class="text-primary">{{ ts.dayTitle(day) }}</td>
+          <td class="text-subdued"></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr time-item ng-repeat="time in ts.times(week, day)" ng-model="time" sc-data="ts.viewData"></tr>
+        </tbody>
+      </table>
     </div>
   </div>
-
-  <div class="panel panel-default" ng-repeat="week in ts.weeks()">
-    <table class="table sc-time-table" ng-repeat="day in ts.days(week)">
-      <thead class="bg-default">
-      <tr>
-        <td class="text-primary">{{ ts.dayTitle(day) }}</td>
-        <td class="text-subdued col-xs-1"></td>
-        <td class="text-subdued">Total</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr time-item ng-repeat="time in ts.times(week, day)" ng-model="time" sc-data="ts.viewData"></tr>
-      </tbody>
-    </table>
-  </div>
-
-</div>
+</section>
