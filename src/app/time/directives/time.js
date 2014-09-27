@@ -56,7 +56,7 @@
     }
 
     function now() {
-      return Time.nowNoSeconds();
+      return Time.now();
     }
 
     function stopTimer() {

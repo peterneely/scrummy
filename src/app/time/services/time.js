@@ -19,7 +19,6 @@
       isToday: TimeUtil.isToday,
       map: map,
       now: TimeUtil.now,
-      nowNoSeconds: TimeUtil.nowNoSeconds,
       openForm: openForm,
       parseDate: TimeUtil.parseDate,
       parseInput: TimeUtil.parseInput,
@@ -30,7 +29,7 @@
       startClock: TimeClock.startClock,
       startNewTimer: TimeResource.startNewTimer,
       stopActiveTimers: TimeResource.stopActiveTimers,
-      stopTimer: TimeResource.stopTimer,
+      stopTimer: stopTimer,
       updateTimes: TimeResource.updateTimes,
       whenClockTick: TimeClock.whenClockTick
     };
@@ -63,6 +62,11 @@
         model.add = add;
         return model;
       }
+    }
+
+    function stopTimer(item){
+      TimeResource.stopTimer(item);
+      TimeClock.stopClock();
     }
   }
 

@@ -17,7 +17,6 @@
       format: formatDate,
       isToday: isToday,
       now: now,
-      nowNoSeconds: nowNoSeconds,
       parseDate: parseDate,
       parseInput: parseInput,
       parseTime: parseTime,
@@ -33,6 +32,7 @@
     }
 
     function elapsed(start, end) {
+      console.log(start, end);
       var ms = $moment(end).diff($moment(start));
       return $moment(ms).format('H') + $moment(ms).format(':mm');
     }
@@ -49,9 +49,6 @@
       return new Date();
     }
 
-    function nowNoSeconds(){
-      return new Date().setSeconds(0);
-    }
     function parseDate(dateTimeString) {
       return dateTimeString.slice(0, 10);
     }

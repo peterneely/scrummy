@@ -20,7 +20,8 @@
     };
 
     function endNow(time) {
-      var now = TimeUtil.format(TimeUtil.now(), Config.dateTimeFormat);
+      var now = TimeUtil.format(TimeUtil.now(), Config.dateTimeSecondsFormat);
+      console.log(now);
       Resource.put(Url.time(time.$id), {end: now});
     }
 
@@ -63,13 +64,13 @@
         });
 
         function dateTime(time, date) {
-          return time === '' ?
-            '' :
-            TimeUtil.format(date, Config.dateFormat) + ' ' + time;
+          var seconds = Fn.doubleDigits(TimeUtil.now().getSeconds());
+          return TimeUtil.format(date, Config.dateFormat) + ' ' + time + ':' + seconds;
         }
 
         function end(model) {
-          return dateTime(model.end, model.date);
+          var endDate = model.end;
+          return endDate === '' ? '' : dateTime(endDate, model.date);
         }
 
         function start(model) {
