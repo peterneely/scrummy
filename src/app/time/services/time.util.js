@@ -14,7 +14,7 @@
       dayTitle: dayTitle,
       defaultTime: defaultTime,
       elapsed: elapsed,
-      format: formatDate,
+      format: formatDateTime,
       isToday: isToday,
       now: now,
       parseDate: parseDate,
@@ -29,7 +29,7 @@
     }
 
     function defaultTime() {
-      return formatDate(Date.now(), Config.timeFormat);
+      return formatDateTime(Date.now(), Config.timeFormat);
     }
 
     function elapsed(start, end) {
@@ -37,8 +37,8 @@
       return $moment(ms).format('H') + $moment(ms).format(':mm');
     }
 
-    function formatDate(date, format) {
-      return $moment(date).format(format);
+    function formatDateTime(date, format) {
+      return date === '' ? '' : $moment(date).format(format);
     }
 
     function isToday(date) {
@@ -50,7 +50,7 @@
     }
 
     function parseDate(dateTimeString) {
-      return dateTimeString.slice(0, 10);
+      return formatDateTime(dateTimeString, Config.dateFormat);
     }
 
     function parseInput(value) {
@@ -85,11 +85,11 @@
     }
 
     function parseSeconds(stringDateTime){
-      return formatDate(stringDateTime, Config.seconds);
+      return formatDateTime(stringDateTime, Config.seconds);
     }
 
     function parseTime(dateTimeString) {
-      return dateTimeString.slice(-5);
+      return formatDateTime(dateTimeString, Config.timeFormat);
     }
 
     function sort(times) {
@@ -98,7 +98,7 @@
       function byDay(time) {
         var date = time.time.start;
         var dayNumber = Fn.doubleDigits(isoWeekDay(date));
-        var dayString = formatDate(date, Config.dayTitleFormat);
+        var dayString = formatDateTime(date, Config.dayTitleFormat);
         return dayNumber + ':' + dayString;
 
         function isoWeekDay(date) {
@@ -108,7 +108,7 @@
 
       function byWeek(time) {
         var date = time.time.start;
-        var year = formatDate(date, 'YYYY');
+        var year = formatDateTime(date, 'YYYY');
         var week = Fn.doubleDigits(isoWeek(date));
         return year + '_' + week;
 
