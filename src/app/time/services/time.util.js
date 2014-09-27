@@ -19,6 +19,7 @@
       now: now,
       parseDate: parseDate,
       parseInput: parseInput,
+      parseSeconds: parseSeconds,
       parseTime: parseTime,
       sort: sort
     };
@@ -32,7 +33,6 @@
     }
 
     function elapsed(start, end) {
-      console.log(start, end);
       var ms = $moment(end).diff($moment(start));
       return $moment(ms).format('H') + $moment(ms).format(':mm');
     }
@@ -82,6 +82,10 @@
       function noTime(value) {
         return value === '';
       }
+    }
+
+    function parseSeconds(stringDateTime){
+      return formatDate(stringDateTime, Config.seconds);
     }
 
     function parseTime(dateTimeString) {

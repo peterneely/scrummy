@@ -6,36 +6,53 @@
     .module('scrummyApp')
     .factory('TimeClock', TimeClockService);
 
-  TimeClockService.$inject = ['$interval', '$rootScope'];
+  TimeClockService.$inject = ['$interval', '$rootScope', 'TimeUtil'];
 
-  function TimeClockService($interval, $rootScope) {
+  function TimeClockService($interval, $rootScope, TimeUtil) {
     var _clock = null;
-    var _started = false;
+    var _clockJustStarted = false;
     var _tickEvent = 'tick';
 
     return {
-      hasClockStarted: hasClockStarted,
       startClock: startClock,
       stopClock: stopClock,
       whenClockTick: whenClockTick
     };
 
-    function hasClockStarted() {
-      return _started;
+    function clockStarted() {
+      return _clock !== null;
     }
 
-    function startClock() {
-      _started = true;
-      _clock = $interval(tick, 60000);
+    function startClock(startTime) {
+      if (!clockStarted()) {
+        var seconds = parseInt(TimeUtil.parseSeconds(startTime));
+        var counter = resetCounter();
+        _clockJustStarted = true;
+        _clock = $interval(tick, 1000);
+      }
+
+      function resetCounter(){
+        return TimeUtil.now().getSeconds();
+      }
 
       function tick() {
-        $rootScope.$emit(_tickEvent);
+        console.log(counter, seconds);
+        if(counter === seconds && !_clockJustStarted) {
+          console.log('tick');
+          $rootScope.$emit(_tickEvent);
+        }
+        _clockJustStarted = false;
+        counter++;
+        if(counter === 60){
+          counter = resetCounter();
+        }
       }
     }
 
     function stopClock() {
-      if (_clock) {
+      if (clockStarted()) {
         $interval.cancel(_clock);
+        _clock = null;
       }
     }
 

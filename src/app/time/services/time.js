@@ -15,7 +15,6 @@
       defaultTime: TimeUtil.defaultTime,
       elapsed: TimeUtil.elapsed,
       format: TimeUtil.format,
-      hasClockStarted: TimeClock.hasClockStarted,
       isToday: TimeUtil.isToday,
       map: map,
       now: TimeUtil.now,

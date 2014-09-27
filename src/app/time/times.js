@@ -13,7 +13,6 @@
 
     var _times = sortTimes();
 
-    startClock();
     watchTimes();
 
     var vm = this;
@@ -42,12 +41,6 @@
 
     function sortTimes(){
       return Time.sort(viewData.times);
-    }
-
-    function startClock() {
-      if (!Time.hasClockStarted()) {
-        Time.startClock();
-      }
     }
 
     function times(week, day) {

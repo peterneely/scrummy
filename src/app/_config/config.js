@@ -16,6 +16,7 @@
       dateTimeFormat: 'YYYY-MM-DD HH:mm',
       dateTimeSecondsFormat: 'YYYY-MM-DD HH:mm:ss',
       dayTitleFormat: 'ddd, DD MMM YYYY',
+      seconds: 's',
       timeFormat: 'HH:mm'
     };
   }

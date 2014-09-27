@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('TimeResource', TimeResourceService);
 
-  TimeResourceService.$inject = ['Async', 'Config', 'Fn', 'Resource', 'TimeUtil', 'Url'];
+  TimeResourceService.$inject = ['Async', 'Config', 'Fn', 'Resource', 'TimeClock', 'TimeUtil', 'Url'];
 
-  function TimeResourceService(Async, Config, Fn, Resource, TimeUtil, Url) {
+  function TimeResourceService(Async, Config, Fn, Resource, TimeClock, TimeUtil, Url) {
 
     return {
       saveNewTypes: saveNewTypes,
@@ -21,7 +21,6 @@
 
     function endNow(time) {
       var now = TimeUtil.format(TimeUtil.now(), Config.dateTimeSecondsFormat);
-      console.log(now);
       Resource.put(Url.time(time.$id), {end: now});
     }
 
@@ -55,6 +54,7 @@
           start: start(timeModel.time),
           end: end(timeModel.time)
         };
+        TimeClock.startClock(timeModel.time.start);
         Resource.post(Url.times(), timeModel).then(function () {
           deferred.resolve({
             client: timeModel.client,
@@ -99,6 +99,7 @@
           activeTimers.forEach(function (activeTimer) {
             endNow(activeTimer);
           });
+          TimeClock.stopClock();
         }
       }
     }
@@ -111,14 +112,12 @@
 
       function filter(times) {
         var filtered = Fn.where(times, function (time) {
-          console.log(singleType, time, id);
           return time[singleType].id === id;
         });
         return Async.when(filtered);
       }
 
       function update(filteredTimes) {
-        console.log(filteredTimes);
         filteredTimes.forEach(function (filteredTime) {
           var url = Url.timeType(filteredTime.$id, singleType);
           Resource.put(url, {text: text});

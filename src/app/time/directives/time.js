@@ -33,6 +33,8 @@
     $scope.stopTimer = stopTimer;
     $scope.startTime = startTime;
 
+    startClock();
+
     Time.whenClockTick(updateElapsed);
 
     function editTime() {
@@ -57,6 +59,12 @@
 
     function now() {
       return Time.now();
+    }
+
+    function startClock() {
+      if (isActive()) {
+        Time.startClock(_start);
+      }
     }
 
     function stopTimer() {
