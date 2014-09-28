@@ -15,9 +15,7 @@
     var _edit = !_add;
     var _date = initialDate();
 
-    viewData.updated = {
-      time: {}
-    };
+    viewData.updated = { time: {} };
 
     var vm = this;
     vm.add = _add;
@@ -51,13 +49,13 @@
       isToday();
       isDateUpdated();
 
-      function isToday(){
+      function isToday() {
         vm.isToday = Time.isToday(vm.timeModel.time.date);
       }
 
-      function isDateUpdated(){
+      function isDateUpdated() {
         var date = vm.timeModel.time.date;
-        if(date !== _date) {
+        if (date !== _date) {
           viewData.updated.time.date = date;
         }
       }
@@ -101,7 +99,7 @@
       }
     }
 
-    function initialDate(){
+    function initialDate() {
       var start = viewData.time.start;
       return Time.format(start, Config.dateFormat);
     }
@@ -132,18 +130,17 @@
 
       console.log(viewData.updated);
 
+      Time.saveNewTypes(vm.timeModel)
+        .then(updateTimer)
+        .then(saveState);
 
-//      Time.saveNewTypes(vm.timeModel)
-//        .then(updateTimer)
-//        .then(saveState);
-//
-//      function updateTimer(timeModel) {
-//        return Time.updateTimer(timeModel);
-//      }
-//
-//      function saveState(stateModel) {
-//        return Time.saveState(stateModel);
-//      }
+      function updateTimer(timeModel) {
+        return Time.updateTimer(timeModel);
+      }
+
+      function saveState(stateModel) {
+        return Time.saveState(stateModel);
+      }
     }
   }
 
