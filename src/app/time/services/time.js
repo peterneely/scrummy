@@ -30,6 +30,7 @@
       startNewTimer: TimeResource.startNewTimer,
       stopActiveTimers: TimeResource.stopActiveTimers,
       stopTimer: TimeForm.stopTimer,
+      updateTimer: TimeResource.updateTimer,
       updateTimes: TimeResource.updateTimes
     };
   }

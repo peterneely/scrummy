@@ -6,17 +6,24 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', 'Fn', 'Time', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Config', 'Fn', 'Time', 'viewData'];
 
-  function TimeFormController($modalInstance, Fn, Time, viewData) {
+  function TimeFormController($modalInstance, Config, Fn, Time, viewData) {
+
 
     var _add = viewData.add;
     var _edit = !_add;
+    var _date = initialDate();
+
+    viewData.updated = {
+      time: {}
+    };
 
     var vm = this;
     vm.add = _add;
     vm.cancel = cancel;
-    vm.checkToday = checkToday;
+    vm.changeDate = changeDate;
+    vm.changeNotes = changeNotes;
     vm.isToday = true;
     vm.start = startTimer;
     vm.timeModel = {
@@ -40,8 +47,24 @@
       $modalInstance.dismiss();
     }
 
-    function checkToday() {
-      vm.isToday = Time.isToday(vm.timeModel.time.date);
+    function changeDate() {
+      isToday();
+      isDateUpdated();
+
+      function isToday(){
+        vm.isToday = Time.isToday(vm.timeModel.time.date);
+      }
+
+      function isDateUpdated(){
+        var date = vm.timeModel.time.date;
+        if(date !== _date) {
+          viewData.updated.time.date = date;
+        }
+      }
+    }
+
+    function changeNotes() {
+      viewData.updated.notes = vm.timeModel.notes;
     }
 
     function fillForm() {
@@ -78,6 +101,11 @@
       }
     }
 
+    function initialDate(){
+      var start = viewData.time.start;
+      return Time.format(start, Config.dateFormat);
+    }
+
     function startTimer() {
       $modalInstance.close();
 
@@ -102,22 +130,20 @@
     function updateTimer() {
       $modalInstance.close();
 
+      console.log(viewData.updated);
+
+
 //      Time.saveNewTypes(vm.timeModel)
-//        .then(stopActiveTimers)
-//        .then(startNewTimer)
+//        .then(updateTimer)
 //        .then(saveState);
-
-      function stopActiveTimers(timeModel) {
-        return Time.stopActiveTimers(timeModel, viewData.times);
-      }
-
-      function startNewTimer(timeModel) {
-        return Time.startNewTimer(timeModel);
-      }
-
-      function saveState(stateModel) {
-        return Time.saveState(stateModel);
-      }
+//
+//      function updateTimer(timeModel) {
+//        return Time.updateTimer(timeModel);
+//      }
+//
+//      function saveState(stateModel) {
+//        return Time.saveState(stateModel);
+//      }
     }
   }
 

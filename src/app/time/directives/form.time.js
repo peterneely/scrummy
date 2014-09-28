@@ -15,17 +15,29 @@
       scope: {
         model: '=scModel',
         class: '@scClass',
-        placeholder: '@scPlaceholder'
+        placeholder: '@scPlaceholder',
+        update: '=scUpdate'
       },
       link: timeLink,
       replace: true
     };
 
     function timeLink(scope, element) {
-      element.on('blur', function () {
-        scope.model = Time.parseInput(element.val());
+      element.on('blur', parseTime);
+      element.on('change', update);
+
+      function formattedTime(){
+        return Time.parseInput(element.val());
+      }
+
+      function parseTime() {
+        scope.model = formattedTime();
         scope.$digest();
-      });
+      }
+
+      function update() {
+        scope.update = formattedTime();
+      }
     }
   }
 

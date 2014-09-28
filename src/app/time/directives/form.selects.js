@@ -25,8 +25,13 @@
     $scope.isBold = isBold;
     $scope.types = ['client', 'project', 'task'];
     $scope.options = selectsOptions();
+    $scope.updated = updated;
 
-    function isBold(type){
+    function updated(type) {
+      $scope.data.updated[type] = $scope.model[type];
+    }
+
+    function isBold(type) {
       return !Fn.isEmpty($scope.model[type]);
     }
 

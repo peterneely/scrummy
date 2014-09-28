@@ -6,14 +6,15 @@
     .module('scrummyApp')
     .factory('UserAuth', UserAuthService);
 
-  UserAuthService.$inject = ['$firebaseSimpleLogin', 'Config', 'Firebase', 'UserUtil'];
+  UserAuthService.$inject = ['$firebaseSimpleLogin', 'Async', 'Config', 'Firebase', 'State', 'UserUtil'];
 
-  function UserAuthService($firebaseSimpleLogin, Config, Firebase, UserUtil) {
+  function UserAuthService($firebaseSimpleLogin, Async, Config, Firebase, State, UserUtil) {
 
     var _provider = getAuthProvider();
 
     return {
       get: get,
+      getAuthStatus: getAuthStatus,
       login: login,
       logout: logout,
       register: register
@@ -27,6 +28,19 @@
       return _provider.$getCurrentUser();
     }
 
+    function getAuthStatus(authUser) {
+      if (authUser) {
+        return Async.when(authUser);
+      } else {
+        return Async.promise(login);
+      }
+
+      function login(deferred) {
+        State.go('login');
+        deferred.reject();
+      }
+    }
+
     function login(user) {
       return _provider.$login('password', user);
     }
@@ -36,7 +50,7 @@
       UserUtil.clearUserName();
     }
 
-    function register(formUser){
+    function register(formUser) {
       return _provider.$createUser(formUser.email, formUser.password);
     }
   }

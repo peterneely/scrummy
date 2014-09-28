@@ -16,6 +16,7 @@
       startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
       stopTimer: endNow,
+      updateTimer: updateTimer,
       updateTimes: updateTimes
     };
 
@@ -101,6 +102,14 @@
           });
           TimeClock.stopClock();
         }
+      }
+    }
+
+    function updateTimer() {
+      return Async.promise(update);
+
+      function update(deferred) {
+
       }
     }
 

@@ -16,6 +16,7 @@
       clearUserName: UserUtil.clearUserName,
       create: create,
       get: get,
+      getAuthStatus: UserAuth.getAuthStatus,
       getAuthUser: UserAuth.get,
       login: UserAuth.login,
       logout: UserAuth.logout,
