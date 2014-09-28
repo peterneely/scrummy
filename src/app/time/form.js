@@ -14,6 +14,7 @@
     var _edit = !_add;
 
     var vm = this;
+    vm.add = _add;
     vm.cancel = cancel;
     vm.checkToday = checkToday;
     vm.isToday = true;
@@ -29,6 +30,8 @@
         end: ''
       }
     };
+    vm.title = _add ? 'New Time Entry' : 'Update Time Entry';
+    vm.update = updateTimer;
     vm.viewData = viewData;
 
     fillForm();
@@ -95,7 +98,27 @@
         return Time.saveState(stateModel);
       }
     }
+
+    function updateTimer() {
+      $modalInstance.close();
+
+//      Time.saveNewTypes(vm.timeModel)
+//        .then(stopActiveTimers)
+//        .then(startNewTimer)
+//        .then(saveState);
+
+      function stopActiveTimers(timeModel) {
+        return Time.stopActiveTimers(timeModel, viewData.times);
+      }
+
+      function startNewTimer(timeModel) {
+        return Time.startNewTimer(timeModel);
+      }
+
+      function saveState(stateModel) {
+        return Time.saveState(stateModel);
+      }
+    }
   }
 
-})
-();
+})();

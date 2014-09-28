@@ -9,56 +9,68 @@
   TimeClockService.$inject = ['$interval', '$rootScope', 'TimeUtil'];
 
   function TimeClockService($interval, $rootScope, TimeUtil) {
-    var _clock = null;
-    var _clockJustStarted = false;
-    var _tickEvent = 'tick';
+    var _time = {};
+    var _clock = {
+      instance: null,
+      justStarted: false,
+      alarm: 'alarm'
+    };
 
     return {
       startClock: startClock,
       stopClock: stopClock,
-      whenClockTick: whenClockTick
+      onClockAlarm: onClockAlarm
     };
 
-    function clockStarted() {
-      return _clock !== null;
-    }
-
     function startClock(startTime) {
-      if (!clockStarted()) {
-        var seconds = parseInt(TimeUtil.parseSeconds(startTime));
-        var counter = resetCounter();
-        _clockJustStarted = true;
-        _clock = $interval(tick, 1000);
+      if (!started()) {
+        start();
       }
 
-      function resetCounter(){
+      function getSeconds() {
         return TimeUtil.now().getSeconds();
       }
 
+      function start() {
+        _time.seconds = parseInt(TimeUtil.parseSeconds(startTime));
+        _clock.seconds = getSeconds();
+        _clock.justStarted = true;
+        _clock.instance = $interval(tick, 1000);
+      }
+
       function tick() {
-        console.log(counter, seconds);
-        if(counter === seconds && !_clockJustStarted) {
-          console.log('tick');
-          $rootScope.$emit(_tickEvent);
+        checkAlarm();
+        incrementSeconds();
+
+        function checkAlarm() {
+          if (_clock.seconds === _time.seconds && !_clock.justStarted) {
+            $rootScope.$emit(_clock.alarm);
+          }
+          _clock.justStarted = false;
         }
-        _clockJustStarted = false;
-        counter++;
-        if(counter === 60){
-          counter = resetCounter();
+
+        function incrementSeconds() {
+          _clock.seconds++;
+          if (_clock.seconds === 60) {
+            _clock.seconds = getSeconds();
+          }
         }
       }
+    }
+
+    function started() {
+      return _clock.instance !== null;
     }
 
     function stopClock() {
-      if (clockStarted()) {
-        $interval.cancel(_clock);
-        _clock = null;
+      if (started()) {
+        $interval.cancel(_clock.instance);
+        _clock.instance = null;
       }
     }
 
-    function whenClockTick(callback) {
-      $rootScope.$on(_tickEvent, function (event) {
-        event.stopPropagation();
+    function onClockAlarm(callback) {
+      $rootScope.$on(_clock.alarm, function () {
         callback();
       });
     }

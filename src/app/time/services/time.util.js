@@ -42,7 +42,7 @@
     }
 
     function isToday(date) {
-      return $moment(date).isSame($moment(new Date()), 'day');
+      return $moment(date).isSame($moment(now()), 'day');
     }
 
     function now() {

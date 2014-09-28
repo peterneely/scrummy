@@ -1,35 +1,36 @@
 <div class="panel-default">
 
   <section class="panel-heading">
-    <h1 class="panel-title">New Time Entry</h1>
+    <h1 class="panel-title">{{ f.title }}</h1>
   </section>
 
   <form role="form" name="timeEntry" novalidate="">
     <section class="panel-body">
-      <div selects sc-data="tf.viewData" ng-model="tf.timeModel" sc-class="form-control"></div>
+      <div selects sc-data="f.viewData" ng-model="f.timeModel" sc-class="form-control"></div>
 
       <div class="form-group">
         <textarea class="form-control" rows="3" placeholder="Notes (optional)"
-                  ng-model="tf.timeModel.notes"></textarea>
+                  ng-model="f.timeModel.notes"></textarea>
       </div>
 
       <div class="form-group form-inline">
         <div time sc-class="form-control sc-form-control sc-small form-inline"
-             sc-placeholder="Start Time" sc-model="tf.timeModel.time.start" ng-required="!tf.isToday"></div>
+             sc-placeholder="Start Time" sc-model="f.timeModel.time.start" ng-required="!f.isToday"></div>
         <span class="sc-form-control">to</span>
 
         <div time sc-class="form-control sc-form-control sc-small"
-             sc-placeholder="End Time" sc-model="tf.timeModel.time.end" ng-required="!tf.isToday"></div>
+             sc-placeholder="End Time" sc-model="f.timeModel.time.end" ng-required="!f.isToday"></div>
         <span class="sc-form-control">on</span>
 
-        <div date ng-model="tf.timeModel.time.date" ng-change="tf.checkToday()"></div>
+        <div date ng-model="f.timeModel.time.date" ng-change="f.checkToday()"></div>
       </div>
     </section>
 
     <section class="panel-footer">
       <div class="form-group form-inline">
-        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeEntry.$valid && tf.start()">Start Timer</button>
-        <button class="btn btn-default sc-form-control sc-medium" ng-click="tf.cancel()">Cancel</button>
+        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeEntry.$valid && f.start()" ng-show="f.add">Start Timer</button>
+        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeEntry.$valid && f.update()" ng-hide="f.add">Update</button>
+        <button class="btn btn-default sc-form-control sc-medium" ng-click="f.cancel()">Cancel</button>
       </div>
     </section>
   </form>

@@ -10,7 +10,7 @@
     </div>
 
     <div class="panel panel-default" ng-repeat="week in ts.weeks()">
-      <table class="table sc-time-table" ng-repeat="day in ts.days(week)">
+      <table class="table table-hover sc-time-table" ng-repeat="day in ts.days(week)">
         <thead class="bg-default">
         <tr>
           <td class="text-primary">{{ ts.dayTitle(day) }}</td>

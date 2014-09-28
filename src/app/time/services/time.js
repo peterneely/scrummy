@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['$filter', '$modal', 'Fn', 'TimeClock', 'TimeResource', 'TimeUtil'];
+  TimeService.$inject = ['TimeClock', 'TimeForm', 'TimeResource', 'TimeUtil'];
 
-  function TimeService($filter, $modal, Fn, TimeClock, TimeResource, TimeUtil) {
+  function TimeService(TimeClock, TimeForm, TimeResource, TimeUtil) {
 
     return {
       dayTitle: TimeUtil.dayTitle,
@@ -16,9 +16,10 @@
       elapsed: TimeUtil.elapsed,
       format: TimeUtil.format,
       isToday: TimeUtil.isToday,
-      map: map,
+      map: TimeForm.map,
       now: TimeUtil.now,
-      openForm: openForm,
+      onClockAlarm: TimeClock.onClockAlarm,
+      openForm: TimeForm.openForm,
       parseDate: TimeUtil.parseDate,
       parseInput: TimeUtil.parseInput,
       parseTime: TimeUtil.parseTime,
@@ -28,45 +29,9 @@
       startClock: TimeClock.startClock,
       startNewTimer: TimeResource.startNewTimer,
       stopActiveTimers: TimeResource.stopActiveTimers,
-      stopTimer: stopTimer,
-      updateTimes: TimeResource.updateTimes,
-      whenClockTick: TimeClock.whenClockTick
+      stopTimer: TimeForm.stopTimer,
+      updateTimes: TimeResource.updateTimes
     };
-
-    function map(items) {
-      var array = [];
-      items.forEach(function (item) {
-        array.push({
-          id: item.$id,
-          text: item.name
-        });
-      });
-      return $filter('orderBy')(array, 'text');
-    }
-
-    function openForm(data, editData) {
-      $modal.open({
-        templateUrl: '/app/time/form.html',
-        controller: 'TimeForm as tf',
-        resolve: {
-          viewData: function () {
-            return viewData();
-          }
-        }
-      });
-
-      function viewData() {
-        var add = angular.isUndefined(editData);
-        var model = add ? data : Fn.merge(data, editData);
-        model.add = add;
-        return model;
-      }
-    }
-
-    function stopTimer(item){
-      TimeResource.stopTimer(item);
-      TimeClock.stopClock();
-    }
   }
 
 })();

@@ -29,16 +29,20 @@
     $scope.editTime = editTime;
     $scope.elapsed = Time.elapsed(_start, end());
     $scope.endTime = endTime;
+    $scope.event = {};
     $scope.isActive = isActive;
     $scope.stopTimer = stopTimer;
     $scope.startTime = startTime;
 
     startClock();
 
-    Time.whenClockTick(updateElapsed);
+    Time.onClockAlarm(updateElapsed);
 
     function editTime() {
-      return Time.openForm($scope.data, _item);
+      if (!$scope.event.selectingText && !$scope.event.stopTimer) {
+        return Time.openForm($scope.data, _item);
+      }
+      $scope.event.stopTimer = false;
     }
 
     function end() {
@@ -68,6 +72,7 @@
     }
 
     function stopTimer() {
+      $scope.event.stopTimer = true;
       Time.stopTimer(_item);
     }
 
