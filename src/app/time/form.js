@@ -126,6 +126,9 @@
     }
 
     function updateTimer() {
+
+      //validate date fields (end is greater than start): http://stackoverflow.com/questions/16885382/how-can-i-force-an-angular-validation-directive-to-run
+
       $modalInstance.close();
 
       console.log(viewData.updated);

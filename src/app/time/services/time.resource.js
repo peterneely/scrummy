@@ -105,11 +105,40 @@
       }
     }
 
-    function updateTimer() {
+    function updateTimer(timeModel) {
       return Async.promise(update);
 
       function update(deferred) {
+        // Has date changed?
+        // Has start time changed?
+        // If not, then don't update. Otherwise, update with seconds = 0
 
+        timeModel.time = {
+          date: timeModel.time.date,
+          start: start(timeModel.time),
+          end: end(timeModel.time)
+        };
+        TimeClock.startClock(timeModel.time.start);
+        Resource.post(Url.times(), timeModel).then(function () {
+          deferred.resolve({
+            client: timeModel.client,
+            project: timeModel.project,
+            task: timeModel.task
+          });
+        });
+
+        function dateTime(time, date) {
+          return TimeUtil.format(date, Config.dateFormat) + ' ' + time + ':00';
+        }
+
+        function end(model) {
+          var endDate = model.end;
+          return endDate === '' ? '' : dateTime(endDate, model.date);
+        }
+
+        function start(model) {
+          return dateTime(model.start, model.date);
+        }
       }
     }
 
