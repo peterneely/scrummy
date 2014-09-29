@@ -38,6 +38,7 @@
     vm.title = _add ? 'New Time Entry' : 'Update Time Entry';
     vm.update = updateTimer;
     vm.viewData = viewData;
+    vm.validate = validate;
 
 //    console.log($scope);
 
@@ -129,16 +130,16 @@
       }
     }
 
-    function updateTimer(timeForm) {
+    function updateTimer() {
 
       //validate date fields (end is greater than start): http://stackoverflow.com/questions/16885382/how-can-i-force-an-angular-validation-directive-to-run
 
 
 //      $modalInstance.close();
 
-      timeForm.end.$setValidity('oh-noes', false);
-      console.log(timeForm.end);
-      console.log(viewData.updated);
+//      timeForm.end.$setValidity('oh-noes', false);
+//      console.log(timeForm.end);
+//      console.log(viewData.updated);
 
 //      Time.saveNewTypes(vm.timeModel)
 //        .then(updateTimer)
@@ -151,6 +152,11 @@
 //      function saveState(stateModel) {
 //        return Time.saveState(stateModel);
 //      }
+    }
+
+    function validate(control, error, valid) {
+      control.$setValidity(error, valid);
+      console.log(control, error, valid);
     }
   }
 

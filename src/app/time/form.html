@@ -19,13 +19,18 @@
              ng-required="!f.isToday"></div>
         <span class="sc-form-control">to</span>
 
-        <div class="form-group form-inline has-error"><div time name="end" sc-class="form-control sc-form-control sc-small" class="has-error"
-             sc-placeholder="End Time" sc-update="f.viewData.updated.time.end" sc-model="f.timeModel.time.end"
-             ng-required="!f.isToday"></div></div>
+        <div class="form-group form-inline" ng-class="{'has-error': timeForm.end.$invalid}">
+          <div time name="end" sc-class="form-control sc-form-control sc-small" class="has-error"
+               sc-placeholder="End Time" sc-update="f.viewData.updated.time.end" sc-model="f.timeModel.time.end"
+               sc-change="f.validate(timeForm.end, error, valid)" ng-required="!f.isToday">
+
+          </div>
+        </div>
         <span class="sc-form-control">on</span>
 
         <div date ng-model="f.timeModel.time.date" ng-change="f.changeDate()"></div>
-      </div>timeEntry
+      </div>
+      timeEntry
     </section>
 
     <section class="panel-footer">
@@ -33,7 +38,7 @@
         <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.start()"
                 ng-show="f.add">Start Timer
         </button>
-        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.update(timeForm)"
+        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.update()"
                 ng-hide="f.add">Update
         </button>
         <button class="btn btn-default sc-form-control sc-medium" ng-click="f.cancel()">Cancel</button>
