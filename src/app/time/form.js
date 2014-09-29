@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', 'Config', 'Fn', 'Time', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', '$scope', 'Config', 'Fn', 'Time', 'viewData'];
 
-  function TimeFormController($modalInstance, Config, Fn, Time, viewData) {
+  function TimeFormController($modalInstance, $scope, Config, Fn, Time, viewData) {
 
 
     var _add = viewData.add;
@@ -38,6 +38,8 @@
     vm.title = _add ? 'New Time Entry' : 'Update Time Entry';
     vm.update = updateTimer;
     vm.viewData = viewData;
+
+//    console.log($scope);
 
     fillForm();
 
@@ -100,8 +102,10 @@
     }
 
     function initialDate() {
-      var start = viewData.time.start;
-      return Time.format(start, Config.dateFormat);
+      if (_edit) {
+        var start = viewData.time.start;
+        return Time.format(start, Config.dateFormat);
+      }
     }
 
     function startTimer() {
@@ -125,25 +129,28 @@
       }
     }
 
-    function updateTimer() {
+    function updateTimer(timeForm) {
 
       //validate date fields (end is greater than start): http://stackoverflow.com/questions/16885382/how-can-i-force-an-angular-validation-directive-to-run
 
-      $modalInstance.close();
 
+//      $modalInstance.close();
+
+      timeForm.end.$setValidity('oh-noes', false);
+      console.log(timeForm.end);
       console.log(viewData.updated);
 
-      Time.saveNewTypes(vm.timeModel)
-        .then(updateTimer)
-        .then(saveState);
-
-      function updateTimer(timeModel) {
-        return Time.updateTimer(timeModel);
-      }
-
-      function saveState(stateModel) {
-        return Time.saveState(stateModel);
-      }
+//      Time.saveNewTypes(vm.timeModel)
+//        .then(updateTimer)
+//        .then(saveState);
+//
+//      function updateTimer(timeModel) {
+//        return Time.updateTimer(timeModel);
+//      }
+//
+//      function saveState(stateModel) {
+//        return Time.saveState(stateModel);
+//      }
     }
   }
 

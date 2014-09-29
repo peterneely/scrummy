@@ -1,6 +1,22 @@
-admin
-auth
-common
-nav
-times
-user
+Valid if:
+
+NEW: 
+
+If today:
+Has start time and no end time
+Has start time and end time that is after start time
+Has no start or end time
+
+If not today:
+Has start time and end time
+End time is after start time
+
+
+UPDATE:
+
+(If active, disable calendar button)
+
+No changes
+Has date and start time, but no end time
+Has date, start and end time. End time is after start time
+

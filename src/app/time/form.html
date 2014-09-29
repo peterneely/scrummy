@@ -4,7 +4,7 @@
     <h1 class="panel-title">{{ f.title }}</h1>
   </section>
 
-  <form role="form" name="timeEntry" novalidate="">
+  <form name="timeForm" novalidate="">
     <section class="panel-body">
       <div selects sc-data="f.viewData" ng-model="f.timeModel" sc-class="form-control"></div>
 
@@ -19,21 +19,21 @@
              ng-required="!f.isToday"></div>
         <span class="sc-form-control">to</span>
 
-        <div time sc-class="form-control sc-form-control sc-small"
+        <div class="form-group form-inline has-error"><div time name="end" sc-class="form-control sc-form-control sc-small" class="has-error"
              sc-placeholder="End Time" sc-update="f.viewData.updated.time.end" sc-model="f.timeModel.time.end"
-             ng-required="!f.isToday"></div>
+             ng-required="!f.isToday"></div></div>
         <span class="sc-form-control">on</span>
 
         <div date ng-model="f.timeModel.time.date" ng-change="f.changeDate()"></div>
-      </div>
+      </div>timeEntry
     </section>
 
     <section class="panel-footer">
       <div class="form-group form-inline">
-        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeEntry.$valid && f.start()"
+        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.start()"
                 ng-show="f.add">Start Timer
         </button>
-        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeEntry.$valid && f.update()"
+        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.update(timeForm)"
                 ng-hide="f.add">Update
         </button>
         <button class="btn btn-default sc-form-control sc-medium" ng-click="f.cancel()">Cancel</button>
