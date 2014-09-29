@@ -6,19 +6,19 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', '$scope', 'Config', 'Fn', 'Time', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Config', 'Time', 'viewData'];
 
-  function TimeFormController($modalInstance, $scope, Config, Fn, Time, viewData) {
+  function TimeFormController($modalInstance, Config, Time, viewData) {
 
 
-    var _add = viewData.add;
-    var _edit = !_add;
+    var _isNewTime = viewData.add;
+    var _isUpdateTime = !_isNewTime;
     var _date = initialDate();
 
     viewData.updated = { time: {} };
 
     var vm = this;
-    vm.add = _add;
+    vm.add = _isNewTime;
     vm.cancel = cancel;
     vm.changeDate = changeDate;
     vm.changeNotes = changeNotes;
@@ -35,12 +35,10 @@
         end: ''
       }
     };
-    vm.title = _add ? 'New Time Entry' : 'Update Time Entry';
+    vm.title = _isNewTime ? 'New Time Entry' : 'Update Time Entry';
     vm.update = updateTimer;
     vm.viewData = viewData;
     vm.validate = validate;
-
-//    console.log($scope);
 
     fillForm();
 
@@ -69,41 +67,14 @@
     }
 
     function fillForm() {
-      fillSelects();
-      if (_edit) {
-        fillOtherFields();
-      }
-
-      function fillOtherFields() {
-        vm.timeModel.notes = viewData.notes;
-        vm.timeModel.time.date = Time.parseDate(viewData.time.start);
-        vm.timeModel.time.start = Time.parseTime(viewData.time.start);
-        vm.timeModel.time.end = Time.parseTime(viewData.time.end);
-      }
-
-      function fillSelects() {
-        var state = viewData.user.state;
-        var timeState = angular.isDefined(state) ? state.time : {};
-        ['client', 'project', 'task'].forEach(function (type) {
-          vm.timeModel[type] = _add ? defaultValue(type) : actualValue(type);
-        });
-
-        function actualValue(type) {
-          return viewData[type];
-        }
-
-        function defaultValue(type) {
-          return Fn.has(timeState, type) ? timeState[type] : first();
-
-          function first() {
-            return viewData[Fn.plural(type)][0];
-          }
-        }
+      Time.fillSelects(vm.timeModel, viewData, _isNewTime);
+      if (_isUpdateTime) {
+        Time.fillOtherFields(vm.timeModel, viewData);
       }
     }
 
     function initialDate() {
-      if (_edit) {
+      if (_isUpdateTime) {
         var start = viewData.time.start;
         return Time.format(start, Config.dateFormat);
       }

@@ -14,6 +14,8 @@
       dayTitle: TimeUtil.dayTitle,
       defaultTime: TimeUtil.defaultTime,
       elapsed: TimeUtil.elapsed,
+      fillOtherFields: TimeForm.fillOtherFields,
+      fillSelects: TimeForm.fillSelects,
       format: TimeUtil.format,
       isToday: TimeUtil.isToday,
       map: TimeForm.map,
