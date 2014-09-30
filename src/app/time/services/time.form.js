@@ -15,10 +15,11 @@
       fillSelects: fillSelects,
       map: map,
       openForm: openForm,
+      refreshElapsed: refreshElapsed,
       stopTimer: stopTimer
     };
 
-    function fillSelects(timeModel, viewData){
+    function fillSelects(timeModel, viewData) {
       var state = viewData.user.state;
       var timeState = angular.isDefined(state) ? state.time : {};
       ['client', 'project', 'task'].forEach(function (type) {
@@ -62,21 +63,37 @@
         controller: 'TimeForm as f',
         resolve: {
           viewData: function () {
-            return viewData();
+            return angular.isDefined(editData) ? updateModel() : addModel();
           }
         }
       });
 
-      function viewData() {
-        var add = angular.isUndefined(editData);
-        var model = add ? data : Fn.merge(data, editData);
-        model.add = add;
-        model.isActive = editData ? editData.time.end === '' : false;
-        return model;
+      function addModel() {
+        var model = data;
+        model.add = true;
+        model.isActive = false;
+        return Fn.deleteProperties(model, ['type']);
+      }
+
+      function updateModel() {
+        var model = Fn.merge(data, editData);
+        model.add = false;
+        model.isActive = editData.time.end === '';
+        return Fn.deleteProperties(model, ['type', 'times']);
       }
     }
 
-    function stopTimer(item){
+    function refreshElapsed(model, data) {
+        var date = model.time.date;
+        var timeStart = model.time.start;
+        var timeEnd = model.time.end;
+        var seconds = TimeUtil.parseSeconds(data.time.start);
+        var start = TimeUtil.dateTime(date, timeStart, seconds);
+        var end = TimeUtil.dateTime(date, timeEnd, seconds);
+        return TimeUtil.elapsed(start, end);
+    }
+
+    function stopTimer(item) {
       TimeResource.stopTimer(item);
       TimeClock.stopClock();
     }

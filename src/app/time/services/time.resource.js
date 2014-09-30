@@ -25,11 +25,6 @@
       Resource.delete(Url.timeEntry(timeId));
     }
 
-    function endDateTime(model) {
-      var endDate = model.end;
-      return endDate === '' ? '' : TimeUtil.dateTime(endDate, model.date);
-    }
-
     function endNow(time) {
       var now = TimeUtil.format(TimeUtil.now(), Config.dateTimeSecondsFormat);
       Resource.put(Url.time(time.$id), {end: now});
@@ -69,8 +64,14 @@
           deferred.resolve(stateModel(timeModel));
         });
 
+        function endDateTime(model) {
+          var time = model.end;
+          return time === '' ? '' : TimeUtil.dateTime(model.date, time);
+        }
+
         function startDateTime(model) {
-          return TimeUtil.dateTime(model.start || TimeUtil.defaultTime(), model.date);
+          var time = model.start || TimeUtil.defaultTime();
+          return TimeUtil.dateTime(model.date, time);
         }
       }
     }
@@ -108,20 +109,26 @@
       }
     }
 
-    function updateTimer(timeModel, timeId) {
+    function updateTimer(current, original) {
       return Async.promise(update);
 
       function update(deferred) {
-        timeModel.time = {
-          start: startDateTime(timeModel.time),
-          end: endDateTime(timeModel.time)
+        var seconds = TimeUtil.parseSeconds(original.time.start);
+        current.time = {
+          start: startDateTime(current.time),
+          end: endDateTime(current.time)
         };
-        Resource.put(Url.timeEntry(timeId), timeModel).then(function () {
-          deferred.resolve(stateModel(timeModel));
+        Resource.put(Url.timeEntry(original.$id), current).then(function () {
+          deferred.resolve(stateModel(current));
         });
 
+        function endDateTime(model) {
+          var time = model.end;
+          return time === '' ? '' : TimeUtil.dateTime(model.date, time, seconds);
+        }
+
         function startDateTime(model) {
-          return TimeUtil.dateTime(model.start, model.date);
+          return TimeUtil.dateTime(model.date, model.start, seconds);
         }
       }
     }

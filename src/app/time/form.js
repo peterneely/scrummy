@@ -13,12 +13,14 @@
       new: viewData.add,
       active: viewData.isActive
     };
+    var _showElapsed = !_type.new && !_type.active;
 
     var vm = this;
     vm.cancel = cancel;
     vm.delete = deleteTime;
-    vm.elapsed = elapsed;
+    vm.elapsed = elapsed();
     vm.new = _type.new;
+    vm.refreshElapsed = refreshElapsed;
     vm.start = startTimer;
     vm.timeModel = {
       client: {},
@@ -36,6 +38,8 @@
     vm.viewData = viewData;
     vm.validate = validate;
 
+    console.log(viewData);
+
     fillForm();
 
     function cancel() {
@@ -48,13 +52,8 @@
     }
 
     function elapsed() {
-      if (!_type.new && !_type.active) {
-        var startTime = vm.timeModel.time.start;
-        var endTime = vm.timeModel.time.end;
-        var date = vm.timeModel.time.date;
-        var start = Time.dateTime(startTime, date);
-        var end = Time.dateTime(endTime, date);
-        return Time.elapsed(start, end);
+      if (_showElapsed) {
+        return Time.elapsed(viewData.time.start, viewData.time.end);
       }
     }
 
@@ -62,6 +61,13 @@
       Time.fillSelects(vm.timeModel, viewData);
       if (!_type.new) {
         Time.fillOtherFields(vm.timeModel, viewData);
+      }
+    }
+
+    function refreshElapsed() {
+      if (_showElapsed) {
+        vm.elapsed = Time.refreshElapsed(vm.timeModel, viewData);
+        $scope.$digest();
       }
     }
 
@@ -91,7 +97,7 @@
       saveNewTypes().then(update).then(saveState);
 
       function update(timeModel) {
-        return Time.updateTimer(timeModel, viewData.$id);
+        return Time.updateTimer(timeModel, viewData);
       }
     }
 

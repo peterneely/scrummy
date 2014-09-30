@@ -23,7 +23,6 @@
   function TimeItemController($scope, Config, Time) {
 
     var _item = $scope.item;
-    var _start = _item.time.start;
 
     $scope.editTime = editTime;
     $scope.elapsed = elapsed;
@@ -45,7 +44,7 @@
     }
 
     function elapsed() {
-      return Time.elapsed(_start, end());
+      return Time.elapsed(_item.time.start, end());
 
       function end() {
         return isActive() ? Time.now() : _item.time.end;
@@ -66,7 +65,7 @@
 
     function startClock() {
       if (isActive()) {
-        Time.startClock(_start);
+        Time.startClock(_item.time.start);
       }
     }
 
@@ -76,12 +75,12 @@
     }
 
     function startTime() {
-      return format(_start);
+      return format(_item.time.start);
     }
 
     function updateElapsed() {
       if (isActive()) {
-        $scope.elapsed = Time.elapsed(_start, Time.now());
+        $scope.elapsed = Time.elapsed(_item.time.start, Time.now());
       }
     }
   }

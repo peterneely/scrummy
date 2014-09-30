@@ -26,9 +26,9 @@
       sort: sort
     };
 
-    function dateTime(time, date) {
-      var seconds = Fn.doubleDigits(now().getSeconds());
-      return formatDateTime(date, Config.dateFormat) + ' ' + time + ':' + seconds;
+    function dateTime(date, time, seconds) {
+      var secs = seconds || Fn.doubleDigits(now().getSeconds());
+      return formatDateTime(date, Config.dateFormat) + ' ' + time + ':' + secs;
     }
 
     function dayTitle(dayHeader) {
@@ -36,21 +36,17 @@
     }
 
     function defaultTime() {
-      return formatDateTime(Date.now(), Config.timeFormat);
+      return formatDateTime(now(), Config.timeFormat);
     }
 
     function elapsed(start, end) {
-      var ms = $moment(noSeconds(end)).diff($moment(noSeconds(start)));
+      var ms = $moment(end).diff($moment(start));
       return $moment(ms).format('H') + $moment(ms).format(':mm');
-
-      function noSeconds(time){
-        return time.slice(0, -2);
-      }
     }
 
     function endAfterStart(date, startTime, endTime) {
-      var start = dateTime(startTime, date);
-      var end = dateTime(endTime, date);
+      var start = dateTime(date, startTime);
+      var end = dateTime(date, endTime);
       return $moment(end).isAfter(start) || $moment(end).isSame(start);
     }
 

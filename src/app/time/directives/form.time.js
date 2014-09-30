@@ -13,8 +13,9 @@
     return {
       templateUrl: '/app/time/directives/form.time.html',
       scope: {
-        model: '=scModel',
+        change: '&scChange',
         class: '@scClass',
+        model: '=scModel',
         placeholder: '@scPlaceholder',
         validate: '&scValidate'
       },
@@ -29,9 +30,10 @@
         scope.model = formattedTime();
         scope.$digest();
         scope.validate();
+        scope.change();
       }
 
-      function formattedTime(){
+      function formattedTime() {
         return Time.parseInput(element.val());
       }
     }

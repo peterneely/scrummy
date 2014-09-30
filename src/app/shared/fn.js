@@ -12,6 +12,7 @@
 
     return {
       contains: contains,
+      deleteProperties: deleteProperties,
       doubleDigits: doubleDigits,
       group: group,
       has: has,
@@ -29,6 +30,13 @@
       return collection.some(function (item) {
         return value.indexOf(item) > -1;
       });
+    }
+
+    function deleteProperties(object, properties){
+      properties.forEach(function(property){
+        delete object[property];
+      });
+      return object;
     }
 
     function doubleDigits(value) {
@@ -55,7 +63,7 @@
     }
 
     function merge(obj1, obj2){
-      return _.merge(obj1, obj2);
+      return _.merge(_.cloneDeep(obj1), _.cloneDeep(obj2));
     }
 
     function plural(value) {
