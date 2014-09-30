@@ -24,21 +24,16 @@
     };
 
     function timeLink(scope, element) {
-      element.on('blur', parseTime);
-      element.on('change', update);
+      element.on('blur', blur);
+
+      function blur() {
+        scope.model = formattedTime();
+        scope.$digest();
+        scope.change();
+      }
 
       function formattedTime(){
         return Time.parseInput(element.val());
-      }
-
-      function parseTime() {
-        scope.model = formattedTime();
-        scope.$digest();
-      }
-
-      function update() {
-        scope.update = formattedTime();
-        scope.change({error: 'nope', valid: false});
       }
     }
   }

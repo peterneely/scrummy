@@ -22,7 +22,6 @@
     vm.cancel = cancel;
     vm.changeDate = changeDate;
     vm.changeNotes = changeNotes;
-    vm.isToday = true;
     vm.start = startTimer;
     vm.timeModel = {
       client: {},
@@ -47,12 +46,7 @@
     }
 
     function changeDate() {
-      isToday();
       isDateUpdated();
-
-      function isToday() {
-        vm.isToday = Time.isToday(vm.timeModel.time.date);
-      }
 
       function isDateUpdated() {
         var date = vm.timeModel.time.date;
@@ -125,9 +119,10 @@
 //      }
     }
 
-    function validate(control, error, valid) {
-      control.$setValidity(error, valid);
-      console.log(control, error, valid);
+    function validate(control) {
+      var valid = Time.isValid(vm.timeModel, _isNewTime, viewData.isActive);
+      control.$setValidity('valid', valid);
+      console.log(control);
     }
   }
 

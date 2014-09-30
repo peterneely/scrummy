@@ -71,6 +71,7 @@
         var add = angular.isUndefined(editData);
         var model = add ? data : Fn.merge(data, editData);
         model.add = add;
+        model.isActive = editData ? editData.time.end === '' : false;
         return model;
       }
     }

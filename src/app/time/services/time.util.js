@@ -11,9 +11,11 @@
   function TimeUtilService($moment, Config, Fn) {
 
     return {
+      dateTime: dateTime,
       dayTitle: dayTitle,
       defaultTime: defaultTime,
       elapsed: elapsed,
+      endAfterStart: endAfterStart,
       format: formatDateTime,
       isToday: isToday,
       now: now,
@@ -23,6 +25,11 @@
       parseTime: parseTime,
       sort: sort
     };
+
+    function dateTime(time, date) {
+      var seconds = Fn.doubleDigits(now().getSeconds());
+      return formatDateTime(date, Config.dateFormat) + ' ' + time + ':' + seconds;
+    }
 
     function dayTitle(dayHeader) {
       return dayHeader.substr(dayHeader.indexOf(':') + 1);
@@ -35,6 +42,13 @@
     function elapsed(start, end) {
       var ms = $moment(end).diff($moment(start));
       return $moment(ms).format('H') + $moment(ms).format(':mm');
+    }
+
+    function endAfterStart(date, startTime, endTime) {
+      var start = dateTime(startTime, date);
+      var end = dateTime(endTime, date);
+      console.log(start, end, $moment(end).isAfter(start));
+      return $moment(end).isAfter(start) || $moment(end).isSame(start);
     }
 
     function formatDateTime(date, format) {
@@ -84,7 +98,7 @@
       }
     }
 
-    function parseSeconds(stringDateTime){
+    function parseSeconds(stringDateTime) {
       return formatDateTime(stringDateTime, Config.seconds);
     }
 

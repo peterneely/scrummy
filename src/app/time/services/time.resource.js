@@ -64,18 +64,13 @@
           });
         });
 
-        function dateTime(time, date) {
-          var seconds = Fn.doubleDigits(TimeUtil.now().getSeconds());
-          return TimeUtil.format(date, Config.dateFormat) + ' ' + time + ':' + seconds;
-        }
-
         function end(model) {
           var endDate = model.end;
-          return endDate === '' ? '' : dateTime(endDate, model.date);
+          return endDate === '' ? '' : TimeUtil.dateTime(endDate, model.date);
         }
 
         function start(model) {
-          return dateTime(model.start || TimeUtil.defaultTime(), model.date);
+          return TimeUtil.dateTime(model.start || TimeUtil.defaultTime(), model.date);
         }
       }
     }
@@ -127,17 +122,13 @@
           });
         });
 
-        function dateTime(time, date) {
-          return TimeUtil.format(date, Config.dateFormat) + ' ' + time + ':00';
-        }
-
         function end(model) {
           var endDate = model.end;
-          return endDate === '' ? '' : dateTime(endDate, model.date);
+          return endDate === '' ? '' : TimeUtil.dateTime(endDate, model.date);
         }
 
         function start(model) {
-          return dateTime(model.start, model.date);
+          return TimeUtil.dateTime(model.start, model.date);
         }
       }
     }

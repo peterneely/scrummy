@@ -6,18 +6,21 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['TimeClock', 'TimeForm', 'TimeResource', 'TimeUtil'];
+  TimeService.$inject = ['TimeClock', 'TimeForm', 'TimeResource', 'TimeUtil', 'TimeValidator'];
 
-  function TimeService(TimeClock, TimeForm, TimeResource, TimeUtil) {
+  function TimeService(TimeClock, TimeForm, TimeResource, TimeUtil, TimeValidator) {
 
     return {
+      dateTime: TimeUtil.dateTime,
       dayTitle: TimeUtil.dayTitle,
       defaultTime: TimeUtil.defaultTime,
       elapsed: TimeUtil.elapsed,
+      endAfterStart: TimeUtil.endAfterStart,
       fillOtherFields: TimeForm.fillOtherFields,
       fillSelects: TimeForm.fillSelects,
       format: TimeUtil.format,
       isToday: TimeUtil.isToday,
+      isValid: TimeValidator.isValid,
       map: TimeForm.map,
       now: TimeUtil.now,
       onClockAlarm: TimeClock.onClockAlarm,
