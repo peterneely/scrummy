@@ -41,6 +41,7 @@
         if(TimeUtil.isToday(date)){
           return testsPass([endAfterStart]);
         }
+
         return testsPass([endAfterStart, hasStartAndEnd]);
       }
 

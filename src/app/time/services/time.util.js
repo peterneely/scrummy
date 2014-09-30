@@ -40,8 +40,12 @@
     }
 
     function elapsed(start, end) {
-      var ms = $moment(end).diff($moment(start));
+      var ms = $moment(noSeconds(end)).diff($moment(noSeconds(start)));
       return $moment(ms).format('H') + $moment(ms).format(':mm');
+
+      function noSeconds(time){
+        return time.slice(0, -2);
+      }
     }
 
     function endAfterStart(date, startTime, endTime) {

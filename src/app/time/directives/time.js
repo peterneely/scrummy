@@ -24,10 +24,9 @@
 
     var _item = $scope.item;
     var _start = _item.time.start;
-    var _end = _item.time.end;
 
     $scope.editTime = editTime;
-    $scope.elapsed = Time.elapsed(_start, end());
+    $scope.elapsed = elapsed;
     $scope.endTime = endTime;
     $scope.event = {};
     $scope.isActive = isActive;
@@ -45,8 +44,12 @@
       $scope.event.stopTimer = false;
     }
 
-    function end() {
-      return isActive() ? Time.now() : _end;
+    function elapsed() {
+      return Time.elapsed(_start, end());
+
+      function end() {
+        return isActive() ? Time.now() : _item.time.end;
+      }
     }
 
     function endTime() {

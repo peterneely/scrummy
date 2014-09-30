@@ -42,13 +42,13 @@
     <section class="panel-footer">
       <div class="form-group form-inline">
         <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.start()"
-                ng-show="f.add">Start Timer
+                ng-show="f.new">Start Timer
         </button>
         <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.update()"
-                ng-hide="f.add">Update
+                ng-hide="f.new">Update
         </button>
         <button class="btn btn-default sc-form-control sc-medium" ng-click="f.cancel()">Cancel</button>
-        <a ng-href="" class="pull-right sc-delete" ng-click="f.delete()">Delete</a>
+        <a ng-href="" ng-hide="f.new" class="pull-right sc-delete" ng-click="f.delete()">Delete</a>
       </div>
     </section>
   </form>

@@ -6,19 +6,19 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', 'Time', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', '$scope', 'Time', 'viewData'];
 
-  function TimeFormController($modalInstance, Time, viewData) {
+  function TimeFormController($modalInstance, $scope, Time, viewData) {
     var _type = {
       new: viewData.add,
       active: viewData.isActive
     };
 
     var vm = this;
-    vm.add = _type.new;
     vm.cancel = cancel;
     vm.delete = deleteTime;
     vm.elapsed = elapsed;
+    vm.new = _type.new;
     vm.start = startTimer;
     vm.timeModel = {
       client: {},
