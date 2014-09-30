@@ -71,6 +71,10 @@
     width: 100%;
 }
 
+.sc-text-muted {
+    color: #B2B2B2;
+}
+
 .sc-animate {
     -webkit-animation: rotateThis 3.5s infinite linear;
     animation: rotateThis 3.5s infinite linear;
