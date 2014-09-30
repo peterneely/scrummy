@@ -6,22 +6,17 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', 'Config', 'Time', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Time', 'viewData'];
 
-  function TimeFormController($modalInstance, Config, Time, viewData) {
+  function TimeFormController($modalInstance, Time, viewData) {
 
 
     var _isNewTime = viewData.add;
     var _isUpdateTime = !_isNewTime;
-    var _date = initialDate();
-
-    viewData.updated = { time: {} };
 
     var vm = this;
     vm.add = _isNewTime;
     vm.cancel = cancel;
-    vm.changeDate = changeDate;
-    vm.changeNotes = changeNotes;
     vm.start = startTimer;
     vm.timeModel = {
       client: {},
@@ -45,32 +40,10 @@
       $modalInstance.dismiss();
     }
 
-    function changeDate() {
-      isDateUpdated();
-
-      function isDateUpdated() {
-        var date = vm.timeModel.time.date;
-        if (date !== _date) {
-          viewData.updated.time.date = date;
-        }
-      }
-    }
-
-    function changeNotes() {
-      viewData.updated.notes = vm.timeModel.notes;
-    }
-
     function fillForm() {
       Time.fillSelects(vm.timeModel, viewData, _isNewTime);
       if (_isUpdateTime) {
         Time.fillOtherFields(vm.timeModel, viewData);
-      }
-    }
-
-    function initialDate() {
-      if (_isUpdateTime) {
-        var start = viewData.time.start;
-        return Time.format(start, Config.dateFormat);
       }
     }
 
@@ -97,9 +70,6 @@
 
     function updateTimer() {
 
-      //validate date fields (end is greater than start): http://stackoverflow.com/questions/16885382/how-can-i-force-an-angular-validation-directive-to-run
-
-
 //      $modalInstance.close();
 
 //      timeForm.end.$setValidity('oh-noes', false);
@@ -122,7 +92,6 @@
     function validate(control) {
       var valid = Time.isValid(vm.timeModel, _isNewTime, viewData.isActive);
       control.$setValidity('valid', valid);
-      console.log(control);
     }
   }
 

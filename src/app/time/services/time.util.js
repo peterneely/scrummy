@@ -47,7 +47,6 @@
     function endAfterStart(date, startTime, endTime) {
       var start = dateTime(startTime, date);
       var end = dateTime(endTime, date);
-      console.log(start, end, $moment(end).isAfter(start));
       return $moment(end).isAfter(start) || $moment(end).isSame(start);
     }
 

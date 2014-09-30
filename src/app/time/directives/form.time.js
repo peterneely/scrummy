@@ -13,11 +13,10 @@
     return {
       templateUrl: '/app/time/directives/form.time.html',
       scope: {
-        change: '&scChange',
         model: '=scModel',
         class: '@scClass',
         placeholder: '@scPlaceholder',
-        update: '=scUpdate'
+        validate: '&scValidate'
       },
       link: timeLink,
       replace: true
@@ -29,7 +28,7 @@
       function blur() {
         scope.model = formattedTime();
         scope.$digest();
-        scope.change();
+        scope.validate();
       }
 
       function formattedTime(){
