@@ -34,6 +34,8 @@
         <span class="sc-form-control">on</span>
 
         <div date ng-model="f.timeModel.time.date"></div>
+
+        <span class="sc-form-control sc-bold sc-duration">{{ f.elapsed() }}</span>
       </div>
     </section>
 
@@ -46,6 +48,7 @@
                 ng-hide="f.add">Update
         </button>
         <button class="btn btn-default sc-form-control sc-medium" ng-click="f.cancel()">Cancel</button>
+        <a ng-href="" class="pull-right sc-delete" ng-click="f.delete()">Delete</a>
       </div>
     </section>
   </form>

@@ -17,6 +17,8 @@
     var vm = this;
     vm.add = _type.new;
     vm.cancel = cancel;
+    vm.delete = deleteTime;
+    vm.elapsed = elapsed;
     vm.start = startTimer;
     vm.timeModel = {
       client: {},
@@ -40,6 +42,22 @@
       $modalInstance.dismiss();
     }
 
+    function deleteTime() {
+      $modalInstance.close();
+      Time.deleteTimer(viewData.$id);
+    }
+
+    function elapsed() {
+      if (!_type.new && !_type.active) {
+        var startTime = vm.timeModel.time.start;
+        var endTime = vm.timeModel.time.end;
+        var date = vm.timeModel.time.date;
+        var start = Time.dateTime(startTime, date);
+        var end = Time.dateTime(endTime, date);
+        return Time.elapsed(start, end);
+      }
+    }
+
     function fillForm() {
       Time.fillSelects(vm.timeModel, viewData);
       if (!_type.new) {
@@ -47,7 +65,7 @@
       }
     }
 
-    function saveNewTypes(){
+    function saveNewTypes() {
       return Time.saveNewTypes(vm.timeModel);
     }
 
@@ -70,9 +88,9 @@
 
     function updateTimer() {
       $modalInstance.close();
-      saveNewTypes().then(updateTimer).then(saveState);
+      saveNewTypes().then(update).then(saveState);
 
-      function updateTimer(timeModel) {
+      function update(timeModel) {
         return Time.updateTimer(timeModel, viewData.$id);
       }
     }

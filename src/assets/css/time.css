@@ -54,6 +54,16 @@
     border-bottom-right-radius: 4px !important;
 }
 
+.sc-duration {
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.sc-delete {
+    cursor: pointer;
+    margin-top: 7px;
+}
+
 .sc-stop {
     margin-bottom: 5px;
     padding-top: 3px;
@@ -77,20 +87,3 @@
     from { transform: scale( 1 ) rotate( 0deg );   }
     to   { transform: scale( 1 ) rotate( 360deg ); }
 }
-
-/*.sc-animate {*/
-    /*-webkit-animation: blink 1s steps(5, start) infinite;*/
-    /*animation: blink 1s steps(5, start) infinite;*/
-/*}*/
-
-/*@keyframes blink {*/
-    /*to {*/
-        /*visibility: hidden;*/
-    /*}*/
-/*}*/
-
-/*@-webkit-keyframes blink {*/
-    /*to {*/
-        /*visibility: hidden;*/
-    /*}*/
-/*}*/

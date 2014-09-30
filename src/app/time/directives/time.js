@@ -46,7 +46,7 @@
     }
 
     function end() {
-      return isActive() ? now() : _end;
+      return isActive() ? Time.now() : _end;
     }
 
     function endTime() {
@@ -59,10 +59,6 @@
 
     function isActive() {
       return _item.time.end === '' || false;
-    }
-
-    function now() {
-      return Time.now();
     }
 
     function startClock() {
@@ -82,7 +78,7 @@
 
     function updateElapsed() {
       if (isActive()) {
-        $scope.elapsed = Time.elapsed(_start, now());
+        $scope.elapsed = Time.elapsed(_start, Time.now());
       }
     }
   }

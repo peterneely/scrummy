@@ -11,6 +11,7 @@
   function ResourceService($firebase, Firebase) {
 
     return {
+      delete: deleteResource,
       exists: exists,
       getAll: getAll,
       get: get,
@@ -22,7 +23,11 @@
       watch: watch
     };
 
-    function exists(item){
+    function deleteResource(url) {
+      return resource(url).$remove();
+    }
+
+    function exists(item) {
       return item.$value !== null;
     }
 
@@ -34,7 +39,7 @@
       return resource(url).$asObject().$loaded();
     }
 
-    function post(url, data){
+    function post(url, data) {
       return resource(url).$push(data);
     }
 
@@ -42,7 +47,7 @@
       return resource(url).$update(data);
     }
 
-    function remove(items, item){
+    function remove(items, item) {
       items.$remove(item);
     }
 
@@ -54,11 +59,11 @@
       return new Firebase(url);
     }
 
-    function saveItem(items, item){
+    function saveItem(items, item) {
       return items.$save(item);
     }
 
-    function saveObject(item){
+    function saveObject(item) {
       return item.$save();
     }
 

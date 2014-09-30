@@ -11,6 +11,7 @@
   function TimeResourceService(Async, Config, Fn, Resource, TimeClock, TimeUtil, Url) {
 
     return {
+      deleteTimer: deleteTimer,
       saveNewTypes: saveNewTypes,
       saveState: saveState,
       startNewTimer: startNewTimer,
@@ -19,6 +20,10 @@
       updateTimer: updateTimer,
       updateTimes: updateTimes
     };
+
+    function deleteTimer(timeId){
+      Resource.delete(Url.timeEntry(timeId));
+    }
 
     function endDateTime(model) {
       var endDate = model.end;

@@ -23,9 +23,9 @@
     };
 
     function timeLink(scope, element) {
-      element.on('blur', blur);
+      element.on('blur', blurEvent);
 
-      function blur() {
+      function blurEvent() {
         scope.model = formattedTime();
         scope.$digest();
         scope.validate();

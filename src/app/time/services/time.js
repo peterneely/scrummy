@@ -13,6 +13,7 @@
     return {
       dateTime: TimeUtil.dateTime,
       dayTitle: TimeUtil.dayTitle,
+      deleteTimer: TimeResource.deleteTimer,
       defaultTime: TimeUtil.defaultTime,
       elapsed: TimeUtil.elapsed,
       endAfterStart: TimeUtil.endAfterStart,
