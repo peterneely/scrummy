@@ -49,15 +49,17 @@
     }
 
     function update(item) {
-      Resource.saveItem(viewData.items, item)
-        .then(updateUserState)
-        .then(updateTimes);
+      saveItem().then(updateUserState).then(updateTimes);
 
-      function updateUserState(){
+      function saveItem() {
+        return Resource.saveItem(viewData.items, item);
+      }
+
+      function updateUserState() {
         return User.updateState(viewData.type, item.name);
       }
 
-      function updateTimes(){
+      function updateTimes() {
         return Time.updateTimes(viewData.type, item.$id, item.name);
       }
     }

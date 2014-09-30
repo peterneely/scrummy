@@ -29,11 +29,11 @@
     }
 
     function register() {
-      User.cacheUserName(vm.user)
-        .then(registerUser)
-        .then(createUser)
-        .then(login)
-        .catch(showError);
+      cacheUserName().then(registerUser).then(createUser).then(login).catch(showError);
+
+      function cacheUserName() {
+        return User.cacheUserName(vm.user);
+      }
 
       function createUser(authUser) {
         return User.create(authUser);

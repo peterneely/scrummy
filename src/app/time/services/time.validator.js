@@ -13,14 +13,14 @@
       isValid: isValid
     };
 
-    function isValid(model, isNewTime, isActive) {
+    function isValid(model, type) {
       var date = model.time.date;
       var start = model.time.start;
       var end = model.time.end;
       var startExists = start !== '';
       var noEnd = end === '';
 
-      if (isNewTime) {
+      if (type.new) {
         return newTimeIsValid();
       }
       return updatedTimeIsValid();
@@ -51,7 +51,7 @@
       }
 
       function updatedTimeIsValid() {
-        if(isActive){
+        if(type.active){
           return testsPass([endAfterStart, hasStart]);
         }
         return testsPass([endAfterStart, hasStartAndEnd]);

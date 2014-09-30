@@ -18,11 +18,11 @@
       stopTimer: stopTimer
     };
 
-    function fillSelects(timeModel, viewData, addMode){
+    function fillSelects(timeModel, viewData){
       var state = viewData.user.state;
       var timeState = angular.isDefined(state) ? state.time : {};
       ['client', 'project', 'task'].forEach(function (type) {
-        timeModel[type] = addMode ? defaultValue(type) : actualValue(type);
+        timeModel[type] = viewData.add ? defaultValue(type) : actualValue(type);
       });
 
       function actualValue(type) {
