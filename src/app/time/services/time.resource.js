@@ -20,6 +20,11 @@
       updateTimes: updateTimes
     };
 
+    function endDateTime(model) {
+      var endDate = model.end;
+      return endDate === '' ? '' : TimeUtil.dateTime(endDate, model.date);
+    }
+
     function endNow(time) {
       var now = TimeUtil.format(TimeUtil.now(), Config.dateTimeSecondsFormat);
       Resource.put(Url.time(time.$id), {end: now});
@@ -51,28 +56,26 @@
 
       function startTimer(deferred) {
         timeModel.time = {
-          date: timeModel.time.date,
-          start: start(timeModel.time),
-          end: end(timeModel.time)
+          start: startDateTime(timeModel.time),
+          end: endDateTime(timeModel.time)
         };
         TimeClock.startClock(timeModel.time.start);
         Resource.post(Url.times(), timeModel).then(function () {
-          deferred.resolve({
-            client: timeModel.client,
-            project: timeModel.project,
-            task: timeModel.task
-          });
+          deferred.resolve(stateModel(timeModel));
         });
 
-        function end(model) {
-          var endDate = model.end;
-          return endDate === '' ? '' : TimeUtil.dateTime(endDate, model.date);
-        }
-
-        function start(model) {
+        function startDateTime(model) {
           return TimeUtil.dateTime(model.start || TimeUtil.defaultTime(), model.date);
         }
       }
+    }
+
+    function stateModel(timeModel) {
+      return {
+        client: timeModel.client,
+        project: timeModel.project,
+        task: timeModel.task
+      };
     }
 
     function stopActiveTimers(timeModel, times) {
@@ -100,34 +103,19 @@
       }
     }
 
-    function updateTimer(timeModel) {
+    function updateTimer(timeModel, timeId) {
       return Async.promise(update);
 
       function update(deferred) {
-        // Has date changed?
-        // Has start time changed?
-        // If not, then don't update. Otherwise, update with seconds = 0
-
         timeModel.time = {
-          date: timeModel.time.date,
-          start: start(timeModel.time),
-          end: end(timeModel.time)
+          start: startDateTime(timeModel.time),
+          end: endDateTime(timeModel.time)
         };
-        TimeClock.startClock(timeModel.time.start);
-        Resource.post(Url.times(), timeModel).then(function () {
-          deferred.resolve({
-            client: timeModel.client,
-            project: timeModel.project,
-            task: timeModel.task
-          });
+        Resource.put(Url.timeEntry(timeId), timeModel).then(function () {
+          deferred.resolve(stateModel(timeModel));
         });
 
-        function end(model) {
-          var endDate = model.end;
-          return endDate === '' ? '' : TimeUtil.dateTime(endDate, model.date);
-        }
-
-        function start(model) {
+        function startDateTime(model) {
           return TimeUtil.dateTime(model.start, model.date);
         }
       }

@@ -9,7 +9,6 @@
   TimeFormController.$inject = ['$modalInstance', 'Time', 'viewData'];
 
   function TimeFormController($modalInstance, Time, viewData) {
-
     var _type = {
       new: viewData.add,
       active: viewData.isActive
@@ -74,7 +73,7 @@
       saveNewTypes().then(updateTimer).then(saveState);
 
       function updateTimer(timeModel) {
-        return Time.updateTimer(timeModel);
+        return Time.updateTimer(timeModel, viewData.$id);
       }
     }
 

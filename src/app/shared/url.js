@@ -18,6 +18,7 @@
       projects: projects,
       tasks: tasks,
       time: time,
+      timeEntry: timeEntry,
       times: times,
       timeType: timeType,
       user: user,
@@ -34,7 +35,7 @@
       return url(['clients']);
     }
 
-    function isUserNameCached(){
+    function isUserNameCached() {
       return _userName !== null;
     }
 
@@ -46,11 +47,15 @@
       return url(['tasks']);
     }
 
-    function time(id){
+    function time(id) {
       return url(['times', id, 'time']);
     }
 
-    function times(){
+    function timeEntry(id) {
+      return url(['times', id]);
+    }
+
+    function times() {
       return url(['times']);
     }
 
@@ -58,7 +63,7 @@
       return url(['times', timeId, type]);
     }
 
-    function url(fragments){
+    function url(fragments) {
       return Config.urlData + _userName + '/' + fragments.join('/');
     }
 
@@ -66,7 +71,7 @@
       return url(['user']);
     }
 
-    function userPic(hash){
+    function userPic(hash) {
       return Config.urlPic + hash + '?d=mm';
     }
 
