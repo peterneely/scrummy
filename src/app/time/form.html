@@ -13,43 +13,43 @@
                   ng-model="f.timeModel.notes"></textarea>
       </div>
 
-      <!--<div class="form-group form-inline">-->
+      <div class="form-group form-inline">
 
-        <!--<div class="form-group form-inline" ng-class="{'has-error': timeForm.start.$invalid}">-->
-          <!--<div time name="start" sc-class="form-control sc-form-control sc-small"-->
-               <!--sc-placeholder="Start Time" sc-model="f.timeModel.time.start"-->
-               <!--sc-validate="f.validate(timeForm.start)" sc-change="f.refreshElapsed()">-->
-          <!--</div>-->
-        <!--</div>-->
+        <div class="form-group form-inline" ng-class="{'has-error': !f.valid}">
+          <div time name="start" sc-class="form-control sc-form-control sc-small"
+               sc-placeholder="Start Time" ng-model="f.timeModel.time.start"
+               sc-validate="f.validate(timeForm.start)" sc-change="f.refreshElapsed()">
+          </div>
+        </div>
 
-        <!--<span class="sc-form-control">to</span>-->
+        <span class="sc-form-control">to</span>
 
-        <!--<div class="form-group form-inline" ng-class="{'has-error': timeForm.end.$invalid}">-->
-          <!--<div time name="end" sc-class="form-control sc-form-control sc-small"-->
-               <!--sc-placeholder="End Time" sc-model="f.timeModel.time.end"-->
-               <!--sc-validate="f.validate(timeForm.end)" sc-change="f.refreshElapsed()">-->
-          <!--</div>-->
-        <!--</div>-->
+        <div class="form-group form-inline" ng-class="{'has-error': !f.valid}">
+          <div time name="end" sc-class="form-control sc-form-control sc-small"
+               sc-placeholder="End Time" ng-model="f.timeModel.time.end"
+               sc-validate="f.validate(timeForm.end)" sc-change="f.refreshElapsed()">
+          </div>
+        </div>
 
-        <!--<span class="sc-form-control">on</span>-->
+        <span class="sc-form-control">on</span>
 
-        <!--<div date ng-model="f.timeModel.time.date"></div>-->
+        <div date ng-model="f.timeModel.time.date"></div>
 
-        <!--<span class="sc-form-control sc-bold sc-duration">{{ f.elapsed }}</span>-->
-      <!--</div>-->
-      <div datetime ng-model="f.timeModel.time"></div>
+        <span class="sc-form-control sc-bold sc-duration" ng-show="f.valid">{{ f.elapsed }}</span>
+      </div>
+      <!--<div datetime ng-model="f.timeModel.time" sc-is-new="isNew"></div>-->
     </section>
 
     <section class="panel-footer">
       <div class="form-group form-inline">
         <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.start()"
-                ng-show="f.new">Start Timer
+                ng-show="f.isNew">Start Timer
         </button>
         <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.update()"
-                ng-hide="f.new">Update
+                ng-hide="f.isNew">Update
         </button>
         <button class="btn btn-default sc-form-control sc-medium" ng-click="f.cancel()">Cancel</button>
-        <a ng-href="" ng-hide="f.new" class="pull-right sc-delete" ng-click="f.delete()">Delete</a>
+        <a ng-href="" ng-hide="f.isNew" class="pull-right sc-delete" ng-click="f.delete()">Delete</a>
       </div>
     </section>
   </form>

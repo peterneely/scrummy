@@ -19,7 +19,7 @@
     vm.cancel = cancel;
     vm.delete = deleteTime;
     vm.elapsed = elapsed();
-    vm.new = _type.new;
+    vm.isNew = _type.new;
     vm.refreshElapsed = refreshElapsed;
     vm.start = startTimer;
     vm.timeModel = {
@@ -36,9 +36,8 @@
     vm.title = _type.new ? 'New Time Entry' : 'Update Time Entry';
     vm.update = updateTimer;
     vm.viewData = viewData;
+    vm.valid = true;
     vm.validate = validate;
-
-    console.log(viewData);
 
     fillForm();
 
@@ -52,9 +51,7 @@
     }
 
     function elapsed() {
-      if (_showElapsed) {
-        return Time.elapsed(viewData.time.start, viewData.time.end);
-      }
+      return _showElapsed ? Time.elapsed(viewData.time.start, viewData.time.end) : '';
     }
 
     function fillForm() {
@@ -102,8 +99,9 @@
     }
 
     function validate(control) {
-      var valid = Time.isValid(vm.timeModel, _type);
+      var valid = Time.isValid(vm.timeModel.time, _type);
       control.$setValidity('valid', valid);
+      vm.valid = valid;
     }
   }
 

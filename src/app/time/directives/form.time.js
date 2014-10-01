@@ -12,10 +12,11 @@
 
     return {
       templateUrl: '/app/time/directives/form.time.html',
+      require: 'ngModel',
       scope: {
         change: '&scChange',
         class: '@scClass',
-        model: '=scModel',
+        model: '=ngModel',
         placeholder: '@scPlaceholder',
         validate: '&scValidate'
       },
@@ -24,7 +25,7 @@
     };
 
     function timeLink(scope, element) {
-      element.on('blur', blurEvent);
+      element.children().on('blur', blurEvent);
 
       function blurEvent() {
         scope.model = formattedTime();
@@ -34,7 +35,7 @@
       }
 
       function formattedTime() {
-        return Time.parseInput(element.val());
+        return Time.parseInput(element.children().val());
       }
     }
   }

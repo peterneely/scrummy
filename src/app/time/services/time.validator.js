@@ -14,9 +14,9 @@
     };
 
     function isValid(model, type) {
-      var date = model.time.date;
-      var start = model.time.start;
-      var end = model.time.end;
+      var date = model.date;
+      var start = model.start;
+      var end = model.end;
       var startExists = start !== '';
       var noEnd = end === '';
 
