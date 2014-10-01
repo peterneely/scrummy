@@ -1,13 +1,23 @@
 <div class="form-group form-inline">
 
-  <div class="form-group form-inline">
-    <input type="text" class="form-control sc-form-control sc-small" ng-model="model.start" placeholder="Start time"/>
+  <div class="form-group form-inline" ng-class="{'has-error': !valid.start}">
+    <input type="text"
+           class="form-control sc-form-control sc-small"
+           name="start"
+           ng-blur="validate()"
+           ng-model="model.start"
+           placeholder="Start time"/>
   </div>
 
   <span class="sc-form-control">to</span>
 
-  <div class="form-group form-inline">
-    <input type="text" class="form-control sc-form-control sc-small" ng-model="model.end" placeholder="End time"/>
+  <div class="form-group form-inline" ng-class="{'has-error': !valid.end}">
+    <input type="text"
+           class="form-control sc-form-control sc-small"
+           name="end"
+           ng-blur="validate()"
+           ng-model="model.end"
+           placeholder="End time"/>
   </div>
 
   <span class="sc-form-control">on</span>

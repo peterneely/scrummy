@@ -11,22 +11,32 @@
       scope: {
         model: '=ngModel'
       },
-      controller: DateTimeController,
+      require: 'ngModel',
+      link: Link,
       replace: true
     };
   }
 
-  DateTimeController.$inject = ['$scope'];
+  function Link(scope, elem, attrs, ctrl) {
+    scope.dateOptions = options();
+    scope.open = onOpen;
+    scope.opened = false;
+    scope.valid = {
+      start: true,
+      end: true
+    };
+    scope.validate = validate;
 
-  function DateTimeController($scope) {
-    $scope.dateOptions = options();
-    $scope.open = onOpen;
-    $scope.opened = false;
+    function validate(){
+      ctrl.$setValidity('valid', false);
+      scope.valid.start = true;
+      scope.valid.end = false;
+    }
 
     function onOpen($event) {
       $event.preventDefault();
       $event.stopPropagation();
-      $scope.opened = true;
+      scope.opened = true;
     }
 
     function options() {
