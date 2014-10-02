@@ -6,13 +6,12 @@
     .module('scrummyApp')
     .factory('TimeClock', TimeClockService);
 
-  TimeClockService.$inject = ['$interval', '$rootScope', 'TimeUtil'];
+  TimeClockService.$inject = ['$interval', '$rootScope', '$timeout', 'TimeUtil'];
 
-  function TimeClockService($interval, $rootScope, TimeUtil) {
+  function TimeClockService($interval, $rootScope, $timeout, TimeUtil) {
     var _time = {};
     var _clock = {
       instance: null,
-      justStarted: false,
       alarm: 'alarm'
     };
 
@@ -27,33 +26,18 @@
         start();
       }
 
-      function getSeconds() {
-        return TimeUtil.now().getSeconds();
-      }
-
       function start() {
         _time.seconds = parseInt(TimeUtil.parseSeconds(startTime));
-        _clock.seconds = getSeconds();
-        _clock.justStarted = true;
-        _clock.instance = $interval(tick, 1000, false);
-      }
+        _clock.seconds = TimeUtil.now().getSeconds();
+        _time.diff = TimeUtil.diffMilliseconds(_time.seconds, _clock.seconds);
+        $timeout(alarm, _time.diff).then(tickEveryMinute);
 
-      function tick() {
-        checkAlarm();
-        incrementSeconds();
-
-        function checkAlarm() {
-          if (_clock.seconds === _time.seconds && !_clock.justStarted) {
-            $rootScope.$emit(_clock.alarm);
-          }
-          _clock.justStarted = false;
+        function alarm() {
+          $rootScope.$emit(_clock.alarm);
         }
 
-        function incrementSeconds() {
-          _clock.seconds++;
-          if (_clock.seconds === 60) {
-            _clock.seconds = getSeconds();
-          }
+        function tickEveryMinute(){
+          _clock.instance = $interval(alarm, 60000, false);
         }
       }
     }

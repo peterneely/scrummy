@@ -41,9 +41,9 @@
             types.push(type);
           }
         });
-        Async.all(promises).then(function (results) {
-          for (var i = 0, len = results.length; i < len; i++) {
-            timeModel[types[i]].id = results[i].name();
+        Async.all(promises).then(function (refs) {
+          for (var i = 0, len = refs.length; i < len; i++) {
+            timeModel[types[i]].id = refs[i].name();
           }
           deferred.resolve(timeModel);
         });
@@ -63,8 +63,6 @@
           end: endDateTime(timeModel.time)
         };
         TimeClock.startClock(timeModel.time.start);
-        console.log(timeModel);
-
         Resource.post(Url.times(), timeModel).then(function () {
           deferred.resolve(_stateModel(timeModel));
         });

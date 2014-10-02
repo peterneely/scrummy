@@ -13,7 +13,7 @@
       new: viewData.add,
       active: viewData.isActive
     };
-    var _showElapsed = !_type.new && !_type.active;
+    var _showElapsed = !_type.new;// && !_type.active;
 
     var vm = this;
     vm.cancel = cancel;
@@ -51,7 +51,11 @@
     }
 
     function elapsed() {
-      return _showElapsed ? Time.elapsed(viewData.time.start, viewData.time.end) : '';
+      return _showElapsed ? Time.elapsed(viewData.time.start, now()) : '';
+
+      function now(){
+        return viewData.time.end === '' ? Time.now() : viewData.time.end;
+      }
     }
 
     function fillForm() {

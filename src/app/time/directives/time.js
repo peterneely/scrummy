@@ -25,15 +25,14 @@
     var _item = $scope.item;
 
     $scope.editTime = editTime;
-    $scope.elapsed = elapsed;
     $scope.endTime = endTime;
     $scope.event = {};
     $scope.isActive = isActive;
     $scope.stopTimer = stopTimer;
     $scope.startTime = startTime;
 
+    updateElapsed();
     startClock();
-
     Time.onClockAlarm(updateElapsed);
 
     function editTime() {
@@ -41,14 +40,6 @@
         return Time.openForm($scope.data, _item);
       }
       $scope.event.stopTimer = false;
-    }
-
-    function elapsed() {
-      return Time.elapsed(_item.time.start, end());
-
-      function end() {
-        return isActive() ? Time.now() : _item.time.end;
-      }
     }
 
     function endTime() {
@@ -79,8 +70,10 @@
     }
 
     function updateElapsed() {
-      if (isActive()) {
-        $scope.elapsed = Time.elapsed(_item.time.start, Time.now());
+      $scope.elapsed = Time.elapsed(_item.time.start, end());
+
+      function end() {
+        return isActive() ? Time.now() : _item.time.end;
       }
     }
   }

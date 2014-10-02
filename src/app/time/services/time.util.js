@@ -14,6 +14,7 @@
       dateTime: dateTime,
       dayTitle: dayTitle,
       defaultTime: defaultTime,
+      diffMilliseconds: diffMilliseconds,
       elapsed: elapsed,
       endAfterStart: endAfterStart,
       format: formatDateTime,
@@ -37,6 +38,16 @@
 
     function defaultTime() {
       return formatDateTime(now(), Config.timeFormat);
+    }
+
+    function diffMilliseconds(start, now){
+      var diffSeconds = 0;
+      if(start > now){
+        diffSeconds = start - now;
+      } else if(start < now) {
+        diffSeconds = (60 - now) + start;
+      }
+      return diffSeconds * 1000;
     }
 
     function elapsed(start, end) {

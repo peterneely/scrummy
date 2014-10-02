@@ -15,6 +15,7 @@
       dayTitle: TimeUtil.dayTitle,
       deleteTimer: TimeResource.deleteTimer,
       defaultTime: TimeUtil.defaultTime,
+      diffMilliseconds: TimeUtil.diffMilliseconds,
       elapsed: TimeUtil.elapsed,
       endAfterStart: TimeUtil.endAfterStart,
       fillOtherFields: TimeForm.fillOtherFields,
