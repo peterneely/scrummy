@@ -34,6 +34,7 @@
     updateElapsed();
     startClock();
     Time.onClockAlarm(updateElapsed);
+    Time.onUpdate(updateElapsed);
 
     function editTime() {
       if (!$scope.event.selectingText && !$scope.event.stopTimer) {

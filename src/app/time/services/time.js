@@ -26,6 +26,7 @@
       map: TimeForm.map,
       now: TimeUtil.now,
       onClockAlarm: TimeClock.onClockAlarm,
+      onUpdate: TimeForm.onUpdate,
       openForm: TimeForm.openForm,
       parseDate: TimeUtil.parseDate,
       parseInput: TimeUtil.parseInput,
@@ -40,6 +41,7 @@
       startNewTimer: TimeResource.startNewTimer,
       stopActiveTimers: TimeResource.stopActiveTimers,
       stopTimer: TimeForm.stopTimer,
+      updated: TimeForm.updated,
       updateTimer: TimeResource.updateTimer,
       updateTimes: TimeResource.updateTimes
     };

@@ -6,21 +6,19 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', '$scope', 'Time', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', 'Time', 'viewData'];
 
-  function TimeFormController($modalInstance, $scope, Time, viewData) {
+  function TimeFormController($modalInstance, Time, viewData) {
+    console.log(viewData);
     var _type = {
       new: viewData.add,
       active: viewData.isActive
     };
-    var _showElapsed = !_type.new;// && !_type.active;
 
     var vm = this;
     vm.cancel = cancel;
     vm.delete = deleteTime;
-    vm.elapsed = elapsed();
     vm.isNew = _type.new;
-    vm.refreshElapsed = refreshElapsed;
     vm.start = startTimer;
     vm.timeModel = {
       client: {},
@@ -40,6 +38,8 @@
     vm.validate = validate;
 
     fillForm();
+    updateElapsed();
+    Time.onClockAlarm(updateElapsed);
 
     function cancel() {
       $modalInstance.dismiss();
@@ -50,14 +50,6 @@
       Time.deleteTimer(viewData.$id);
     }
 
-    function elapsed() {
-      return _showElapsed ? Time.elapsed(viewData.time.start, now()) : '';
-
-      function now(){
-        return viewData.time.end === '' ? Time.now() : viewData.time.end;
-      }
-    }
-
     function fillForm() {
       Time.fillSelects(vm.timeModel, viewData);
       if (!_type.new) {
@@ -65,15 +57,9 @@
       }
     }
 
-    function refreshElapsed() {
-      if (_showElapsed) {
-        vm.elapsed = Time.refreshElapsed(vm.timeModel, viewData);
-        $scope.$digest();
-      }
-    }
-
     function startTimer() {
       $modalInstance.close();
+      Time.updated();
       _saveNewTypes().then(stopActiveTimers).then(startNewTimer).then(_saveState);
 
       function stopActiveTimers(timeModel) {
@@ -85,8 +71,22 @@
       }
     }
 
+    function updateElapsed() {
+      if(angular.isDefined(viewData.time)){
+        var model = vm.timeModel.time;
+        var date = model.date;
+        var timeStart = model.start;
+        var timeEnd = model.end;
+        var seconds = Time.parseSeconds(viewData.time.start);
+        var start = Time.dateTime(date, timeStart, seconds);
+        var end = timeEnd === '' ? Time.now() : Time.dateTime(date, timeEnd, seconds);
+        vm.elapsed = Time.elapsed(start, end);
+      }
+    }
+
     function updateTimer() {
       $modalInstance.close();
+      Time.updated();
       _saveNewTypes().then(update).then(_saveState);
 
       function update(timeModel) {
