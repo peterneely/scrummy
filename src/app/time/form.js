@@ -68,17 +68,9 @@
       }
     }
 
-    function saveNewTypes() {
-      return Time.saveNewTypes(vm.timeModel);
-    }
-
-    function saveState(stateModel) {
-      return Time.saveState(stateModel);
-    }
-
     function startTimer() {
       $modalInstance.close();
-      saveNewTypes().then(stopActiveTimers).then(startNewTimer).then(saveState);
+      _saveNewTypes().then(stopActiveTimers).then(startNewTimer).then(_saveState);
 
       function stopActiveTimers(timeModel) {
         return Time.stopActiveTimers(timeModel, viewData.times);
@@ -91,7 +83,7 @@
 
     function updateTimer() {
       $modalInstance.close();
-      saveNewTypes().then(update).then(saveState);
+      _saveNewTypes().then(update).then(_saveState);
 
       function update(timeModel) {
         return Time.updateTimer(timeModel, viewData);
@@ -102,6 +94,14 @@
       var valid = Time.isValid(vm.timeModel.time, _type);
       control.$setValidity('valid', valid);
       vm.valid = valid;
+    }
+
+    function _saveNewTypes() {
+      return Time.saveNewTypes(vm.timeModel);
+    }
+
+    function _saveState(stateModel) {
+      return Time.saveState(stateModel);
     }
   }
 

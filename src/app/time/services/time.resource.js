@@ -12,12 +12,12 @@
 
     return {
       deleteTimer: deleteTimer,
-      saveNewTypes: saveNewTypes,
       removeTimes: removeTimes,
+      saveNewTypes: saveNewTypes,
       saveState: saveState,
       startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
-      stopTimer: endNow,
+      stopTimer: stopTimer,
       updateTimer: updateTimer,
       updateTimes: updateTimes
     };
@@ -26,25 +26,25 @@
       Resource.delete(Url.timeEntry(timeId));
     }
 
-    function endNow(time) {
-      var now = TimeUtil.format(TimeUtil.now(), Config.dateTimeSecondsFormat);
-      Resource.put(Url.time(time.$id), {end: now});
-    }
-
     function saveNewTypes(timeModel) {
       return Async.promise(save);
 
       function save(deferred) {
+        var promises = [];
         ['client', 'project', 'task'].forEach(function (type) {
-          var time = timeModel[type];
-          if (time.id === '') {
+          promises.push(promise(type));
+        });
+        deferred.resolve(timeModel);
+
+        function promise(type){
+          var item = timeModel[type];
+          if (item.id === '') {
             var url = Url[Fn.plural(type)]();
-            Resource.post(url, {name: time.text}).then(function (ref) {
+            Resource.post(url, {name: item.text}).then(function (ref) {
               timeModel[type].id = ref.name();
             });
           }
-        });
-        deferred.resolve(timeModel);
+        }
       }
     }
 
@@ -61,8 +61,10 @@
           end: endDateTime(timeModel.time)
         };
         TimeClock.startClock(timeModel.time.start);
+        console.log(timeModel);
+
         Resource.post(Url.times(), timeModel).then(function () {
-          deferred.resolve(stateModel(timeModel));
+          deferred.resolve(_stateModel(timeModel));
         });
 
         function endDateTime(model) {
@@ -75,14 +77,6 @@
           return TimeUtil.dateTime(model.date, time);
         }
       }
-    }
-
-    function stateModel(timeModel) {
-      return {
-        client: timeModel.client,
-        project: timeModel.project,
-        task: timeModel.task
-      };
     }
 
     function stopActiveTimers(timeModel, times) {
@@ -103,11 +97,16 @@
 
         function stop(activeTimers) {
           activeTimers.forEach(function (activeTimer) {
-            endNow(activeTimer);
+            stopTimer(activeTimer);
           });
           TimeClock.stopClock();
         }
       }
+    }
+
+    function stopTimer(time) {
+      var now = TimeUtil.format(TimeUtil.now(), Config.dateTimeSecondsFormat);
+      Resource.put(Url.time(time.$id), {end: now});
     }
 
     function updateTimer(current, original) {
@@ -120,7 +119,7 @@
           end: endDateTime(current.time)
         };
         Resource.put(Url.timeEntry(original.$id), current).then(function () {
-          deferred.resolve(stateModel(current));
+          deferred.resolve(_stateModel(current));
         });
 
         function endDateTime(model) {
@@ -173,6 +172,14 @@
           callback(result.times, time);
         });
       }
+    }
+
+    function _stateModel(timeModel) {
+      return {
+        client: timeModel.client,
+        project: timeModel.project,
+        task: timeModel.task
+      };
     }
   }
 
