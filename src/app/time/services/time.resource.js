@@ -31,20 +31,22 @@
 
       function save(deferred) {
         var promises = [];
+        var types = [];
         ['client', 'project', 'task'].forEach(function (type) {
-          promises.push(promise(type));
-        });
-        deferred.resolve(timeModel);
-
-        function promise(type){
           var item = timeModel[type];
           if (item.id === '') {
             var url = Url[Fn.plural(type)]();
-            Resource.post(url, {name: item.text}).then(function (ref) {
-              timeModel[type].id = ref.name();
-            });
+            var promise = Resource.post(url, {name: item.text});
+            promises.push(promise);
+            types.push(type);
           }
-        }
+        });
+        Async.all(promises).then(function (results) {
+          for (var i = 0, len = results.length; i < len; i++) {
+            timeModel[types[i]].id = results[i].name();
+          }
+          deferred.resolve(timeModel);
+        });
       }
     }
 
