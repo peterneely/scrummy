@@ -35,7 +35,7 @@
         _time.seconds = parseInt(TimeUtil.parseSeconds(startTime));
         _clock.seconds = getSeconds();
         _clock.justStarted = true;
-        _clock.instance = $interval(tick, 1000);
+        _clock.instance = $interval(tick, 1000, false);
       }
 
       function tick() {

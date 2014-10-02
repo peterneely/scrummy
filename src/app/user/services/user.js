@@ -21,6 +21,7 @@
       login: UserAuth.login,
       logout: UserAuth.logout,
       register: UserAuth.register,
+      removeState: removeState,
       updateState: updateState
     };
 
@@ -50,14 +51,30 @@
       }
     }
 
-    function updateState(type, text) {
-      var url = Url.userStateTimeType(Fn.singular(type));
-      return Resource.get(url).then(update);
+    function removeState(type, id) {
+      return _findState(type, id, remove);
 
-      function update(time) {
-        if (Resource.exists(time)) {
-          time.text = text;
-          Resource.saveObject(time);
+      function remove(url) {
+        Resource.delete(url);
+      }
+    }
+
+    function updateState(type, id, text) {
+      return _findState(type, id, update);
+
+      function update(url, time) {
+        time.text = text;
+        Resource.saveObject(time);
+      }
+    }
+
+    function _findState(type, id, callback) {
+      var url = Url.userStateTimeType(type);
+      return Resource.get(url).then(action);
+
+      function action(time) {
+        if (Resource.exists(time) && time.id === id) {
+          callback(url, time);
         }
       }
     }

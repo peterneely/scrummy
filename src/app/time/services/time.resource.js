@@ -13,6 +13,7 @@
     return {
       deleteTimer: deleteTimer,
       saveNewTypes: saveNewTypes,
+      removeTimes: removeTimes,
       saveState: saveState,
       startNewTimer: startNewTimer,
       stopActiveTimers: stopActiveTimers,
@@ -21,7 +22,7 @@
       updateTimes: updateTimes
     };
 
-    function deleteTimer(timeId){
+    function deleteTimer(timeId) {
       Resource.delete(Url.timeEntry(timeId));
     }
 
@@ -133,23 +134,43 @@
       }
     }
 
+    function removeTimes(type, id) {
+      return _filterTimes(type, id, remove);
+
+      function remove(times, time) {
+        Resource.remove(times, time);
+      }
+    }
+
     function updateTimes(type, id, text) {
-      var singleType = Fn.singular(type);
-      return Resource.getAll(Url.times())
-        .then(filter)
-        .then(update);
+      return _filterTimes(type, id, update);
+
+      function update(times, time) {
+        var url = Url.timeType(time.$id, type);
+        Resource.put(url, {text: text});
+      }
+    }
+
+    function _filterTimes(type, id, callback) {
+      return getTimes().then(filter).then(action);
+
+      function getTimes() {
+        return Resource.getAll(Url.times());
+      }
 
       function filter(times) {
         var filtered = Fn.where(times, function (time) {
-          return time[singleType].id === id;
+          return time[type].id === id;
         });
-        return Async.when(filtered);
+        return Async.when({
+          times: times,
+          filteredTimes: filtered
+        });
       }
 
-      function update(filteredTimes) {
-        filteredTimes.forEach(function (filteredTime) {
-          var url = Url.timeType(filteredTime.$id, singleType);
-          Resource.put(url, {text: text});
+      function action(result) {
+        result.filteredTimes.forEach(function (time) {
+          callback(result.times, time);
         });
       }
     }

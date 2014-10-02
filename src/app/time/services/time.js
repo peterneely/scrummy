@@ -31,6 +31,7 @@
       parseSeconds: TimeUtil.parseSeconds,
       parseTime: TimeUtil.parseTime,
       refreshElapsed: TimeForm.refreshElapsed,
+      removeTimes: TimeResource.removeTimes,
       saveNewTypes: TimeResource.saveNewTypes,
       saveState: TimeResource.saveState,
       sort: TimeUtil.sort,

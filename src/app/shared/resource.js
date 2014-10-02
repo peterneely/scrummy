@@ -48,7 +48,7 @@
     }
 
     function remove(items, item) {
-      items.$remove(item);
+      return items.$remove(item);
     }
 
     function resource(url) {

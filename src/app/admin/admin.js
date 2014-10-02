@@ -10,8 +10,9 @@
 
   function AdminController(Fn, Resource, Time, Url, User, viewData) {
 
-    var vm = this;
+    var _singleType = Fn.singular(viewData.type);
 
+    var vm = this;
     vm.add = add;
     vm.clearSearch = clearSearch;
     vm.hasTimes = hasTimes;
@@ -37,7 +38,19 @@
     }
 
     function remove(item) {
-      Resource.remove(viewData.items, item);
+      removeItem().then(removeUserState).then(removeTimes);
+
+      function removeItem() {
+        return Resource.remove(viewData.items, item);
+      }
+
+      function removeTimes() {
+        return Time.removeTimes(_singleType, item.$id);
+      }
+
+      function removeUserState() {
+        return User.removeState(_singleType, item.$id);
+      }
     }
 
     function searching() {
@@ -55,12 +68,12 @@
         return Resource.saveItem(viewData.items, item);
       }
 
-      function updateUserState() {
-        return User.updateState(viewData.type, item.name);
+      function updateTimes() {
+        return Time.updateTimes(_singleType, item.$id, item.name);
       }
 
-      function updateTimes() {
-        return Time.updateTimes(viewData.type, item.$id, item.name);
+      function updateUserState() {
+        return User.updateState(_singleType, item.$id, item.name);
       }
     }
   }
