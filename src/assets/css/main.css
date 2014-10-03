@@ -73,6 +73,11 @@ footer {
     text-align: center;
 }
 
+.sc-jumbotron {
+    padding: 100px 0 100px 0;
+    line-height: 65px;
+}
+
 .jumbotron .btn {
     font-size: 21px;
     padding: 14px 24px;

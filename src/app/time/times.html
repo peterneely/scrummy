@@ -9,6 +9,11 @@
       </div>
     </div>
 
+    <div class="jumbotron sc-jumbotron" ng-show="ts.noData">
+      <h3 class="sc-text-muted">There's nothing here!</h3>
+      <p class="sc-text-muted">Zzzzzzzzz...</p>
+    </div>
+
     <div class="panel panel-default" ng-repeat="week in ts.weeks()">
       <table class="table table-hover sc-time-table" ng-repeat="day in ts.days(week)">
         <thead class="bg-default">

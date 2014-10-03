@@ -13,8 +13,6 @@
 
     var _times = sortTimes();
 
-    watchTimes();
-
     var vm = this;
     vm.addTime = addTime;
     vm.days = days;
@@ -23,20 +21,23 @@
     vm.viewData = viewData;
     vm.weeks = weeks;
 
+    checkNoData();
+    watchTimes();
+
     function addTime() {
       return Time.openForm(viewData);
     }
 
+    function checkNoData(){
+      vm.noData = viewData.times.length === 0;
+    }
+
     function days(week) {
-      return keys(_times[week]);
+      return _keys(_times[week]);
     }
 
     function dayTitle(dayHeader) {
       return Time.dayTitle(dayHeader);
-    }
-
-    function keys(obj) {
-      return Fn.sortDesc(Object.keys(obj));
     }
 
     function sortTimes() {
@@ -55,13 +56,18 @@
       Resource.watch(viewData.times, changed);
 
       function changed() {
+        checkNoData();
         _times = sortTimes();
         Time.notifyTimesUpdated();
       }
     }
 
     function weeks() {
-      return keys(_times);
+      return _keys(_times);
+    }
+
+    function _keys(obj) {
+      return Fn.sortDesc(Object.keys(obj));
     }
   }
 
