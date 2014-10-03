@@ -29,6 +29,10 @@
     margin-bottom: 20px;
 }
 
+.sc-top {
+    margin-top: 20px;
+}
+
 @media screen and (max-width: 768px) {
     .app .scrummy.btn-group {
         float: right;
