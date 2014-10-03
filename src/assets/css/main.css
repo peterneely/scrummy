@@ -64,6 +64,10 @@ footer {
     margin: 30px 0;
 }
 
+.app.container {
+    margin-top: 20px;
+}
+
 /* Main marketing message and sign up button */
 .jumbotron {
     text-align: center;
@@ -120,9 +124,9 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-    .app.container {
-        padding-top: 10px;
-    }
+    /*.app.container {*/
+        /*padding-top: 10px;*/
+    /*}*/
 
     .subtext .lead {
         font-size: 21px;
@@ -130,6 +134,10 @@ footer {
 }
 
 @media screen and (max-width: 640px) {
+    .app.container {
+        margin-top: 0;
+    }
+
     .app section {
         margin-top: 20px;
     }
