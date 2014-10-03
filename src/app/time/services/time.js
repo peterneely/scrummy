@@ -6,9 +6,11 @@
     .module('scrummyApp')
     .factory('Time', TimeService);
 
-  TimeService.$inject = ['TimeClock', 'TimeForm', 'TimeResource', 'TimeUtil', 'TimeValidator'];
+  TimeService.$inject = ['$rootScope', 'TimeClock', 'TimeForm', 'TimeResource', 'TimeUtil', 'TimeValidator'];
 
-  function TimeService(TimeClock, TimeForm, TimeResource, TimeUtil, TimeValidator) {
+  function TimeService($rootScope, TimeClock, TimeForm, TimeResource, TimeUtil, TimeValidator) {
+
+    var _timesUpdated = 'timesUpdated';
 
     return {
       dateTime: TimeUtil.dateTime,
@@ -24,9 +26,10 @@
       isToday: TimeUtil.isToday,
       isValid: TimeValidator.isValid,
       map: TimeForm.map,
+      notifyTimesUpdated: notifyTimesUpdated,
       now: TimeUtil.now,
       onClockAlarm: TimeClock.onClockAlarm,
-      onUpdate: TimeForm.onUpdate,
+      onTimesUpdated: onTimesUpdated,
       openForm: TimeForm.openForm,
       parseDate: TimeUtil.parseDate,
       parseInput: TimeUtil.parseInput,
@@ -41,10 +44,21 @@
       startNewTimer: TimeResource.startNewTimer,
       stopActiveTimers: TimeResource.stopActiveTimers,
       stopTimer: TimeForm.stopTimer,
-      updated: TimeForm.updated,
+      updateElapsed: TimeUtil.updateElapsed,
+      updateElapsedOnForm: TimeForm.updateElapsed,
       updateTimer: TimeResource.updateTimer,
       updateTimes: TimeResource.updateTimes
     };
+
+    function notifyTimesUpdated() {
+      $rootScope.$emit(_timesUpdated);
+    }
+
+    function onTimesUpdated(callback) {
+      $rootScope.$on(_timesUpdated, function () {
+        callback();
+      });
+    }
   }
 
 })();

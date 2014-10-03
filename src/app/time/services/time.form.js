@@ -6,20 +6,17 @@
     .module('scrummyApp')
     .factory('TimeForm', TimeFormService);
 
-  TimeFormService.$inject = ['$filter', '$modal', '$rootScope', 'Fn', 'TimeClock', 'TimeResource', 'TimeUtil'];
+  TimeFormService.$inject = ['$filter', '$modal', 'Fn', 'TimeClock', 'TimeResource', 'TimeUtil'];
 
-  function TimeFormService($filter, $modal, $rootScope, Fn, TimeClock, TimeResource, TimeUtil) {
-
-    var _updateEvent = 'update elapsed';
+  function TimeFormService($filter, $modal, Fn, TimeClock, TimeResource, TimeUtil) {
 
     return {
       fillOtherFields: fillOtherFields,
       fillSelects: fillSelects,
       map: map,
-      onUpdate: onUpdate,
       openForm: openForm,
       stopTimer: stopTimer,
-      updated: updated
+      updateElapsed: updateElapsed
     };
 
     function fillSelects(timeModel, viewData) {
@@ -60,12 +57,6 @@
       return $filter('orderBy')(array, 'text');
     }
 
-    function onUpdate(callback) {
-      $rootScope.$on(_updateEvent, function () {
-        callback();
-      });
-    }
-
     function openForm(data, editData) {
       $modal.open({
         templateUrl: '/app/time/form.html',
@@ -97,8 +88,14 @@
       TimeClock.stopClock();
     }
 
-    function updated() {
-      $rootScope.$emit(_updateEvent);
+    function updateElapsed(newTime, oldTime) {
+      var date = newTime.date;
+      var timeStart = newTime.start;
+      var timeEnd = newTime.end;
+      var seconds = TimeUtil.parseSeconds(oldTime.start);
+      var start = TimeUtil.dateTime(date, timeStart, seconds);
+      var end = timeEnd === '' ? TimeUtil.now() : TimeUtil.dateTime(date, timeEnd, seconds);
+      return TimeUtil.elapsed(start, end);
     }
   }
 

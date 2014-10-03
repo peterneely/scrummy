@@ -24,7 +24,8 @@
       parseInput: parseInput,
       parseSeconds: parseSeconds,
       parseTime: parseTime,
-      sort: sort
+      sort: sort,
+      updateElapsed: updateElapsed
     };
 
     function dateTime(date, time, seconds) {
@@ -139,6 +140,14 @@
         function isoWeek(date) {
           return $moment(date).isoWeek();
         }
+      }
+    }
+
+    function updateElapsed(time) {
+      return elapsed(time.start, end());
+
+      function end() {
+        return time.end === '' ? now() : time.end;
       }
     }
   }

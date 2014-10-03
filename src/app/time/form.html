@@ -18,7 +18,7 @@
         <div class="form-group form-inline" ng-class="{'has-error': !f.valid}">
           <div time name="start" sc-class="form-control sc-form-control sc-small"
                sc-placeholder="Start Time" ng-model="f.timeModel.time.start"
-               sc-validate="f.validate(timeForm.start)" sc-change="f.refreshElapsed()">
+               sc-validate="f.validate(timeForm.start)" sc-change="f.updateElapsedOnBlur()">
           </div>
         </div>
 
@@ -27,7 +27,7 @@
         <div class="form-group form-inline" ng-class="{'has-error': !f.valid}">
           <div time name="end" sc-class="form-control sc-form-control sc-small"
                sc-placeholder="End Time" ng-model="f.timeModel.time.end"
-               sc-validate="f.validate(timeForm.end)" sc-change="f.refreshElapsed()">
+               sc-validate="f.validate(timeForm.end)" sc-change="f.updateElapsedOnBlur()">
           </div>
         </div>
 

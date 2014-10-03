@@ -34,7 +34,7 @@
     updateElapsed();
     startClock();
     Time.onClockAlarm(updateElapsed);
-    Time.onUpdate(updateElapsed);
+    Time.onTimesUpdated(updateElapsed);
 
     function editTime() {
       if (!$scope.event.selectingText && !$scope.event.stopTimer) {
@@ -71,11 +71,7 @@
     }
 
     function updateElapsed() {
-      $scope.elapsed = Time.elapsed(_item.time.start, end());
-
-      function end() {
-        return isActive() ? Time.now() : _item.time.end;
-      }
+      $scope.elapsed = Time.updateElapsed(_item.time);
     }
   }
 })

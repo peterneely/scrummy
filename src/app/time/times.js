@@ -39,22 +39,25 @@
       return Fn.sortDesc(Object.keys(obj));
     }
 
-    function sortTimes(){
+    function sortTimes() {
       return Time.sort(viewData.times);
     }
 
     function times(week, day) {
       return Fn.sortDescBy(_times[week][day], by);
 
-      function by(item){
+      function by(item) {
         return item.time.start;
       }
     }
 
     function watchTimes() {
-      Resource.watch(viewData.times, function () {
+      Resource.watch(viewData.times, changed);
+
+      function changed() {
         _times = sortTimes();
-      });
+        Time.notifyTimesUpdated();
+      }
     }
 
     function weeks() {
