@@ -6,6 +6,7 @@
 
   <form name="timeForm" novalidate="">
     <section class="panel-body">
+
       <div selects sc-data="f.viewData" ng-model="f.timeModel" sc-class="form-control"></div>
 
       <div class="form-group">
@@ -15,16 +16,16 @@
 
       <div class="form-group form-inline">
 
-        <div class="form-group form-inline" ng-class="{'has-error': !f.valid}">
+        <div class="form-group form-inline sc-inline" ng-class="{'has-error': !f.valid}">
           <div time name="start" sc-class="form-control sc-form-control sc-small"
                sc-placeholder="Start Time" ng-model="f.timeModel.time.start"
                sc-validate="f.validate(timeForm.start)" sc-change="f.updateElapsedOnBlur()">
           </div>
         </div>
 
-        <span class="sc-form-control">to</span>
+        <span class="sc-inline sc-form-control">to</span>
 
-        <div class="form-group form-inline" ng-class="{'has-error': !f.valid}">
+        <div class="form-group form-inline sc-inline" ng-class="{'has-error': !f.valid}">
           <div time name="end" sc-class="form-control sc-form-control sc-small"
                sc-placeholder="End Time" ng-model="f.timeModel.time.end"
                sc-validate="f.validate(timeForm.end)" sc-change="f.updateElapsedOnBlur()">
@@ -33,7 +34,9 @@
 
         <span class="sc-form-control">on</span>
 
-        <div date ng-model="f.timeModel.time.date"></div>
+        <div class="form-group form-inline sc-form-control">
+          <div date ng-model="f.timeModel.time.date"></div>
+        </div>
 
         <span class="sc-form-control sc-bold sc-duration" ng-show="f.valid">{{ f.elapsed }}</span>
       </div>
@@ -41,13 +44,13 @@
 
     <section class="panel-footer">
       <div class="form-group form-inline">
-        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.start()"
+        <button class="btn btn-primary sc-form-control sc-small" ng-click="timeForm.$valid && f.start()"
                 ng-show="f.isNew">Start Timer
         </button>
-        <button class="btn btn-primary sc-form-control sc-medium" ng-click="timeForm.$valid && f.update()"
+        <button class="btn btn-primary sc-form-control sc-small" ng-click="timeForm.$valid && f.update()"
                 ng-hide="f.isNew">Update
         </button>
-        <button class="btn btn-default sc-form-control sc-medium" ng-click="f.cancel()">Cancel</button>
+        <button class="btn btn-default sc-form-control sc-small" ng-click="f.cancel()">Cancel</button>
         <a ng-href="" ng-hide="f.isNew" class="pull-right sc-delete" ng-click="f.delete()">Delete</a>
       </div>
     </section>

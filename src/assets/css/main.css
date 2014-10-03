@@ -7,8 +7,16 @@ h1 {
     margin-bottom: 20px;
 }
 
+.app a {
+    text-decoration: none;
+}
+
 .sc-bold {
     font-weight: bold;
+}
+
+.sc-inline {
+    display: inline-block;
 }
 
 input[type='text'], textarea,
