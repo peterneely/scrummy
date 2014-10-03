@@ -23,6 +23,7 @@
       timeType: timeType,
       user: user,
       userPic: userPic,
+      userStateAdmin: userStateAdmin,
       userStateTime: userStateTime,
       userStateTimeType: userStateTimeType
     };
@@ -73,6 +74,10 @@
 
     function userPic(hash) {
       return Config.urlPic + hash + '?d=mm';
+    }
+
+    function userStateAdmin(){
+      return url(['user', 'state', 'admin']);
     }
 
     function userStateTime() {

@@ -12,11 +12,30 @@
 
     var vm = this;
     vm.class = '';
+    vm.defaultAdminState = defaultAdminState;
     vm.picUrl = coreData.user.pic;
 
     State.whenChanged(function (stateName) {
-      vm.class = State.isAdmin(stateName) ? 'active' : '';
+      var isAdmin = State.isAdmin(stateName);
+      isAdminActive();
+      saveAdminState();
+
+      function isAdminActive() {
+        vm.class = isAdmin ? 'active' : '';
+      }
+
+      function saveAdminState() {
+        if (isAdmin) {
+          State.saveDefaultAdmin();
+        }
+      }
     });
+
+    function defaultAdminState() {
+      State.getDefaultAdmin().then(function (state) {
+        State.go(state);
+      });
+    }
   }
 
 })();
