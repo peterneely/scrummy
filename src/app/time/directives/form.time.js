@@ -20,11 +20,11 @@
         placeholder: '@scPlaceholder',
         validate: '&scValidate'
       },
-      link: timeLink,
+      link: Link,
       replace: true
     };
 
-    function timeLink(scope, element) {
+    function Link(scope, element) {
       element.children().on('blur', blurEvent);
 
       function blurEvent() {
