@@ -1,22 +1,27 @@
-Valid if:
+e2e and unit tests
 
-NEW: 
+Time totals
 
-If today:
-Has start time and no end time
-Has start time and end time that is after start time
-Has no start or end time
+Filter (and update totals)
 
-If not today:
-Has start time and end time
-End time is after start time
+Warning before deleting admin items and associated times
 
+Replace popups with in-place expanders
 
-UPDATE:
+Replace Select2 with something more mobile friendly
 
-(If active, disable calendar button)
+Split components into modules
 
-No changes
-Has date and start time, but no end time
-Has date, start and end time. End time is after start time
+Proper CSS organisation and pre-processor
 
+CSS transitions
+
+il8n
+
+OAuth2
+
+iCal older times after a period of time set in user prefs
+
+MongoDB backend
+
+Swift app

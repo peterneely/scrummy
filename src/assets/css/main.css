@@ -31,8 +31,12 @@ input[type='text'] {
 }
 
 .navbar {
-    /*margin: 20px 15px 0 0;*/
-    margin: 20px 0 0 0;
+    margin: 20px 0 10px 0;
+}
+
+.sc-navbar-header {
+    margin: 0 0 10px 0;
+    float: left;
 }
 
 ul.navbar-right {
@@ -76,6 +80,11 @@ footer {
 .sc-jumbotron {
     padding: 100px 0 100px 0;
     line-height: 65px;
+    text-align: center;
+}
+
+.sc-jumbotron p {
+    font-size: 21px;
 }
 
 .jumbotron .btn {
@@ -128,10 +137,16 @@ footer {
     }
 }
 
+@media screen and (max-width: 767px) {
+    .sc-navbar-header {
+        margin-top: 10px;
+    }
+}
+
 @media screen and (max-width: 768px) {
-    /*.app.container {*/
-        /*padding-top: 10px;*/
-    /*}*/
+    .sc-navbar-header {
+        font-size: 30px;
+    }
 
     .subtext .lead {
         font-size: 21px;
@@ -141,6 +156,10 @@ footer {
 @media screen and (max-width: 640px) {
     .app.container {
         margin-top: 0;
+    }
+
+    .navbar {
+        margin: 20px 0 0 0;
     }
 
     .app section {

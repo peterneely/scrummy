@@ -56,6 +56,11 @@
     width: 152px;
 }
 
+.sc-well {
+    float: left;
+    margin-top: 10px;
+}
+
 @media screen and (max-width: 640px) {
     .form-auth .btn {
         width: 100%;

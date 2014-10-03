@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('TimeForm', TimeFormService);
 
-  TimeFormService.$inject = ['$filter', '$modal', 'Fn', 'TimeClock', 'TimeResource', 'TimeUtil'];
+  TimeFormService.$inject = ['$filter', '$modal', 'Fn', 'State', 'TimeClock', 'TimeResource', 'TimeUtil'];
 
-  function TimeFormService($filter, $modal, Fn, TimeClock, TimeResource, TimeUtil) {
+  function TimeFormService($filter, $modal, Fn, State, TimeClock, TimeResource, TimeUtil) {
 
     return {
       fillOtherFields: fillOtherFields,
@@ -58,28 +58,54 @@
     }
 
     function openForm(data, editData) {
-      $modal.open({
-        templateUrl: '/app/time/form.html',
-        controller: 'TimeForm as f',
-        resolve: {
-          viewData: function () {
-            return angular.isDefined(editData) ? updateModel() : addModel();
-          }
-        }
-      });
-
-      function addModel() {
-        var model = data;
-        model.add = true;
-        model.isActive = false;
-        return Fn.deleteProperties(model, ['type']);
+      var missing = missingType();
+      if (missing !== '') {
+        enter(missing);
+      } else {
+        openNow();
       }
 
-      function updateModel() {
-        var model = Fn.merge(data, editData);
-        model.add = false;
-        model.isActive = editData.time.end === '';
-        return Fn.deleteProperties(model, ['type', 'times']);
+      function enter(missing) {
+        State.go('nav.' + missing);
+      }
+
+      function missingType() {
+        var types = ['clients', 'projects', 'tasks'];
+        var missing = '';
+        for (var i = 0, len = types.length; i < len; i++) {
+          var type = types[i];
+          if (data[type].length === 0) {
+            missing = type;
+            break;
+          }
+        }
+        return missing;
+      }
+
+      function openNow() {
+        $modal.open({
+          templateUrl: '/app/time/form.html',
+          controller: 'TimeForm as f',
+          resolve: {
+            viewData: function () {
+              return angular.isDefined(editData) ? updateModel() : addModel();
+            }
+          }
+        });
+
+        function addModel() {
+          var model = data;
+          model.add = true;
+          model.isActive = false;
+          return Fn.deleteProperties(model, ['type']);
+        }
+
+        function updateModel() {
+          var model = Fn.merge(data, editData);
+          model.add = false;
+          model.isActive = editData.time.end === '';
+          return Fn.deleteProperties(model, ['type', 'times']);
+        }
       }
     }
 
