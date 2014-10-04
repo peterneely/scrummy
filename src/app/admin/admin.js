@@ -6,11 +6,12 @@
     .module('scrummyApp')
     .controller('Admin', AdminController);
 
-  AdminController.$inject = ['Device', 'Fn', 'Resource', 'State', 'Time', 'Url', 'User', 'viewData'];
+  AdminController.$inject = ['AdminTimes', 'Device', 'Fn', 'Resource', 'State', 'Time', 'Url', 'User', 'viewData'];
 
-  function AdminController(Device, Fn, Resource, State, Time, Url, User, viewData) {
+  function AdminController(AdminTimes, Device, Fn, Resource, State, Time, Url, User, viewData) {
 
     var _singleType = Fn.singular(viewData.type);
+    var _times = AdminTimes.timesByType(_singleType, viewData.times);
 
     var vm = this;
     vm.add = add;
@@ -18,7 +19,7 @@
     vm.hasTimes = hasTimes;
     vm.items = viewData.items;
     vm.new = '';
-    vm.placeholder = Fn.singular(viewData.type);
+    vm.placeholder = _singleType;
     vm.remove = remove;
     vm.search = { name: '' };
     vm.searchId = State.current();
@@ -30,7 +31,7 @@
     }
 
     function hasTimes(item) {
-      return item.times !== undefined;
+      return angular.isDefined(_times[item.$id]);
     }
 
     function remove(item) {
@@ -50,7 +51,8 @@
     }
 
     function timesCount(item) {
-      return Object.keys(item.times).length;
+      var times = _times[item.$id] || [];
+      return times.length
     }
 
     function update(item) {

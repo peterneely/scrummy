@@ -35,11 +35,15 @@
     }
 
     function days(week) {
-      return _keys(_times[week]);
+      return keys(_times[week]);
     }
 
     function dayTitle(dayHeader) {
       return Time.dayTitle(dayHeader);
+    }
+
+    function keys(obj) {
+      return Fn.sortDesc(Object.keys(obj));
     }
 
     function sortTimes() {
@@ -65,11 +69,7 @@
     }
 
     function weeks() {
-      return _keys(_times);
-    }
-
-    function _keys(obj) {
-      return Fn.sortDesc(Object.keys(obj));
+      return keys(_times);
     }
   }
 

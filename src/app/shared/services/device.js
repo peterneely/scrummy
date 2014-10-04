@@ -11,14 +11,14 @@
   function DeviceService(screenSize) {
 
     return {
-      isDekstop: isDekstop,
+      isDesktop: isDesktop,
       isLargeDesktop: isLargeDesktop,
       isMobile: isMobile,
       isPortable: isPortable,
       isTablet: isTablet
     };
 
-    function isDekstop(){
+    function isDesktop(){
       return screenSize.is('md');
     }
 
