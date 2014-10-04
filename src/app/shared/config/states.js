@@ -86,7 +86,7 @@
         views: {
           '': {
             templateUrl: '/app/admin/admin.html',
-            controller: 'Admin as admin'
+            controller: 'Admin as a'
           },
           '@nav.clients': {
             templateUrl: '/app/admin/tabs.html'
@@ -111,7 +111,7 @@
         views: {
           '': {
             templateUrl: '/app/admin/admin.html',
-            controller: 'Admin as admin'
+            controller: 'Admin as a'
           },
           '@nav.projects': {
             templateUrl: '/app/admin/tabs.html'
@@ -136,7 +136,7 @@
         views: {
           '': {
             templateUrl: '/app/admin/admin.html',
-            controller: 'Admin as admin'
+            controller: 'Admin as a'
           },
           '@nav.tasks': {
             templateUrl: '/app/admin/tabs.html'

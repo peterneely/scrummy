@@ -17,6 +17,7 @@
     vm.addTime = addTime;
     vm.days = days;
     vm.dayTitle = dayTitle;
+    vm.search = '';
     vm.times = times;
     vm.viewData = viewData;
     vm.weeks = weeks;
@@ -45,9 +46,9 @@
     }
 
     function times(week, day) {
-      return Fn.sortDescBy(_times[week][day], by);
+      return Fn.sortDescBy(_times[week][day], orderBy);
 
-      function by(item) {
+      function orderBy(item) {
         return item.time.start;
       }
     }

@@ -1,17 +1,32 @@
 <section class="row">
   <div class="col-xs-12">
-    <div class="row">
 
+    <div class="row">
       <div class="sc-header col-xs-2 no-padding-left">
         <button class="btn btn-primary btn-lg" ng-click="ts.addTime()">
           <span class="glyphicon glyphicon-plus"></span>
         </button>
       </div>
+
+      <div class="sc-times-search">
+        <div class="input-group col-xs-8 col-sm-6 col-md-5 pull-right">
+          <input type="text" focus class="form-control" placeholder="Search" ng-model="ts.search">
+          <span class="input-group-addon" ng-hide="a.searching()">
+            <i class="glyphicon glyphicon-search text-muted"></i>
+          </span>
+          <span class="input-group-btn" ng-if="a.searching()">
+            <button class="btn btn-default" type="button" ng-click="a.clearSearch()">
+              <i class="glyphicon glyphicon-remove"></i>
+            </button>
+          </span>
+        </div>
+      </div>
     </div>
 
-    <div class="well sc-jumbotron" ng-show="ts.noData">
-      <h3 class="sc-text-muted">There's nothing here!</h3>
-      <p class="sc-text-muted">Zzzzzzzzz...</p>
+    <div class="well sc-jumbotron sc-text-muted" ng-if="ts.noData">
+      <h3>There's nothing here!</h3>
+
+      <p>Zzzzzzzzz...</p>
     </div>
 
     <div class="panel panel-default" ng-repeat="week in ts.weeks()">
@@ -23,9 +38,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr time-item ng-repeat="time in ts.times(week, day)" ng-model="time" sc-data="ts.viewData"></tr>
+        <tr time-item ng-repeat="time in ts.times(week, day) | filter:ts.search" ng-model="time" sc-data="ts.viewData"></tr>
         </tbody>
       </table>
     </div>
+
   </div>
 </section>
