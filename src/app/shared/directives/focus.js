@@ -18,7 +18,7 @@
       var found = firstElem.is('input') ? firstElem : element.find('input');
       $timeout(function () {
         found.focus();
-      }, 10);
+      }, 50);
     }
   }
 

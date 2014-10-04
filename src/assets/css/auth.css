@@ -56,9 +56,8 @@
     width: 152px;
 }
 
-.sc-well {
-    float: left;
-    margin-top: 10px;
+.sc-user-info {
+    display: inline-block;
 }
 
 @media screen and (max-width: 640px) {

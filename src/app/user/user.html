@@ -1,6 +1,10 @@
-<div class="well clearfix sc-top">
-  <div class=sc-well>
-    <span class="text-muted">Profile picture from <a href="https://en.gravatar.com/" target="_blank">Gravatar</a></span>
+<div class="well sc-top">
+  <div class="sc-user-info">
+    <p class="sc-bold">Logged in as {{ u.user.email }}</p>
+
+    <P>Profile picture by <a href="https://en.gravatar.com/" target="_blank">Gravatar</a></p>
   </div>
-  <button class="btn btn-lg btn-primary pull-right" ng-click="user.logout()">Logout</button>
+  <div class="sc-user-info pull-right">
+    <button class="btn btn-lg btn-primary" ng-click="u.logout()">Logout</button>
+  </div>
 </div>

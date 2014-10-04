@@ -159,12 +159,10 @@
       return {
         url: '^/user',
         templateUrl: '/app/user/user.html',
-        controller: 'User as user',
+        controller: 'User as u',
         resolve: {
           viewData: ['coreData', function (coreData) {
-            return {
-              user: coreData.user
-            };
+            return coreData.user;
           }]
         }
       };
