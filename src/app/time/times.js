@@ -6,19 +6,21 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['Device', 'Fn', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['AdminTimes', 'Device', 'Fn', 'Resource', 'Time', 'viewData'];
 
-  function TimesController(Device, Fn, Resource, Time, viewData) {
-//    console.log(viewData);
+  function TimesController(AdminTimes, Device, Fn, Resource, Time, viewData) {
 
     var _times = sortTimes();
 
     var vm = this;
     vm.addTime = addTime;
+    vm.allowSearch = allowSearch;
+    vm.allowSearchAdmin = allowSearchAdmin;
     vm.days = days;
     vm.dayTitle = dayTitle;
     vm.canFocus = !Device.isPortable();
     vm.search = '';
+    vm.searchAdmin = AdminTimes.search;
     vm.times = times;
     vm.viewData = viewData;
     vm.weeks = weeks;
@@ -28,6 +30,14 @@
 
     function addTime() {
       return Time.openForm(viewData);
+    }
+
+    function allowSearch(){
+      return !vm.noData && (Fn.isEmpty(vm.searchAdmin) || vm.searchAdmin.text === '');
+    }
+
+    function allowSearchAdmin(){
+      return !vm.noData && !Fn.isEmpty(vm.searchAdmin) && vm.searchAdmin.text !== '';
     }
 
     function checkNoData(){
@@ -65,6 +75,7 @@
         checkNoData();
         _times = sortTimes();
         Time.notifyTimesUpdated();
+        AdminTimes.invalidate();
       }
     }
 

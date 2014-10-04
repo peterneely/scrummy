@@ -23,6 +23,7 @@
     vm.remove = remove;
     vm.search = { name: '' };
     vm.searchId = State.current();
+    vm.searchTimes = searchTimes;
     vm.timesCount = timesCount;
     vm.update = update;
 
@@ -35,6 +36,7 @@
     }
 
     function remove(item) {
+      AdminTimes.clearSearch();
       removeItem().then(removeUserState).then(removeTimes);
 
       function removeItem() {
@@ -48,6 +50,14 @@
       function removeUserState() {
         return User.removeState(_singleType, item.$id);
       }
+    }
+
+    function searchTimes(item) {
+      AdminTimes.search = {
+        id: item.$id,
+        text: item.name
+      };
+      State.go('nav.times');
     }
 
     function timesCount(item) {

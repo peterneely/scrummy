@@ -1,8 +1,12 @@
+Backlog:
+
 e2e and unit tests
 
 Time totals
 
 Filter (and update totals)
+
+Template cache
 
 Warning before deleting admin items and associated times
 

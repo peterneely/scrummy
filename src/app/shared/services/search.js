@@ -16,16 +16,20 @@
       save: save
     };
 
-    function apply(key){
+    function apply(key) {
       return _saved[key] || '';
     }
 
-    function remove(key){
-      delete _saved[key];
+    function remove(key) {
+      if (angular.isDefined(key)) {
+        delete _saved[key];
+      }
     }
 
-    function save(key, value){
-      _saved[key] = value;
+    function save(key, value) {
+      if (angular.isDefined(key)) {
+        _saved[key] = value;
+      }
     }
   }
 

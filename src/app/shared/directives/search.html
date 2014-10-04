@@ -1,6 +1,6 @@
 <div class="input-group">
 
-  <input type="text" class="form-control" placeholder="Search" ng-model="model" ng-change="saveSearch()">
+  <input type="text" ng-disabled="disabled" class="form-control" placeholder="Search" ng-model="model" ng-change="saveSearch()">
 
   <span class="input-group-addon" ng-hide="searching()">
     <i class="glyphicon glyphicon-search text-muted"></i>

@@ -24,16 +24,21 @@
   </div>
 
   <div class="input-group" ng-repeat="item in a.items | orderBy:'name' | filter:a.search.name">
+
     <span class="input-group-btn">
       <button class="btn btn-default" type="button" ng-click="a.remove(item)">
         <i class="glyphicon glyphicon-minus-sign sc-text-danger"></i>
       </button>
     </span>
+
     <input type="text" class="form-control sc-bold" ng-model="item.name" ng-change="a.update(item)">
+
     <span class="input-group-btn" ng-if="a.hasTimes(item)">
-      <button class="btn btn-default" type="button">
+      <button class="btn btn-default" type="button" ng-click="a.searchTimes(item)">
         <span class="badge">{{ a.timesCount(item) }}</span>
       </button>
     </span>
+
   </div>
+
 </section>

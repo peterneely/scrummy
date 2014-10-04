@@ -8,8 +8,14 @@
         </button>
       </div>
 
-      <div class="sc-times-search" ng-if="!ts.noData">
-        <div search focus focus-if="{{ ts.canFocus }}" search-id="nav.times" ng-model="ts.search" ng-class="'col-xs-8 col-sm-6 col-md-5 pull-right'"></div>
+      <div class="sc-times-search" ng-if="ts.allowSearch()">
+        <div search focus focus-if="{{ ts.canFocus }}" search-id="nav.times" ng-model="ts.search"
+             ng-class="'col-xs-8 col-sm-6 col-md-5 pull-right'"></div>
+      </div>
+
+      <div class="sc-times-search" ng-if="ts.allowSearchAdmin()">
+        <div search ng-model="ts.searchAdmin.text" ng-disabled="true"
+             ng-class="'col-xs-8 col-sm-6 col-md-5 pull-right'"></div>
       </div>
     </div>
 
@@ -28,8 +34,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr time-item ng-repeat="time in ts.times(week, day) | filter:ts.search" ng-model="time"
-            sc-data="ts.viewData"></tr>
+        <tr time-item ng-if="ts.allowSearch()" ng-repeat="time in ts.times(week, day) | filter:ts.search"
+            ng-model="time"
+            sc-data="ts.viewData">
+        </tr>
+        <tr time-item ng-if="ts.allowSearchAdmin()" ng-repeat="time in ts.times(week, day) | filter:ts.searchAdmin.id"
+            ng-model="time"
+            sc-data="ts.viewData">
+        </tr>
         </tbody>
       </table>
     </div>

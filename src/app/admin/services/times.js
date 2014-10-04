@@ -10,14 +10,29 @@
 
     var _data = {};
     var _invalid = {};
+    var _search = {};
 
     return {
+      clearSearch: clearSearch,
       invalidate: invalidate,
+      search: search,
       timesByType: timesByType
     };
 
-    function invalidate(type) {
-      _invalid[type] = true;
+    function clearSearch() {
+      _search = {};
+    }
+
+    function invalidate() {
+      for (var type in _data) {
+        if (_data.hasOwnProperty(type)) {
+          _invalid[type] = true;
+        }
+      }
+    }
+
+    function search(){
+      return _search;
     }
 
     function timesByType(type, times) {
