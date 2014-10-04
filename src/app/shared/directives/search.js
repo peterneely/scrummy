@@ -22,6 +22,9 @@
   SearchController.$inject = ['$scope', 'Search'];
 
   function SearchController($scope, Search) {
+
+    var _searchId = $scope.searchId;
+
     $scope.clearSearch = clearSearch;
     $scope.saveSearch = saveSearch;
     $scope.searching = searching;
@@ -29,17 +32,16 @@
     applySavedSearch();
 
     function applySavedSearch(){
-      $scope.model = Search.apply($scope.searchId);
+      $scope.model = Search.apply(_searchId);
     }
 
     function clearSearch() {
       $scope.model = '';
-      saveSearch();
+      Search.remove(_searchId);
     }
 
     function saveSearch(){
-      console.log($scope.searchId, $scope.model);
-      Search.save($scope.searchId, $scope.model);
+      Search.save(_searchId, $scope.model);
     }
 
     function searching() {

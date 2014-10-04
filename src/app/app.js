@@ -14,7 +14,8 @@
       'firebase',
       'ui.bootstrap',
       'ui.select2',
-      'angular-momentjs'
+      'angular-momentjs',
+      'matchMedia'
     ]);
 
 })();

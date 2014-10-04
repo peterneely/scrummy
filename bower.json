@@ -19,7 +19,8 @@
     "select2-bootstrap-css": "~1.4.1",
     "moment": "~2.8.3",
     "angular-momentjs": "~0.1.8",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "angular-media-queries": "~0.2.3"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

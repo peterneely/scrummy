@@ -6,14 +6,15 @@
     .module('scrummyApp')
     .controller('Admin', AdminController);
 
-  AdminController.$inject = ['Fn', 'Resource', 'State', 'Time', 'Url', 'User', 'viewData'];
+  AdminController.$inject = ['Device', 'Fn', 'Resource', 'State', 'Time', 'Url', 'User', 'viewData'];
 
-  function AdminController(Fn, Resource, State, Time, Url, User, viewData) {
+  function AdminController(Device, Fn, Resource, State, Time, Url, User, viewData) {
 
     var _singleType = Fn.singular(viewData.type);
 
     var vm = this;
     vm.add = add;
+    vm.canFocus = !Device.isPortable();
     vm.hasTimes = hasTimes;
     vm.items = viewData.items;
     vm.new = '';

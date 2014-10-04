@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['Fn', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['Device', 'Fn', 'Resource', 'Time', 'viewData'];
 
-  function TimesController(Fn, Resource, Time, viewData) {
+  function TimesController(Device, Fn, Resource, Time, viewData) {
 //    console.log(viewData);
 
     var _times = sortTimes();
@@ -17,6 +17,7 @@
     vm.addTime = addTime;
     vm.days = days;
     vm.dayTitle = dayTitle;
+    vm.canFocus = !Device.isPortable();
     vm.search = '';
     vm.times = times;
     vm.viewData = viewData;

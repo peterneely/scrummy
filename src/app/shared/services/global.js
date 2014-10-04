@@ -4,8 +4,14 @@
 
   angular
     .module('scrummyApp')
+    .factory('$', jQueryService)
     .factory('Firebase', FirebaseService)
     .factory('_', LodashService);
+
+  jQueryService.$inject = ['$window'];
+  function jQueryService($window){
+    return $window.$;
+  }
 
   FirebaseService.$inject = ['$window'];
   function FirebaseService($window) {

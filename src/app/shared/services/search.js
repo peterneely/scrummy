@@ -11,16 +11,21 @@
     var _saved = {};
 
     return {
-      save: save,
-      apply: apply
+      apply: apply,
+      remove: remove,
+      save: save
     };
-
-    function save(key, value){
-      _saved[key] = value;
-    }
 
     function apply(key){
       return _saved[key] || '';
+    }
+
+    function remove(key){
+      delete _saved[key];
+    }
+
+    function save(key, value){
+      _saved[key] = value;
     }
   }
 
