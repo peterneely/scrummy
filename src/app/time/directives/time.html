@@ -7,13 +7,13 @@
   <td class="col-xs-8 col-sm-10">
     <h4 class="sc-bold">{{ item.task.text }}</h4>
 
-    <p class="">{{ item.project.text }} ({{ item.client.text }})</p>
+    <p class="">{{ item.project.text }} &#8226; {{ item.client.text }}</p>
 
     <p class="sc-text-muted">{{ item.notes }}</p>
   </td>
   <td class="col-xs-4 col-sm-2">
     <button class="btn btn-primary sc-stop" ng-show="isActive()" ng-click="stopTimer()">
-      <span class="glyphicon glyphicon-off sc-animate"></span>
+      <i class="glyphicon glyphicon-off sc-animate"></i>
       <label>Stop</label>
     </button>
     <h4 class="sc-bold">{{ elapsed }}</h4>

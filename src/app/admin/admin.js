@@ -14,23 +14,17 @@
 
     var vm = this;
     vm.add = add;
-    vm.clearSearch = clearSearch;
     vm.hasTimes = hasTimes;
     vm.items = viewData.items;
     vm.new = '';
     vm.placeholder = Fn.singular(viewData.type);
     vm.remove = remove;
     vm.search = { name: '' };
-    vm.searching = searching;
     vm.timesCount = timesCount;
     vm.update = update;
 
     function add() {
       Resource.post(Url[viewData.type](), vm.new).then(vm.new = '');
-    }
-
-    function clearSearch() {
-      vm.search.name = '';
     }
 
     function hasTimes(item) {
@@ -51,10 +45,6 @@
       function removeUserState() {
         return User.removeState(_singleType, item.$id);
       }
-    }
-
-    function searching() {
-      return vm.search.name.length > 0;
     }
 
     function timesCount(item) {

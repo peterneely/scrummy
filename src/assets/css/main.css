@@ -87,6 +87,10 @@ footer {
     font-size: 21px;
 }
 
+.sc-text-danger {
+    color: #D9534F;
+}
+
 .jumbotron .btn {
     font-size: 21px;
     padding: 14px 24px;

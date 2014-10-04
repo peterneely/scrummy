@@ -6,35 +6,27 @@
     <div class="row">
 
       <div class="col-xs-7 no-padding-left">
-        <form class="add" ng-submit="a.add()">
+        <form class="add">
           <div class="input-group">
             <input type="text" focus class="form-control" placeholder="Add {{ a.placeholder }}" ng-model="a.new.name">
             <span class="input-group-btn">
-              <input class="btn btn-default" type="submit" value="Add"/>
+              <button class="btn btn-default" type="button" ng-click="a.add()">
+                <i class="glyphicon glyphicon-plus text-muted"></i>
+              </button>
             </span>
           </div>
         </form>
       </div>
 
-      <div class="input-group col-xs-5">
-        <input type="text" class="form-control" placeholder="Search" ng-model="a.search.name">
-        <span class="input-group-addon" ng-hide="a.searching()">
-          <i class="glyphicon glyphicon-search text-muted"></i>
-        </span>
-        <span class="input-group-btn" ng-if="a.searching()">
-          <button class="btn btn-default" type="button" ng-click="a.clearSearch()">
-            <i class="glyphicon glyphicon-remove"></i>
-          </button>
-        </span>
-      </div>
+      <div search ng-model="a.search.name" ng-class="'col-xs-5'"></div>
 
     </div>
   </div>
 
   <div class="input-group" ng-repeat="item in a.items | orderBy:'name' | filter:a.search.name">
-    <span class="remove input-group-btn">
+    <span class="input-group-btn">
       <button class="btn btn-default" type="button" ng-click="a.remove(item)">
-        <i class="glyphicon glyphicon-minus-sign"></i>
+        <i class="glyphicon glyphicon-minus-sign sc-text-danger"></i>
       </button>
     </span>
     <input type="text" class="form-control sc-bold" ng-model="item.name" ng-change="a.update(item)">

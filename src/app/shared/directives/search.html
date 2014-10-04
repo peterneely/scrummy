@@ -1,0 +1,15 @@
+<div class="input-group">
+
+  <input type="text" class="form-control" placeholder="Search" ng-model="model">
+
+  <span class="input-group-addon" ng-hide="searching()">
+    <i class="glyphicon glyphicon-search text-muted"></i>
+  </span>
+
+  <span class="input-group-btn" ng-if="searching()">
+    <button class="btn btn-default" type="button" ng-click="clearSearch()">
+      <i class="glyphicon glyphicon-remove text-muted"></i>
+    </button>
+  </span>
+
+</div>
