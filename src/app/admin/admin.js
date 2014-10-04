@@ -62,7 +62,7 @@
 
     function timesCount(item) {
       var times = _times[item.$id] || [];
-      return times.length
+      return times.length;
     }
 
     function update(item) {

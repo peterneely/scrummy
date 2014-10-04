@@ -15,6 +15,7 @@
       deleteProperties: deleteProperties,
       doubleDigits: doubleDigits,
       group: group,
+      groupBy: groupBy,
       has: has,
       isEmpty: isEmpty,
       merge: merge,
@@ -52,6 +53,10 @@
       return _.mapValues(_.groupBy(seq, first), function (value) {
         return group(value, rest);
       });
+    }
+
+    function groupBy(items, by){
+      return _.groupBy(items, by);
     }
 
     function has(object, property){

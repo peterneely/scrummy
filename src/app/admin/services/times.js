@@ -6,7 +6,9 @@
     .module('scrummyApp')
     .factory('AdminTimes', AdminTimesService);
 
-  function AdminTimesService() {
+  AdminTimesService.$inject = ['Fn'];
+
+  function AdminTimesService(Fn) {
 
     var _data = {};
     var _invalid = {};
@@ -45,11 +47,11 @@
       function shouldRefresh() {
         return _invalid[type] ||
           angular.isUndefined(_invalid[type]) ||
-          angular.isUndefined(_data[type])
+          angular.isUndefined(_data[type]);
       }
 
       function refreshed() {
-        var grouped = _.groupBy(times, function (time) {
+        var grouped = Fn.groupBy(times, function (time) {
           return time[type].id;
         });
         _data[type] = grouped;
