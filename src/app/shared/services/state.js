@@ -18,12 +18,20 @@
     });
 
     return {
+      current: current,
       getDefaultAdmin: getDefaultAdmin,
       go: go,
       isAdmin: isAdmin,
       saveDefaultAdmin: saveDefaultAdmin,
       whenChanged: whenChanged
     };
+
+    function current() {
+      if(_stateName === ''){
+        _stateName = $state.current.name;
+      }
+      return _stateName;
+    }
 
     function getDefaultAdmin() {
       return Async.promise(getDefault);
