@@ -2,6 +2,8 @@ Backlog:
 
 e2e and unit tests
 
+Validation against duplicate clients, projects, times
+
 Time totals
 
 Filter (and update totals)
