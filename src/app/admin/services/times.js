@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .factory('AdminTimes', AdminTimesService);
 
-  AdminTimesService.$inject = ['Fn'];
+  AdminTimesService.$inject = ['$modal', 'Async', 'Fn'];
 
-  function AdminTimesService(Fn) {
+  function AdminTimesService($modal, Async, Fn) {
 
     var _data = {};
     var _invalid = {};
@@ -17,6 +17,7 @@
     return {
       clearSearch: clearSearch,
       invalidate: invalidate,
+      confirmRemove: confirmRemove,
       search: search,
       timesByType: timesByType
     };
@@ -30,6 +31,27 @@
         if (_data.hasOwnProperty(type)) {
           _invalid[type] = true;
         }
+      }
+    }
+
+    function confirmRemove(item){
+      return Async.promise(confirm);
+
+      function confirm(deferred){
+        var prompt = $modal.open({
+          templateUrl: 'app/admin/remove.html',
+          controller: 'AdminRemove as r',
+          size: 'md',
+          resolve: {
+            viewData: function () {
+              return item;
+            }
+          }
+        });
+
+        prompt.result.then(function (selected) {
+          deferred.resolve(selected);
+        });
       }
     }
 

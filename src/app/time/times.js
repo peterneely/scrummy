@@ -32,15 +32,15 @@
       return Time.openForm(viewData);
     }
 
-    function allowSearch(){
-      return !vm.noData && (Fn.isEmpty(vm.searchAdmin) || vm.searchAdmin.text === '');
+    function allowSearch() {
+      return !vm.noData && (Fn.isEmpty(AdminTimes.search) || AdminTimes.search.text === '');
     }
 
-    function allowSearchAdmin(){
-      return !vm.noData && !Fn.isEmpty(vm.searchAdmin) && vm.searchAdmin.text !== '';
+    function allowSearchAdmin() {
+      return !vm.noData && !Fn.isEmpty(AdminTimes.search) && AdminTimes.search.text !== '';
     }
 
-    function checkNoData(){
+    function checkNoData() {
       vm.noData = viewData.times.length === 0;
     }
 
@@ -54,6 +54,10 @@
 
     function keys(obj) {
       return Fn.sortDesc(Object.keys(obj));
+    }
+
+    function searchAdmin(){
+      return AdminTimes.search;
     }
 
     function sortTimes() {

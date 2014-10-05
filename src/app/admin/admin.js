@@ -36,8 +36,20 @@
     }
 
     function remove(item) {
-      AdminTimes.clearSearch();
-      removeItem().then(removeUserState).then(removeTimes);
+      if(hasTimes(item)){
+        confirm().then(response);
+      } else {
+        removeNow();
+      }
+
+      function confirm(){
+        return AdminTimes.confirmRemove(item);
+      }
+
+      function removeNow(){
+        AdminTimes.clearSearch();
+        removeItem().then(removeUserState).then(removeTimes);
+      }
 
       function removeItem() {
         return Resource.remove(viewData.items, item);
@@ -49,6 +61,17 @@
 
       function removeUserState() {
         return User.removeState(_singleType, item.$id);
+      }
+
+      function response(selected){
+        switch(selected){
+          case 'show':
+            searchTimes(item);
+            break;
+          case 'remove':
+            removeNow();
+            break;
+        }
       }
     }
 

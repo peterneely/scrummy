@@ -65,10 +65,6 @@
         openNow();
       }
 
-      function enter(missing) {
-        State.go('nav.' + missing);
-      }
-
       function missingType() {
         var types = ['clients', 'projects', 'tasks'];
         var missing = '';
@@ -106,6 +102,10 @@
           model.isActive = editData.time.end === '';
           return Fn.deleteProperties(model, ['type', 'times']);
         }
+      }
+
+      function enter(missing) {
+        State.go('nav.' + missing);
       }
     }
 
