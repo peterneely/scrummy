@@ -18,7 +18,8 @@
       clearSearch: clearSearch,
       invalidate: invalidate,
       confirmRemove: confirmRemove,
-      search: search,
+      getSearch: getSearch,
+      setSearch: setSearch,
       timesByType: timesByType
     };
 
@@ -55,8 +56,12 @@
       }
     }
 
-    function search(){
+    function getSearch(){
       return _search;
+    }
+
+    function setSearch(object){
+      _search = object;
     }
 
     function timesByType(type, times) {

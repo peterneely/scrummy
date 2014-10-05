@@ -10,17 +10,20 @@
 
   function TimesController(AdminTimes, Device, Fn, Resource, Time, viewData) {
 
+//    console.log(viewData);
+
     var _times = sortTimes();
 
     var vm = this;
     vm.addTime = addTime;
     vm.allowSearch = allowSearch;
     vm.allowSearchAdmin = allowSearchAdmin;
+    vm.clearAdminSearch = clearAdminSearch;
     vm.days = days;
     vm.dayTitle = dayTitle;
     vm.canFocus = !Device.isPortable();
     vm.search = '';
-    vm.searchAdmin = AdminTimes.search;
+    vm.searchAdmin = AdminTimes.getSearch();
     vm.times = times;
     vm.viewData = viewData;
     vm.weeks = weeks;
@@ -33,15 +36,19 @@
     }
 
     function allowSearch() {
-      return !vm.noData && (Fn.isEmpty(AdminTimes.search) || AdminTimes.search.text === '');
+      return !vm.noData && Fn.isEmpty(vm.searchAdmin);
     }
 
     function allowSearchAdmin() {
-      return !vm.noData && !Fn.isEmpty(AdminTimes.search) && AdminTimes.search.text !== '';
+      return !vm.noData && !Fn.isEmpty(vm.searchAdmin);
     }
 
     function checkNoData() {
       vm.noData = viewData.times.length === 0;
+    }
+
+    function clearAdminSearch() {
+      AdminTimes.clearSearch();
     }
 
     function days(week) {
@@ -54,10 +61,6 @@
 
     function keys(obj) {
       return Fn.sortDesc(Object.keys(obj));
-    }
-
-    function searchAdmin(){
-      return AdminTimes.search;
     }
 
     function sortTimes() {

@@ -39,8 +39,19 @@ input[type='text'] {
 }
 
 .sc-navbar-header {
-    margin: 0 0 10px 0;
+    margin: -13px 0 10px 0;
     float: left;
+    font-family: 'pacifico';
+    font-size: 40px;
+}
+
+.navbar .scrummy {
+    margin-bottom: 8px;
+}
+
+.sc-jumbotron-header {
+    font-family: 'pacifico';
+    padding-bottom: 20px;
 }
 
 ul.navbar-right {
@@ -156,6 +167,10 @@ footer {
         font-size: 30px;
     }
 
+    .navbar .scrummy {
+        margin-bottom: 0;
+    }
+
     .subtext .lead {
         font-size: 21px;
     }
@@ -177,6 +192,10 @@ footer {
     .subtext .lead {
         font-size: 14px;
     }
+}
 
-
+@media screen and (min-width: 640px){
+    .sc-navbar-header {
+        font-size: 40px;
+    }
 }

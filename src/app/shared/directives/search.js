@@ -11,6 +11,7 @@
       templateUrl: '/app/shared/directives/search.html',
       scope: {
         class: '@ngClass',
+        clear: '&scClear',
         disabled: '@ngDisabled',
         model: '=ngModel',
         searchId: '@'
@@ -39,16 +40,17 @@
     }
 
     function clearSearch() {
-      $scope.model = '';
+      $scope.model = {};
       Search.remove(_searchId);
+      $scope.clear();
     }
 
     function saveSearch() {
-      Search.save(_searchId, $scope.model);
+      Search.save(_searchId, $scope.model.text);
     }
 
     function searching() {
-      return $scope.model.length > 0;
+      return angular.isDefined($scope.model.text);
     }
   }
 

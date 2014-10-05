@@ -14,8 +14,9 @@
       </div>
 
       <div class="sc-times-search" ng-if="ts.allowSearchAdmin()">
-        <div search ng-model="ts.searchAdmin.text" ng-disabled="true"
-             ng-class="'col-xs-8 col-sm-6 col-md-5 pull-right'"></div>
+        <div search ng-model="ts.searchAdmin" ng-disabled="true"
+             ng-class="'col-xs-8 col-sm-6 col-md-5 pull-right'"
+             sc-clear="ts.clearAdminSearch()"></div>
       </div>
     </div>
 
@@ -34,7 +35,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr time-item ng-if="ts.allowSearch()" ng-repeat="time in ts.times(week, day) | filter:ts.search"
+        <tr time-item ng-if="ts.allowSearch()" ng-repeat="time in ts.times(week, day) | filter:ts.search.text"
             ng-model="time"
             sc-data="ts.viewData">
         </tr>

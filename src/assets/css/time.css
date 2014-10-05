@@ -20,6 +20,11 @@
     margin-right: 15px;
 }
 
+.sc-form-control.sc-form-control-date {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
 .sc-color {
     min-height: 26px;
     /*width: 25px;*/
@@ -62,6 +67,7 @@
 .sc-duration {
     /*margin-left: 15px;*/
     font-size: 16px;
+    vertical-align: top;
 }
 
 .sc-delete {

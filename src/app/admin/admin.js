@@ -47,7 +47,7 @@
       }
 
       function removeNow(){
-        AdminTimes.clearSearch();
+//        AdminTimes.clearSearch();
         removeItem().then(removeUserState).then(removeTimes);
       }
 
@@ -76,10 +76,10 @@
     }
 
     function searchTimes(item) {
-      AdminTimes.search = {
+      AdminTimes.setSearch({
         id: item.$id,
         text: item.name
-      };
+      });
       State.go('nav.times');
     }
 

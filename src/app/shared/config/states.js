@@ -47,26 +47,28 @@
       };
     }
 
+    nav.$inject = ['Init'];
     function nav() {
       return {
         abstract: true,
         templateUrl: '/app/app/nav.html',
         controller: 'Nav as nav',
         resolve: {
-          coreData: ['Init', function (Init) {
+          coreData: function (Init) {
             return Init.getCoreData();
-          }]
+          }
         }
       };
     }
 
+    navTimes.$inject = ['coreData', 'AdminTimes', 'Time'];
     function navTimes() {
       return {
         url: '^/times',
         templateUrl: '/app/time/times.html',
         controller: 'Times as ts',
         resolve: {
-          viewData: ['coreData', 'Time', function (coreData, Time) {
+          viewData: function (coreData, Time) {
             return {
               user: coreData.user,
               clients: Time.map(coreData.clients),
@@ -75,11 +77,15 @@
               times: coreData.times,
               type: 'times'
             };
-          }]
+          }
+        },
+        onExit: function (AdminTimes) {
+          AdminTimes.clearSearch();
         }
       };
     }
 
+    navClients.$inject = ['coreData'];
     function navClients() {
       return {
         url: '^/clients',
@@ -93,18 +99,19 @@
           }
         },
         resolve: {
-          viewData: ['coreData', function (coreData) {
+          viewData: function (coreData) {
             return {
               user: coreData.user,
               items: coreData.clients,
               times: coreData.times,
               type: 'clients'
             };
-          }]
+          }
         }
       };
     }
 
+    navProjects.$inject = ['coreData'];
     function navProjects() {
       return {
         url: '^/projects',
@@ -118,18 +125,19 @@
           }
         },
         resolve: {
-          viewData: ['coreData', function (coreData) {
+          viewData: function (coreData) {
             return {
               user: coreData.user,
               items: coreData.projects,
               times: coreData.times,
               type: 'projects'
             };
-          }]
+          }
         }
       };
     }
 
+    navTasks.$inject = ['coreData'];
     function navTasks() {
       return {
         url: '^/tasks',
@@ -143,27 +151,28 @@
           }
         },
         resolve: {
-          viewData: ['coreData', function (coreData) {
+          viewData: function (coreData) {
             return {
               user: coreData.user,
               items: coreData.tasks,
               times: coreData.times,
               type: 'tasks'
             };
-          }]
+          }
         }
       };
     }
 
+    navUser.$inject = ['coreData'];
     function navUser() {
       return {
         url: '^/user',
         templateUrl: '/app/user/user.html',
         controller: 'User as u',
         resolve: {
-          viewData: ['coreData', function (coreData) {
+          viewData: function (coreData) {
             return coreData.user;
-          }]
+          }
         }
       };
     }

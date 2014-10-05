@@ -10,8 +10,6 @@
 
   function AdminRemoveController($modalInstance, viewData) {
 
-    console.log(viewData);
-
     var vm = this;
     vm.cancel = cancel;
     vm.name = viewData.name;
