@@ -34,6 +34,10 @@ input[type='text'] {
     margin: 20px 0 10px 0;
 }
 
+.lead i.glyphicon {
+    margin-right: 10px;
+}
+
 .sc-navbar-header {
     margin: 0 0 10px 0;
     float: left;
