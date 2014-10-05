@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('TimeForm', TimeFormController);
 
-  TimeFormController.$inject = ['$modalInstance', '$scope', 'Time', 'viewData'];
+  TimeFormController.$inject = ['$modalInstance', '$scope', 'Device', 'Time', 'viewData'];
 
-  function TimeFormController($modalInstance, $scope, Time, viewData) {
+  function TimeFormController($modalInstance, $scope, Device, Time, viewData) {
 //    console.log(viewData);
     var _type = {
       new: viewData.add,
@@ -17,6 +17,7 @@
 
     var vm = this;
     vm.cancel = cancel;
+    vm.canFocus = !Device.isPortable();
     vm.delete = deleteTime;
     vm.isNew = _type.new;
     vm.start = startTimer;
