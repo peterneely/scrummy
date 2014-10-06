@@ -23,6 +23,7 @@
     vm.days = days;
     vm.dayTitle = dayTitle;
     vm.canFocus = !Device.isPortable();
+    vm.onlyTimesMissing = vm.noTimes && !vm.dataMissing;
     vm.search = { text: '' };
     vm.searchAdmin = AdminTimes.getSearch();
     vm.times = times;
