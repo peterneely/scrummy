@@ -5,9 +5,9 @@
     .module('scrummyApp')
     .factory('User', UserService);
 
-  UserService.$inject = ['Async', 'Fn', 'Resource', 'Url', 'UserAuth', 'UserUtil'];
+  UserService.$inject = ['Async', 'Resource', 'Url', 'UserAuth', 'UserUtil'];
 
-  function UserService(Async, Fn, Resource, Url, UserAuth, UserUtil) {
+  function UserService(Async, Resource, Url, UserAuth, UserUtil) {
 
     var _userName = null;
 
