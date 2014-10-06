@@ -49,7 +49,7 @@
     }
 
     function searching() {
-      return angular.isDefined($scope.model.text);
+      return $scope.model.text !== '';
     }
   }
 
