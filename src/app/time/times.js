@@ -30,6 +30,7 @@
     vm.weeks = weeks;
 
     checkNoData();
+    checkNoTimes();
     watchTimes();
 
     function addTime() {
@@ -37,15 +38,21 @@
     }
 
     function allowSearch() {
-      return !vm.noData && Fn.isEmpty(AdminTimes.getSearch());
+      return !vm.noTimes && Fn.isEmpty(AdminTimes.getSearch());
     }
 
     function allowSearchAdmin() {
-      return !vm.noData && !Fn.isEmpty(AdminTimes.getSearch());
+      return !vm.noTimes && !Fn.isEmpty(AdminTimes.getSearch());
     }
 
     function checkNoData() {
-      vm.noData = viewData.times.length === 0;
+      vm.dataMissing = ['clients', 'projects', 'tasks'].some(function(type){
+        return angular.isUndefined(viewData[type]) || viewData[type].length === 0;
+      });
+    }
+
+    function checkNoTimes() {
+      vm.noTimes = angular.isUndefined(viewData.times) || viewData.times.length === 0;
     }
 
     function clearSearch(){
@@ -84,7 +91,7 @@
       Resource.watch(viewData.times, changed);
 
       function changed() {
-        checkNoData();
+        checkNoTimes();
         _times = sortTimes();
         Time.notifyTimesUpdated();
         AdminTimes.invalidate();

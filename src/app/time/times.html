@@ -21,7 +21,16 @@
       </div>
     </div>
 
-    <div class="well sc-jumbotron sc-text-muted" ng-if="ts.noData">
+    <div class="alert alert-info sc-centre" ng-if="ts.dataMissing">
+      <p><strong>Select the blue Plus button</strong> to add at least one client, project and task.</p>
+      <p><strong>Then come back</strong> to this screen and select the blue Plus to create a time entry.</p>
+    </div>
+
+    <div class="alert alert-info sc-centre" ng-if="ts.noTimes && !ts.dataMissing">
+      <p><strong>Select the blue Plus button</strong> to create a time entry.</p>
+    </div>
+
+    <div class="well sc-jumbotron sc-text-muted" ng-if="ts.noTimes">
       <h3>There's nothing here!</h3>
 
       <p>Zzzzzzzzz...</p>

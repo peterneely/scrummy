@@ -15,6 +15,10 @@ h1 {
     font-weight: bold;
 }
 
+.sc-centre {
+    text-align: center;
+}
+
 .sc-inline {
     display: inline-block;
 }
