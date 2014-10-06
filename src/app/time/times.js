@@ -37,11 +37,11 @@
     }
 
     function allowSearch() {
-      return !vm.noData && Fn.isEmpty(vm.searchAdmin);
+      return !vm.noData && Fn.isEmpty(AdminTimes.getSearch());
     }
 
     function allowSearchAdmin() {
-      return !vm.noData && !Fn.isEmpty(vm.searchAdmin);
+      return !vm.noData && !Fn.isEmpty(AdminTimes.getSearch());
     }
 
     function checkNoData() {
