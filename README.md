@@ -15,5 +15,5 @@ I am posting this on github mainly to demo my code.
 
 It pains me to say that this has not been a test-driven project. I wanted to learn Angular first so that I could get comfy with what I will be driving before I drive it.
 
-The story continues...
+The adventure continues...
 
