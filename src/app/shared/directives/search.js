@@ -21,9 +21,9 @@
     };
   }
 
-  SearchController.$inject = ['$scope', 'Search'];
+  SearchController.$inject = ['$scope', 'Fn', 'Search'];
 
-  function SearchController($scope, Search) {
+  function SearchController($scope, Fn, Search) {
 
     var _searchId = $scope.searchId;
 
@@ -35,12 +35,11 @@
 
     function applySavedSearch() {
       if (angular.isDefined(_searchId)) {
-        $scope.model = Search.apply(_searchId);
+        $scope.model.text = Search.apply(_searchId);
       }
     }
 
     function clearSearch() {
-      $scope.model = {};
       Search.remove(_searchId);
       $scope.clear();
     }

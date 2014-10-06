@@ -18,12 +18,12 @@
         </form>
       </div>
 
-      <div search search-id="{{ a.searchId }}" ng-model="a.search.name" ng-class="'col-xs-5'"></div>
+      <div search search-id="{{ a.searchId }}" ng-model="a.search" sc-clear="a.clearSearch()" ng-class="'col-xs-5'"></div>
 
     </div>
   </div>
 
-  <div class="input-group" ng-repeat="item in a.items | orderBy:'name' | filter:a.search.name">
+  <div class="input-group" ng-repeat="item in a.items | orderBy:'name' | filter:a.search.text">
 
     <span class="input-group-btn">
       <button class="btn btn-default" type="button" ng-click="a.remove(item)">

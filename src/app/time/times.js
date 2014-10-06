@@ -18,11 +18,12 @@
     vm.addTime = addTime;
     vm.allowSearch = allowSearch;
     vm.allowSearchAdmin = allowSearchAdmin;
+    vm.clearSearch = clearSearch;
     vm.clearAdminSearch = clearAdminSearch;
     vm.days = days;
     vm.dayTitle = dayTitle;
     vm.canFocus = !Device.isPortable();
-    vm.search = '';
+    vm.search = { text: '' };
     vm.searchAdmin = AdminTimes.getSearch();
     vm.times = times;
     vm.viewData = viewData;
@@ -45,6 +46,10 @@
 
     function checkNoData() {
       vm.noData = viewData.times.length === 0;
+    }
+
+    function clearSearch(){
+      vm.search = { text: '' };
     }
 
     function clearAdminSearch() {

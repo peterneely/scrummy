@@ -10,7 +10,8 @@
 
       <div class="sc-times-search" ng-if="ts.allowSearch()">
         <div search focus focus-if="{{ ts.canFocus }}" search-id="nav.times" ng-model="ts.search"
-             ng-class="'col-xs-8 col-sm-6 col-md-5 pull-right'"></div>
+             ng-class="'col-xs-8 col-sm-6 col-md-5 pull-right'"
+             sc-clear="ts.clearSearch()"></div>
       </div>
 
       <div class="sc-times-search" ng-if="ts.allowSearchAdmin()">

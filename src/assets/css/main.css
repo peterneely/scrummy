@@ -39,9 +39,10 @@ input[type='text'] {
 }
 
 .sc-navbar-header {
-    margin: -13px 0 10px 0;
+    margin: 0 0 10px 0;
     float: left;
-    font-family: 'pacifico';
+    /*font-family: 'pacifico';*/
+    font-family: 'Permanent Marker', cursive;
     font-size: 40px;
 }
 
@@ -50,7 +51,8 @@ input[type='text'] {
 }
 
 .sc-jumbotron-header {
-    font-family: 'pacifico';
+    /*font-family: 'pacifico';*/
+    font-family: 'Permanent Marker', cursive;
     padding-bottom: 20px;
 }
 

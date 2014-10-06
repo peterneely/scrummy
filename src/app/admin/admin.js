@@ -21,7 +21,8 @@
     vm.new = '';
     vm.placeholder = _singleType;
     vm.remove = remove;
-    vm.search = { name: '' };
+    vm.search = { text: '' };
+    vm.clearSearch = clearSearch;
     vm.searchId = State.current();
     vm.searchTimes = searchTimes;
     vm.timesCount = timesCount;
@@ -29,6 +30,10 @@
 
     function add() {
       Resource.post(Url[viewData.type](), vm.new).then(vm.new = '');
+    }
+
+    function clearSearch(){
+      vm.search = { text: '' };
     }
 
     function hasTimes(item) {
