@@ -15,7 +15,7 @@
 
     var vm = this;
     vm.add = add;
-    vm.canFocus = !Device.isPortable();
+    vm.canFocus = !Device.isMobile();
     vm.hasTimes = hasTimes;
     vm.items = viewData.items;
     vm.new = '';
@@ -28,11 +28,18 @@
     vm.timesCount = timesCount;
     vm.update = update;
 
+    checkHasData();
+    watchItems();
+
     function add() {
       Resource.post(Url[viewData.type](), vm.new).then(vm.new = '');
     }
 
-    function clearSearch(){
+    function checkHasData() {
+      vm.hasData = viewData.items.length > 0;
+    }
+
+    function clearSearch() {
       vm.search = { text: '' };
     }
 
@@ -41,17 +48,17 @@
     }
 
     function remove(item) {
-      if(hasTimes(item)){
+      if (hasTimes(item)) {
         confirm().then(response);
       } else {
         removeNow();
       }
 
-      function confirm(){
+      function confirm() {
         return AdminTimes.confirmRemove(item);
       }
 
-      function removeNow(){
+      function removeNow() {
 //        AdminTimes.clearSearch();
         removeItem().then(removeUserState).then(removeTimes);
       }
@@ -68,8 +75,8 @@
         return User.removeState(_singleType, item.$id);
       }
 
-      function response(selected){
-        switch(selected){
+      function response(selected) {
+        switch (selected) {
           case 'show':
             searchTimes(item);
             break;
@@ -106,6 +113,14 @@
 
       function updateUserState() {
         return User.updateState(_singleType, item.$id, item.name);
+      }
+    }
+
+    function watchItems() {
+      Resource.watch(viewData.items, changed);
+
+      function changed() {
+        checkHasData();
       }
     }
   }

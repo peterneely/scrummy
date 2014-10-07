@@ -22,6 +22,10 @@
     padding-left: 0;
 }
 
+.manage .no-padding-right {
+    padding-right: 0;
+}
+
 .manage .badge {
     background-color: #999999;
 }

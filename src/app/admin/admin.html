@@ -5,7 +5,7 @@
   <div class="col-xs-12">
     <div class="row">
 
-      <div class="col-xs-7 no-padding-left">
+      <div class="no-padding-left" ng-class="a.hasData ? 'col-xs-7' : 'col-xs-12 no-padding-right'">
         <form class="add" ng-submit="a.add()">
           <div class="input-group">
             <input type="text" focus focus-if="{{ a.canFocus }}" class="form-control" placeholder="Add {{ a.placeholder }}" ng-model="a.new.name">
@@ -18,7 +18,7 @@
         </form>
       </div>
 
-      <div search search-id="{{ a.searchId }}" ng-model="a.search" sc-clear="a.clearSearch()" ng-class="'col-xs-5'"></div>
+      <div search ng-if="a.hasData" search-id="{{ a.searchId }}" ng-model="a.search" sc-clear="a.clearSearch()" ng-class="'col-xs-5'"></div>
 
     </div>
   </div>

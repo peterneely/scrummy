@@ -17,7 +17,7 @@
 
     var vm = this;
     vm.cancel = cancel;
-    vm.canFocus = !Device.isPortable();
+    vm.canFocus = !Device.isMobile();
     vm.delete = deleteTime;
     vm.isNew = _type.new;
     vm.start = startTimer;

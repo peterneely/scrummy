@@ -22,7 +22,7 @@
     vm.clearAdminSearch = clearAdminSearch;
     vm.days = days;
     vm.dayTitle = dayTitle;
-    vm.canFocus = !Device.isPortable();
+    vm.canFocus = !Device.isMobile();
     vm.onlyTimesMissing = vm.noTimes && !vm.dataMissing;
     vm.search = { text: '' };
     vm.searchAdmin = AdminTimes.getSearch();
