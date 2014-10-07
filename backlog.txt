@@ -1,0 +1,23 @@
+e2e and unit tests
+
+Re-do CSS following SMACSS guidelines
+
+Validation against duplicate clients, projects, times
+
+Time totals
+
+Template cache
+
+Replace popups with in-place expanders
+
+Split features into modules
+
+CSS transitions
+
+il8n
+
+OAuth2
+
+Export older times to iCal format so that data doesn't grow indefinitely
+
+Swift app
