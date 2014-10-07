@@ -2,6 +2,8 @@ e2e and unit tests
 
 Re-do CSS following SMACSS guidelines
 
+Get SVG spinner working on mobile
+
 Validation against duplicate clients, projects, times
 
 Time totals
