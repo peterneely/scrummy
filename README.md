@@ -11,4 +11,4 @@ But don't get too attached! This is a work in progress and your data can be dele
 
 The next step is to re-write it using TDD, now that I'm comfy with Angular. And to use SMACSS: https://smacss.com/.
 
-More to come!
+And yes, I know my CSS sucks. I am currently devouring http://csswizardry.com/ and a few other sources. When I am test-driving more features (or a re-write) of Scrummy, I will be using proper CSS guidelines.
