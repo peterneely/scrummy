@@ -26,6 +26,30 @@
       Resource.delete(Url.timeEntry(timeId));
     }
 
+    function filterTimes(type, id, callback) {
+      return getTimes().then(filter).then(action);
+
+      function getTimes() {
+        return Resource.getAll(Url.times());
+      }
+
+      function filter(times) {
+        var filtered = Fn.where(times, function (time) {
+          return time[type].id === id;
+        });
+        return Async.when({
+          times: times,
+          filteredTimes: filtered
+        });
+      }
+
+      function action(result) {
+        result.filteredTimes.forEach(function (time) {
+          callback(result.times, time);
+        });
+      }
+    }
+
     function saveNewTypes(timeModel) {
       return Async.promise(save);
 
@@ -64,7 +88,7 @@
         };
         TimeClock.startClock(timeModel.time.start);
         Resource.post(Url.times(), timeModel).then(function () {
-          deferred.resolve(_stateModel(timeModel));
+          deferred.resolve(stateModel(timeModel));
         });
 
         function endDateTime(model) {
@@ -119,7 +143,7 @@
           end: endDateTime(current.time)
         };
         Resource.put(Url.timeEntry(original.$id), current).then(function () {
-          deferred.resolve(_stateModel(current));
+          deferred.resolve(stateModel(current));
         });
 
         function endDateTime(model) {
@@ -134,52 +158,28 @@
     }
 
     function removeTimes(type, id) {
-      return _filterTimes(type, id, remove);
+      return filterTimes(type, id, remove);
 
       function remove(times, time) {
         Resource.remove(times, time);
       }
     }
 
-    function updateTimes(type, id, text) {
-      return _filterTimes(type, id, update);
-
-      function update(times, time) {
-        var url = Url.timeType(time.$id, type);
-        Resource.put(url, {text: text});
-      }
-    }
-
-    function _filterTimes(type, id, callback) {
-      return getTimes().then(filter).then(action);
-
-      function getTimes() {
-        return Resource.getAll(Url.times());
-      }
-
-      function filter(times) {
-        var filtered = Fn.where(times, function (time) {
-          return time[type].id === id;
-        });
-        return Async.when({
-          times: times,
-          filteredTimes: filtered
-        });
-      }
-
-      function action(result) {
-        result.filteredTimes.forEach(function (time) {
-          callback(result.times, time);
-        });
-      }
-    }
-
-    function _stateModel(timeModel) {
+    function stateModel(timeModel) {
       return {
         client: timeModel.client,
         project: timeModel.project,
         task: timeModel.task
       };
+    }
+
+    function updateTimes(type, id, text) {
+      return filterTimes(type, id, update);
+
+      function update(times, time) {
+        var url = Url.timeType(time.$id, type);
+        Resource.put(url, {text: text});
+      }
     }
   }
 

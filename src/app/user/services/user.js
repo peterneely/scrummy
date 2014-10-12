@@ -41,6 +41,17 @@
       }
     }
 
+    function findState(type, id, callback) {
+      var url = Url.userStateTimeType(type);
+      return Resource.get(url).then(action);
+
+      function action(time) {
+        if (Resource.exists(time) && time.id === id) {
+          callback(url, time);
+        }
+      }
+    }
+
     function get() {
       return Async.promise(user);
 
@@ -52,7 +63,7 @@
     }
 
     function removeState(type, id) {
-      return _findState(type, id, remove);
+      return findState(type, id, remove);
 
       function remove(url) {
         Resource.delete(url);
@@ -60,22 +71,11 @@
     }
 
     function updateState(type, id, text) {
-      return _findState(type, id, update);
+      return findState(type, id, update);
 
       function update(url, time) {
         time.text = text;
         Resource.saveObject(time);
-      }
-    }
-
-    function _findState(type, id, callback) {
-      var url = Url.userStateTimeType(type);
-      return Resource.get(url).then(action);
-
-      function action(time) {
-        if (Resource.exists(time) && time.id === id) {
-          callback(url, time);
-        }
       }
     }
   }

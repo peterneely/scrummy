@@ -59,7 +59,6 @@
       }
 
       function removeNow() {
-//        AdminTimes.clearSearch();
         removeItem().then(removeUserState).then(removeTimes);
       }
 
