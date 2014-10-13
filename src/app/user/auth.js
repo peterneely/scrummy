@@ -27,8 +27,13 @@
       vm.error = null;
     }
 
-    function register() {
-      cacheUserName().then(registerUser).then(createUser).then(login).catch(showError);
+    function register(form) {
+      console.log(form);
+      if (form.$valid) {
+        cacheUserName().then(registerUser).then(createUser).then(login).catch(showError);
+      } else {
+        console.log(form);
+      }
 
       function cacheUserName() {
         return User.cacheUserName(vm.user);
