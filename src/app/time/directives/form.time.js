@@ -28,13 +28,13 @@
       element.children().on('blur', blurEvent);
 
       function blurEvent() {
-        scope.model = _formattedTime();
+        scope.model = formattedTime();
         scope.$digest();
         scope.validate();
         scope.change();
       }
 
-      function _formattedTime() {
+      function formattedTime() {
         return Time.parseInput(element.children().val());
       }
     }
