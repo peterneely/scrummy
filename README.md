@@ -14,13 +14,13 @@ This project demonstrates the following conventions:
 * Use of "controller as" and dot-model syntax for readability and to keep scope inheritance tidy.
 * Liberal use of promises for data transactions rather than callbacks.
 * Using ui-router instead of ng-route for more robust state management and resolving asynchronous data dependencies.
-* Wrapping 3rd party APIs to minimise pain when switching to another provider.
+* Wrapping 3rd party APIs to minimise pain when switching to other providers.
 * Wrapping 3rd party controls in directives.
-* Using IIFEs to avoid global variables.
-* Design conventions suggested by John Papa (https://github.com/johnpapa/angularjs-styleguide), such as putting API methods at the top and implementation details below.
+* Using IIFEs to eliminate global variables.
+* Design conventions suggested by John Papa for readability (https://github.com/johnpapa/angularjs-styleguide), such as putting API methods at the top and implementation details below.
 * Organising code by feature so that related files are easy to find.
-* Clean code conventions championed by Uncle Bob (http://goo.gl/C6JOJK), such as using small methods to document code rather than comments (which easily become obsolete).
-* Automated build with Grunt and package management with node and Bower.
+* Clean code conventions championed by Uncle Bob (http://goo.gl/C6JOJK), such as using small, well-named methods to document code rather than comments (which easily become obsolete).
+* Automated build and package management with Grunt, node and Bower.
 
 The next step is to re-write it using TDD, now that I'm comfy with Angular.
 
