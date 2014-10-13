@@ -23,7 +23,7 @@
     };
 
     function deleteTimer(timeId) {
-      Resource.delete(Url.timeEntry(timeId));
+      Resource.deleteResource(Url.timeEntry(timeId));
     }
 
     function filterTimes(type, id, callback) {

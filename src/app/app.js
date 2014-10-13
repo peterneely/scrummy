@@ -4,10 +4,10 @@
 
   angular
     .module('scrummyApp', [
-      'ngAnimate',
+      //'ngAnimate',
       'ngCookies',
       'ngResource',
-      'ngRoute',
+      //'ngRoute',
       'ngSanitize',
       'ngTouch',
       'ui.router',

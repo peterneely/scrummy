@@ -10,19 +10,30 @@
     return {
       require: 'ngModel',
       scope: {
-        otherModelValue: '=compareTo'
+        compareTo: '='
       },
       link: Link
     };
 
-    function Link(scope, element, attributes, ngModel) {
-      ngModel.$validators.compareTo = function(modelValue){
-        return modelValue === scope.otherModelValue;
-      };
+    function Link(scope, element, attributes, controller) {
+      //registerValidator();
+      watchForChanges();
 
-      scope.$watch('otherModelValue', function(){
-        ngModel.$validate();
-      });
+      function registerValidator() {
+        controller.$validators.compareTo = function (modelValue) {
+          console.log(modelValue, scope.compareTo);
+          return modelValue === scope.compareTo;
+        };
+      }
+
+      function watchForChanges() {
+        //element.on('change', validate);
+        scope.$watch('otherModelValue', validate);
+
+        function validate() {
+          controller.$validate();
+        }
+      }
     }
   }
 })();

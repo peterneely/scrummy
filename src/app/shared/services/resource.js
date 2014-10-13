@@ -11,7 +11,7 @@
   function ResourceService($firebase, Firebase) {
 
     return {
-      delete: deleteResource,
+      deleteResource: deleteResource,
       exists: exists,
       getAll: getAll,
       get: get,

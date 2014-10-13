@@ -66,7 +66,7 @@
       return findState(type, id, remove);
 
       function remove(url) {
-        Resource.delete(url);
+        Resource.deleteResource(url);
       }
     }
 

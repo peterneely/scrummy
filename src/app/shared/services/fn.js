@@ -33,8 +33,8 @@
       });
     }
 
-    function deleteProperties(object, properties){
-      properties.forEach(function(property){
+    function deleteProperties(object, properties) {
+      properties.forEach(function (property) {
         delete object[property];
       });
       return object;
@@ -55,11 +55,11 @@
       });
     }
 
-    function groupBy(items, by){
+    function groupBy(items, by) {
       return _.groupBy(items, by);
     }
 
-    function has(object, property){
+    function has(object, property) {
       return _.has(object, property);
     }
 
@@ -67,7 +67,7 @@
       return _.isEmpty(item);
     }
 
-    function merge(obj1, obj2){
+    function merge(obj1, obj2) {
       return _.merge(_.cloneDeep(obj1), _.cloneDeep(obj2));
     }
 
@@ -79,11 +79,11 @@
       return value.replace(/[sS]+$/, '');
     }
 
-    function sortDesc(array){
+    function sortDesc(array) {
       return _.sortBy(array).reverse();
     }
 
-    function sortDescBy(array, by){
+    function sortDescBy(array, by) {
       return _.sortBy(array, by).reverse();
     }
 
@@ -93,7 +93,7 @@
       });
     }
 
-    function where(items, callback){
+    function where(items, callback) {
       return _.where(items, callback);
     }
   }

@@ -6,21 +6,35 @@
     .module('scrummyApp')
     .factory('Error', ErrorService);
 
-  function ErrorService() {
+  ErrorService.$inject = ['Config'];
+
+  function ErrorService(Config) {
 
     return {
       getMessage: getMessage
     };
 
     function getMessage(error) {
-      switch (error.code.toUpperCase()) {
+      switch (error.code.toLowerCase()) {
 
-        case 'EMAIL_TAKEN':
+        case 'compareto':
+          return 'Passwords do not match';
+
+        case 'email':
+          return 'Email is not valid';
+
+        case 'email_taken':
           return 'Email already registered';
 
-        case 'INVALID_USER':
-        case 'INVALID_PASSWORD':
+        case 'invalid_user':
+        case 'invalid_password':
           return 'Invalid email or password';
+
+        case 'minlength':
+          return 'Password must be ' + Config.minPasswordLength + ' characters';
+
+        case 'required':
+          return 'All fields are required';
 
         default:
           return 'Server error';
