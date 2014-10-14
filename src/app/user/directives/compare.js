@@ -16,23 +16,19 @@
     };
 
     function Link(scope, element, attributes, controller) {
-      //registerValidator();
+      registerValidator();
       watchForChanges();
 
       function registerValidator() {
         controller.$validators.compareTo = function (modelValue) {
-          console.log(modelValue, scope.compareTo);
           return modelValue === scope.compareTo;
         };
       }
 
       function watchForChanges() {
-        //element.on('change', validate);
-        scope.$watch('otherModelValue', validate);
-
-        function validate() {
+        scope.$watch('compareTo', function(){
           controller.$validate();
-        }
+        });
       }
     }
   }

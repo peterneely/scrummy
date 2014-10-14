@@ -12,8 +12,6 @@
       urlData: 'https://scrummy.firebaseio.com/users/',
       urlPic: 'http://www.gravatar.com/avatar/',
 
-      minPasswordLength: 6,
-
       dateFormat: 'YYYY-MM-DD',
       dateTimeFormat: 'YYYY-MM-DD HH:mm',
       dateTimeSecondsFormat: 'YYYY-MM-DD HH:mm:ss',

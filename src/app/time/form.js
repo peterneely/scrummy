@@ -9,7 +9,7 @@
   TimeFormController.$inject = ['$modalInstance', '$scope', 'Device', 'Time', 'viewData'];
 
   function TimeFormController($modalInstance, $scope, Device, Time, viewData) {
-//    console.log(viewData);
+
     var _type = {
       new: viewData.add,
       active: viewData.isActive

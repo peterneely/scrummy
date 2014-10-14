@@ -6,22 +6,21 @@
     .module('scrummyApp')
     .controller('Auth', AuthController);
 
-  AuthController.$inject = ['Config', 'Error', 'Fn', 'State', 'User'];
+  AuthController.$inject = ['Error', 'Fn', 'State', 'User'];
 
-  function AuthController(Config, Error, Fn, State, User) {
+  function AuthController(Error, Fn, State, User) {
 
     var vm = this;
 
-    vm.error = null;
+    vm.errors = [];
     vm.focus = onFocus;
     vm.login = login;
-    vm.minPasswordLength = Config.minPasswordLength;
     vm.register = register;
     vm.user = {
-      email: 'test@test.com',
-      pwd: 'test'
+      email: '',
+      password: '',
+      confirmPassword: ''
     };
-    console.log(vm.user);
 
     function login() {
       User.login(vm.user)
@@ -30,7 +29,7 @@
     }
 
     function onFocus() {
-      vm.error = null;
+      vm.errors = [];
     }
 
     function register(form) {
@@ -53,17 +52,14 @@
       }
 
       function showValidationError() {
-        var keys = Object.keys(form.$error);
+        var formErrors = form.$error;
+        var keys = Object.keys(formErrors);
         if (keys.length > 0) {
-          var priorities = ['required', 'email', 'compareTo', 'minlength'];
-          var next = true;
-          priorities.forEach(function (priority) {
-            if (next && Fn.has(form.$error, priority)) {
-              console.log(priority, keys);
-              var error = {code: priority};
-              console.log(error);
-              vm.error = Error.getMessage(error);
-              next = false;
+          var errorsToShow = ['required', 'email', 'minlength', 'compareTo'];
+          errorsToShow.forEach(function (errorToShow) {
+            var next = keys.length === 1 || errorToShow !== 'compareTo';
+            if (next && Fn.has(formErrors, errorToShow)) {
+              vm.errors.push(Error.getMessage({ code: errorToShow }));
             }
           });
         }
@@ -71,7 +67,7 @@
     }
 
     function showError(error) {
-      vm.error = Error.getMessage(error);
+      vm.errors.push(Error.getMessage(error));
     }
 
     function showTimes() {

@@ -31,7 +31,7 @@
           return 'Invalid email or password';
 
         case 'minlength':
-          return 'Password must be ' + Config.minPasswordLength + ' characters';
+          return 'Password must be 6 characters';
 
         case 'required':
           return 'All fields are required';

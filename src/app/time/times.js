@@ -10,8 +10,6 @@
 
   function TimesController(AdminTimes, Device, Fn, Resource, Time, viewData) {
 
-//    console.log(viewData);
-
     var _times = sortTimes();
 
     var vm = this;
