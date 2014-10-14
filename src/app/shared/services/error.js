@@ -27,11 +27,12 @@
           return 'Email already registered';
 
         case 'invalid_user':
+        case 'invalid_email':
         case 'invalid_password':
           return 'Invalid email or password';
 
         case 'minlength':
-          return 'Password must be 6 characters';
+          return 'Password must be ' + Config.minPasswordLength + ' characters';
 
         case 'required':
           return 'All fields are required';

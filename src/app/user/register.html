@@ -7,7 +7,7 @@
            autofocus="" ng-focus="auth.focus()">
 
     <input type="password" class="first form-control" placeholder="Password" ng-model="auth.user.password" required=""
-           ng-focus="focus()" minlength="6">
+           ng-focus="auth.focus()" minlength="{{ auth.minPasswordLength }}">
 
     <input type="password" class="last form-control" placeholder="Confirm password" ng-model="auth.user.confirmPassword"
            required="" ng-focus="auth.focus()" compare-to="auth.user.password">

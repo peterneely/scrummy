@@ -1,10 +1,11 @@
 <div class="container">
-  <form class="form-auth" ng-submit="auth.login()" role="form">
+  <form class="form-auth" name="form" ng-submit="auth.login(form)" role="form" novalidate="">
 
     <h2 class="form-auth-heading">Please log in</h2>
 
     <input type="email" class="form-control" placeholder="Email address" ng-model="auth.user.email" required=""
            autofocus="" ng-focus="auth.focus()">
+
     <input type="password" class="last form-control" placeholder="Password" ng-model="auth.user.password" required=""
            ng-focus="auth.focus()">
 
@@ -20,9 +21,9 @@
       <button class="btn btn-lg btn-default">Cancel</button>
     </a>
 
-    <alert type="danger" ng-show="auth.error">
+    <alert type="danger" ng-repeat="error in auth.errors">
       <i class="glyphicon glyphicon-exclamation-sign"></i>
-      {{ auth.error }}
+      {{ error }}
     </alert>
   </form>
 </div>

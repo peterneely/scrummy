@@ -1,5 +1,7 @@
 e2e and unit tests
 
+Make errors on login and register pages a directive
+
 Re-do CSS following SMACSS guidelines
 
 Get SVG spinner working on mobile
