@@ -6,12 +6,13 @@
     .module('scrummyApp')
     .factory('Error', ErrorService);
 
-  ErrorService.$inject = ['Config'];
+  ErrorService.$inject = ['Config', 'Fn'];
 
-  function ErrorService(Config) {
+  function ErrorService(Config, Fn) {
 
     return {
-      getMessage: getMessage
+      getMessage: getMessage,
+      getMessages: getMessages
     };
 
     function getMessage(error) {
@@ -40,6 +41,25 @@
         default:
           return 'Server error';
       }
+    }
+
+    function getMessages(form, errorTypes) {
+      var messages = [];
+      try {
+        var formErrors = form.$error;
+        var errorCount = Object.keys(formErrors).length;
+        if (errorCount) {
+          errorTypes.forEach(function (errorType) {
+            var showError = Fn.has(formErrors, errorType);
+            var errorExists = formErrors[errorType] !== false;
+            if (showError && errorExists) {
+              messages.push(getMessage({code: errorType}));
+            }
+          });
+        }
+      } catch (error) {
+      }
+      return messages;
     }
   }
 

@@ -10,25 +10,28 @@
     return {
       require: 'ngModel',
       scope: {
-        compareTo: '='
+        other: '=compareTo'
       },
       link: Link
     };
 
     function Link(scope, element, attributes, controller) {
-      registerValidator();
-      watchForChanges();
 
-      function registerValidator() {
-        controller.$validators.compareTo = function (modelValue) {
-          return modelValue === scope.compareTo;
-        };
+      controller.$parsers.unshift(validateThis);
+      scope.$watch('other', validateOther);
+
+      function setValidity(viewValue){
+        var valid = angular.isUndefined(scope.other) ? true : viewValue === scope.other;
+        controller.$setValidity('compareTo', valid);
       }
 
-      function watchForChanges() {
-        scope.$watch('compareTo', function(){
-          controller.$validate();
-        });
+      function validateOther(){
+        setValidity(controller.$viewValue);
+      }
+
+      function validateThis(viewValue) {
+        setValidity(viewValue);
+        return viewValue;
       }
     }
   }

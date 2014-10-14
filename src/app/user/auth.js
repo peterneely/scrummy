@@ -6,14 +6,14 @@
     .module('scrummyApp')
     .controller('Auth', AuthController);
 
-  AuthController.$inject = ['Config', 'Error', 'Fn', 'State', 'User'];
+  AuthController.$inject = ['Config', 'Error', 'State', 'User'];
 
-  function AuthController(Config, Error, Fn, State, User) {
+  function AuthController(Config, Error, State, User) {
 
     var vm = this;
 
+    vm.clearErrors = clearErrors;
     vm.errors = [];
-    vm.focus = onFocus;
     vm.login = login;
     vm.minPasswordLength = Config.minPasswordLength;
     vm.register = register;
@@ -23,11 +23,27 @@
       confirmPassword: ''
     };
 
+    function clearErrors() {
+      vm.errors = [];
+    }
+
+    function handleServerError(error) {
+      User.clearUserName();
+      clearErrors();
+      vm.errors.push(Error.getMessage(error));
+    }
+
+    function handleValidationErrors(form) {
+      clearErrors();
+      var errorTypes = ['required', 'email', 'minlength', 'compareTo'];
+      vm.errors = Error.getMessages(form, errorTypes);
+    }
+
     function login(form) {
       if (form.$valid) {
-        loginUser().then(showTimes).catch(showError);
+        loginUser().then(showTimes).catch(handleServerError);
       } else {
-        showValidationError(form);
+        handleValidationErrors(form);
       }
 
       function loginUser() {
@@ -35,15 +51,11 @@
       }
     }
 
-    function onFocus() {
-      vm.errors = [];
-    }
-
     function register(form) {
       if (form.$valid) {
-        cacheUserName().then(registerUser).then(createUser).then(login).catch(showError);
+        cacheUserName().then(registerUser).then(createUser).then(login).catch(handleServerError);
       } else {
-        showValidationError(form);
+        handleValidationErrors(form);
       }
 
       function cacheUserName() {
@@ -59,26 +71,8 @@
       }
     }
 
-    function showError(error) {
-      vm.errors.push(Error.getMessage(error));
-    }
-
     function showTimes() {
       return State.go('nav.times');
-    }
-
-    function showValidationError(form) {
-      var formErrors = form.$error;
-      var errorCount = Object.keys(formErrors).length;
-      if (errorCount) {
-        var errorsToShow = ['required', 'email', 'minlength', 'compareTo'];
-        errorsToShow.forEach(function (errorToShow) {
-          var show = errorCount === 1 || errorToShow !== 'compareTo';
-          if (show && Fn.has(formErrors, errorToShow)) {
-            vm.errors.push(Error.getMessage({ code: errorToShow }));
-          }
-        });
-      }
     }
   }
 

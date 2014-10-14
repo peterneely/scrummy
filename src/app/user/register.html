@@ -3,14 +3,14 @@
 
     <h2 class="form-auth-heading">Register here</h2>
 
-    <input type="email" class="form-control" placeholder="Email address" ng-model="auth.user.email" required=""
-           autofocus="" ng-focus="auth.focus()">
+    <input type="email" class="form-control" placeholder="Email address" name="email" ng-model="auth.user.email" required=""
+           autofocus="" ng-focus="auth.clearErrors()">
 
-    <input type="password" class="first form-control" placeholder="Password" ng-model="auth.user.password" required=""
-           ng-focus="auth.focus()" minlength="{{ auth.minPasswordLength }}">
+    <input type="password" class="first form-control" placeholder="Password" name="password" ng-model="auth.user.password" required=""
+           ng-focus="auth.clearErrors()" ng-minlength="{{ auth.minPasswordLength }}">
 
-    <input type="password" class="last form-control" placeholder="Confirm password" ng-model="auth.user.confirmPassword"
-           required="" ng-focus="auth.focus()" compare-to="auth.user.password">
+    <input type="password" class="last form-control" placeholder="Confirm password" name="confirmPassword" ng-model="auth.user.confirmPassword"
+           required="" ng-focus="auth.clearErrors()" compare-to="auth.user.password">
 
     <button class="btn btn-lg btn-primary" type="submit">Register</button>
 

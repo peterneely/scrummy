@@ -25,6 +25,7 @@
       ['client', 'project', 'task'].forEach(function (type) {
         timeModel[type] = viewData.add ? defaultValue(type) : actualValue(type);
       });
+      timeModel.client = viewData.client;
 
       function actualValue(type) {
         return viewData[type];
