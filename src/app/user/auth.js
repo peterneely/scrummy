@@ -35,8 +35,7 @@
 
     function handleValidationErrors(form) {
       clearErrors();
-      var errorTypes = ['required', 'email', 'minlength', 'compareTo'];
-      vm.errors = Error.getMessages(form, errorTypes);
+      vm.errors = Error.getMessages(form);
     }
 
     function login(form) {
@@ -63,7 +62,7 @@
       }
 
       function createUser(authUser) {
-        return User.create(authUser);
+        return User.create(authUser, form);
       }
 
       function registerUser() {

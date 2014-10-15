@@ -43,12 +43,13 @@
       }
     }
 
-    function getMessages(form, errorTypes) {
+    function getMessages(form) {
       var messages = [];
       try {
         var formErrors = form.$error;
         var errorCount = Object.keys(formErrors).length;
         if (errorCount) {
+          var errorTypes = ['required', 'email', 'minlength', 'compareTo'];
           errorTypes.forEach(function (errorType) {
             var showError = Fn.has(formErrors, errorType);
             var errorExists = formErrors[errorType] !== false;

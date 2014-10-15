@@ -21,9 +21,7 @@
       <button class="btn btn-lg btn-default">Cancel</button>
     </a>
 
-    <alert type="danger" ng-repeat="error in auth.errors">
-      <i class="glyphicon glyphicon-exclamation-sign"></i>
-      {{ error }}
-    </alert>
+    <div errors ng-model="auth.errors"></div>
+
   </form>
 </div>

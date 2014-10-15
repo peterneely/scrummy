@@ -9,8 +9,6 @@
 
   function UserService(Async, Resource, Url, UserAuth, UserUtil) {
 
-    var _userName = null;
-
     return {
       cacheUserName: UserUtil.cacheUserName,
       clearUserName: UserUtil.clearUserName,
@@ -25,18 +23,18 @@
       updateState: updateState
     };
 
-    function create(authUser) {
+    function create(authUser, form) {
       return Async.promise(newUser);
 
       function newUser(deferred) {
         /*jshint camelcase: false */
         var user = {
-          userName: _userName,
+          userName: UserUtil.getCachedUserName(),
           email: authUser.email,
           pic: Url.userPic(authUser.md5_hash)
         };
         Resource.put(Url.user(), user).then(function () {
-          deferred.resolve(user);
+          deferred.resolve(form);
         });
       }
     }

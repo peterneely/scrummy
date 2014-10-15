@@ -13,7 +13,8 @@
 
     return {
       cacheUserName: cacheUserName,
-      clearUserName: clearUserName
+      clearUserName: clearUserName,
+      getCachedUserName: getCachedUserName
     };
 
     function cacheUserName(userWithEmail) {
@@ -31,6 +32,10 @@
     function clearUserName() {
       _userName = null;
       Url.cacheUserName(null);
+    }
+
+    function getCachedUserName() {
+      return _userName;
     }
   }
 
