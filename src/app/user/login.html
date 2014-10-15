@@ -4,10 +4,10 @@
     <h2 class="form-auth-heading">Please log in</h2>
 
     <input type="email" class="form-control" placeholder="Email address" ng-model="auth.user.email" required=""
-           autofocus="" ng-focus="auth.focus()">
+           autofocus="" ng-focus="auth.clearErrors()">
 
     <input type="password" class="last form-control" placeholder="Password" ng-model="auth.user.password" required=""
-           ng-focus="auth.focus()">
+           ng-focus="auth.clearErrors()">
 
     <!--<div class="checkbox">-->
       <!--<label>-->

@@ -13,7 +13,7 @@
 
     return {
       cacheUserName: cacheUserName,
-      clearUserName: clearUserName,
+      clearUserName: clearUserName
     };
 
     function cacheUserName(userWithEmail) {

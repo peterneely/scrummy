@@ -32,10 +32,10 @@
       if (authUser) {
         return Async.when(authUser);
       } else {
-        return Async.promise(login);
+        return Async.promise(goLogin);
       }
 
-      function login(deferred) {
+      function goLogin(deferred) {
         State.go('login');
         deferred.reject();
       }
