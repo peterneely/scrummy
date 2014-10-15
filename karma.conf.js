@@ -19,7 +19,7 @@ module.exports = function(config) {
       'src/bower_components/angular-route/angular-route.js',
       'src/bower_components/angular-sanitize/angular-sanitize.js',
       'src/bower_components/angular-touch/angular-touch.js',
-//      'src/app/*.js',
+      'src/app/*.js',
       'src/app/**/*.js',
 //      'test/mock/**/*.js',
       'test/spec/**/*.js'
