@@ -19,13 +19,30 @@ module.exports = function(config) {
       'src/bower_components/angular-route/angular-route.js',
       'src/bower_components/angular-sanitize/angular-sanitize.js',
       'src/bower_components/angular-touch/angular-touch.js',
+
+      'src/bower_components/jquery/dist/jquery.js',
+      'src/bower_components/json3/lib/json3.js',
+      'src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'src/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'src/bower_components/firebase/firebase.js',
+      'src/bower_components/firebase-simple-login/firebase-simple-login.js',
+      'src/bower_components/mockfirebase/dist/mockfirebase.js',
+      'src/bower_components/angularfire/dist/angularfire.min.js',
+      'src/bower_components/select2/select2.js',
+      'src/bower_components/angular-ui-select2/src/select2.js',
+      'src/bower_components/moment/moment.js',
+      'src/bower_components/angular-momentjs/angular-momentjs.js',
+      'src/bower_components/lodash/dist/lodash.compat.js',
+      'src/bower_components/angular-media-queries/match-media.js',
+
       'src/app/*.js',
       'src/app/**/*.js',
-//      'test/mock/**/*.js',
+      'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
 
     // list of files / patterns to exclude
+    // exclude: ['test/mock/controllers/user.js'],
     exclude: [],
 
     // web server port
