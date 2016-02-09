@@ -16,6 +16,7 @@
       defaultTime: defaultTime,
       diffMilliseconds: diffMilliseconds,
       elapsed: elapsed,
+      elapsedMilliseconds: elapsedMilliseconds,
       endAfterStart: endAfterStart,
       format: formatDateTime,
       isToday: isToday,
@@ -41,19 +42,23 @@
       return formatDateTime(now(), Config.timeFormat);
     }
 
-    function diffMilliseconds(start, now){
+    function diffMilliseconds(start, now) {
       var diffSeconds = 0;
-      if(start > now){
+      if (start > now) {
         diffSeconds = start - now;
-      } else if(start < now) {
+      } else if (start < now) {
         diffSeconds = (60 - now) + start;
       }
       return diffSeconds * 1000;
     }
 
     function elapsed(start, end) {
-      var ms = $moment(end).diff($moment(start));
-      return $moment(ms).format('H') + $moment(ms).format(':mm');
+      var duration = $moment.duration(elapsedMilliseconds(start, end));
+      return duration.hours() + 'h ' + duration.minutes() + 'm';
+    }
+
+    function elapsedMilliseconds(start, end) {
+      return $moment(end).diff($moment(start));
     }
 
     function endAfterStart(date, startTime, endTime) {

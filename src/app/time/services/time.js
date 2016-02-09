@@ -19,6 +19,7 @@
       defaultTime: TimeUtil.defaultTime,
       diffMilliseconds: TimeUtil.diffMilliseconds,
       elapsed: TimeUtil.elapsed,
+      elapsedMilliseconds: TimeUtil.elapsedMilliseconds,
       endAfterStart: TimeUtil.endAfterStart,
       fillOtherFields: TimeForm.fillOtherFields,
       fillSelects: TimeForm.fillSelects,

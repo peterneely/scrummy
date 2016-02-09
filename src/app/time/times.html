@@ -35,8 +35,6 @@
     </div>
 
     <div class="well sc-jumbotron sc-text-muted" ng-if="ts.noTimes">
-      <h3>There's nothing here!</h3>
-
       <p>Zzzzzzzzz...</p>
     </div>
 
@@ -45,7 +43,7 @@
         <thead class="bg-default">
         <tr>
           <td class="text-primary">{{ ts.dayTitle(day) }}</td>
-          <td class="text-subdued"></td>
+          <td class="text-primary">{{ ts.durations(week, day) }}</td>
         </tr>
         </thead>
         <tbody>

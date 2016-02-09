@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['AdminTimes', 'Device', 'Fn', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['_', 'AdminTimes', 'Device', 'Fn', '$moment', 'Resource', 'Time', 'viewData'];
 
-  function TimesController(AdminTimes, Device, Fn, Resource, Time, viewData) {
+  function TimesController(_, AdminTimes, Device, Fn, $moment, Resource, Time, viewData) {
 
     var _times = sortTimes();
 
@@ -16,13 +16,16 @@
     vm.addTime = addTime;
     vm.allowSearch = allowSearch;
     vm.allowSearchAdmin = allowSearchAdmin;
+    vm.canFocus = !Device.isMobile();
     vm.clearSearch = clearSearch;
     vm.clearAdminSearch = clearAdminSearch;
     vm.days = days;
     vm.dayTitle = dayTitle;
-    vm.canFocus = !Device.isMobile();
+    vm.durations = durations;
     vm.onlyTimesMissing = vm.noTimes && !vm.dataMissing;
-    vm.search = { text: '' };
+    vm.search = {
+      text: ''
+    };
     vm.searchAdmin = AdminTimes.getSearch();
     vm.times = times;
     vm.viewData = viewData;
@@ -45,7 +48,7 @@
     }
 
     function checkNoData() {
-      vm.dataMissing = ['clients', 'projects', 'tasks'].some(function(type){
+      vm.dataMissing = ['clients', 'projects', 'tasks'].some(function (type) {
         return angular.isUndefined(viewData[type]) || viewData[type].length === 0;
       });
     }
@@ -54,8 +57,10 @@
       vm.noTimes = angular.isUndefined(viewData.times) || viewData.times.length === 0;
     }
 
-    function clearSearch(){
-      vm.search = { text: '' };
+    function clearSearch() {
+      vm.search = {
+        text: ''
+      };
     }
 
     function clearAdminSearch() {
@@ -68,6 +73,14 @@
 
     function dayTitle(dayHeader) {
       return Time.dayTitle(dayHeader);
+    }
+
+    function durations(week, day) {
+      var ms = _.map(_times[week][day], function (time) {
+        return Time.elapsedMilliseconds(time.time.start, time.time.end);
+      });
+      var duration = $moment.duration(_.sum(ms));
+      return duration.hours() + 'h ' + duration.minutes() + 'm';
     }
 
     function keys(obj) {

@@ -94,7 +94,7 @@
     }
 
     function where(items, callback) {
-      return _.where(items, callback);
+      return _.filter(items, callback);
     }
   }
 
