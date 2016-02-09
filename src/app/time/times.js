@@ -6,9 +6,9 @@
     .module('scrummyApp')
     .controller('Times', TimesController);
 
-  TimesController.$inject = ['_', 'AdminTimes', 'Device', 'Fn', '$moment', 'Resource', 'Time', 'viewData'];
+  TimesController.$inject = ['_', 'AdminTimes', 'Device', '$filter', 'Fn', '$moment', 'Resource', 'Time', 'viewData'];
 
-  function TimesController(_, AdminTimes, Device, Fn, $moment, Resource, Time, viewData) {
+  function TimesController(_, AdminTimes, Device, $filter, Fn, $moment, Resource, Time, viewData) {
 
     var _times = sortTimes();
 
@@ -76,7 +76,8 @@
     }
 
     function durations(week, day) {
-      var ms = _.map(_times[week][day], function (time) {
+      var times = $filter('filter')(_times[week][day], vm.search.text);
+      var ms = _.map(times, function (time) {
         return Time.elapsedMilliseconds(time.time.start, time.time.end);
       });
       var duration = $moment.duration(_.sum(ms));

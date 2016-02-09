@@ -58,7 +58,11 @@
     }
 
     function elapsedMilliseconds(start, end) {
-      return $moment(end).diff($moment(start));
+      return $moment(getEnd()).diff($moment(start));
+
+      function getEnd() {
+        return end === '' ? now() : end;
+      }
     }
 
     function endAfterStart(date, startTime, endTime) {
