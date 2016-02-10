@@ -43,7 +43,7 @@
         <thead class="bg-default">
         <tr>
           <td class="text-primary">{{ ts.dayTitle(day) }}</td>
-          <td class="text-primary">{{ ts.durations(week, day) }}</td>
+          <td class="text-primary sc-clickable" ng-click="ts.timeFormat.isDecimal = !ts.timeFormat.isDecimal">{{ ts.durations(week, day) | timeFormat:ts.timeFormat.isDecimal }}</td>
         </tr>
         </thead>
         <tbody>

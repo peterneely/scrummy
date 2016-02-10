@@ -27,6 +27,9 @@
       text: ''
     };
     vm.searchAdmin = AdminTimes.getSearch();
+    vm.timeFormat = {
+      isDecimal: false
+    };
     vm.times = times;
     vm.viewData = viewData;
     vm.weeks = weeks;
@@ -77,11 +80,10 @@
 
     function durations(week, day) {
       var times = $filter('filter')(_times[week][day], vm.search.text);
-      var ms = _.map(times, function (time) {
+      var milliseconds = _.map(times, function (time) {
         return Time.elapsedMilliseconds(time.time.start, time.time.end);
       });
-      var duration = $moment.duration(_.sum(ms));
-      return duration.hours() + 'h ' + duration.minutes() + 'm';
+      return _.sum(milliseconds);
     }
 
     function keys(obj) {
