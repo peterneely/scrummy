@@ -41,7 +41,7 @@
     }
 
     function doubleDigits(value) {
-      return ('0' + value).substr(-2);
+      return ('00' + value).substr(-2);
     }
 
     function group(seq, keys) {

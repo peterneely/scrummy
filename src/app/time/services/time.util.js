@@ -31,6 +31,7 @@
 
     function dateTime(date, time, seconds) {
       var secs = seconds || Fn.doubleDigits(now().getSeconds());
+      console.log(formatDateTime(date, Config.dateFormat) + ' ' + time + ':' + secs);
       return formatDateTime(date, Config.dateFormat) + ' ' + time + ':' + secs;
     }
 

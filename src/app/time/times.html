@@ -40,10 +40,10 @@
 
     <div class="panel panel-default" ng-repeat="week in ts.weeks()">
       <table class="table table-hover sc-time-table" ng-repeat="day in ts.days(week)">
-        <thead class="bg-default">
+        <thead class="bg-info">
         <tr>
-          <td class="text-primary">{{ ts.dayTitle(day) }}</td>
-          <td class="text-primary sc-clickable" ng-click="ts.timeFormat.isDecimal = !ts.timeFormat.isDecimal">{{ ts.durations(week, day) | timeFormat:ts.timeFormat.isDecimal }}</td>
+          <td class="text-primary sc-bold">{{ ts.dayTitle(day) }}</td>
+          <td class="text-primary sc-clickable sc-bold" ng-click="ts.timeFormat.isDecimal = !ts.timeFormat.isDecimal">{{ ts.durations(week, day) | timeFormat:ts.timeFormat.isDecimal }}</td>
         </tr>
         </thead>
         <tbody>
